@@ -1,0 +1,1 @@
+dotnet run -p tool/TeamCity.Docker/TeamCity.Docker.csproj -- build -s "configs/windows" -f "configs/common.config;configs/windows.config" -c context -r %1

@@ -1,0 +1,1 @@
+docker run -it --rm -w="/teamcity" -v "%CD%:/teamcity" mcr.microsoft.com/dotnet/core/sdk:3.1 %*
