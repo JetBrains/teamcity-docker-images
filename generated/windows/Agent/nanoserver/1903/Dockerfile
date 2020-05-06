@@ -1,5 +1,5 @@
 # Default arguments
-ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.exe'
+ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.zip'
 ARG dotnetCoreWindowsComponentVersion='3.1.100'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'

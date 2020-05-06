@@ -24,7 +24,7 @@ Installed components:
 
 - Git
 - Mercurial
-- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.100/dotnet-sdk-3.1.100-linux-x64.tar.gz)
+- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.201](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-linux-x64.tar.gz)
 
 Container Platform: linux
 
@@ -56,7 +56,7 @@ The docker image is available on:
 
 Installed components:
 
-- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.exe)
+- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.201](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.zip)
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container Platform: windows
@@ -92,7 +92,7 @@ The docker image is available on:
 
 Installed components:
 
-- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.exe)
+- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.201](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.zip)
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container Platform: windows
@@ -129,7 +129,7 @@ The docker image is available on:
 Installed components:
 
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.232.09.1](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [<img align="center" height="18" src="/logo/git.png"> x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [<img align="center" height="18" src="/logo/mercurial.png"> Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
@@ -166,7 +166,7 @@ The docker image is available on:
 Installed components:
 
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.232.09.1](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [<img align="center" height="18" src="/logo/git.png"> x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [<img align="center" height="18" src="/logo/mercurial.png"> Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
@@ -200,7 +200,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.exe)
+- [<img align="center" height="18" src="/logo/dotnetcore.png"> SDK x64 v.3.1.201](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.201/dotnet-sdk-3.1.201-win-x64.zip)
 
 Container Platform: windows
 
@@ -232,7 +232,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [<img src="/logo/powershell.png" height="18" align="center"> PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.232.09.1](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [<img align="center" height="18" src="/logo/corretto.png"> JDK Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [<img align="center" height="18" src="/logo/git.png"> x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [<img align="center" height="18" src="/logo/mercurial.png"> Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
