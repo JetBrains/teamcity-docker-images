@@ -1,0 +1,1 @@
+call build.cmd netcoreapp2.0 windows ";configs/windows-internal.config" "%~1"

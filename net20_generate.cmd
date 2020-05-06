@@ -1,0 +1,1 @@
+call generate.cmd netcoreapp2.0

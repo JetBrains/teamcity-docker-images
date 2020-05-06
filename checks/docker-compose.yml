@@ -1,0 +1,19 @@
+version: "3"
+services:
+  server:
+    image: teamcity-server:linux
+    ports:
+      - "8112:8111"
+    volumes:
+      - ./data:/data/teamcity_server/datadir
+      - ./logs:/opt/teamcity/logs
+  teamcity-agent:
+    image: teamcity-agent:linux
+    environment:
+      - SERVER_URL=http://server:8111
+      - AGENT_NAME=regular_agent
+  teamcity-minimal-agent:
+    image: teamcity-minimal-agent:linux
+    environment:
+      - SERVER_URL=http://server:8111
+      - AGENT_NAME=minimal_agent

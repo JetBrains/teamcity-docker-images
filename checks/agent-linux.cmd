@@ -1,0 +1,1 @@
+docker run -it -P -e SERVER_URL="http://localhost:8111" -v "%CD%\conf:/data/teamcity_agent/conf" teamcity-agent:18.04
