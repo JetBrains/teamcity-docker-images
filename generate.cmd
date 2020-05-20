@@ -1,2 +1,2 @@
 rmdir "context/generated" /s /q
-tool\sdk.cmd dotnet run -p tool/TeamCity.Docker/TeamCity.Docker.csproj -f netcoreapp3.1 -- generate -s configs -f "configs/common.config;configs/windows.config;configs/linux.config" -c context -t "context/generated" -d .teamcity -b "TC2019_2_BuildDist;TC_Trunk_BuildDist:eap" -r PROJECT_EXT_2307
+tool\sdk.cmd dotnet run -p tool/TeamCity.Docker/TeamCity.Docker.csproj -f netcoreapp3.1 -- generate -s configs -f "configs/common.config;configs/windows.config;configs/linux.config" -c context -t "context/generated" -d .teamcity -b "TC2019_2_BuildDist:2019_2;TC_Trunk_BuildDist" -r PROJECT_EXT_2307
