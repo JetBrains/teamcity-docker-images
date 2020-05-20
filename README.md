@@ -1,8 +1,8 @@
 # TeamCity docker images
 
-* [Minimal agent](generated/teamcity-minimal-agent.md)
-* [Agent](generated/teamcity-agent.md)
-* [Server](generated/teamcity-server.md)
+* [Minimal agent](context/generated/teamcity-minimal-agent.md)
+* [Agent](context/generated/teamcity-agent.md)
+* [Server](context/generated/teamcity-server.md)
 
 ## Docker images on [<img align="center" height="18" src="/logo/docker_hub.png">](https://hub.docker.com/search?q=JetBrains%2FTeamCity&type=image)
 

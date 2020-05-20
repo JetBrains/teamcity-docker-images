@@ -1,0 +1,1 @@
+call "%~dp0sdk.cmd" dotnet publish "tool/TeamCity.Docker/TeamCity.Docker.csproj" -f netcoreapp3.1 -c release -r win-x64 --nologo -o tool\bin -p:PublishSingleFile=true -p:PublishTrimmed=true
