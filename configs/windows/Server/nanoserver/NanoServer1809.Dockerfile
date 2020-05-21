@@ -1,7 +1,6 @@
 # The list of required arguments
 # ARG powershellImage
-# ARG jreWindowsComponent
-# ARG jdkWindowsComponent
+# ARG jdkServerWindowsComponent
 # ARG gitWindowsComponent
 # ARG windowsBuild
 # ARG powershellImage
@@ -22,27 +21,14 @@ FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Install [${jreWindowsComponentName}](${jreWindowsComponent})
-ARG jreWindowsComponent
+# Install [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+ARG jdkServerWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jreWindowsComponent -OutFile jre.zip; \
+    Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jre.zip; \
     Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jre.zip
-
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
-ARG jdkWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
-    Expand-Archive jdk.zip -DestinationPath $Env:Temp\JDK ; \
-    Get-ChildItem $Env:Temp\JDK | Rename-Item -NewName "OpenJDK" ; \
-    ('jar.exe', 'jcmd.exe', 'jconsole.exe', 'jmap.exe', 'jstack.exe', 'jps.exe') | foreach { \
-         Copy-Item $Env:Temp\JDK\OpenJDK\bin\$_ $Env:ProgramFiles\Java\OpenJDK\bin\ \
-    } ; \
-    Remove-Item -Force -Recurse $Env:Temp\JDK ; \
-    Remove-Item -Force jdk.zip
 
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent

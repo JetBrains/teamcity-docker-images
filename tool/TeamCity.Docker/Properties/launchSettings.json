@@ -2,8 +2,8 @@
   "profiles": {
     "Build": {
       "commandName": "Project",
-      "commandLineArgs": "generate -s configs -f \"configs/common.config;configs/windows.config;configs/windows-internal.config;configs/linux.config;configs/linux-internal.config\" -c context -t context/generated -d .teamcity -b \"TC2019_2_BuildDist;TC_Trunk_BuildDist:eap\" -r PROJECT_EXT_2307",
-      "workingDirectory": "C:\\Projects\\teamcity-images"
+      "commandLineArgs": "build -s \"configs\" -f \"configs/common.config;configs/windows.config;configs/linux.config\" -c context -r linux",
+      "workingDirectory": "C:\\Projects\\TeamCity\\new-teamcity-docker-images"
     }
   }
 }

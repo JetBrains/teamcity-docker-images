@@ -102,7 +102,6 @@ namespace TeamCity.Docker
             using (contextStream)
             using (_logger.CreateBlock("Build"))
             {
-                var labels = new Dictionary<string, string>();
                 foreach (var buildGraph in buildGraphs)
                 {
                     var name = _graphNameFactory.Create(buildGraph).Value ?? "Unnamed graph";
@@ -123,12 +122,23 @@ namespace TeamCity.Docker
                                     var dockerFile = image.File;
                                     using (_logger.CreateBlock(dockerFile.ToString()))
                                     {
+                                        var id = Guid.NewGuid().ToString();
+                                        var labels = new Dictionary<string, string> { { "InternalImageId", id } };
+
+                                        var tags = (
+                                            from tag in dockerFile.Tags
+                                            select $"{dockerFile.ImageId}:{tag}")
+                                            .Distinct()
+                                            .ToList();
+
                                         contextStream.Position = 0;
                                         var dockerFilePathInContext = _pathService.Normalize(Path.Combine(dockerFilesRootPath, dockerFile.Path));
                                         var buildParameters = new ImageBuildParameters
                                         {
                                             Dockerfile = dockerFilePathInContext,
-                                            Tags = dockerFile.Tags.Distinct().ToList(),
+                                            Tags = tags,
+                                            PullParent = true,
+                                            Labels = labels
                                         };
 
                                         using (var buildEventStream = await _dockerClient.Images.BuildImageFromDockerfileAsync(
@@ -137,6 +147,18 @@ namespace TeamCity.Docker
                                             _cancellationTokenSource.Token))
                                         {
                                             _streamService.ProcessLines(buildEventStream, line => { _messageLogger.Log(line); });
+                                        }
+
+                                        var filter = new Dictionary<string, IDictionary<string, bool>>
+                                        {
+                                            {"label", labels.ToDictionary(i => $"{i.Key}={i.Value}", i => true)}
+                                        };
+
+                                        var images = await _dockerClient.Images.ListImagesAsync(new ImagesListParameters { Filters = filter });
+                                        if (images.Count == 0)
+                                        {
+                                            _logger.Log($"Error while building the image {dockerFile}", Result.Error);
+                                            return Result.Error;
                                         }
                                     }
 

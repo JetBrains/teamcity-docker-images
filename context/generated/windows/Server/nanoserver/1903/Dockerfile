@@ -1,15 +1,13 @@
 # Default arguments
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip'
-ARG jreWindowsComponent='https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip'
+ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
 ARG windowsBuild='1903'
 
 # The list of required arguments
 # ARG powershellImage
-# ARG jreWindowsComponent
-# ARG jdkWindowsComponent
+# ARG jdkServerWindowsComponent
 # ARG gitWindowsComponent
 # ARG windowsBuild
 # ARG powershellImage
@@ -20,25 +18,13 @@ FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG jreWindowsComponent
+ARG jdkServerWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jreWindowsComponent -OutFile jre.zip; \
+    Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jre.zip; \
     Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jre.zip
-
-ARG jdkWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
-    Expand-Archive jdk.zip -DestinationPath $Env:Temp\JDK ; \
-    Get-ChildItem $Env:Temp\JDK | Rename-Item -NewName "OpenJDK" ; \
-    ('jar.exe', 'jcmd.exe', 'jconsole.exe', 'jmap.exe', 'jstack.exe', 'jps.exe') | foreach { \
-         Copy-Item $Env:Temp\JDK\OpenJDK\bin\$_ $Env:ProgramFiles\Java\OpenJDK\bin\ \
-    } ; \
-    Remove-Item -Force -Recurse $Env:Temp\JDK ; \
-    Remove-Item -Force jdk.zip
 
 ARG gitWindowsComponent
 

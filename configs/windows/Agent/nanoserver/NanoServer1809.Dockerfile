@@ -1,6 +1,5 @@
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion
-# ARG jreWindowsComponent
 # ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage

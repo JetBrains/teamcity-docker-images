@@ -1,1 +1,4 @@
-docker run -it --rm -w="/teamcity" -v "%~dp0..\:/teamcity" mcr.microsoft.com/dotnet/core/sdk:3.1 %*
+@for /f %%i in ('docker system info --format "{{.OSType}}"') do set OSType=%%i
+@SET DRIVE="/"
+@IF [%OSType%]==[windows] SET DRIVE="C:/"
+docker run -it --rm "-w=%DRIVE%teamcity" "--volume=%~dp0..:%DRIVE%teamcity" mcr.microsoft.com/dotnet/core/sdk:3.1 %*
