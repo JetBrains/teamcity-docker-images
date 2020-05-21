@@ -66,7 +66,7 @@ namespace TeamCity.Docker
                 foreach (var groupByFile in groupByImage)
                 {
                     var dockerFile = groupByFile.Key;
-                    lines.Add($"### :whale: {GetReadmeTagName(dockerFile)}");
+                    lines.Add($"### {GetReadmeTagName(dockerFile)}");
 
                     lines.Add(string.Empty);
                     lines.Add($"[Dockerfile]({_pathService.Normalize(Path.Combine(dockerFile.Path, "Dockerfile"))})");
@@ -180,6 +180,6 @@ namespace TeamCity.Docker
             GetReadmeTagName(dockerFile).Replace(".", string.Empty).Replace(" ", "-");
 
         private static string GetReadmeTagName(Dockerfile dockerFile) =>
-            string.Join(" or ", dockerFile.Tags);
+            string.Join(", ", dockerFile.Tags);
     }
 }

@@ -11,8 +11,6 @@
 # Repo ${repo}
 # Weight 1
 
-## ${windowsNanoLogo}
-##
 ## ${agentCommentHeader}
 
 # Based on ${powershellImage} 1

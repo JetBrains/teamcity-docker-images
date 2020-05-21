@@ -12,8 +12,6 @@
 # Repo ${repo}
 # Weight 11
 
-## ${windowsLogo}
-##
 ## ${agentCommentHeader}
 
 # Based on ${windowsservercoreImage} 10
