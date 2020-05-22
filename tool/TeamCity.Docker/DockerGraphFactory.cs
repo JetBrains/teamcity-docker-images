@@ -95,7 +95,17 @@ namespace TeamCity.Docker
                         }
                     }
 
-                    var dockerfile = new Dockerfile(_pathService.Normalize(variant.BuildPath), imageId, platform, tags, components, repositories, comments, references, new Weight(weight), dockerfileLines);
+                    var dockerfile = new Dockerfile(
+                        _pathService.Normalize(variant.BuildPath),
+                        imageId, platform,
+                        tags.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),
+                        components.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),
+                        repositories.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),
+                        comments,
+                        references,
+                        new Weight(weight),
+                        dockerfileLines);
+
                     if (graph.TryAddNode(new Image(dockerfile), out var dockerImageNode))
                     {
                         foreach (var tag in tags)

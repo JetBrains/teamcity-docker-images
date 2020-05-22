@@ -65,6 +65,12 @@ namespace TeamCity.Docker
             var names = new HashSet<string>();
             foreach (var buildGraph in buildGraphs)
             {
+                var hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any());
+                if (!hasRepoToPush)
+                {
+                    continue;
+                }
+
                 var weight = buildGraph.Nodes
                     .Select(i => i.Value.Weight.Value)
                     .Sum();
