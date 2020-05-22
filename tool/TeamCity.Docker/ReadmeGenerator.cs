@@ -109,6 +109,31 @@ namespace TeamCity.Docker
                     lines.Add(string.Empty);
                     lines.Add($"Container Platform: {dockerFile.Platform}");
 
+                    var publishRepo = dockerFile
+                        .Repositories
+                        .Select(i =>
+                        {
+                            try
+                            {
+                                return new Uri(i);
+                            }
+                            catch
+                            {
+                                return null;
+                            }
+                        })
+                        .FirstOrDefault(i => i != null);
+                    if (publishRepo != null)
+                    {
+                        lines.Add(string.Empty);
+                        lines.Add("Docker pull command:");
+                        lines.Add(string.Empty);
+
+                        lines.Add("```");
+                        lines.Add(GeneratePullCommand($"{publishRepo.Segments.Last()}/{dockerFile.ImageId}:{dockerFile.Tags.FirstOrDefault() ?? "latest"}"));
+                        lines.Add("```");
+                    }
+
                     foreach (var node in groupByFile)
                     {
                         var artifacts = _buildPathProvider.GetPath(graph, node).Select(i => i.Value).ToList();
@@ -118,13 +143,13 @@ namespace TeamCity.Docker
                         if (images.Any())
                         {
                             lines.Add(string.Empty);
-                            lines.Add("Build commands:");
+                            lines.Add("Docker build commands:");
                             lines.Add(string.Empty);
 
                             lines.Add("```");
                             foreach (var image in images)
                             {
-                                lines.Add(GenerateCommand(image));
+                                lines.Add(GenerateBuildCommand(image));
                                 weight += image.Weight.Value;
                             }
 
@@ -141,7 +166,7 @@ namespace TeamCity.Docker
                             lines.Add("```");
                             foreach (var reference in artifacts.OfType<Reference>())
                             {
-                                lines.Add(GeneratePullCommand(reference));
+                                lines.Add(GeneratePullCommand(reference.RepoTag));
                                 weight += reference.Weight.Value;
                             }
 
@@ -163,10 +188,10 @@ namespace TeamCity.Docker
             }
         }
 
-        private static string GeneratePullCommand(Reference reference) => 
-            $"docker pull {reference.RepoTag}";
+        private static string GeneratePullCommand(string repoTag) => 
+            $"docker pull {repoTag}";
 
-        private string GenerateCommand(Image image)
+        private string GenerateBuildCommand(Image image)
         {
             var dockerFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"));
             var tags = string.Join(" ", image.File.Tags.Select(tag => $"-t {image.File.ImageId}:{tag}"));

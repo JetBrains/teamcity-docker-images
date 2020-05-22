@@ -22,7 +22,13 @@ Installed components:
 
 Container Platform: linux
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-server:18.04
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:18.04 -t teamcity-server:linux "context"
@@ -53,7 +59,13 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-server:latest-nanoserver-1903
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:latest-nanoserver-1903 "context"
@@ -84,7 +96,13 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-server:latest-nanoserver-1909
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:latest-nanoserver-1909 "context"
@@ -112,7 +130,7 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:latest-nanoserver-1803 "context"
@@ -140,7 +158,7 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:latest-nanoserver-1809 "context"

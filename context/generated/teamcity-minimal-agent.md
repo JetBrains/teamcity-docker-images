@@ -22,7 +22,13 @@ Installed components:
 
 Container Platform: linux
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-minimal-agent:18.04
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:18.04 -t teamcity-minimal-agent:linux "context"
@@ -53,7 +59,13 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-minimal-agent:latest-nanoserver-1903
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1903 "context"
@@ -85,7 +97,13 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-minimal-agent:latest-nanoserver-1909
+```
+
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1909 "context"
@@ -114,7 +132,7 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1803 "context"
@@ -142,7 +160,7 @@ Installed components:
 
 Container Platform: windows
 
-Build commands:
+Docker build commands:
 
 ```
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1809 "context"
