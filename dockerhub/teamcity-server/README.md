@@ -1,0 +1,122 @@
+## TeamCity Server - Powerful Continuous Integration and Continuous Delivery out of the box
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. 
+The image is suitable for production use and evaluation purposes.
+
+## Image Tags
+
+The Linux image tags have the following suffixes:
+
+* `linux`, `latest` ([ubuntu](https://github.com/JetBrains/teamcity-docker-server/blob/master/ubuntu/Dockerfile))
+
+The Windows image tags have the following suffixes:
+
+* `nanoserver-1803`, `latest` ([nanoserver 1803](https://github.com/JetBrains/teamcity-docker-server/blob/master/nanoserver/1803/Dockerfile))
+* `nanoserver-1809`, `latest` ([nanoserver 1809](https://github.com/JetBrains/teamcity-docker-server/blob/master/nanoserver/1809/Dockerfile))
+
+## How to Use This Image
+
+Pull the image from the Docker Hub Repository
+
+```docker pull jetbrains/teamcity-server```
+
+Use the following command to start a container with TeamCity server inside
+ 
+a Linux container:
+
+```
+docker run -it --name teamcity-server-instance  \
+    -v <path-to-data-directory>:/data/teamcity_server/datadir \
+    -v <path-to-logs-directory>:/opt/teamcity/logs  \
+    -p <port-on-host>:8111 \
+    jetbrains/teamcity-server
+```  
+If you need to run a Linux-based container with non-root permissions (for example, when using some open source container application platforms), set the server's internal user identifier explicitly by passing an additional `-u 1000:1000` parameter. Note that after switching to a non-root user you might not be able to perform writing operations on files created under the root user. In this case, run `chown -R 1000:1000 <directory>` to change the ownership of the directory containing these files.
+
+Windows container:  
+```
+docker run -it --name teamcity-server-instance
+    -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
+    -v <path-to-logs-directory>:C:/TeamCity/logs
+    -p <port-on-host>:8111
+    jetbrains/teamcity-server
+```  
+&nbsp;
+where
+
+ - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://confluence.jetbrains.com/display/TCDL/TeamCity+Data+Directory) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
+ - **\<path-to-logs-directory>** is the host machine directory to store the TeamCity server logs. The mapping can be omitted, but then the logs will be lost on container shutdown which will make issues investigation impossible.
+
+
+### Database
+
+TeamCity stores set of users and build results in an SQL database in addition to the Data Directory.
+By default, the TeamCity server uses an internal database stored on the file system under the data directory. However, production use requires an [external database](https://confluence.jetbrains.com/display/TCDL/Setting+up+an+External+Database#SettingupanExternalDatabase-DefaultInternalDatabase).
+
+To use the server for production, make sure to review and apply the [recommendations](https://confluence.jetbrains.com/display/TCDL/Installing+and+Configuring+the+TeamCity+Server#InstallingandConfiguringtheTeamCityServer-ConfiguringServerforProductionUse).
+
+### Build agents
+
+You will need at least one TeamCity agent to run builds. Check the [`jetbrains/teamcity-agent`](https://hub.docker.com/r/jetbrains/teamcity-agent/) and [`jetbrains/teamcity-minimal-agent`](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/) images.
+
+### Windows Containers Limitations
+
+The details on the known problems in Windows containers are available in the [TeamCity documentation](https://confluence.jetbrains.com/display/TCDL/Known+Issues#KnownIssues-TeamCityWindowsDockerImages).
+
+## Additional Commands
+
+When you need to pass additional environment variables to the server process, use the regular `-e` option. e.g. to pass TEAMCITY_SERVER_MEM_OPTS environment variable, use:
+
+```
+docker run -it --name teamcity-server-instance   \
+       -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
+       -v <path-to-data-directory>:/data/teamcity_server/datadir  \
+       -v <path-to-log-directory>:/opt/teamcity/logs   \
+       -p <port-on-host>:8111 \
+       jetbrains/teamcity-server
+```  
+&nbsp;
+To run the `maintainDB` script (e.g. for the server backup), stop your running container and execute the following command from your host:  
+```
+docker run -it --name teamcity-server-instance  \
+    -v <path-to-data-directory>:/data/teamcity_server/datadir  \
+    -v <path-to-log-directory>:/opt/teamcity/logs  \
+    -p <port-on-host>:8111 \
+    jetbrains/teamcity-server \
+    "/opt/teamcity/bin/maintainDB.sh" "backup"
+```  
+&nbsp;
+
+Be sure to keep all the local system paths the same with the main server start command.
+
+To change the context of the TeamCity app inside TomCat container, pass `-e TEAMCITY_CONTEXT=/context` to `docker run` command. The default one is `ROOT`, meaning that the server would be available at `http://host/` 
+
+## Upgrading TeamCity
+
+Make sure to check the generic TeamCity [upgrade instructions](https://confluence.jetbrains.com/display/TCDL/Upgrade).
+If you made no changes to the container, you can just stop the running container, pull a newer version of the image and the server in it via the usual command.
+If you changed the image, you will need to replicate the changes to the new TeamCity server image. In general, use Docker common sense to perform the upgrade.
+
+## License
+
+The image is available under the [TeamCity license](https://www.jetbrains.com/teamcity/buy/license.html).
+TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://confluence.jetbrains.com/display/TCDL/Licensing+Policy).
+
+## Feedback
+
+Report issues of suggestions to the official TeamCity [issue tracker](https://youtrack.jetbrains.com/issues/TW).
+
+## Under the Hood
+
+This image is built on top of **TeamCity base image** which includes:
+
+* ubuntu:18.04 (Linux)
+* microsoft/nanoserver (Windows)
+* Amazon Corretto, JRE 64 bit
+
+## Other TeamCity Images
+* [Minimal Build Agent](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/)
+* [Build Agent](https://hub.docker.com/r/jetbrains/teamcity-agent/)
+
+## Dockerfile source
+https://github.com/JetBrains/teamcity-docker-server
