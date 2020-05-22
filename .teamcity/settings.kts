@@ -1111,5 +1111,5 @@ buildType(TC_Trunk_BuildDist_root)
 
 object RemoteTeamcityImages : GitVcsRoot({
 name = "remote teamcity images"
-url = "https://github.com/NikolayPianikov/teamcity-images.git"
+url = "https://github.com/JetBrains/teamcity-docker-images.git"
 })

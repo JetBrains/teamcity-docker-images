@@ -136,7 +136,7 @@ namespace TeamCity.Docker
 
             lines.Add("object RemoteTeamcityImages : GitVcsRoot({");
             lines.Add("name = \"remote teamcity images\"");
-            lines.Add("url = \"https://github.com/NikolayPianikov/teamcity-images.git\"");
+            lines.Add("url = \"https://github.com/JetBrains/teamcity-docker-images.git\"");
             lines.Add("})");
 
             graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
