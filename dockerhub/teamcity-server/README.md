@@ -1,18 +1,10 @@
-## TeamCity Server - Powerful Continuous Integration and Continuous Delivery out of the box
+## [<img src="https://cdn.worldvectorlogo.com/logos/teamcity.svg" height="20" align="center"/>](https://www.jetbrains.com/teamcity/) Server - Powerful Continuous Integration and Continuous Delivery out of the box
 
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. 
-The image is suitable for production use and evaluation purposes.
+[<img src="http://jb.gg/badges/official.svg" height="20"/>](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
-## Image Tags
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
 
-The Linux image tags have the following suffixes:
-
-* `linux`, `latest` ([ubuntu](https://github.com/JetBrains/teamcity-docker-server/blob/master/ubuntu/Dockerfile))
-
-The Windows image tags have the following suffixes:
-
-* `nanoserver-1803`, `latest` ([nanoserver 1803](https://github.com/JetBrains/teamcity-docker-server/blob/master/nanoserver/1803/Dockerfile))
-* `nanoserver-1809`, `latest` ([nanoserver 1809](https://github.com/JetBrains/teamcity-docker-server/blob/master/nanoserver/1809/Dockerfile))
+<img src="https://github.com/JetBrains/teamcity-docker-images/blob/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/context/generated/teamcity-server.md).
 
 ## How to Use This Image
 
@@ -106,17 +98,6 @@ TeamCity is free for perpetual use with the limitation of 100 build configuratio
 
 Report issues of suggestions to the official TeamCity [issue tracker](https://youtrack.jetbrains.com/issues/TW).
 
-## Under the Hood
-
-This image is built on top of **TeamCity base image** which includes:
-
-* ubuntu:18.04 (Linux)
-* microsoft/nanoserver (Windows)
-* Amazon Corretto, JRE 64 bit
-
 ## Other TeamCity Images
 * [Minimal Build Agent](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/)
 * [Build Agent](https://hub.docker.com/r/jetbrains/teamcity-agent/)
-
-## Dockerfile source
-https://github.com/JetBrains/teamcity-docker-server

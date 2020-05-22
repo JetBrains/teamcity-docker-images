@@ -1,22 +1,15 @@
-## TeamCity Minimal Build Agent
+## [<img src="https://cdn.worldvectorlogo.com/logos/teamcity.svg" height="20" align="center"/>](https://www.jetbrains.com/teamcity/) Minimal Build Agent
+
+[<img src="http://jb.gg/badges/official.svg" height="20"/>](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) minimal build agent image.
+
+<img src="https://github.com/JetBrains/teamcity-docker-images/blob/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/context/generated/teamcity-minimal-agent.md).
 
 The [TeamCity build agent](https://confluence.jetbrains.com/display/TCDL/Build+Agent) connects to the TeamCity server and spawns the actual build processes.
 You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server.
 
 This minimal image adds just a  TeamCity agent without any tools like VCS clients, etc. It is suitable for simple builds and can serve as a base for your custom images. For Java or .NET development we recommend using the default build agent image [jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent/).
-
-## Image Tags
-
-The Linux image tags have the following suffixes:
-
-* `linux`, `latest` ([ubuntu](https://github.com/JetBrains/teamcity-docker-minimal-agent/blob/master/ubuntu/Dockerfile))
-
-The Windows image tags have the following suffixes:
-
-* `nanoserver-1803`, `latest` ([nanoserver 1803](https://github.com/JetBrains/teamcity-docker-minimal-agent/blob/master/nanoserver/1803/Dockerfile))
-* `nanoserver-1809`, `latest` ([nanoserver 1809](https://github.com/JetBrains/teamcity-docker-minimal-agent/blob/master/nanoserver/1809/Dockerfile))
 
 ## How to Use This Image
 
@@ -89,17 +82,6 @@ TeamCity is free for perpetual use with the limitation of 100 build configuratio
 
 Report issues of suggestions to the official TeamCity [issue tracker](https://youtrack.jetbrains.com/issues/TW).
 
-## Under The Hood
-
-This image is built on the **TeamCity base image** which includes:
-
-* ubuntu:18.04 (Linux)
-* microsoft/nanoserver (Windows)
-* Amazon Corretto 8, JRE 64 bit
-
 ## Other TeamCity Images
 * [TeamCity Server](https://hub.docker.com/r/jetbrains/teamcity-server/)
 * [Build Agent](https://hub.docker.com/r/jetbrains/teamcity-agent/)
-
-## Dockerfile source
-https://github.com/JetBrains/teamcity-docker-minimal-agent
