@@ -104,12 +104,12 @@ namespace TeamCity.Docker
                 lines.Add("dependencies {");
 
                 lines.Add($"snapshot(AbsoluteId(\"{version.BuildIdPrefix}\"))");
-                lines.Add("{ onDependencyFailure = FailureAction.IGNORE }");
-
+                lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.NO\n}");
+                
                 foreach (var buildType in buildTypes)
                 {
                     lines.Add($"snapshot({version.BuildIdPrefix}{buildType})");
-                    lines.Add("{ onDependencyFailure = FailureAction.IGNORE }");
+                    lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.NO\n}");
                 }
 
                 lines.Add("}");

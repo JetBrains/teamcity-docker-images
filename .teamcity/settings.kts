@@ -1048,13 +1048,25 @@ object TC2019_2_BuildDist_root : BuildType(
 name = "TC2019_2 Build All Docker Images"
 dependencies {
 snapshot(AbsoluteId("TC2019_2_BuildDist"))
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC2019_2_BuildDist_latest_nanoserver_1909)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC2019_2_BuildDist_latest_nanoserver_1903)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC2019_2_BuildDist_18_04_linux)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 }
 })
 
@@ -1063,13 +1075,25 @@ object TC_Trunk_BuildDist_root : BuildType(
 name = "TC_Trunk Build All Docker Images"
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDist"))
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC_Trunk_BuildDist_latest_nanoserver_1909)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC_Trunk_BuildDist_latest_nanoserver_1903)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 snapshot(TC_Trunk_BuildDist_18_04_linux)
-{ onDependencyFailure = FailureAction.IGNORE }
+{
+onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.NO
+}
 }
 })
 
