@@ -71,9 +71,9 @@ if (Test-Path -Path "${configDir}/buildAgent.properties") {
         exit 1
     }
     prepare_conf
+    reconfigure
 }
 
-reconfigure
 
 &$agentScript start
 if ($LastExitCode -ne 0) { throw "Failed to start TeamCity build agent: $LastExitCode" }

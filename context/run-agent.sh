@@ -52,8 +52,7 @@ LOG_DIR=/opt/buildagent/logs
 rm -f ${LOG_DIR}/*.pid
 
 if [ -f ${CONFIG_DIR}/buildAgent.properties ] ; then
-   echo "File buildAgent.properties was found in ${CONFIG_DIR}" ;
-   reconfigure
+   echo "File buildAgent.properties was found in ${CONFIG_DIR}. Will start the agent using it." ;
 else
    echo "Will create new buildAgent.properties using distributive" ;
    if [[ -n "${SERVER_URL}" ]]; then
@@ -65,18 +64,7 @@ else
    prepare_conf
 fi
 
-if [ -z "$RUN_AS_BUILDAGENT" -o "$RUN_AS_BUILDAGENT" = "false" -o "$RUN_AS_BUILDAGENT" = "no" ]; then
-    ${AGENT_DIST}/bin/agent.sh start
-else
-    echo "Make sure build agent directory ${AGENT_DIST} is owned by buildagent user"
-    chown -R buildagent:buildagent ${AGENT_DIST}
-    check; sync
-    
-    echo "Start build agent under buildagent user"
-    sudo -E -u buildagent HOME=/home/buildagent ${AGENT_DIST}/bin/agent.sh start
-fi
-
-
+${AGENT_DIST}/bin/agent.sh start
 
 while [ ! -f ${LOG_DIR}/teamcity-agent.log ];
 do
