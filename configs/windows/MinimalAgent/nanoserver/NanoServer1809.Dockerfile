@@ -79,10 +79,13 @@ COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJD
 ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-EXPOSE 9090
+COPY --from=base /BuildAgent /BuildAgent
 
 VOLUME C:/BuildAgent/conf
-
-COPY --from=base /BuildAgent /BuildAgent
+VOLUME C:/BuildAgent/plugins
+VOLUME C:/BuildAgent/work
+VOLUME C:/BuildAgent/temp
+VOLUME C:/BuildAgent/tools
+VOLUME C:/BuildAgent/logs
 
 CMD pwsh ./BuildAgent/run-agent.ps1
