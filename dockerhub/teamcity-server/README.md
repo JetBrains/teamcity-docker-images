@@ -36,16 +36,16 @@ docker run -it --name teamcity-server-instance
 &nbsp;
 where
 
- - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://confluence.jetbrains.com/display/TCDL/TeamCity+Data+Directory) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
+ - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://www.jetbrains.com/help/teamcity/teamcity-data-directory.html) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
  - **\<path-to-logs-directory>** is the host machine directory to store the TeamCity server logs. The mapping can be omitted, but then the logs will be lost on container shutdown which will make issues investigation impossible.
 
 
 ### Database
 
 TeamCity stores set of users and build results in an SQL database in addition to the Data Directory.
-By default, the TeamCity server uses an internal database stored on the file system under the data directory. However, production use requires an [external database](https://confluence.jetbrains.com/display/TCDL/Setting+up+an+External+Database#SettingupanExternalDatabase-DefaultInternalDatabase).
+By default, the TeamCity server uses an internal database stored on the file system under the data directory. However, production use requires an [external database](https://www.jetbrains.com/help/teamcity/setting-up-an-external-database.html#SettingupanExternalDatabase-DefaultInternalDatabase).
 
-To use the server for production, make sure to review and apply the [recommendations](https://confluence.jetbrains.com/display/TCDL/Installing+and+Configuring+the+TeamCity+Server#InstallingandConfiguringtheTeamCityServer-ConfiguringServerforProductionUse).
+To use the server for production, make sure to review and apply the [recommendations](https://www.jetbrains.com/help/teamcity/installing-and-configuring-the-teamcity-server.html#InstallingandConfiguringtheTeamCityServer-ConfiguringServerforProductionUse).
 
 ### Build agents
 
@@ -53,7 +53,7 @@ You will need at least one TeamCity agent to run builds. Check the [`jetbrains/t
 
 ### Windows Containers Limitations
 
-The details on the known problems in Windows containers are available in the [TeamCity documentation](https://confluence.jetbrains.com/display/TCDL/Known+Issues#KnownIssues-TeamCityWindowsDockerImages).
+The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
 
 ## Additional Commands
 
@@ -85,14 +85,14 @@ To change the context of the TeamCity app inside TomCat container, pass `-e TEAM
 
 ## Upgrading TeamCity
 
-Make sure to check the generic TeamCity [upgrade instructions](https://confluence.jetbrains.com/display/TCDL/Upgrade).
+Make sure to check the generic TeamCity [upgrade instructions](https://www.jetbrains.com/help/teamcity/upgrade.html).
 If you made no changes to the container, you can just stop the running container, pull a newer version of the image and the server in it via the usual command.
 If you changed the image, you will need to replicate the changes to the new TeamCity server image. In general, use Docker common sense to perform the upgrade.
 
 ## License
 
 The image is available under the [TeamCity license](https://www.jetbrains.com/teamcity/buy/license.html).
-TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://confluence.jetbrains.com/display/TCDL/Licensing+Policy).
+TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://www.jetbrains.com/help/teamcity/licensing-policy.html).
 
 ## Feedback
 
