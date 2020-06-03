@@ -43,6 +43,8 @@ where
 **<url to TeamCity server>** is the full URL for TeamCity server, accessible by the agent. Note that "localhost" will not generally not work as it will refer to the "localhost" inside the container.
 **<path to agent config folder>** is the host machine directory to serve as the TeamCity agent config directory. We recommend providing this binding in order to persist the agent configuration, e.g. authorization on the server. Note that you should map a different folder for every new agent you create.
 
+Since version 2020.1, TeamCity agent Docker images __run under a non-root user__. Refer to our [upgrade notes](https://www.jetbrains.com/help/teamcity/upgrade-notes.html#UpgradeNotes-AgentDockerimagesrunundernon-rootuser) for information on possible affected use cases.
+
 When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the **Unauthorized Agents** page in your browser. See [more details](https://www.jetbrains.com/help/teamcity/build-agent.html).
 All information about agent authorization is stored in the agent's configuration folder. If you stop the container with the agent and then start a new one with the same config folder, the agent's name and  authorization state will be preserved.
 
@@ -63,7 +65,7 @@ When build agent container is restarted, it re-checkouts sources for the builds.
 To avoid this, you should pass a couple of additional options to preserve build agent state between restarts: 
 
   1. Preserve checked out sources (`-v /opt/buildagent/work:/opt/buildagent/work`)
-  1. Keep internal build agent caches (`-v /opt/buildagent/system:/opt/buildagent/system`)
+  2. Keep internal build agent caches (`-v /opt/buildagent/system:/opt/buildagent/system`)
   
 You can use other than `/opt/buildagent/` source path prefix on the host machine unless you're going to use Docker Wrapper via `docker.sock` (see below). 
 
