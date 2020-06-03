@@ -145,7 +145,7 @@ namespace TeamCity.Docker
         private IEnumerable<string> GenerateBuildType(Version version, string id, string name, IGraph<IArtifact, Dependency> buildGraph, int weight)
         {
             var path = _buildPathProvider.GetPath(buildGraph).ToList();
-            var images = path.Select(i => i.Value).OfType<Image>().OrderBy(i => i.File).ToList();
+            var images = path.Select(i => i.Value).OfType<Image>().ToList();
             var refs = path.Select(i => i.Value).OfType<Reference>().ToList();
 
             var groups =
@@ -154,7 +154,6 @@ namespace TeamCity.Docker
                 into groupsByImageId
                 from groupByImageId in
                     from image in groupsByImageId
-                    orderby image.File
                     group image by image.File
                 group groupByImageId by groupsByImageId.Key;
 
