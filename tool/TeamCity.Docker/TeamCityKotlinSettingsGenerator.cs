@@ -41,11 +41,13 @@ namespace TeamCity.Docker
                 return;
             }
 
+            // ReSharper disable once UseObjectOrCollectionInitializer
             var lines = new List<string>();
-            lines.Add($"import jetbrains.buildServer.configs.kotlin.v2019_2.*");
+            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.*");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace");
+            // ReSharper disable once StringLiteralTypo
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand");
             lines.Add("version = \"2019.2\"");
@@ -58,24 +60,22 @@ namespace TeamCity.Docker
                 return;
             }
 
+            var buildGraphs =
+                from buildGraph in buildGraphResult.Value
+                let hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any())
+                where hasRepoToPush
+                let name = _graphNameFactory.Create(buildGraph).Value
+                let weight = buildGraph.Nodes.Select(i => i.Value.Weight.Value).Sum()
+                orderby name
+                select new {graph = buildGraph, name, weight};
+
             var versions = _options.TeamCityBuildConfigurationIds.Select(i => new Version(i)).ToArray();
 
-            var buildGraphs = buildGraphResult.Value.ToList();
             var counter = 0;
             var names = new HashSet<string>();
             foreach (var buildGraph in buildGraphs)
             {
-                var hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any());
-                if (!hasRepoToPush)
-                {
-                    continue;
-                }
-
-                var weight = buildGraph.Nodes
-                    .Select(i => i.Value.Weight.Value)
-                    .Sum();
-
-                var name = _graphNameFactory.Create(buildGraph).Value;
+                var name = buildGraph.name;
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     name = "Build Docker Images";
@@ -89,7 +89,7 @@ namespace TeamCity.Docker
                 var id = "_" + name.Replace(' ', '_').Replace('-', '_').Replace('.', '_');
                 foreach (var version in versions)
                 {
-                    lines.AddRange(GenerateBuildType(version, id, name, buildGraph, weight));
+                    lines.AddRange(GenerateBuildType(version, id, name, buildGraph.graph, buildGraph.weight));
                 }
 
                 buildTypes.Add(id);
@@ -294,6 +294,7 @@ namespace TeamCity.Docker
                 yield return "}";
             }
 
+            // ReSharper disable once StringLiteralTypo
             yield return "swabra {";
             yield return "forceCleanCheckout = true";
             yield return "}";
