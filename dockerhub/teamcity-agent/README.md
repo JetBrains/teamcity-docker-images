@@ -6,7 +6,7 @@ This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) bu
 
 <img src="https://github.com/JetBrains/teamcity-docker-images/blob/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/context/generated/teamcity-agent.md).
 
-The [TeamCity build agent](https://confluence.jetbrains.com/display/TCDL/Build+Agent) connects to the TeamCity server and spawns the actual build processes.
+The [TeamCity build agent](https://www.jetbrains.com/help/teamcity/build-agent.html) connects to the TeamCity server and spawns the actual build processes.
 You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server.
 
 This image adds a TeamCity agent suitable for Java development. It is based on ```jetbrains/teamcity-minimal-agent``` but gives you more benefits, e.g. 
@@ -43,7 +43,7 @@ where
 **<url to TeamCity server>** is the full URL for TeamCity server, accessible by the agent. Note that "localhost" will not generally not work as it will refer to the "localhost" inside the container.
 **<path to agent config folder>** is the host machine directory to serve as the TeamCity agent config directory. We recommend providing this binding in order to persist the agent configuration, e.g. authorization on the server. Note that you should map a different folder for every new agent you create.
 
-When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the **Unauthorized Agents** page in your browser. See [more details](https://confluence.jetbrains.com/display/TCDL/Build+Agent).
+When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the **Unauthorized Agents** page in your browser. See [more details](https://www.jetbrains.com/help/teamcity/build-agent.html).
 All information about agent authorization is stored in the agent's configuration folder. If you stop the container with the agent and then start a new one with the same config folder, the agent's name and  authorization state will be preserved.
 
 A TeamCity agent does not need manual upgrade: it will upgrade itself automatically on connecting to an upgraded server.
@@ -81,10 +81,10 @@ docker run -it -e SERVER_URL="<url to TeamCity server>"  \
     jetbrains/teamcity-agent
 ```
 
-Volume options starting with `-v /opt/buildagent/` are required if you want to use [Docker Wrapper](https://confluence.jetbrains.com/display/TCDL/Docker+Wrapper) on this build agent. 
+Volume options starting with `-v /opt/buildagent/` are required if you want to use [Docker Wrapper](https://www.jetbrains.com/help/teamcity/docker-wrapper.html) on this build agent. 
 Without them, the corresponding builds with the enabled docker wrapper (for Command Line, Maven, Ant, Gradle, and since TeamCity 2018.1, .NET CLI (dotnet) and PowerShell runners) will not work. Unfortunately, using several docker-based build agents from the same host is not possible.
 
-If you omit these options, you can run several build agents (but you need to specify different `<path to agent config folder>` for them), but [Docker Wrapper](https://confluence.jetbrains.com/display/TCDL/Docker+Wrapper) won't work on such agents. 
+If you omit these options, you can run several build agents (but you need to specify different `<path to agent config folder>` for them), but [Docker Wrapper](https://www.jetbrains.com/help/teamcity/docker-wrapper.html) won't work on such agents. 
 
 The problem is, that multiple agent containers would use the same (/opt/buildagent/\*) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
 
@@ -104,7 +104,7 @@ If you want to start several build agents, you need to specify different volumes
 
 ### Windows Containers Limitations
 
-The details on the known problems in Windows containers are available on the [in the TeamCity documentation](https://confluence.jetbrains.com/display/TCDL/Known+Issues#KnownIssues-TeamCityWindowsDockerImages).
+The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
  
 ## Customization
 
@@ -131,7 +131,7 @@ docker commit my-customized-agent <the registry where you what to store the imag
 ## License
 
 The image is available under the [TeamCity license](https://www.jetbrains.com/teamcity/buy/license.html).
-TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://confluence.jetbrains.com/display/TCDL/Licensing+Policy).
+TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://www.jetbrains.com/help/teamcity/licensing-policy.html).
 
 ## Feedback
 
