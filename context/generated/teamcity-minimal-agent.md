@@ -1,10 +1,10 @@
 ### Tags
 
-- [18.04, linux](#whale-1804,-linux)
-- [latest-nanoserver-1809](#whale-latest-nanoserver-1809)
-- [latest-nanoserver-1903](#whale-latest-nanoserver-1903)
-- [latest-nanoserver-1803](#whale-latest-nanoserver-1803)
-- [latest-nanoserver-1909](#whale-latest-nanoserver-1909)
+- [18.04, linux](#1804-linux)
+- [latest-nanoserver-1809](#latest-nanoserver-1809)
+- [latest-nanoserver-1903](#latest-nanoserver-1903)
+- [latest-nanoserver-1803](#latest-nanoserver-1803)
+- [latest-nanoserver-1909](#latest-nanoserver-1909)
 
 ### 18.04, linux
 
