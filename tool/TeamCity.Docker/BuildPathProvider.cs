@@ -46,6 +46,7 @@ namespace TeamCity.Docker
             var images =
                 from dependency in dependencies
                 let image = dependency.Value as Image
+                orderby image?.File
                 select new { dependency, image };
 
             var childNodes =
