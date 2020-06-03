@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using IoC;
 
 namespace TeamCity.Docker.Model
 {
-    internal struct Dockerfile
+    internal struct Dockerfile: IComparable<Dockerfile>
     {
         [NotNull] public readonly string Path;
         [NotNull] public readonly string ImageId;
@@ -41,6 +42,16 @@ namespace TeamCity.Docker.Model
             Lines = lines ?? throw new ArgumentNullException(nameof(lines));
         }
 
+        public int CompareTo(Dockerfile other) =>
+            string.Compare(OrderKey(), other.OrderKey(), StringComparison.Ordinal);
+
         public override string ToString() => $"{ImageId}:{string.Join(",", Tags)}";
+
+        private string OrderKey()
+        {
+            var repoCount = Repositories.Count(i => !string.IsNullOrWhiteSpace(i));
+            var repoFlag = repoCount > 0 ? "1" : "2";
+            return $"{repoFlag}-{Platform}-{this}";
+        }
     }
 }

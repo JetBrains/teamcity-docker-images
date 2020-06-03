@@ -40,8 +40,7 @@ namespace TeamCity.Docker
                     from groupByImageId in groupsByImageId
                     let image = groupByImageId.Value as Image
                     where image != null
-                    let repoCount = image.File.Repositories.Count(i => !string.IsNullOrWhiteSpace(i))
-                    orderby repoCount descending
+                    orderby image.File
                     group groupByImageId by image.File
                 group groupByImageId by groupsByImageId.Key;
 

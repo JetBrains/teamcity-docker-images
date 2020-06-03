@@ -154,6 +154,7 @@ namespace TeamCity.Docker
                 into groupsByImageId
                 from groupByImageId in
                     from image in groupsByImageId
+                    orderby image.File
                     group image by image.File
                 group groupByImageId by groupsByImageId.Key;
 

@@ -2,7 +2,7 @@
   "profiles": {
     "Build": {
       "commandName": "Project",
-      "commandLineArgs": "generate -s configs -f \"configs/common.config;configs/windows.config;configs/linux.config\" -c context -t \"context/generated\" -d .teamcity -b \"TC2019_2_BuildDist:2019_2;TC_Trunk_BuildDist\" -r PROJECT_EXT_2307",
+      "commandLineArgs": "generate -s configs -f \"configs/common.config;configs/windows.config;configs/linux.config\" -c context -t context/generated -d .teamcity -b \"TC2019_2_BuildDist:2019_2;TC_Trunk_BuildDist\" -r PROJECT_EXT_2307",
       "workingDirectory": "C:\\Projects\\TeamCity\\new-teamcity-docker-images"
     }
   }
