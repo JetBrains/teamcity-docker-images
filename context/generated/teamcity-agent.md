@@ -1,6 +1,6 @@
 ### Tags
 
-- [18.04-sudo, linux](#1804-sudo-linux)
+- [18.04-sudo](#1804-sudo)
 - [18.04, linux](#1804-linux)
 - [latest-nanoserver-1809](#latest-nanoserver-1809)
 - [latest-nanoserver-1903](#latest-nanoserver-1903)
@@ -11,7 +11,7 @@
 - [latest-windowsservercore-1803](#latest-windowsservercore-1803)
 - [latest-windowsservercore-1909](#latest-windowsservercore-1909)
 
-### 18.04-sudo, linux
+### 18.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -34,7 +34,7 @@ Docker build commands:
 ```
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:18.04 -t teamcity-minimal-agent:linux "context"
 docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:18.04 -t teamcity-agent:linux "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:18.04-sudo -t teamcity-agent:linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:18.04-sudo "context"
 ```
 
 Base images:

@@ -720,9 +720,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 })
 
 
-object TC2019_2_BuildDist_linux_18_04 : BuildType({
-name = "TC2019_2 linux 18.04"
-description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo,linux"
+object TC2019_2_BuildDist_18_04_linux : BuildType({
+name = "TC2019_2 18.04 linux"
+description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -779,7 +779,7 @@ param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-agent:18.04-sudo,linux"
+name = "build teamcity-agent:18.04-sudo"
 commandType = build {
 source = file {
 path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
@@ -787,7 +787,6 @@ path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
 contextDir = "context"
 namesAndTags = """
 teamcity-agent:18.04-sudo
-teamcity-agent:linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
@@ -850,14 +849,6 @@ commandArgs = "teamcity-agent:18.04-sudo %docker.pushRepository%teamcity-agent:2
 }
 
 dockerCommand {
-name = "change tag from teamcity-agent:linux to 2019_2-linux"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:2019_2-linux"
-}
-}
-
-dockerCommand {
 name = "push teamcity-server:2019_2-18.04,2019_2-linux"
 commandType = push {
 namesAndTags = """
@@ -888,11 +879,10 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "push teamcity-agent:2019_2-18.04-sudo,2019_2-linux"
+name = "push teamcity-agent:2019_2-18.04-sudo"
 commandType = push {
 namesAndTags = """
 %docker.pushRepository%teamcity-agent:2019_2-18.04-sudo
-%docker.pushRepository%teamcity-agent:2019_2-linux
 """.trimIndent()
 }
 }
@@ -922,9 +912,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDist_linux_18_04 : BuildType({
-name = "TC_Trunk linux 18.04"
-description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo,linux"
+object TC_Trunk_BuildDist_18_04_linux : BuildType({
+name = "TC_Trunk 18.04 linux"
+description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -981,7 +971,7 @@ param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-agent:18.04-sudo,linux"
+name = "build teamcity-agent:18.04-sudo"
 commandType = build {
 source = file {
 path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
@@ -989,7 +979,6 @@ path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
 contextDir = "context"
 namesAndTags = """
 teamcity-agent:18.04-sudo
-teamcity-agent:linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
@@ -1052,14 +1041,6 @@ commandArgs = "teamcity-agent:18.04-sudo %docker.pushRepository%teamcity-agent:1
 }
 
 dockerCommand {
-name = "change tag from teamcity-agent:linux to linux"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:linux"
-}
-}
-
-dockerCommand {
 name = "push teamcity-server:18.04,linux"
 commandType = push {
 namesAndTags = """
@@ -1090,11 +1071,10 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "push teamcity-agent:18.04-sudo,linux"
+name = "push teamcity-agent:18.04-sudo"
 commandType = push {
 namesAndTags = """
 %docker.pushRepository%teamcity-agent:18.04-sudo
-%docker.pushRepository%teamcity-agent:linux
 """.trimIndent()
 }
 }
@@ -1144,7 +1124,7 @@ snapshot(TC2019_2_BuildDist_latest_nanoserver_1809)
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
 }
-snapshot(TC2019_2_BuildDist_linux_18_04)
+snapshot(TC2019_2_BuildDist_18_04_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
@@ -1171,7 +1151,7 @@ snapshot(TC_Trunk_BuildDist_latest_nanoserver_1809)
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
 }
-snapshot(TC_Trunk_BuildDist_linux_18_04)
+snapshot(TC_Trunk_BuildDist_18_04_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
@@ -1183,11 +1163,11 @@ project {
 vcsRoot(RemoteTeamcityImages)
 buildType(TC2019_2_BuildDist_latest_nanoserver_1903)
 buildType(TC2019_2_BuildDist_latest_nanoserver_1809)
-buildType(TC2019_2_BuildDist_linux_18_04)
+buildType(TC2019_2_BuildDist_18_04_linux)
 buildType(TC2019_2_BuildDist_root)
 buildType(TC_Trunk_BuildDist_latest_nanoserver_1903)
 buildType(TC_Trunk_BuildDist_latest_nanoserver_1809)
-buildType(TC_Trunk_BuildDist_linux_18_04)
+buildType(TC_Trunk_BuildDist_18_04_linux)
 buildType(TC_Trunk_BuildDist_root)
 }
 
