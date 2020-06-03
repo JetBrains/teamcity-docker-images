@@ -6,7 +6,7 @@ This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) mi
 
 <img src="https://github.com/JetBrains/teamcity-docker-images/blob/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/context/generated/teamcity-minimal-agent.md).
 
-The [TeamCity build agent](https://confluence.jetbrains.com/display/TCDL/Build+Agent) connects to the TeamCity server and spawns the actual build processes.
+The [TeamCity build agent](https://www.jetbrains.com/help/teamcity/build-agent.html) connects to the TeamCity server and spawns the actual build processes.
 You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server.
 
 This minimal image adds just a  TeamCity agent without any tools like VCS clients, etc. It is suitable for simple builds and can serve as a base for your custom images. For Java or .NET development we recommend using the default build agent image [jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent/).
@@ -41,7 +41,7 @@ where
     
 Since version 2020.1, TeamCity agent Docker images __run under a non-root user__. Refer to our [upgrade notes](https://www.jetbrains.com/help/teamcity/upgrade-notes.html#UpgradeNotes-AgentDockerimagesrunundernon-rootuser) for information on possible affected use cases.
 
-When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the **Unauthorized Agents** page in your browser. See [more details](https://confluence.jetbrains.com/display/TCDL/Build+Agent).
+When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the **Unauthorized Agents** page in your browser. See [more details](https://www.jetbrains.com/help/teamcity/build-agent.html).
 
 All information about agent authorization is stored in agent's configuration folder. If you stop the container with the agent and then start a new one with the same config folder, the agent's name and authorization state will be preserved.
 
@@ -57,7 +57,7 @@ TeamCity agent does not need manual upgrade: it will upgrade itself automaticall
 
 ### Windows Containers Limitations
 
-The details on the known problems in Windows containers are available in the [TeamCity documentation](https://confluence.jetbrains.com/display/TCDL/Known+Issues#KnownIssues-TeamCityWindowsDockerImages).
+The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
  
 ## Customization
 
@@ -84,7 +84,7 @@ docker commit my-customized-agent <the registry where you what to store the imag
 ## License
 
 The image is available under the [TeamCity license](https://www.jetbrains.com/teamcity/buy/license.html).
-TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://confluence.jetbrains.com/display/TCDL/Licensing+Policy).
+TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://www.jetbrains.com/help/teamcity/licensing-policy.html).
 
 ## Feedback
 
