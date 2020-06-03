@@ -720,9 +720,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 })
 
 
-object TC2019_2_BuildDist_18_04_linux : BuildType({
-name = "TC2019_2 18.04 linux"
-description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux"
+object TC2019_2_BuildDist_linux_18_04 : BuildType({
+name = "TC2019_2 linux 18.04"
+description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo,linux"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -772,6 +772,21 @@ path = """context/generated/linux/Agent/Ubuntu/18.04/Dockerfile"""
 contextDir = "context"
 namesAndTags = """
 teamcity-agent:18.04
+teamcity-agent:linux
+""".trimIndent()
+}
+param("dockerImage.platform", "linux")
+}
+
+dockerCommand {
+name = "build teamcity-agent:18.04-sudo,linux"
+commandType = build {
+source = file {
+path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
+}
+contextDir = "context"
+namesAndTags = """
+teamcity-agent:18.04-sudo
 teamcity-agent:linux
 """.trimIndent()
 }
@@ -827,6 +842,22 @@ commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:2019_2
 }
 
 dockerCommand {
+name = "change tag from teamcity-agent:18.04-sudo to 2019_2-18.04-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:18.04-sudo %docker.pushRepository%teamcity-agent:2019_2-18.04-sudo"
+}
+}
+
+dockerCommand {
+name = "change tag from teamcity-agent:linux to 2019_2-linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:2019_2-linux"
+}
+}
+
+dockerCommand {
 name = "push teamcity-server:2019_2-18.04,2019_2-linux"
 commandType = push {
 namesAndTags = """
@@ -856,10 +887,20 @@ namesAndTags = """
 }
 }
 
+dockerCommand {
+name = "push teamcity-agent:2019_2-18.04-sudo,2019_2-linux"
+commandType = push {
+namesAndTags = """
+%docker.pushRepository%teamcity-agent:2019_2-18.04-sudo
+%docker.pushRepository%teamcity-agent:2019_2-linux
+""".trimIndent()
+}
+}
+
 }
 features {
 freeDiskSpace {
-requiredSpace = "3gb"
+requiredSpace = "4gb"
 failBuild = true
 }
 dockerSupport {
@@ -881,9 +922,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDist_18_04_linux : BuildType({
-name = "TC_Trunk 18.04 linux"
-description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux"
+object TC_Trunk_BuildDist_linux_18_04 : BuildType({
+name = "TC_Trunk linux 18.04"
+description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo,linux"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -940,6 +981,21 @@ param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
+name = "build teamcity-agent:18.04-sudo,linux"
+commandType = build {
+source = file {
+path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
+}
+contextDir = "context"
+namesAndTags = """
+teamcity-agent:18.04-sudo
+teamcity-agent:linux
+""".trimIndent()
+}
+param("dockerImage.platform", "linux")
+}
+
+dockerCommand {
 name = "change tag from teamcity-server:18.04 to 18.04"
 commandType = other {
 subCommand = "tag"
@@ -988,6 +1044,22 @@ commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:linux"
 }
 
 dockerCommand {
+name = "change tag from teamcity-agent:18.04-sudo to 18.04-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:18.04-sudo %docker.pushRepository%teamcity-agent:18.04-sudo"
+}
+}
+
+dockerCommand {
+name = "change tag from teamcity-agent:linux to linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:linux %docker.pushRepository%teamcity-agent:linux"
+}
+}
+
+dockerCommand {
 name = "push teamcity-server:18.04,linux"
 commandType = push {
 namesAndTags = """
@@ -1017,10 +1089,20 @@ namesAndTags = """
 }
 }
 
+dockerCommand {
+name = "push teamcity-agent:18.04-sudo,linux"
+commandType = push {
+namesAndTags = """
+%docker.pushRepository%teamcity-agent:18.04-sudo
+%docker.pushRepository%teamcity-agent:linux
+""".trimIndent()
+}
+}
+
 }
 features {
 freeDiskSpace {
-requiredSpace = "3gb"
+requiredSpace = "4gb"
 failBuild = true
 }
 dockerSupport {
@@ -1062,7 +1144,7 @@ snapshot(TC2019_2_BuildDist_latest_nanoserver_1809)
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
 }
-snapshot(TC2019_2_BuildDist_18_04_linux)
+snapshot(TC2019_2_BuildDist_linux_18_04)
 {
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
@@ -1089,7 +1171,7 @@ snapshot(TC_Trunk_BuildDist_latest_nanoserver_1809)
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
 }
-snapshot(TC_Trunk_BuildDist_18_04_linux)
+snapshot(TC_Trunk_BuildDist_linux_18_04)
 {
 onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.NO
@@ -1101,11 +1183,11 @@ project {
 vcsRoot(RemoteTeamcityImages)
 buildType(TC2019_2_BuildDist_latest_nanoserver_1903)
 buildType(TC2019_2_BuildDist_latest_nanoserver_1809)
-buildType(TC2019_2_BuildDist_18_04_linux)
+buildType(TC2019_2_BuildDist_linux_18_04)
 buildType(TC2019_2_BuildDist_root)
 buildType(TC_Trunk_BuildDist_latest_nanoserver_1903)
 buildType(TC_Trunk_BuildDist_latest_nanoserver_1809)
-buildType(TC_Trunk_BuildDist_18_04_linux)
+buildType(TC_Trunk_BuildDist_linux_18_04)
 buildType(TC_Trunk_BuildDist_root)
 }
 

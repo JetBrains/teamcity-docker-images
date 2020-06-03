@@ -44,6 +44,7 @@ RUN update-alternatives --install /usr/bin/java java ${JAVA_HOME}/bin/java 1 && 
 ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     TEAMCITY_DIST=/opt/teamcity \
     TEAMCITY_LOGS=/opt/teamcity/logs \
+    TEAMCITY_TEMP=/opt/teamcity/temp \
     TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m" \
     LANG=C.UTF-8
 
@@ -69,9 +70,11 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
 
 COPY --chown=tcuser:tcuser TeamCity $TEAMCITY_DIST
 RUN rm -rf $TEAMCITY_DIST/buildAgent && \
+    rm -rf $TEAMCITY_DIST/temp && \
     echo "docker-ubuntu" > $TEAMCITY_DIST/webapps/ROOT/WEB-INF/DistributionType.txt
 
 VOLUME $TEAMCITY_DATA_PATH \
-       $TEAMCITY_LOGS
+       $TEAMCITY_LOGS \
+       $TEAMCITY_TEMP
 
 CMD ["/run-services.sh"]

@@ -13,6 +13,8 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:18.04'
 
 FROM ${teamcityMinimalAgentImage}
 
+USER root
+
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
@@ -43,9 +45,9 @@ RUN apt-get update && \
     \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=5:19.03.3~3-0~ubuntu-bionic \
-                        docker-ce-cli=5:19.03.3~3-0~ubuntu-bionic \
-                        containerd.io=1.2.6-3 \
+    apt-get install -y  docker-ce=5:19.03.9~3-0~ubuntu-bionic \
+                        docker-ce-cli=5:19.03.9~3-0~ubuntu-bionic \
+                        containerd.io=1.2.13-2 \
                         systemd && \
     systemctl disable docker && \
     curl -SL "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
@@ -79,6 +81,8 @@ VOLUME /var/lib/docker
 COPY run-docker.sh /services/run-docker.sh
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet help && \
+RUN chown -R buildagent:buildagent /services && dotnet help && \
     sed -i -e 's/\r$//' /services/run-docker.sh
+
+USER buildagent
 
