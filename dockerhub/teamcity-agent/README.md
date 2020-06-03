@@ -80,6 +80,11 @@ docker run -it -e SERVER_URL="<url to TeamCity server>"  \
     -u 0 \
     -v <path to agent config folder>:/data/teamcity_agent/conf \
     -v /var/run/docker.sock:/var/run/docker.sock  \
+    -v /opt/buildagent/work:/opt/buildagent/work \
+    -v /opt/buildagent/temp:/opt/buildagent/temp \
+    -v /opt/buildagent/tools:/opt/buildagent/tools \
+    -v /opt/buildagent/plugins:/opt/buildagent/plugins \
+    -v /opt/buildagent/system:/opt/buildagent/system \
     jetbrains/teamcity-agent
 ```
 
