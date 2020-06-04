@@ -8,13 +8,16 @@ This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) se
 
 ## How to Use This Image
 
-Pull the image from the Docker Hub Repository
+First, pull the image from the Docker Hub Repository
 
 ```docker pull jetbrains/teamcity-server```
 
-Use the following command to start a container with TeamCity server inside
  
-a Linux container:
+### Linux container
+
+Use the following command to start a container with TeamCity server
+
+
 
 ```
 docker run -it --name teamcity-server-instance  \
@@ -23,9 +26,24 @@ docker run -it --name teamcity-server-instance  \
     -p <port-on-host>:8111 \
     jetbrains/teamcity-server
 ```  
+where
+
+ - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://www.jetbrains.com/help/teamcity/teamcity-data-directory.html) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
+ - **\<path-to-logs-directory>** is the host machine directory to store the TeamCity server logs. The mapping can be omitted, but then the logs will be lost on container shutdown which will make issues investigation impossible.
+
+
 If you need to run a Linux-based container with non-root permissions (for example, when using some open source container application platforms), set the server's internal user identifier explicitly by passing an additional `-u 1000:1000` parameter. Note that after switching to a non-root user you might not be able to perform writing operations on files created under the root user. In this case, run `chown -R 1000:1000 <directory>` to change the ownership of the directory containing these files.
 
-Windows container:  
+#### Alternative Tomcat configuration
+
+TeamCity has Tomcat J2EE server under the hood, and if you need to provide an alternative configuration for the TomCat, you can use extra parameter
+```
+-v /alternative/path/to/conf:/opt/teamcity/conf 
+```  
+
+To get a sample of the current contents of the Tomcat's `conf` directory, use the [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) command.
+
+### Windows container  
 ```
 docker run -it --name teamcity-server-instance
     -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
@@ -33,12 +51,10 @@ docker run -it --name teamcity-server-instance
     -p <port-on-host>:8111
     jetbrains/teamcity-server
 ```  
-&nbsp;
-where
 
- - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://www.jetbrains.com/help/teamcity/teamcity-data-directory.html) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
- - **\<path-to-logs-directory>** is the host machine directory to store the TeamCity server logs. The mapping can be omitted, but then the logs will be lost on container shutdown which will make issues investigation impossible.
+See above for **\<path-to-data-directory>** and **\<path-to-logs-directory>** description.  
 
+The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
 
 ### Database
 
@@ -50,10 +66,6 @@ To use the server for production, make sure to review and apply the [recommendat
 ### Build agents
 
 You will need at least one TeamCity agent to run builds. Check the [`jetbrains/teamcity-agent`](https://hub.docker.com/r/jetbrains/teamcity-agent/) and [`jetbrains/teamcity-minimal-agent`](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/) images.
-
-### Windows Containers Limitations
-
-The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
 
 ## Additional Commands
 
