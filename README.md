@@ -28,3 +28,12 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get).
 - Unpack this file into the directory _context/TeamCity_ within the cloned repository.
 - Run docker build commands like [on this page](context/generated/teamcity-minimal-agent.md) keeping the proposed order from the root directory of the cloned repository. The proposed order is important because some TeamCity images may be based on other TeamCity images.
+
+### Contribution
+
+- Ensure [Docker](https://www.docker.com/get-started) installed.
+- Fork this repository.
+- Apply required changes in the directory _configs_.
+- Check the docker build running the _build.sh_ or _build.cmd_ script.
+- Generate docker and readme files running the _generate.sh_ or _generate.cmd_ script. All generated artifacts are placed into directory _context/generated_.
+- Create a pull reuest.
