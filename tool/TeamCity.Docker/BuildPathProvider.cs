@@ -15,7 +15,11 @@ namespace TeamCity.Docker
             if (buildGraph == null) throw new ArgumentNullException(nameof(buildGraph));
 
             var path = new List<INode<IArtifact>>();
-            var leaves = buildGraph.Nodes.Except(buildGraph.Links.Select(i => i.To)).ToList();
+            var leaves = buildGraph.Nodes
+                .Except(buildGraph.Links.Select(i => i.To))
+                .Where(i => i.Value is Image)
+                .OrderBy(i => ((Image)i.Value).File);
+
             foreach (var leaf in leaves)
             {
                 path.AddRange(GetPathInternal(buildGraph, leaf));
