@@ -1,4 +1,4 @@
-## [<img src="https://cdn.worldvectorlogo.com/logos/teamcity.svg" height="20" align="center"/>](https://www.jetbrains.com/teamcity/) Server - Powerful Continuous Integration and Continuous Delivery out of the box
+## TeamCity Server - Powerful Continuous Integration and Continuous Delivery out of the box
 
 [<img src="http://jb.gg/badges/official.svg" height="20"/>](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
@@ -57,7 +57,7 @@ The details on the known problems in Windows containers are available in the [Te
 
 ## Additional Commands
 
-When you need to pass additional environment variables to the server process, use the regular `-e` option. e.g. to pass TEAMCITY_SERVER_MEM_OPTS environment variable, use:
+When you need to pass additional environment variables to the server process, use the regular `-e` option. For example, to pass TEAMCITY_SERVER_MEM_OPTS environment variable, use:
 
 ```
 docker run -it --name teamcity-server-instance   \
@@ -81,7 +81,7 @@ docker run -it --name teamcity-server-instance  \
 
 Be sure to keep all the local system paths the same with the main server start command.
 
-To change the context of the TeamCity app inside TomCat container, pass `-e TEAMCITY_CONTEXT=/context` to `docker run` command. The default one is `ROOT`, meaning that the server would be available at `http://host/` 
+To change the context of the TeamCity app inside a Tomcat container, pass `-e TEAMCITY_CONTEXT=/context` to the `docker run` command. The default one is `ROOT`, meaning that the server would be available at `http://host/`.
 
 ## Upgrading TeamCity
 
