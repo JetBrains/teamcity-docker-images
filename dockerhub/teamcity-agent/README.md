@@ -71,7 +71,12 @@ You can use other than `/opt/buildagent/` source path prefix on the host machine
 
 ### Running Builds Which Require Docker
 
-In a Linux container, if you need a Docker daemon available inside your builds, you have two run options. Regardless of the selected option, the container must be run under the root user (`-u 0`).
+In a Linux container, if you need a Docker daemon available inside your builds, you have two options. 
+Regardless of the selected option, the container must be run under the root user (`-u 0`).
+
+Please note, that both of these options require extra trust to your builds, as a build may get
+**root access** to the machine where the build is running. 
+Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html).  
 
 1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build may actually harm your host Docker, so use it at your own risk) 
 
@@ -96,7 +101,7 @@ If you omit these options, you can run several build agents (but you need to spe
 The problem is, that multiple agent containers would use the same (/opt/buildagent/\*) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
 
 
-2) New Docker daemon running within your container (note that in this case the container should be run with **—privileged** flag)
+2) New Docker daemon running within your container (note that in this case the container should be run with **—-privileged** flag, which is also risky from the security perspective)
 ```
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \
     -u 0 \
