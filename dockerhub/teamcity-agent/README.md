@@ -74,8 +74,8 @@ You can use other than `/opt/buildagent/` source path prefix on the host machine
 In a Linux container, if you need a Docker daemon available inside your builds, you have two options. 
 Regardless of the selected option, the container must be run under the root user (`-u 0`).
 
-Please note, that both of these options require extra trust to your builds, as a build may get
-**root access** to the machine where the build is running. 
+**NOTE:** both of these options require extra trust to your builds, as a build may get
+**root access** to the host where the teamcity agent container is running. 
 Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html).  
 
 1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build may actually harm your host Docker, so use it at your own risk) 
