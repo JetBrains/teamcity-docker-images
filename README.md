@@ -36,7 +36,9 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.
 - Fork this repository.
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get).
+- Unpack this file into the directory _context/TeamCity_ within the cloned repository.
 - Apply required changes in the directory _configs_.
-- Check the docker build running the _build.sh_ or _build.cmd_ script.
-- Generate docker and readme files running the _generate.sh_ or _generate.cmd_ script. All generated artifacts are placed into directory _context/generated_.
-- Create a pull reuest.
+- Check the docker build by running the _build.sh_ or _build.cmd_ script.
+- Generate docker and readme files by running the _generate.sh_ or _generate.cmd_ script. All generated artifacts will be placed into the directory _context/generated_.
+- Create a pull request.
