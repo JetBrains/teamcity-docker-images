@@ -34,10 +34,8 @@ docker run -it -e SERVER_URL="<url to TeamCity server>"
     -v <path to agent config folder>:C:/BuildAgent/conf      
     jetbrains/teamcity-minimal-agent
 ```
-&nbsp;
-where
-**<url to TeamCity server>** is the full URL for TeamCity server, accessible by the agent. Note that "localhost" will not generally not work as it will refer to the "localhost" inside the container.
-**<path to agent config folder>** is the host machine directory to serve as the TeamCity agent config directory. We recommend providing this binding in order to persist the agent configuration, e.g. authorization on the server. Note that you should map a different folder for every new agent you create.
+where `<url to TeamCity server>` is the full URL for TeamCity server, accessible by the agent. Note that `localhost` will not generally not work as it will refer to the `localhost` inside the container.
+`<path to agent config folder>` is the host machine directory to serve as the TeamCity agent config directory. We recommend providing this binding in order to persist the agent configuration, e.g. authorization on the server. Note that you should map a different folder for every new agent you create.
     
 Since version 2020.1, TeamCity agent Docker images __run under a non-root user__. Refer to our [upgrade notes](https://www.jetbrains.com/help/teamcity/upgrade-notes.html#UpgradeNotes-AgentDockerimagesrunundernon-rootuser) for information on possible affected use cases.
 
