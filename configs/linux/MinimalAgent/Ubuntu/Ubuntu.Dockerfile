@@ -65,14 +65,14 @@ RUN apt-get update && \
     sed -i -e 's/\r$//' /run-services.sh
 
 RUN mkdir -p /data/teamcity_agent/conf \
+    && chown -R buildagent:buildagent /data/teamcity_agent \
     && mkdir -p /opt/buildagent/work \
     && mkdir -p /opt/buildagent/system \
     && mkdir -p /opt/buildagent/temp \
     && mkdir -p /opt/buildagent/plugins \
-    && rm -Rf /opt/buildagent/plugins/* \
     && mkdir -p /opt/buildagent/logs \
     && mkdir -p /opt/buildagent/tools \
-    && chown -R buildagent:buildagent /data/teamcity_agent/ \
+    && rm -Rf /opt/buildagent/plugins/* \
     && chown -R buildagent:buildagent /opt/buildagent \
     && chown buildagent:buildagent /run-agent.sh \
     && chown buildagent:buildagent /run-services.sh \

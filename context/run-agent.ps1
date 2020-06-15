@@ -46,7 +46,7 @@ function reconfigure() {
 
 function prepare_conf() {
     Write-Host "Will prepare agent configuration"
-    Get-ChildItem "${agentDist}/conf_dist" -Recurse | ForEach-Object {
+    Get-ChildItem "${agentDist}/conf" -Recurse | ForEach-Object {
         if ($_.Name -eq "buildAgent.dist.properties") {
             Move-Item $_.FullName "${configDir}/buildAgent.properties" -Force
         } else {

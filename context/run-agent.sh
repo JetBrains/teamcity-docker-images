@@ -36,7 +36,7 @@ reconfigure() {
 
 prepare_conf() {
     echo "Will prepare agent config" ;
-    cp -p ${AGENT_DIST}/conf_dist/*.* ${CONFIG_DIR}/; check
+    cp -p ${AGENT_DIST}/conf/*.* ${CONFIG_DIR}/; check
     cp -p ${CONFIG_DIR}/buildAgent.dist.properties ${CONFIG_DIR}/buildAgent.properties; check
     reconfigure
     echo "File buildAgent.properties was created and updated" ;
