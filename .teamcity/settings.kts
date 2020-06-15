@@ -1112,22 +1112,18 @@ dependencies {
 snapshot(AbsoluteId("TC2019_2_BuildDist"))
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC2019_2_BuildDist_18_04_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC2019_2_BuildDist_latest_nanoserver_1809)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC2019_2_BuildDist_latest_nanoserver_1903)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 }
 })
@@ -1139,22 +1135,18 @@ dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDist"))
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC_Trunk_BuildDist_18_04_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC_Trunk_BuildDist_latest_nanoserver_1809)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 snapshot(TC_Trunk_BuildDist_latest_nanoserver_1903)
 {
 onDependencyFailure = FailureAction.IGNORE
-reuseBuilds = ReuseBuilds.NO
 }
 }
 })
