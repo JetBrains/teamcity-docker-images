@@ -57,7 +57,7 @@ namespace TeamCity.Docker
                 foreach (var groupByFile in groupByImage)
                 {
                     var dockerFile = groupByFile.Key;
-                    lines.Add($"- [{GetReadmeTagName(dockerFile)}](#{GetTagLink(dockerFile)})");
+                    lines.Add($"- [latest-{GetReadmeTagName(dockerFile)}](#{GetTagLink(dockerFile)})");
                 }
 
                 lines.Add(string.Empty);

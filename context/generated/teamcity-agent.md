@@ -1,15 +1,15 @@
 ### Tags
 
-- [18.04, linux](#1804-linux)
-- [18.04-sudo](#1804-sudo)
-- [latest-nanoserver-1809](#latest-nanoserver-1809)
-- [latest-nanoserver-1903](#latest-nanoserver-1903)
-- [latest-windowsservercore-1809](#latest-windowsservercore-1809)
-- [latest-windowsservercore-1903](#latest-windowsservercore-1903)
-- [latest-nanoserver-1803](#latest-nanoserver-1803)
-- [latest-nanoserver-1909](#latest-nanoserver-1909)
-- [latest-windowsservercore-1803](#latest-windowsservercore-1803)
-- [latest-windowsservercore-1909](#latest-windowsservercore-1909)
+- [latest-18.04, linux](#1804-linux)
+- [latest-18.04-sudo](#1804-sudo)
+- [latest-nanoserver-1809](#nanoserver-1809)
+- [latest-nanoserver-1903](#nanoserver-1903)
+- [latest-windowsservercore-1809](#windowsservercore-1809)
+- [latest-windowsservercore-1903](#windowsservercore-1903)
+- [latest-nanoserver-1803](#nanoserver-1803)
+- [latest-nanoserver-1909](#nanoserver-1909)
+- [latest-windowsservercore-1803](#windowsservercore-1803)
+- [latest-windowsservercore-1909](#windowsservercore-1909)
 
 ### 18.04, linux
 
@@ -82,7 +82,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### latest-nanoserver-1809
+### nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
@@ -102,15 +102,15 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:latest-nanoserver-1809
+docker pull jetbrains//teamcity-agent:nanoserver-1809
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:latest-windowsservercore-1809 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:latest-nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:windowsservercore-1809 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:nanoserver-1809 "context"
 ```
 
 Base images:
@@ -122,7 +122,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### latest-nanoserver-1903
+### nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
@@ -142,15 +142,15 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:latest-nanoserver-1903
+docker pull jetbrains//teamcity-agent:nanoserver-1903
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:latest-windowsservercore-1903 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:latest-nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:windowsservercore-1903 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:nanoserver-1903 "context"
 ```
 
 Base images:
@@ -162,7 +162,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### latest-windowsservercore-1809
+### windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
@@ -184,14 +184,14 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:latest-windowsservercore-1809
+docker pull jetbrains//teamcity-agent:windowsservercore-1809
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:latest-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:windowsservercore-1809 "context"
 ```
 
 Base images:
@@ -203,7 +203,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### latest-windowsservercore-1903
+### windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
@@ -225,14 +225,14 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:latest-windowsservercore-1903
+docker pull jetbrains//teamcity-agent:windowsservercore-1903
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:latest-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:windowsservercore-1903 "context"
 ```
 
 Base images:
@@ -244,7 +244,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### latest-nanoserver-1803
+### nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
 
@@ -261,9 +261,9 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:latest-windowsservercore-1803 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:latest-nanoserver-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:windowsservercore-1803 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:nanoserver-1803 "context"
 ```
 
 Base images:
@@ -274,7 +274,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### latest-nanoserver-1909
+### nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
 
@@ -291,9 +291,9 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:latest-windowsservercore-1909 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:latest-nanoserver-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:windowsservercore-1909 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:nanoserver-1909 "context"
 ```
 
 Base images:
@@ -305,7 +305,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### latest-windowsservercore-1803
+### windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
 
@@ -324,8 +324,8 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:latest-windowsservercore-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:windowsservercore-1803 "context"
 ```
 
 Base images:
@@ -336,7 +336,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
 _The required free space to generate image(s) is about **23 GB**._
-### latest-windowsservercore-1909
+### windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
 
@@ -355,8 +355,8 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:latest-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:latest-windowsservercore-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:windowsservercore-1909 "context"
 ```
 
 Base images:

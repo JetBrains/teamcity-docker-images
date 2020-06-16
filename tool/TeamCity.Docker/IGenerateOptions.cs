@@ -9,8 +9,11 @@ namespace TeamCity.Docker
 
         [NotNull] string TeamCityDslPath { get; }
 
-        [NotNull] IEnumerable<string> TeamCityBuildConfigurationIds { get; }
+        [NotNull] string TeamCityBuildConfigurationId { get; }
 
         [NotNull] string TeamCityDockerRegistryId { get; }
+
+        [NotNull] IEnumerable<string> TagPrefixes { get; }
+
     }
 }

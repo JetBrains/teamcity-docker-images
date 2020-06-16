@@ -26,8 +26,8 @@ namespace TeamCity.Docker
         [Option('d', "dsl", Required = false, HelpText = "Path to directory for teamcity DSL script settings.kts.")]
         public string TeamCityDslPath { get; set; } = string.Empty;
 
-        [Option('b', "builds", Separator = ';', Required = false, HelpText = "Semicolon separated TeamCity build configuration ids.")]
-        public IEnumerable<string> TeamCityBuildConfigurationIds { get; set; } = Enumerable.Empty<string>();
+        [Option('b', "build", Required = false, HelpText = "TeamCity build configuration id.")]
+        public string TeamCityBuildConfigurationId { get; set; } = string.Empty;
 
         [Option('r', "registry", Required = false, HelpText = "TeamCity docker registry id.")]
         public string TeamCityDockerRegistryId { get; set; } = string.Empty;
@@ -36,5 +36,9 @@ namespace TeamCity.Docker
 
         [Option('v', "verbose", Required = false, HelpText = "Add it for detailed output.")]
         public bool VerboseMode { get; set; } = false;
+
+        [Option('p', "prefixes", Separator = ';', Required = false, HelpText = "Semicolon separated tag prefixes.")]
+        public IEnumerable<string> TagPrefixes { get; set; } = Enumerable.Empty<string>();
+
     }
 }

@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE log4j:configuration SYSTEM "./log4j.dtd">
+<!--
+To enable debug logging remove XML comments in the lines below that are marked with "DELETE THIS LINE FOR ENABLING DEBUG LOGGING" text.
+The file can be modified without application restart, but some changes can still require restart to take effect.
+
+You might also need to increase the number of files to store to prevent logs from quick rotation
+   <param name="maxBackupIndex" value="20"/>
+-->
+
+<log4j:configuration>
+  <appender name="CONSOLE-INFO" class="org.apache.log4j.ConsoleAppender">
+    <param name="target" value="System.out"/>
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMax" value="INFO"/>
+    </filter>
+  </appender>
+
+  <appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+    <param name="target" value="System.err"/>
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="WARN"/>
+    </filter>
+  </appender>
+
+  <appender name="ROLL" class="jetbrains.buildServer.util.TCRollingFileAppender">
+    <param name="file" value="${teamcity_logs}/teamcity-agent.log"/>
+    <param name="maxBackupIndex" value="3"/>
+    <!--REPLACE PREVIOUS LINE WITH UNCOMMENTED LINE TO STORE MORE LOGS-->
+    <!-- <param name="maxBackupIndex" value="20"/> -->
+
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+
+    <filter class="jetbrains.buildServer.log.CategoryFilter">
+      <param name="DenyCategory" value="jetbrains.buildServer.VCS"/>
+    </filter>
+
+    <filter class="jetbrains.buildServer.log.CategoryFilter">
+      <param name="DenyCategory" value="javasvn.output"/>
+    </filter>
+
+    <filter class="jetbrains.buildServer.log.CategoryFilter">
+      <param name="DenyCategory" value="jetbrains.buildServer.plugins.spring.SpringPluginLoader$TeamCityPlugin*"/>
+      <param name="MaxDenyLevel" value="INFO"/>
+    </filter>
+  </appender>
+
+
+  <appender name="SVN.LOG" class="jetbrains.buildServer.util.TCRollingFileAppender">
+    <param name="file" value="${teamcity_logs}/teamcity-svn.log"/>
+
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="ROLL.VCS" class="jetbrains.buildServer.util.TCRollingFileAppender">
+    <param name="file" value="${teamcity_logs}/teamcity-vcs.log"/>
+    <param name="maxBackupIndex" value="2"/>
+    <!--REPLACE PREVIOUS LINE WITH UNCOMMENTED LINE TO STORE MORE LOGS-->
+    <!-- <param name="maxBackupIndex" value="20"/> -->
+
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="DEBUG"/>
+    </filter>
+  </appender>
+
+  <appender name="ROLL.XMLRPC" class="jetbrains.buildServer.util.TCRollingFileAppender">
+    <param name="file" value="${teamcity_logs}/teamcity-xmlrpc.log"/>
+    <param name="maxBackupIndex" value="3"/>
+    <!--REPLACE PREVIOUS LINE WITH UNCOMMENTED LINE TO STORE MORE LOGS-->
+    <!-- <param name="maxBackupIndex" value="20"/> -->
+
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %30.30c - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="ROLL.BUILD" class="jetbrains.buildServer.util.TCRollingFileAppender">
+    <param name="file" value="${teamcity_logs}/teamcity-build.log"/>
+    <param name="maxBackupIndex" value="1"/>
+    <!--REPLACE PREVIOUS LINE WITH UNCOMMENTED LINE TO STORE MORE LOGS-->
+    <!-- <param name="maxBackupIndex" value="20"/> -->
+
+    <layout class="jetbrains.buildServer.log.MessagesFilterLayout">
+      <param name="ConversionPattern" value="[%d] %6p - %m%n"/>
+    </layout>
+  </appender>
+
+  <!--================================================================-->
+
+  <category name="jetbrains.buildServer.VCS">
+    <priority value="INFO"/>
+    <appender-ref ref="ROLL.VCS"/>
+  </category>
+
+  <category name="jetbrains.buildServer">
+    <!--DELETE THIS LINE FOR ENABLING DEBUG LOGGING--> <!--
+    <priority value="DEBUG"/>
+--> <!--DELETE THIS LINE FOR ENABLING DEBUG LOGGING-->
+    <appender-ref ref="ROLL"/>
+  </category>
+
+  <category name="jetbrains.buildServer.AGENT.registration">
+    <appender-ref ref="CONSOLE-INFO"/>
+  </category>
+
+  <category name="teamcity.out" additivity="false">
+    <appender-ref ref="ROLL.BUILD"/>
+  </category>
+
+  <category name="teamcity.err" additivity="false">
+    <appender-ref ref="ROLL.BUILD"/>
+  </category>
+
+  <category name="jetbrains.buildServer.XMLRPC">
+    <!--<priority value="DEBUG"/>-->
+    <appender-ref ref="ROLL.XMLRPC"/>
+  </category>
+
+  <category name="javasvn.output">
+    <!--<priority value="DEBUG"/>-->
+    <appender-ref ref="SVN.LOG"/>
+  </category>
+
+  <category name="httpclient.wire.header" additivity="false">
+    <priority value="ERROR"/>
+    <appender-ref ref="ROLL"/>
+  </category>
+
+  <category name="httpclient.wire.content" additivity="false">
+    <priority value="ERROR"/>
+    <appender-ref ref="ROLL"/>
+  </category>
+
+  <category name="org.apache.commons.httpclient" additivity="false">
+    <priority value="ERROR"/>
+    <appender-ref ref="ROLL"/>
+  </category>
+
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="CONSOLE-WARN"/>
+  </root>
+
+</log4j:configuration>

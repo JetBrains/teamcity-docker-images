@@ -6,6 +6,7 @@
 # Platform ${linuxPlatform}
 # Repo ${repo}
 # Weight 1
+# HasManifest false
 
 ## ${agentCommentHeader}
 
