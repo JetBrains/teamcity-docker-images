@@ -28,7 +28,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.
 - Clone this repository.
-- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get).
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.1.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory _context/TeamCity_ within the cloned repository.
 - Run docker build commands like [on this page](context/generated/teamcity-minimal-agent.md) keeping the proposed order from the root directory of the cloned repository. The proposed order is important because some TeamCity images may be based on other TeamCity images.
 
@@ -36,7 +36,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.
 - Fork this repository.
-- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get).
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.1.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory _context/TeamCity_ within the cloned repository.
 - Apply required changes in the directory _configs_.
 - Check the docker build by running the _build.sh_ or _build.cmd_ script.
