@@ -1,17 +1,17 @@
 ### Tags
 
-- [latest-18.04, linux](#1804-linux)
-- [latest-18.04-sudo](#1804-sudo)
-- [latest-nanoserver-1809](#nanoserver-1809)
-- [latest-nanoserver-1903](#nanoserver-1903)
-- [latest-windowsservercore-1809](#windowsservercore-1809)
-- [latest-windowsservercore-1903](#windowsservercore-1903)
-- [latest-nanoserver-1803](#nanoserver-1803)
-- [latest-nanoserver-1909](#nanoserver-1909)
-- [latest-windowsservercore-1803](#windowsservercore-1803)
-- [latest-windowsservercore-1909](#windowsservercore-1909)
+- [latest-18.04, 2020.1-18.04, eap-18.04, latest-linux, 2020.1-linux, eap-linux](#latest-1804-20201-1804-eap-1804-latest-linux-20201-linux-eap-linux)
+- [latest-18.04-sudo, 2020.1-18.04-sudo, eap-18.04-sudo](#latest-1804-sudo-20201-1804-sudo-eap-1804-sudo)
+- [latest-nanoserver-1809, 2020.1-nanoserver-1809, eap-nanoserver-1809](#latest-nanoserver-1809-20201-nanoserver-1809-eap-nanoserver-1809)
+- [latest-nanoserver-1903, 2020.1-nanoserver-1903, eap-nanoserver-1903](#latest-nanoserver-1903-20201-nanoserver-1903-eap-nanoserver-1903)
+- [latest-windowsservercore-1809, 2020.1-windowsservercore-1809, eap-windowsservercore-1809](#latest-windowsservercore-1809-20201-windowsservercore-1809-eap-windowsservercore-1809)
+- [latest-windowsservercore-1903, 2020.1-windowsservercore-1903, eap-windowsservercore-1903](#latest-windowsservercore-1903-20201-windowsservercore-1903-eap-windowsservercore-1903)
+- [latest-nanoserver-1803, 2020.1-nanoserver-1803, eap-nanoserver-1803](#latest-nanoserver-1803-20201-nanoserver-1803-eap-nanoserver-1803)
+- [latest-nanoserver-1909, 2020.1-nanoserver-1909, eap-nanoserver-1909](#latest-nanoserver-1909-20201-nanoserver-1909-eap-nanoserver-1909)
+- [latest-windowsservercore-1803, 2020.1-windowsservercore-1803, eap-windowsservercore-1803](#latest-windowsservercore-1803-20201-windowsservercore-1803-eap-windowsservercore-1803)
+- [latest-windowsservercore-1909, 2020.1-windowsservercore-1909, eap-windowsservercore-1909](#latest-windowsservercore-1909-20201-windowsservercore-1909-eap-windowsservercore-1909)
 
-### 18.04, linux
+### latest-18.04, 2020.1-18.04, eap-18.04, latest-linux, 2020.1-linux, eap-linux
 
 [Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
 
@@ -49,7 +49,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
-### 18.04-sudo
+### latest-18.04-sudo, 2020.1-18.04-sudo, eap-18.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -82,7 +82,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### nanoserver-1809
+### latest-nanoserver-1809, 2020.1-nanoserver-1809, eap-nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
@@ -122,7 +122,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### nanoserver-1903
+### latest-nanoserver-1903, 2020.1-nanoserver-1903, eap-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
@@ -162,7 +162,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### windowsservercore-1809
+### latest-windowsservercore-1809, 2020.1-windowsservercore-1809, eap-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
@@ -203,7 +203,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### windowsservercore-1903
+### latest-windowsservercore-1903, 2020.1-windowsservercore-1903, eap-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
@@ -244,7 +244,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### nanoserver-1803
+### latest-nanoserver-1803, 2020.1-nanoserver-1803, eap-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
 
@@ -274,7 +274,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
 _The required free space to generate image(s) is about **24 GB**._
-### nanoserver-1909
+### latest-nanoserver-1909, 2020.1-nanoserver-1909, eap-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
 
@@ -305,7 +305,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 ```
 
 _The required free space to generate image(s) is about **25 GB**._
-### windowsservercore-1803
+### latest-windowsservercore-1803, 2020.1-windowsservercore-1803, eap-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
 
@@ -336,7 +336,7 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
 _The required free space to generate image(s) is about **23 GB**._
-### windowsservercore-1909
+### latest-windowsservercore-1909, 2020.1-windowsservercore-1909, eap-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
 
