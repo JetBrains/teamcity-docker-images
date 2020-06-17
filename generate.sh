@@ -1,4 +1,4 @@
 #!/bin/bash
 bash tool/build-tool.sh
 rm -rf "context/generated"
-bin/TeamCity.Docker generate -s configs -f "configs/common.config;configs/windows.config;configs/linux.config" -c context -t context/generated -d .teamcity -b TC_Trunk_BuildDist -r PROJECT_EXT_2307
+bin/TeamCity.Docker generate -s configs -f "configs/common.config;configs/windows.config;configs/linux.config" -c context -t context/generated -d .teamcity -b TC_Trunk_BuildDist -p "latest;2020.1;eap" -r PROJECT_EXT_2307
