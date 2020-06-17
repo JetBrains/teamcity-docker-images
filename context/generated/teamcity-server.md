@@ -1,10 +1,16 @@
 ### Tags
 
-- [latest-18.04, 2020.1-18.04, eap-18.04, latest-linux, 2020.1-linux, eap-linux](#latest-1804-20201-1804-eap-1804-latest-linux-20201-linux-eap-linux)
-- [latest-nanoserver-1809, 2020.1-nanoserver-1809, eap-nanoserver-1809](#latest-nanoserver-1809-20201-nanoserver-1809-eap-nanoserver-1809)
-- [latest-nanoserver-1903, 2020.1-nanoserver-1903, eap-nanoserver-1903](#latest-nanoserver-1903-20201-nanoserver-1903-eap-nanoserver-1903)
-- [latest-nanoserver-1803, 2020.1-nanoserver-1803, eap-nanoserver-1803](#latest-nanoserver-1803-20201-nanoserver-1803-eap-nanoserver-1803)
-- [latest-nanoserver-1909, 2020.1-nanoserver-1909, eap-nanoserver-1909](#latest-nanoserver-1909-20201-nanoserver-1909-eap-nanoserver-1909)
+- multi-arch
+  - 2020.1
+  - eap
+  - latest
+- linux
+  - [latest-18.04, 2020.1-18.04, eap-18.04, latest-linux, 2020.1-linux, eap-linux](#latest-1804-20201-1804-eap-1804-latest-linux-20201-linux-eap-linux)
+- windows
+  - [latest-nanoserver-1809, 2020.1-nanoserver-1809, eap-nanoserver-1809](#latest-nanoserver-1809-20201-nanoserver-1809-eap-nanoserver-1809)
+  - [latest-nanoserver-1903, 2020.1-nanoserver-1903, eap-nanoserver-1903](#latest-nanoserver-1903-20201-nanoserver-1903-eap-nanoserver-1903)
+  - [latest-nanoserver-1803, 2020.1-nanoserver-1803, eap-nanoserver-1803](#latest-nanoserver-1803-20201-nanoserver-1803-eap-nanoserver-1803)
+  - [latest-nanoserver-1909, 2020.1-nanoserver-1909, eap-nanoserver-1909](#latest-nanoserver-1909-20201-nanoserver-1909-eap-nanoserver-1909)
 
 ### latest-18.04, 2020.1-18.04, eap-18.04, latest-linux, 2020.1-linux, eap-linux
 

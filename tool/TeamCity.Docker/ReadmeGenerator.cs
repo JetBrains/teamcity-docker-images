@@ -54,10 +54,24 @@ namespace TeamCity.Docker
                 lines.Add("### Tags");
                 lines.Add(string.Empty);
 
-                foreach (var groupByFile in groupByImage)
+                lines.Add("- multi-arch");
+                foreach (var tagPrefix in _options.TagPrefixes.OrderBy(i => i))
                 {
-                    var dockerFile = groupByFile.Key;
-                    lines.Add($"- [{GetReadmeTagName(dockerFile)}](#{GetTagLink(dockerFile)})");
+                    lines.Add($"  - {tagPrefix}");
+                }
+
+                var dockerfilesByPlatform =
+                    from image in groupByImage
+                    orderby image.Key
+                    group image.Key by image.Key.Platform;
+
+                foreach (var dockerfileByPlatform in dockerfilesByPlatform)
+                {
+                    lines.Add($"- {dockerfileByPlatform.Key}");
+                    foreach (var dockerfile in dockerfileByPlatform)
+                    {
+                        lines.Add($"  - [{GetReadmeTagName(dockerfile)}](#{GetTagLink(dockerfile)})");
+                    }
                 }
 
                 lines.Add(string.Empty);
