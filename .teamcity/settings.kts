@@ -324,7 +324,6 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-
 object TC_Trunk_BuildDistTarGzWar_nanoserver_1809 : BuildType({
 name = "Build nanoserver-1809"
 description  = "teamcity-server:nanoserver-1809 teamcity-minimal-agent:nanoserver-1809 teamcity-agent:windowsservercore-1809:nanoserver-1809"
@@ -575,7 +574,6 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-
 object TC_Trunk_BuildDistTarGzWar_nanoserver_1903 : BuildType({
 name = "Build nanoserver-1903"
 description  = "teamcity-server:nanoserver-1903 teamcity-minimal-agent:nanoserver-1903 teamcity-agent:windowsservercore-1903:nanoserver-1903"
@@ -825,7 +823,6 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 }
 })
-
 
 object TC_Trunk_BuildDistTarGzWar_latest_publish: BuildType(
 {

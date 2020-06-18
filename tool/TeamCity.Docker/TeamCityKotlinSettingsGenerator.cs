@@ -61,14 +61,11 @@ namespace TeamCity.Docker
             lines.Add("version = \"2019.2\"");
             lines.Add(string.Empty);
 
-            var buildTypes = new List<string>();
             var buildGraphResult = _buildGraphsFactory.Create(graph);
             if (buildGraphResult.State == Result.Error)
             {
                 return;
             }
-
-            var tagPrefixes = _options.TagPrefixes.ToList();
 
             var counter = 0;
             var names = new HashSet<string>();
@@ -82,8 +79,10 @@ namespace TeamCity.Docker
                 select new { graph = buildGraph, name, weight })
                 .ToList();
 
+            var buildBuildTypes = new List<string>();
             foreach (var buildGraph in buildGraphs)
             {
+                // build build config
                 var name = buildGraph.name;
                 if (string.IsNullOrWhiteSpace(name))
                 {
@@ -95,136 +94,133 @@ namespace TeamCity.Docker
                     name = $"{name} {++counter}";
                 }
 
-                var id = "_" + name.Replace(' ', '_').Replace('-', '_').Replace('.', '_');
-                lines.AddRange(GenerateBuildType(id, name, tagPrefixes, buildGraph.graph, buildGraph.weight));
-
-                buildTypes.Add(id);
-                lines.Add(string.Empty);
+                var buildTypeId = $"{buildId}_{NormalizeName(name)}";
+                buildBuildTypes.Add(buildTypeId);
+                lines.AddRange(GenerateBuildType(buildTypeId, name, _options.TagPrefixes.ToList(), buildGraph.graph, buildGraph.weight));
+                // build build config
             }
 
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
 
-            var groupedByImageId = allImages
-                .Where(i => i.File.HasManifest)
-                .GroupBy(i => i.File.ImageId)
-                .ToList();
-
-            foreach (var tagPrefix in tagPrefixes)
+            var rootBuildTypes = new List<string>();
+            foreach (var tagPrefix in _options.TagPrefixes)
             {
-                lines.Add($"object {buildId}_{NormalizeName(tagPrefix)}_publish: BuildType(");
-                lines.Add("{");
-                lines.Add($"name = \"Publish {tagPrefix}\"");
-
-                lines.Add("steps {");
-                foreach (var groupByImageId in groupedByImageId)
-                {
-                    var manifestName = $"{RepositoryName}{groupByImageId.Key}:{tagPrefix}";
-                    var createArgs = new List<string>
-                    {
-                        "create",
-                        "-a",
-                        manifestName
-                    };
-
-                    foreach (var image in groupByImageId)
-                    {
-                        var tag = image.File.Tags.FirstOrDefault() ?? "latest";
-                        createArgs.Add($"{manifestName}-{tag}");
-                    }
-
-                    lines.AddRange(CreateDockerCommand($"manifest create {groupByImageId.Key}", "manifest", createArgs));
-
-                    var pushArgs = new List<string>
-                    {
-                        "push",
-                        manifestName
-                    };
-
-                    lines.AddRange(CreateDockerCommand($"manifest push {groupByImageId.Key}", "manifest", pushArgs));
-
-                    var inspectArgs = new List<string>
-                    {
-                        "inspect",
-                        manifestName,
-                        "--verbose"
-                    };
-
-                    lines.AddRange(CreateDockerCommand($"manifest inspect {groupByImageId.Key}", "manifest", inspectArgs));
-                }
-                
-                lines.Add("}");
-
-                lines.Add("dependencies {");
-                lines.Add($"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))");
-                lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\n}");
-                foreach (var buildType in buildTypes)
-                {
-                    lines.Add($"snapshot({buildId}{buildType})");
-                    lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\n}");
-                }
-                lines.Add("}");
-
-                lines.Add("requirements {");
-                lines.Add($"noLessThanVer(\"docker.version\", \"{MinDockerVersion}\")");
-                lines.Add("equals(\"docker.server.osType\", \"windows\")");
-                lines.Add("}");
-
-                lines.Add("features {");
-                if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
-                {
-                    lines.Add("dockerSupport {");
-                    lines.Add("loginToRegistry = on {");
-                    lines.Add($"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"");
-                    lines.Add("}");
-                    lines.Add("}");
-                }
-                lines.Add("}");
-
-                lines.Add("})");
-
-                lines.Add(string.Empty);
+                // publish build config
+                var publishBuildTypeId = $"{buildId}_{NormalizeName(tagPrefix)}_publish";
+                rootBuildTypes.Add(publishBuildTypeId);
+                lines.AddRange(CreatePublishBuildConfiguration(publishBuildTypeId, tagPrefix, allImages, buildBuildTypes));
+                // publish build config
             }
 
+            // project
             lines.Add("project {");
             lines.Add("vcsRoot(RemoteTeamcityImages)");
-            foreach (var tagPrefix in tagPrefixes)
+            foreach (var buildType in rootBuildTypes.Concat(buildBuildTypes))
             {
-                lines.Add($"buildType({buildId}_{NormalizeName(tagPrefix)}_publish)");
+                lines.Add($"buildType({buildType})");
             }
-
-            foreach (var buildType in buildTypes)
-            {
-                lines.Add($"buildType({buildId}{buildType})");
-            }
-
-            lines.Add("}"); // project
+            lines.Add("}");
+            // project
 
             lines.Add(string.Empty);
 
+            // vcs
             lines.Add("object RemoteTeamcityImages : GitVcsRoot({");
             lines.Add("name = \"remote teamcity images\"");
             lines.Add("url = \"https://github.com/JetBrains/teamcity-docker-images.git\"");
             lines.Add("})");
+            // vcs
 
             graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
         }
 
-        private IEnumerable<string> CreateDockerCommand(string name, string command, IEnumerable<string> args)
+        private IEnumerable<string> CreatePublishBuildConfiguration(string buildTypeId, string tagPrefix, IEnumerable<Image> allImages, IEnumerable<string> buildBuildTypes)
         {
-            yield return "dockerCommand {";
-            yield return $"name = \"{name}\"";
-            yield return "commandType = other {";
-            yield return $"subCommand = \"{command}\"";
-            yield return $"commandArgs = \"{string.Join(" ", args)}\"";
+            var groupedByImageId = allImages
+                .Where(i => i.File.HasManifest)
+                .GroupBy(i => i.File.ImageId);
+
+            yield return $"object {buildTypeId}: BuildType(";
+            yield return "{";
+            yield return $"name = \"Publish {tagPrefix}\"";
+
+            yield return "steps {";
+            foreach (var groupByImageId in groupedByImageId)
+            {
+                var manifestName = $"{RepositoryName}{groupByImageId.Key}:{tagPrefix}";
+                var createArgs = new List<string>
+                {
+                    "create",
+                    "-a",
+                    manifestName
+                };
+
+                foreach (var image in groupByImageId)
+                {
+                    var tag = image.File.Tags.FirstOrDefault() ?? "latest";
+                    createArgs.Add($"{manifestName}-{tag}");
+                }
+
+                foreach (var line in CreateDockerCommand($"manifest create {groupByImageId.Key}", "manifest", createArgs))
+                {
+                    yield return line;
+                }
+
+                var pushArgs = new List<string>
+                {
+                    "push",
+                    manifestName
+                };
+
+                foreach (var line in CreateDockerCommand($"manifest push {groupByImageId.Key}", "manifest", pushArgs))
+                {
+                    yield return line;
+                }
+
+                var inspectArgs = new List<string>
+                {
+                    "inspect",
+                    manifestName,
+                    "--verbose"
+                };
+
+                foreach (var line in CreateDockerCommand($"manifest inspect {groupByImageId.Key}", "manifest", inspectArgs))
+                {
+                    yield return line;
+                }
+            }
+
             yield return "}";
+
+            foreach (var line in CreateSnapshotDependencies(buildBuildTypes))
+            {
+                yield return line;
+            }
+
+            yield return "requirements {";
+            yield return $"noLessThanVer(\"docker.version\", \"{MinDockerVersion}\")";
+            yield return "equals(\"docker.server.osType\", \"windows\")";
             yield return "}";
+
+            yield return "features {";
+            if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
+            {
+                foreach (var line in CreateDockerFeature())
+                {
+                    yield return line;
+                }
+            }
+
+            yield return "}";
+
+            yield return "})";
+            yield return string.Empty;
         }
 
-        private IEnumerable<string> GenerateBuildType(string id, string name, IReadOnlyCollection<string> tagPrefixes, IGraph<IArtifact, Dependency> buildGraph, int weight)
+        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IReadOnlyCollection<string> tagPrefixes, IGraph<IArtifact, Dependency> buildGraph, int weight)
         {
-            var buildId = NormalizeName(_options.TeamCityBuildConfigurationId);
             var path = _buildPathProvider.GetPath(buildGraph).ToList();
             var images = path.Select(i => i.Value).OfType<Image>().ToList();
             var refs = path.Select(i => i.Value).OfType<Reference>().ToList();
@@ -258,50 +254,22 @@ namespace TeamCity.Docker
                 }
             }
 
-            yield return $"object {buildId}{id} : BuildType({{";
+            yield return $"object {buildTypeId} : BuildType({{";
             yield return $"name = \"Build {name}\"";
             yield return $"description  = \"{description}\"";
             yield return "vcs {root(RemoteTeamcityImages)}";
             yield return "steps {";
 
             // docker pull
-            foreach (var refer in refs)
+            foreach (var pullCommand in refs.SelectMany(refer => CreatePullCommand(refer.RepoTag)))
             {
-                //refer.RepoTag
-                foreach (var pullCommand in CreatePullCommand(refer.RepoTag))
-                {
-                    yield return pullCommand;
-                }
+                yield return pullCommand;
             }
 
             // docker build
-            foreach (var image in images)
+            foreach (var buildCommand in images.SelectMany(CreateBuildCommand))
             {
-                var tags = image.File.Tags.Select(tag => tag).Distinct().ToArray();
-
-                yield return "dockerCommand {";
-                yield return $"name = \"build {image.File.ImageId}:{string.Join(",", tags)}\"";
-                yield return "commandType = build {";
-
-                yield return "source = file {";
-                yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
-                yield return "}";
-
-                yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-
-                yield return "namesAndTags = \"\"\"";
-                foreach (var tag in tags)
-                {
-                    yield return $"{image.File.ImageId}:{tag}";
-                }
-
-                yield return "\"\"\".trimIndent()";
-
-                yield return "}";
-                yield return $"param(\"dockerImage.platform\", \"{image.File.Platform}\")";
-                yield return "}";
-
-                yield return string.Empty;
+                yield return buildCommand;
             }
 
             // docker image tag
@@ -313,17 +281,10 @@ namespace TeamCity.Docker
                     {
                         foreach (var tag in image.File.Tags)
                         {
-                            yield return "dockerCommand {";
-                            yield return $"name = \"tag {image.File.ImageId}:{tagPrefix}-{tag}\"";
-                            yield return "commandType = other {";
-
-                            yield return "subCommand = \"tag\"";
-                            yield return $"commandArgs = \"{image.File.ImageId}:{tag} {RepositoryName}{image.File.ImageId}:{tagPrefix}-{tag}\"";
-
-                            yield return "}";
-                            yield return "}";
-
-                            yield return string.Empty;
+                            foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{RepositoryName}{image.File.ImageId}:{tagPrefix}-{tag}"))
+                            {
+                                yield return tagCommand;
+                            }
                         }
                     }
                 }
@@ -338,22 +299,10 @@ namespace TeamCity.Docker
                     select $"{tagPrefix}-{tag}")
                     .ToArray();
 
-                yield return "dockerCommand {";
-                yield return $"name = \"push {image.File.ImageId}:{string.Join(",", tags)}\"";
-                yield return "commandType = push {";
-
-                yield return "namesAndTags = \"\"\"";
-                foreach (var tag in tags)
+                foreach (var pushCommand in CreatePushCommand(image, tags))
                 {
-                    yield return $"{RepositoryName}{image.File.ImageId}:{tag}";
+                    yield return pushCommand;
                 }
-
-                yield return "\"\"\".trimIndent()";
-
-                yield return "}";
-                yield return "}";
-
-                yield return string.Empty;
             }
 
             yield return "}";
@@ -362,41 +311,153 @@ namespace TeamCity.Docker
 
             if (weight > 0)
             {
-                yield return "freeDiskSpace {";
-                yield return $"requiredSpace = \"{weight}gb\"";
-                yield return "failBuild = true";
-                yield return "}";
+                foreach (var feature in CreateFreeDiskSpaceFeature(weight))
+                {
+                    yield return feature;
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
             {
-                yield return "dockerSupport {";
-                yield return "loginToRegistry = on {";
-                yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
-                yield return "}";
-                yield return "}";
+                foreach (var feature in CreateDockerFeature())
+                {
+                    yield return feature;
+                }
             }
 
             // ReSharper disable once StringLiteralTypo
-            yield return "swabra {";
-            yield return "forceCleanCheckout = true";
-            yield return "}";
+            foreach (var feature in CreateSwabraFeature())
+            {
+                yield return feature;
+            }
 
             yield return "}";
 
             if (!string.IsNullOrWhiteSpace(_options.TeamCityBuildConfigurationId))
             {
-                yield return "dependencies {";
-                yield return $"dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
-                yield return "snapshot { onDependencyFailure = FailureAction.IGNORE }";
-                yield return "artifacts {";
-                yield return $"artifactRules = \"TeamCity-*.tar.gz!/**=>{_pathService.Normalize(_options.ContextPath)}\"";
-                yield return "}";
-                yield return "}";
-                yield return "}";
+                foreach (var dependencies in CreateArtifactsDependencies())
+                {
+                    yield return dependencies;
+                }
             }
 
             yield return "})";
+            yield return string.Empty;
+        }
+
+        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> buildTypes)
+        {
+            yield return "dependencies {";
+            yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
+            yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+            foreach (var buildTypeId in buildTypes)
+            {
+                yield return $"snapshot({buildTypeId})";
+                yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+            }
+
+            yield return "}";
+        }
+
+        private IEnumerable<string> CreateArtifactsDependencies()
+        {
+            yield return "dependencies {";
+            yield return $"dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
+            yield return "snapshot { onDependencyFailure = FailureAction.IGNORE }";
+            yield return "artifacts {";
+            yield return $"artifactRules = \"TeamCity-*.tar.gz!/**=>{_pathService.Normalize(_options.ContextPath)}\"";
+            yield return "}";
+            yield return "}";
+            yield return "}";
+        }
+
+        // ReSharper disable once IdentifierTypo
+        private static IEnumerable<string> CreateSwabraFeature()
+        {
+            // ReSharper disable once StringLiteralTypo
+            yield return "swabra {";
+            yield return "forceCleanCheckout = true";
+            yield return "}";
+        }
+
+        private IEnumerable<string> CreateDockerFeature()
+        {
+            yield return "dockerSupport {";
+            yield return "loginToRegistry = on {";
+            yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
+            yield return "}";
+            yield return "}";
+        }
+
+        private static IEnumerable<string> CreateFreeDiskSpaceFeature(int weight)
+        {
+            yield return "freeDiskSpace {";
+            yield return $"requiredSpace = \"{weight}gb\"";
+            yield return "failBuild = true";
+            yield return "}";
+        }
+
+        private IEnumerable<string> CreatePushCommand(Image image, string[] tags)
+        {
+            yield return "dockerCommand {";
+            yield return $"name = \"push {image.File.ImageId}:{string.Join(",", tags)}\"";
+            yield return "commandType = push {";
+
+            yield return "namesAndTags = \"\"\"";
+            foreach (var tag in tags)
+            {
+                yield return $"{RepositoryName}{image.File.ImageId}:{tag}";
+            }
+
+            yield return "\"\"\".trimIndent()";
+
+            yield return "}";
+            yield return "}";
+
+            yield return string.Empty;
+        }
+
+        private IEnumerable<string> CreateTagCommand(string imageName, string newImageName)
+        {
+            yield return "dockerCommand {";
+            yield return $"name = \"tag {newImageName.Replace(RepositoryName, string.Empty)}\"";
+            yield return "commandType = other {";
+
+            yield return "subCommand = \"tag\"";
+            yield return $"commandArgs = \"{imageName} {newImageName}\"";
+
+            yield return "}";
+            yield return "}";
+
+            yield return string.Empty;
+        }
+
+        private IEnumerable<string> CreateBuildCommand(Image image)
+        {
+            var tags = image.File.Tags.Select(tag => tag).Distinct().ToArray();
+
+            yield return "dockerCommand {";
+            yield return $"name = \"build {image.File.ImageId}:{string.Join(",", tags)}\"";
+            yield return "commandType = build {";
+
+            yield return "source = file {";
+            yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
+            yield return "}";
+
+            yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
+
+            yield return "namesAndTags = \"\"\"";
+            foreach (var tag in tags)
+            {
+                yield return $"{image.File.ImageId}:{tag}";
+            }
+
+            yield return "\"\"\".trimIndent()";
+
+            yield return "}";
+            yield return $"param(\"dockerImage.platform\", \"{image.File.Platform}\")";
+            yield return "}";
+
             yield return string.Empty;
         }
 
@@ -415,8 +476,21 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        private IEnumerable<string> CreateDockerCommand(string name, string command, IEnumerable<string> args)
+        {
+            yield return "dockerCommand {";
+            yield return $"name = \"{name}\"";
+            yield return "commandType = other {";
+            yield return $"subCommand = \"{command}\"";
+            yield return $"commandArgs = \"{string.Join(" ", args)}\"";
+            yield return "}";
+            yield return "}";
+        }
+
         private static string NormalizeName(string name) =>
             name
+                .Replace(' ', '_')
+                .Replace('-', '_')
                 .Replace("%", "")
                 .Replace(".", "_");
     }
