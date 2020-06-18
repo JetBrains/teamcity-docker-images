@@ -268,17 +268,10 @@ namespace TeamCity.Docker
             foreach (var refer in refs)
             {
                 //refer.RepoTag
-                yield return "dockerCommand {";
-                yield return $"name = \"pull {refer.RepoTag}\"";
-                yield return "commandType = other {";
-
-                yield return "subCommand = \"pull\"";
-                yield return $"commandArgs = \"{refer.RepoTag}\"";
-
-                yield return "}";
-                yield return "}";
-
-                yield return string.Empty;
+                foreach (var pullCommand in CreatePullCommand(refer.RepoTag))
+                {
+                    yield return pullCommand;
+                }
             }
 
             // docker build
@@ -404,6 +397,21 @@ namespace TeamCity.Docker
             }
 
             yield return "})";
+            yield return string.Empty;
+        }
+
+        private static IEnumerable<string> CreatePullCommand(string repoTag)
+        {
+            yield return "dockerCommand {";
+            yield return $"name = \"pull {repoTag}\"";
+            yield return "commandType = other {";
+
+            yield return "subCommand = \"pull\"";
+            yield return $"commandArgs = \"{repoTag}\"";
+
+            yield return "}";
+            yield return "}";
+
             yield return string.Empty;
         }
 
