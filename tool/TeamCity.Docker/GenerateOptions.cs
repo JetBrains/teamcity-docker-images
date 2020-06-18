@@ -36,9 +36,5 @@ namespace TeamCity.Docker
 
         [Option('v', "verbose", Required = false, HelpText = "Add it for detailed output.")]
         public bool VerboseMode { get; set; } = false;
-
-        [Option('p', "prefixes", Separator = ';', Required = false, HelpText = "Semicolon separated tag prefixes.")]
-        public IEnumerable<string> TagPrefixes { get; set; } = Enumerable.Empty<string>();
-
     }
 }

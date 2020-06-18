@@ -2,7 +2,7 @@
 ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip'
 ARG dotnetCoreWindowsComponentVersion='3.1.300'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
-ARG teamcityWindowsservercoreImage='teamcity-agent:windowsservercore-1803'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2020.1.1-windowsservercore-1803'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion

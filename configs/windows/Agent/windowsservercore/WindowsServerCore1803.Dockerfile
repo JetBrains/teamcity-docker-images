@@ -7,7 +7,8 @@
 # ARG teamcityMinimalAgentImage
 
 # Id teamcity-agent
-# Tag ${tag}
+# Tag ${versionTag}-${tag}
+# Tag ${versionTag}-windowsservercore
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 11

@@ -5,7 +5,9 @@
 # ARG powershellImage
 
 # Id teamcity-minimal-agent
-# Tag ${tag}
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 1

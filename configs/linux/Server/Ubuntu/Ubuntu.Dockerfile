@@ -4,8 +4,9 @@
 # ARG ubuntuImage
 
 # Id teamcity-server
-# Tag ${tag}
-# Tag linux
+# Tag ${versionTag}-linux
+# Tag ${latestTag}
+# Tag ${versionTag}
 # Platform ${linuxPlatform}
 # Repo ${repo}
 # Weight 1

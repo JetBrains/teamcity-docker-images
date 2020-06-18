@@ -153,6 +153,38 @@ namespace TeamCity.Docker
                 }
             }
 
+            var replacements = new Dictionary<string, string>();
+            var iterations = 0;
+            do
+            {
+                replacements.Clear();
+                foreach (var (newKey, newValue) in result)
+                {
+                    foreach (var (key, value) in result)
+                    {
+                        var replacement = "${" + newKey + "}";
+                        if (value.Contains(replacement))
+                        {
+                            replacements[key] = value.Replace(replacement, newValue);
+                        }
+                    }
+                }
+
+                foreach (var (key, value) in replacements)
+                {
+                    if (result.ContainsKey(key))
+                    {
+                        _logger.Details($"UPDATE {key}={value}");
+                        result[key] = value;
+                    }
+                    else
+                    {
+                        _logger.Details($"SET {key}={value}");
+                        result.Add(key, value);
+                    }
+                }
+            } while (replacements.Count > 0 && iterations++ < 100);
+
             return result;
         }
     }

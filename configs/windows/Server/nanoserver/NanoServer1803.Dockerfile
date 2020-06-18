@@ -6,7 +6,9 @@
 # ARG powershellImage
 
 # Id teamcity-server
-# Tag ${tag}
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 2

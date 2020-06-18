@@ -54,12 +54,6 @@ namespace TeamCity.Docker
                 lines.Add("### Tags");
                 lines.Add(string.Empty);
 
-                lines.Add("- multi-arch");
-                foreach (var tagPrefix in _options.TagPrefixes.OrderBy(i => i))
-                {
-                    lines.Add($"  - {tagPrefix}");
-                }
-
                 var dockerfilesByPlatform =
                     from image in groupByImage
                     orderby image.Key
@@ -207,8 +201,7 @@ namespace TeamCity.Docker
         private string GenerateBuildCommand(Image image)
         {
             var dockerFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"));
-            var tags = string.Join(" ", image.File.Tags.Select(tag => $"-t {image.File.ImageId}:{tag}"));
-            return $"docker build -f \"{dockerFilePath}\" {tags} \"{_options.ContextPath}\"";
+            return $"docker build -f \"{dockerFilePath}\" -t {image.File.ImageId}:{image.File.Tags.First()} \"{_options.ContextPath}\"";
         }
 
         private static string GetReadmeFilePath(string imageId) =>
@@ -220,14 +213,7 @@ namespace TeamCity.Docker
                 .Replace(".", string.Empty)
                 .Replace(" ", "-");
 
-        private string GetReadmeTagName(Dockerfile dockerFile)
-        {
-            var tags =
-                from tag in dockerFile.Tags
-                from prefix in _options.TagPrefixes
-                select $"{prefix}-{tag}";
-
-            return string.Join(", ", tags);
-        }
+        private string GetReadmeTagName(Dockerfile dockerFile) =>
+            dockerFile.Tags.First();
     }
 }

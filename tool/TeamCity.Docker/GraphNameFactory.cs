@@ -11,14 +11,14 @@ namespace TeamCity.Docker
             var generalTags = buildGraph.Nodes
                 .Select(i => i.Value)
                 .OfType<Image>()
-                .SelectMany(i => i.File.Tags)
+                .Select(i => i.File.Tags.First())
                 .GroupBy(i => i)
                 .Select(i => new { tag = i.Key, count = i.Count() })
                 .Where(i => i.count > 1)
                 .OrderByDescending(i => i.count)
                 .Select(i => i.tag);
 
-            return new Result<string>(string.Join(" ", generalTags));
+            return new Result<string>(string.Join(" ", generalTags.First()));
         }
     }
 }

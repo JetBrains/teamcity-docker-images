@@ -99,7 +99,7 @@ namespace TeamCity.Docker
 
                 var buildTypeId = $"{buildId}_{NormalizeName(name)}";
                 buildBuildTypes.Add(buildTypeId);
-                lines.AddRange(GenerateBuildType(buildTypeId, name, _options.TagPrefixes.ToList(), buildGraph.graph, buildGraph.weight));
+                lines.AddRange(GenerateBuildType(buildTypeId, name, buildGraph.graph, buildGraph.weight));
                 // build build config
             }
 
@@ -109,6 +109,11 @@ namespace TeamCity.Docker
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
 
+            var multiTags = (
+                from image in allImages
+                from tag in image.File.Tags.Skip(1)
+                group image by tag).ToList();
+
             // build all build config
             var buildAllBuildTypeId = $"{buildId}_build_all";
             buildTypes.Add(buildAllBuildTypeId);
@@ -116,12 +121,12 @@ namespace TeamCity.Docker
             // build all build config
 
             var manifestBuildTypes = new List<string>();
-            foreach (var tagPrefix in _options.TagPrefixes)
+            foreach (var multiTag in multiTags)
             {
                 // manifests build config
-                var buildTypeId = $"{buildId}_{NormalizeName(tagPrefix)}_manifest";
+                var buildTypeId = $"{buildId}_{NormalizeName(multiTag.Key)}_manifest";
                 manifestBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, BuildRepositoryName, $"Manifest on build {tagPrefix}", tagPrefix, allImages, buildAllBuildTypeId));
+                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, BuildRepositoryName, $"Manifest on build {multiTag.Key}", multiTag.Key, multiTag, buildAllBuildTypeId));
                 // manifests build config
             }
 
@@ -153,12 +158,12 @@ namespace TeamCity.Docker
             // deploy build config
 
             var manifestOnHubBuildTypes = new List<string>();
-            foreach (var tagPrefix in _options.TagPrefixes)
+            foreach (var multiTag in multiTags)
             {
                 // manifests on hub build config
-                var buildTypeId = $"{buildId}_{NormalizeName(tagPrefix)}_manifest_hub";
+                var buildTypeId = $"{buildId}_{NormalizeName(multiTag.Key)}_manifest_hub";
                 manifestOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Manifest on deploy {tagPrefix}", tagPrefix, allImages, deployAllBuildTypeId));
+                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Manifest on deploy {multiTag.Key}", multiTag.Key, multiTag, deployAllBuildTypeId));
                 // manifests build config
             }
 
@@ -209,22 +214,16 @@ namespace TeamCity.Docker
                     yield return pullCommand;
                 }
 
-                foreach (var repository in image.File.Repositories)
+                var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
+                var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
+                foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, newRepoTag))
                 {
-                    var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
-                    foreach (var tag in image.File.Tags)
-                    {
-                        var newRepoTag = $"{newRepo}:{tag}";
-                        foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, newRepoTag))
-                        {
-                            yield return tagCommand;
-                        }
-                    }
+                    yield return tagCommand;
+                }
 
-                    foreach (var pushCommand in CreatePushCommand($"{newRepo}", newRepo, image.File.Tags.ToArray()))
-                    {
-                        yield return pushCommand;
-                    }
+                foreach (var pushCommand in CreatePushCommand($"{newRepo}", newRepo, image.File.Tags.ToArray()))
+                {
+                    yield return pushCommand;
                 }
             }
 
@@ -263,10 +262,9 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, string tagPrefix, IEnumerable<Image> allImages, string buildAllTypeId)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, string tag, IEnumerable<Image> images, string buildAllTypeId)
         {
-            var groupedByImageId = allImages
-                .Where(i => i.File.HasManifest)
+            var groupedByImageId = images
                 .GroupBy(i => i.File.ImageId);
 
             yield return $"object {buildTypeId}: BuildType(";
@@ -276,7 +274,7 @@ namespace TeamCity.Docker
             yield return "steps {";
             foreach (var groupByImageId in groupedByImageId)
             {
-                foreach (var line in CreateManifestCommands(repositoryName, tagPrefix, groupByImageId.Key, groupByImageId))
+                foreach (var line in CreateManifestCommands(repositoryName, tag, groupByImageId.Key, groupByImageId))
                 {
                     yield return line;
                 }
@@ -331,9 +329,10 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
-        private IEnumerable<string> CreateManifestCommands(string repositoryName, string tagPrefix, string imageId, IEnumerable<Image> images)
+        private IEnumerable<string> CreateManifestCommands(string repositoryName, string tag, string imageId, IEnumerable<Image> images)
         {
-            var manifestName = $"{repositoryName}{imageId}:{tagPrefix}";
+            var repo = $"{repositoryName}{imageId}";
+            var manifestName = $"{repo}:{tag}";
             var createArgs = new List<string>
             {
                 "create",
@@ -343,8 +342,7 @@ namespace TeamCity.Docker
 
             foreach (var image in images)
             {
-                var tag = image.File.Tags.FirstOrDefault() ?? "latest";
-                createArgs.Add($"{manifestName}-{tag}");
+                createArgs.Add($"{repo}:{image.File.Tags.First()}");
             }
 
             foreach (var line in CreateDockerCommand($"manifest create {imageId}", "manifest", createArgs))
@@ -376,7 +374,7 @@ namespace TeamCity.Docker
             }
         }
 
-        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IReadOnlyCollection<string> tagPrefixes, IGraph<IArtifact, Dependency> buildGraph, int weight)
+        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IGraph<IArtifact, Dependency> buildGraph, int weight)
         {
             var path = _buildPathProvider.GetPath(buildGraph).ToList();
             var images = path.Select(i => i.Value).OfType<Image>().ToList();
@@ -430,19 +428,14 @@ namespace TeamCity.Docker
             }
 
             // docker image tag
-            foreach (var tagPrefix in tagPrefixes)
+            foreach (var image in images)
             {
-                foreach (var image in images)
+                if (image.File.Tags.Any())
                 {
-                    if (image.File.Tags.Any())
+                    var tag = image.File.Tags.First();
+                    foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}:{tag}", $"{image.File.ImageId}:{tag}"))
                     {
-                        foreach (var tag in image.File.Tags)
-                        {
-                            foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}:{tagPrefix}-{tag}", $"{image.File.ImageId}:{tagPrefix}-{tag}"))
-                            {
-                                yield return tagCommand;
-                            }
-                        }
+                        yield return tagCommand;
                     }
                 }
             }
@@ -450,13 +443,7 @@ namespace TeamCity.Docker
             // docker push
             foreach (var image in images)
             {
-                var tags = (
-                    from tag in image.File.Tags
-                    from tagPrefix in tagPrefixes
-                    select $"{tagPrefix}-{tag}")
-                    .ToArray();
-
-                foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", image.File.ImageId, tags))
+                foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", image.File.ImageId, image.File.Tags.First()))
                 {
                     yield return pushCommand;
                 }
@@ -559,7 +546,7 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
-        private IEnumerable<string> CreatePushCommand(string imageId, string name, string[] tags)
+        private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
             yield return $"name = \"push {name}:{string.Join(",", tags)}\"";
@@ -596,10 +583,9 @@ namespace TeamCity.Docker
 
         private IEnumerable<string> CreateBuildCommand(Image image)
         {
-            var tags = image.File.Tags.Select(tag => tag).Distinct().ToArray();
-
+            var tag = image.File.Tags.First();
             yield return "dockerCommand {";
-            yield return $"name = \"build {image.File.ImageId}:{string.Join(",", tags)}\"";
+            yield return $"name = \"build {image.File.ImageId}:{tag}\"";
             yield return "commandType = build {";
 
             yield return "source = file {";
@@ -609,10 +595,7 @@ namespace TeamCity.Docker
             yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
 
             yield return "namesAndTags = \"\"\"";
-            foreach (var tag in tags)
-            {
-                yield return $"{image.File.ImageId}:{tag}";
-            }
+            yield return $"{image.File.ImageId}:{tag}";
 
             yield return "\"\"\".trimIndent()";
 

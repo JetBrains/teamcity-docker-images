@@ -2,17 +2,14 @@
 # ARG teamcityAgentImage
 
 # Id teamcity-agent
-# Tag ${tag}
-# Tag linux-sudo
+# Tag ${versionTag}-linux-sudo
 # Platform ${linuxPlatform}
 # Repo ${repo}
 # Weight 1
-# HasManifest false
 
 ## ${agentCommentHeader}
 
 # Based on ${teamcityAgentImage}
-
 FROM ${teamcityAgentImage}
 
 USER root

@@ -1,18 +1,14 @@
 ### Tags
 
-- multi-arch
-  - 2020.1.1
-  - eap
-  - latest
 - linux
-  - [latest-18.04, 2020.1.1-18.04, eap-18.04, latest-linux, 2020.1.1-linux, eap-linux](#latest-1804-202011-1804-eap-1804-latest-linux-202011-linux-eap-linux)
+  - [2020.1.1-linux](#202011-linux)
 - windows
-  - [latest-nanoserver-1809, 2020.1.1-nanoserver-1809, eap-nanoserver-1809](#latest-nanoserver-1809-202011-nanoserver-1809-eap-nanoserver-1809)
-  - [latest-nanoserver-1903, 2020.1.1-nanoserver-1903, eap-nanoserver-1903](#latest-nanoserver-1903-202011-nanoserver-1903-eap-nanoserver-1903)
-  - [latest-nanoserver-1803, 2020.1.1-nanoserver-1803, eap-nanoserver-1803](#latest-nanoserver-1803-202011-nanoserver-1803-eap-nanoserver-1803)
-  - [latest-nanoserver-1909, 2020.1.1-nanoserver-1909, eap-nanoserver-1909](#latest-nanoserver-1909-202011-nanoserver-1909-eap-nanoserver-1909)
+  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+  - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
+  - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
 
-### latest-18.04, 2020.1.1-18.04, eap-18.04, latest-linux, 2020.1.1-linux, eap-linux
+### 2020.1.1-linux
 
 [Dockerfile](linux/MinimalAgent/Ubuntu/18.04/Dockerfile)
 
@@ -31,13 +27,13 @@ Container Platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-minimal-agent:18.04
+docker pull jetbrains//teamcity-minimal-agent:2020.1.1-linux
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:18.04 -t teamcity-minimal-agent:linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2020.1.1-linux "context"
 ```
 
 Base images:
@@ -47,7 +43,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
-### latest-nanoserver-1809, 2020.1.1-nanoserver-1809, eap-nanoserver-1809
+### 2020.1.1-nanoserver-1809
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1809/Dockerfile)
 
@@ -68,13 +64,13 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-minimal-agent:nanoserver-1809
+docker pull jetbrains//teamcity-minimal-agent:2020.1.1-nanoserver-1809
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2020.1.1-nanoserver-1809 "context"
 ```
 
 Base images:
@@ -85,7 +81,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### latest-nanoserver-1903, 2020.1.1-nanoserver-1903, eap-nanoserver-1903
+### 2020.1.1-nanoserver-1903
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1903/Dockerfile)
 
@@ -106,13 +102,13 @@ Container Platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-minimal-agent:nanoserver-1903
+docker pull jetbrains//teamcity-minimal-agent:2020.1.1-nanoserver-1903
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2020.1.1-nanoserver-1903 "context"
 ```
 
 Base images:
@@ -123,7 +119,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### latest-nanoserver-1803, 2020.1.1-nanoserver-1803, eap-nanoserver-1803
+### 2020.1.1-nanoserver-1803
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1803/Dockerfile)
 
@@ -141,7 +137,7 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:nanoserver-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2020.1.1-nanoserver-1803 "context"
 ```
 
 Base images:
@@ -151,7 +147,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
-### latest-nanoserver-1909, 2020.1.1-nanoserver-1909, eap-nanoserver-1909
+### 2020.1.1-nanoserver-1909
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1909/Dockerfile)
 
@@ -169,7 +165,7 @@ Container Platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:nanoserver-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2020.1.1-nanoserver-1909 "context"
 ```
 
 Base images:

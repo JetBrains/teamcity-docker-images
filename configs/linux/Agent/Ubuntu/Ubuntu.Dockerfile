@@ -4,9 +4,10 @@
 # ARG teamcityMinimalAgentImage
 
 # Id teamcity-agent
-# Tag ${tag}
 # Platform ${linuxPlatform}
-# Tag linux
+# Tag ${versionTag}-linux
+# Tag ${latestTag}
+# Tag ${versionTag}
 # Repo ${repo}
 # Weight 1
 

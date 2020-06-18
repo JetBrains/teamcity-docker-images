@@ -17,7 +17,6 @@ namespace TeamCity.Docker.Model
         [NotNull] public readonly IReadOnlyCollection<Reference> References;
         public readonly Weight Weight;
         [NotNull] public readonly IEnumerable<Line> Lines;
-        public readonly bool HasManifest;
 
         public Dockerfile(
             [NotNull] string path,
@@ -29,8 +28,7 @@ namespace TeamCity.Docker.Model
             [NotNull] IReadOnlyCollection<string> comments,
             [NotNull] IReadOnlyCollection<Reference> references,
             Weight weight,
-            [NotNull] IReadOnlyCollection<Line> lines,
-            bool hasManifest)
+            [NotNull] IReadOnlyCollection<Line> lines)
         {
             Path = path ?? throw new ArgumentNullException(nameof(path));
             ImageId = imageId ?? throw new ArgumentNullException(nameof(imageId));
@@ -42,7 +40,6 @@ namespace TeamCity.Docker.Model
             References = references ?? throw new ArgumentNullException(nameof(references));
             Weight = weight;
             Lines = lines ?? throw new ArgumentNullException(nameof(lines));
-            HasManifest = hasManifest;
         }
 
         public int CompareTo(Dockerfile other) =>

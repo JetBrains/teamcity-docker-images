@@ -23,7 +23,6 @@ namespace TeamCity.Docker
         private const string ComponentsPrefix = "# Install ";
         private const string RepoPrefix = "# Repo ";
         private const string WeightPrefix = "# Weight ";
-        private const string HasManifestPrefix = "# HasManifest ";
 
         private readonly IContentParser _contentParser;
         private readonly IPathService _pathService;
@@ -54,7 +53,6 @@ namespace TeamCity.Docker
                     var comments = new List<string>();
                     var dockerfileLines = new List<Line>();
                     var weight = 0;
-                    var hasManifest = true;
 
                     foreach (var line in lines)
                     {
@@ -62,13 +60,6 @@ namespace TeamCity.Docker
                         if (line.Type == LineType.Comment)
                         {
                             isMetadata =
-                                TrySetByPrefix(line.Text, HasManifestPrefix, value =>
-                                {
-                                    if (bool.TryParse(value, out var curHasManifest))
-                                    {
-                                        hasManifest = curHasManifest;
-                                    }
-                                }) ||
                                 TrySetByPrefix(line.Text, CommentPrefix, value => comments.Add(value.Trim())) ||
                                 TrySetByPrefix(line.Text, IdPrefix, value => imageId = value) ||
                                 TrySetByPrefix(line.Text, TagPrefix, value => tags.Add(value)) ||
@@ -113,8 +104,7 @@ namespace TeamCity.Docker
                         comments,
                         references,
                         new Weight(weight),
-                        dockerfileLines,
-                        hasManifest);
+                        dockerfileLines);
 
                     if (graph.TryAddNode(new Image(dockerfile), out var dockerImageNode))
                     {
