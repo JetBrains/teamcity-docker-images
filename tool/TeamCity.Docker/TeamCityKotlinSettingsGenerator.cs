@@ -112,7 +112,7 @@ namespace TeamCity.Docker
             // build all build config
             var buildAllBuildTypeId = $"{buildId}_build_all";
             buildTypes.Add(buildAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(buildAllBuildTypeId, "Build", buildBuildTypes));
+            lines.AddRange(CreateComposingBuildConfiguration(buildAllBuildTypeId, "Build", buildBuildTypes.ToArray()));
             // build all build config
 
             var manifestBuildTypes = new List<string>();
@@ -130,7 +130,7 @@ namespace TeamCity.Docker
             // manifest build config
             var manifestAllBuildTypeId = $"{buildId}_manifest_all";
             buildTypes.Add(manifestAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(manifestAllBuildTypeId, "Manifest on build", manifestBuildTypes));
+            lines.AddRange(CreateComposingBuildConfiguration(manifestAllBuildTypeId, "Manifest on build", new List<string>(manifestBuildTypes) { buildAllBuildTypeId}.ToArray()));
             // manifest build config
 
             var deployBuildTypes = new List<string>();
@@ -140,7 +140,7 @@ namespace TeamCity.Docker
                 // deploy build config
                 var buildTypeId = $"{buildId}_{NormalizeName(platform)}_deploy";
                 deployBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, manifestBuildTypes));
+                lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, buildAllBuildTypeId));
                 // deploy build config
             }
 
@@ -149,7 +149,7 @@ namespace TeamCity.Docker
             // deploy build config
             var deployAllBuildTypeId = $"{buildId}_deploy_all";
             buildTypes.Add(deployAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(deployAllBuildTypeId, "Deploy", deployBuildTypes));
+            lines.AddRange(CreateComposingBuildConfiguration(deployAllBuildTypeId, "Deploy", new List<string>(deployBuildTypes) { buildAllBuildTypeId }.ToArray()));
             // deploy build config
 
             var manifestOnHubBuildTypes = new List<string>();
@@ -167,7 +167,7 @@ namespace TeamCity.Docker
             // manifest build config
             var manifestHubAllBuildTypeId = $"{buildId}_manifest_hub_all";
             buildTypes.Add(manifestHubAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(manifestHubAllBuildTypeId, "Manifest on deploy", manifestOnHubBuildTypes));
+            lines.AddRange(CreateComposingBuildConfiguration(manifestHubAllBuildTypeId, "Manifest on deploy", new List<string>(manifestOnHubBuildTypes) {deployAllBuildTypeId}.ToArray()));
             // manifest build config
 
             // project
@@ -192,7 +192,7 @@ namespace TeamCity.Docker
             graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
         }
 
-        private IEnumerable<string> CreateDeployBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, IEnumerable<string> buildBuildTypes)
+        private IEnumerable<string> CreateDeployBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
         {
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
             yield return $"object {buildTypeId}: BuildType(";
@@ -305,7 +305,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, IEnumerable<string> buildBuildTypes)
+        private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, params string[] buildBuildTypes)
         {
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";

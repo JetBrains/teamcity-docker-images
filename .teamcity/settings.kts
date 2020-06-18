@@ -1263,15 +1263,7 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1497,15 +1489,7 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1527,6 +1511,10 @@ snapshot(TC_Trunk_BuildDistTarGzWar_linux_deploy)
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(TC_Trunk_BuildDistTarGzWar_windows_deploy)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
