@@ -306,6 +306,7 @@ requiredSpace = "4gb"
 failBuild = true
 }
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
@@ -556,6 +557,7 @@ requiredSpace = "27gb"
 failBuild = true
 }
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
@@ -806,6 +808,7 @@ requiredSpace = "27gb"
 failBuild = true
 }
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
@@ -916,6 +919,7 @@ equals("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
@@ -1015,6 +1019,7 @@ equals("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
@@ -1114,6 +1119,7 @@ equals("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
+cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_315"
 }
