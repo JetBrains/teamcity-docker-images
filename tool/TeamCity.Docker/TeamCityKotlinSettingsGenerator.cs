@@ -12,6 +12,7 @@ namespace TeamCity.Docker
 {
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
+        private const string MinDockerVersion = "18.05.0";
         [NotNull] private readonly string RepositoryName = "%docker.pushRepository%";
         [NotNull] private readonly IGenerateOptions _options;
         [NotNull] private readonly IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> _buildGraphsFactory;
@@ -156,17 +157,31 @@ namespace TeamCity.Docker
                 lines.Add("}");
 
                 lines.Add("dependencies {");
-
                 lines.Add($"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))");
                 lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\n}");
-                
                 foreach (var buildType in buildTypes)
                 {
                     lines.Add($"snapshot({buildId}{buildType})");
                     lines.Add("{\nonDependencyFailure = FailureAction.IGNORE\n}");
                 }
-
                 lines.Add("}");
+
+                lines.Add("requirements {");
+                lines.Add($"noLessThanVer(\"docker.version\", \"{MinDockerVersion}\")");
+                lines.Add("equals(\"docker.server.osType\", \"windows\")");
+                lines.Add("}");
+
+                lines.Add("features {");
+                if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
+                {
+                    lines.Add("dockerSupport {");
+                    lines.Add("loginToRegistry = on {");
+                    lines.Add($"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"");
+                    lines.Add("}");
+                    lines.Add("}");
+                }
+                lines.Add("}");
+
                 lines.Add("})");
 
                 lines.Add(string.Empty);

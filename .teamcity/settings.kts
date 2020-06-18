@@ -913,6 +913,17 @@ snapshot(TC_Trunk_BuildDist_nanoserver_1903)
 onDependencyFailure = FailureAction.IGNORE
 }
 }
+requirements {
+noLessThanVer("docker.version", "18.05.0")
+equals("docker.server.osType", "windows")
+}
+features {
+dockerSupport {
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_2307"
+}
+}
+}
 })
 
 object TC_Trunk_BuildDist_2020_1_publish: BuildType(
@@ -1001,6 +1012,17 @@ snapshot(TC_Trunk_BuildDist_nanoserver_1903)
 onDependencyFailure = FailureAction.IGNORE
 }
 }
+requirements {
+noLessThanVer("docker.version", "18.05.0")
+equals("docker.server.osType", "windows")
+}
+features {
+dockerSupport {
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_2307"
+}
+}
+}
 })
 
 object TC_Trunk_BuildDist_eap_publish: BuildType(
@@ -1087,6 +1109,17 @@ onDependencyFailure = FailureAction.IGNORE
 snapshot(TC_Trunk_BuildDist_nanoserver_1903)
 {
 onDependencyFailure = FailureAction.IGNORE
+}
+}
+requirements {
+noLessThanVer("docker.version", "18.05.0")
+equals("docker.server.osType", "windows")
+}
+features {
+dockerSupport {
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_2307"
+}
 }
 }
 })
