@@ -1104,6 +1104,31 @@ dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 })
 
+object TC_Trunk_BuildDistTarGzWar_manifest_all: BuildType(
+{
+name = "Manifest"
+steps {
+}
+dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+}
+})
+
 object TC_Trunk_BuildDistTarGzWar_linux_deploy: BuildType(
 {
 name = "Deploy linux"
@@ -1534,16 +1559,17 @@ onDependencyFailure = FailureAction.IGNORE
 
 project {
 vcsRoot(RemoteTeamcityImages)
-buildType(TC_Trunk_BuildDistTarGzWar_latest_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_eap_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_build_all)
-buildType(TC_Trunk_BuildDistTarGzWar_deploy_all)
 buildType(TC_Trunk_BuildDistTarGzWar_18_04_linux)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+buildType(TC_Trunk_BuildDistTarGzWar_build_all)
+buildType(TC_Trunk_BuildDistTarGzWar_latest_manifest)
+buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
+buildType(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+buildType(TC_Trunk_BuildDistTarGzWar_manifest_all)
 buildType(TC_Trunk_BuildDistTarGzWar_linux_deploy)
 buildType(TC_Trunk_BuildDistTarGzWar_windows_deploy)
+buildType(TC_Trunk_BuildDistTarGzWar_deploy_all)
 }
 
 object RemoteTeamcityImages : GitVcsRoot({

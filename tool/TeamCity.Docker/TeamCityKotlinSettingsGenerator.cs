@@ -79,6 +79,8 @@ namespace TeamCity.Docker
                 select new { graph = buildGraph, name, weight })
                 .ToList();
 
+            var buildTypes = new List<string>();
+
             var buildBuildTypes = new List<string>();
             foreach (var buildGraph in buildGraphs)
             {
@@ -100,12 +102,15 @@ namespace TeamCity.Docker
                 // build build config
             }
 
+            buildTypes.AddRange(buildBuildTypes);
+
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
 
             // build all build config
             var buildAllBuildTypeId = $"{buildId}_build_all";
+            buildTypes.Add(buildAllBuildTypeId);
             lines.AddRange(CreateComposingBuildConfiguration(buildAllBuildTypeId, "Build", buildBuildTypes));
             // build all build config
 
@@ -119,6 +124,14 @@ namespace TeamCity.Docker
                 // manifests build config
             }
 
+            buildTypes.AddRange(manifestBuildTypes);
+
+            // manifest build config
+            var manifestAllBuildTypeId = $"{buildId}_manifest_all";
+            buildTypes.Add(manifestAllBuildTypeId);
+            lines.AddRange(CreateComposingBuildConfiguration(manifestAllBuildTypeId, "Manifest", manifestBuildTypes));
+            // manifest build config
+
             var deployBuildTypes = new List<string>();
             var platforms = allImages.Select(i => i.File.Platform).Distinct();
             foreach (var platform in platforms)
@@ -130,20 +143,18 @@ namespace TeamCity.Docker
                 // deploy build config
             }
 
+            buildTypes.AddRange(deployBuildTypes);
+
             // deploy build config
             var deployAllBuildTypeId = $"{buildId}_deploy_all";
+            buildTypes.Add(deployAllBuildTypeId);
             lines.AddRange(CreateComposingBuildConfiguration(deployAllBuildTypeId, "Deploy", deployBuildTypes));
             // deploy build config
 
             // project
             lines.Add("project {");
             lines.Add("vcsRoot(RemoteTeamcityImages)");
-            foreach (var buildType in
-                manifestBuildTypes
-                .Concat(Enumerable.Repeat(buildAllBuildTypeId, 1))
-                .Concat(Enumerable.Repeat(deployAllBuildTypeId, 1))
-                .Concat(buildBuildTypes)
-                .Concat(deployBuildTypes))
+            foreach (var buildType in buildTypes.Distinct())
             {
                 lines.Add($"buildType({buildType})");
             }
