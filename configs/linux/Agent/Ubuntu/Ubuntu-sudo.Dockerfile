@@ -3,6 +3,7 @@
 
 # Id teamcity-agent
 # Tag ${tag}
+# Tag linux-sudo
 # Platform ${linuxPlatform}
 # Repo ${repo}
 # Weight 1

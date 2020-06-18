@@ -6,7 +6,7 @@
   - latest
 - linux
   - [latest-18.04, 2020.1.1-18.04, eap-18.04, latest-linux, 2020.1.1-linux, eap-linux](#latest-1804-202011-1804-eap-1804-latest-linux-202011-linux-eap-linux)
-  - [latest-18.04-sudo, 2020.1.1-18.04-sudo, eap-18.04-sudo](#latest-1804-sudo-202011-1804-sudo-eap-1804-sudo)
+  - [latest-18.04-sudo, 2020.1.1-18.04-sudo, eap-18.04-sudo, latest-linux-sudo, 2020.1.1-linux-sudo, eap-linux-sudo](#latest-1804-sudo-202011-1804-sudo-eap-1804-sudo-latest-linux-sudo-202011-linux-sudo-eap-linux-sudo)
 - windows
   - [latest-nanoserver-1809, 2020.1.1-nanoserver-1809, eap-nanoserver-1809](#latest-nanoserver-1809-202011-nanoserver-1809-eap-nanoserver-1809)
   - [latest-nanoserver-1903, 2020.1.1-nanoserver-1903, eap-nanoserver-1903](#latest-nanoserver-1903-202011-nanoserver-1903-eap-nanoserver-1903)
@@ -55,7 +55,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
-### latest-18.04-sudo, 2020.1.1-18.04-sudo, eap-18.04-sudo
+### latest-18.04-sudo, 2020.1.1-18.04-sudo, eap-18.04-sudo, latest-linux-sudo, 2020.1.1-linux-sudo, eap-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -78,7 +78,7 @@ Docker build commands:
 ```
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:18.04 -t teamcity-minimal-agent:linux "context"
 docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:18.04 -t teamcity-agent:linux "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:18.04-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:18.04-sudo -t teamcity-agent:linux-sudo "context"
 ```
 
 Base images:

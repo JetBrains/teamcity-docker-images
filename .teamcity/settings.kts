@@ -8,7 +8,7 @@ version = "2019.2"
 
 object TC_Trunk_BuildDistTarGzWar_18_04_linux : BuildType({
 name = "Build 18.04 linux"
-description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo"
+description  = "teamcity-server:18.04,linux teamcity-minimal-agent:18.04,linux teamcity-agent:18.04,linux:18.04-sudo,linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -65,7 +65,7 @@ param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-agent:18.04-sudo"
+name = "build teamcity-agent:18.04-sudo,linux-sudo"
 commandType = build {
 source = file {
 path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
@@ -73,6 +73,7 @@ path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
 contextDir = "context"
 namesAndTags = """
 teamcity-agent:18.04-sudo
+teamcity-agent:linux-sudo
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
@@ -135,6 +136,14 @@ commandArgs = "teamcity-agent:18.04-sudo %docker.buildRepository%teamcity-agent:
 }
 
 dockerCommand {
+name = "tag teamcity-agent:latest-linux-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:linux-sudo %docker.buildRepository%teamcity-agent:latest-linux-sudo"
+}
+}
+
+dockerCommand {
 name = "tag teamcity-server:2020.1.1-18.04"
 commandType = other {
 subCommand = "tag"
@@ -187,6 +196,14 @@ name = "tag teamcity-agent:2020.1.1-18.04-sudo"
 commandType = other {
 subCommand = "tag"
 commandArgs = "teamcity-agent:18.04-sudo %docker.buildRepository%teamcity-agent:2020.1.1-18.04-sudo"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:2020.1.1-linux-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:linux-sudo %docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo"
 }
 }
 
@@ -247,6 +264,14 @@ commandArgs = "teamcity-agent:18.04-sudo %docker.buildRepository%teamcity-agent:
 }
 
 dockerCommand {
+name = "tag teamcity-agent:eap-linux-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:linux-sudo %docker.buildRepository%teamcity-agent:eap-linux-sudo"
+}
+}
+
+dockerCommand {
 name = "push teamcity-server:latest-18.04,2020.1.1-18.04,eap-18.04,latest-linux,2020.1.1-linux,eap-linux"
 commandType = push {
 namesAndTags = """
@@ -289,12 +314,15 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "push teamcity-agent:latest-18.04-sudo,2020.1.1-18.04-sudo,eap-18.04-sudo"
+name = "push teamcity-agent:latest-18.04-sudo,2020.1.1-18.04-sudo,eap-18.04-sudo,latest-linux-sudo,2020.1.1-linux-sudo,eap-linux-sudo"
 commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent:latest-18.04-sudo
 %docker.buildRepository%teamcity-agent:2020.1.1-18.04-sudo
 %docker.buildRepository%teamcity-agent:eap-18.04-sudo
+%docker.buildRepository%teamcity-agent:latest-linux-sudo
+%docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo
+%docker.buildRepository%teamcity-agent:eap-linux-sudo
 """.trimIndent()
 }
 }
