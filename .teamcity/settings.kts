@@ -308,19 +308,11 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 }
 swabra {
 forceCleanCheckout = true
-}
-}
-dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
-artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
-}
 }
 }
 })
@@ -559,19 +551,11 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 }
 swabra {
 forceCleanCheckout = true
-}
-}
-dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
-artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
-}
 }
 }
 })
@@ -810,19 +794,11 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 }
 swabra {
 forceCleanCheckout = true
-}
-}
-dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
-artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
-}
 }
 }
 })
@@ -852,7 +828,7 @@ onDependencyFailure = FailureAction.IGNORE
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_latest_manifests: BuildType(
+object TC_Trunk_BuildDistTarGzWar_latest_manifest: BuildType(
 {
 name = "Manifest latest on Space"
 steps {
@@ -938,13 +914,13 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 }
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_manifests: BuildType(
+object TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest: BuildType(
 {
 name = "Manifest 2020.1.1 on Space"
 steps {
@@ -1030,13 +1006,13 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
 }
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_eap_manifests: BuildType(
+object TC_Trunk_BuildDistTarGzWar_eap_manifest: BuildType(
 {
 name = "Manifest eap on Space"
 steps {
@@ -1122,21 +1098,452 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
 }
+}
+}
+})
+
+object TC_Trunk_BuildDistTarGzWar_linux_deploy: BuildType(
+{
+name = "Deploy linux"
+steps {
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:18.04-sudo"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:18.04-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:18.04-sudo jetbrains/teamcity-agent:18.04-sudo"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:18.04-sudo"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:18.04-sudo
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:18.04"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:18.04 jetbrains/teamcity-agent:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:18.04 jetbrains/teamcity-agent:linux"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:18.04,linux"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:18.04
+jetbrains/teamcity-agent:linux
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-minimal-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-minimal-agent:18.04"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:18.04 jetbrains/teamcity-minimal-agent:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-minimal-agent:linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:18.04 jetbrains/teamcity-minimal-agent:linux"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-minimal-agent:18.04,linux"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-minimal-agent:18.04
+jetbrains/teamcity-minimal-agent:linux
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-server:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-server:18.04"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-server:18.04 jetbrains/teamcity-server:18.04"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-server:linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-server:18.04 jetbrains/teamcity-server:linux"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-server:18.04,linux"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-server:18.04
+jetbrains/teamcity-server:linux
+""".trimIndent()
+}
+}
+
+}
+features {
+freeDiskSpace {
+requiredSpace = "4gb"
+failBuild = true
+}
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
+}
+}
+swabra {
+forceCleanCheckout = true
+}
+}
+dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+}
+})
+
+object TC_Trunk_BuildDistTarGzWar_windows_deploy: BuildType(
+{
+name = "Deploy windows"
+steps {
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:nanoserver-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:nanoserver-1809 jetbrains/teamcity-agent:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:nanoserver-1809"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:nanoserver-1809
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:windowsservercore-1809"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:windowsservercore-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:windowsservercore-1809 jetbrains/teamcity-agent:windowsservercore-1809"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:windowsservercore-1809"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:windowsservercore-1809
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-minimal-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-minimal-agent:nanoserver-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:nanoserver-1809 jetbrains/teamcity-minimal-agent:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-minimal-agent:nanoserver-1809"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-minimal-agent:nanoserver-1809
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-server:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-server:nanoserver-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-server:nanoserver-1809 jetbrains/teamcity-server:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-server:nanoserver-1809"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-server:nanoserver-1809
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:nanoserver-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:nanoserver-1903 jetbrains/teamcity-agent:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:nanoserver-1903"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:nanoserver-1903
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-agent:windowsservercore-1903"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-agent:windowsservercore-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-agent:windowsservercore-1903 jetbrains/teamcity-agent:windowsservercore-1903"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-agent:windowsservercore-1903"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-agent:windowsservercore-1903
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-minimal-agent"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-minimal-agent:nanoserver-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-minimal-agent:nanoserver-1903 jetbrains/teamcity-minimal-agent:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-minimal-agent:nanoserver-1903"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-minimal-agent:nanoserver-1903
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.pushRepository%teamcity-server:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "tag jetbrains/teamcity-server:nanoserver-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.pushRepository%teamcity-server:nanoserver-1903 jetbrains/teamcity-server:nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "push jetbrains/teamcity-server:nanoserver-1903"
+commandType = push {
+namesAndTags = """
+jetbrains/teamcity-server:nanoserver-1903
+""".trimIndent()
+}
+}
+
+}
+features {
+freeDiskSpace {
+requiredSpace = "30gb"
+failBuild = true
+}
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
+}
+}
+swabra {
+forceCleanCheckout = true
+}
+}
+dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_eap_manifest)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+}
+})
+
+object TC_Trunk_BuildDistTarGzWar_deploy_all: BuildType(
+{
+name = "Deploy"
+steps {
+}
+dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_linux_deploy)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_windows_deploy)
+{
+onDependencyFailure = FailureAction.IGNORE
 }
 }
 })
 
 project {
 vcsRoot(RemoteTeamcityImages)
-buildType(TC_Trunk_BuildDistTarGzWar_latest_manifests)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifests)
-buildType(TC_Trunk_BuildDistTarGzWar_eap_manifests)
+buildType(TC_Trunk_BuildDistTarGzWar_latest_manifest)
+buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
+buildType(TC_Trunk_BuildDistTarGzWar_eap_manifest)
 buildType(TC_Trunk_BuildDistTarGzWar_build_all)
+buildType(TC_Trunk_BuildDistTarGzWar_deploy_all)
 buildType(TC_Trunk_BuildDistTarGzWar_18_04_linux)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+buildType(TC_Trunk_BuildDistTarGzWar_linux_deploy)
+buildType(TC_Trunk_BuildDistTarGzWar_windows_deploy)
 }
 
 object RemoteTeamcityImages : GitVcsRoot({
