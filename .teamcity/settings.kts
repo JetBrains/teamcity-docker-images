@@ -305,14 +305,16 @@ freeDiskSpace {
 requiredSpace = "4gb"
 failBuild = true
 }
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 swabra {
 forceCleanCheckout = true
+}
+}
+dependencies {
+dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+snapshot { onDependencyFailure = FailureAction.IGNORE }
+artifacts {
+artifactRules = "TeamCity-*.tar.gz!/**=>context"
+}
 }
 }
 })
@@ -548,14 +550,16 @@ freeDiskSpace {
 requiredSpace = "27gb"
 failBuild = true
 }
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 swabra {
 forceCleanCheckout = true
+}
+}
+dependencies {
+dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+snapshot { onDependencyFailure = FailureAction.IGNORE }
+artifacts {
+artifactRules = "TeamCity-*.tar.gz!/**=>context"
+}
 }
 }
 })
@@ -791,14 +795,16 @@ freeDiskSpace {
 requiredSpace = "27gb"
 failBuild = true
 }
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 swabra {
 forceCleanCheckout = true
+}
+}
+dependencies {
+dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+snapshot { onDependencyFailure = FailureAction.IGNORE }
+artifacts {
+artifactRules = "TeamCity-*.tar.gz!/**=>context"
+}
 }
 }
 })
@@ -911,12 +917,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 
@@ -1003,12 +1003,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 
@@ -1095,12 +1089,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 
@@ -1265,12 +1253,6 @@ features {
 freeDiskSpace {
 requiredSpace = "4gb"
 failBuild = true
-}
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
 }
 swabra {
 forceCleanCheckout = true
@@ -1506,12 +1488,6 @@ freeDiskSpace {
 requiredSpace = "30gb"
 failBuild = true
 }
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 swabra {
 forceCleanCheckout = true
 }
@@ -1640,12 +1616,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 
@@ -1732,12 +1702,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 
@@ -1824,12 +1788,6 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_2277"
-}
-}
 }
 })
 

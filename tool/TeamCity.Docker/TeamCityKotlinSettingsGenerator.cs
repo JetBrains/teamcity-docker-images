@@ -512,7 +512,7 @@ namespace TeamCity.Docker
 
         private IEnumerable<string> CreateArtifactsDependencies()
         {
-            if(!string.IsNullOrWhiteSpace(_options.TeamCityBuildConfigurationId))
+            if(string.IsNullOrWhiteSpace(_options.TeamCityBuildConfigurationId))
             {
                 yield break;
             }
