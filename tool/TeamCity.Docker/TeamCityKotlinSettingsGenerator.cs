@@ -120,7 +120,7 @@ namespace TeamCity.Docker
                 lines.Add("steps {");
                 foreach (var groupByImageId in groupedByImageId)
                 {
-                    var manifestName = $"{RepositoryName}/{groupByImageId.Key}:{tagPrefix}";
+                    var manifestName = $"{RepositoryName}{groupByImageId.Key}:{tagPrefix}";
                     var createArgs = new List<string>
                     {
                         "create",
@@ -131,7 +131,7 @@ namespace TeamCity.Docker
                     foreach (var image in groupByImageId)
                     {
                         var tag = image.File.Tags.FirstOrDefault() ?? "latest";
-                        createArgs.Add($"{RepositoryName}/{groupByImageId.Key}:{tagPrefix}-{tag}");
+                        createArgs.Add($"{manifestName}-{tag}");
                     }
 
                     lines.AddRange(CreateDockerCommand($"manifest create {groupByImageId.Key}", "manifest", createArgs));
