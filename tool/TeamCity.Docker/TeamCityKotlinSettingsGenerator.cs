@@ -86,7 +86,7 @@ namespace TeamCity.Docker
                 var name = buildGraph.name;
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    name = "Build Docker Images";
+                    name = "Build";
                 }
                 
                 if (!names.Add(name))
@@ -105,19 +105,27 @@ namespace TeamCity.Docker
                 .ToList();
 
             var rootBuildTypes = new List<string>();
+            // build all build config
+            var buildAllBuildTypeId = $"{buildId}_build_all";
+            lines.AddRange(CreateBuildBuildConfiguration(buildAllBuildTypeId, buildBuildTypes));
+            // build all build config
+
             foreach (var tagPrefix in _options.TagPrefixes)
             {
-                // publish build config
-                var publishBuildTypeId = $"{buildId}_{NormalizeName(tagPrefix)}_publish";
+                // manifests build config
+                var publishBuildTypeId = $"{buildId}_{NormalizeName(tagPrefix)}_manifests";
                 rootBuildTypes.Add(publishBuildTypeId);
-                lines.AddRange(CreatePublishBuildConfiguration(publishBuildTypeId, tagPrefix, allImages, buildBuildTypes));
-                // publish build config
+                lines.AddRange(CreateManifestsBuildConfiguration(publishBuildTypeId, tagPrefix, allImages, buildAllBuildTypeId));
+                // manifests build config
             }
 
             // project
             lines.Add("project {");
             lines.Add("vcsRoot(RemoteTeamcityImages)");
-            foreach (var buildType in rootBuildTypes.Concat(buildBuildTypes))
+            foreach (var buildType in
+                rootBuildTypes
+                .Concat(Enumerable.Repeat(buildAllBuildTypeId, 1))
+                .Concat(buildBuildTypes))
             {
                 lines.Add($"buildType({buildType})");
             }
@@ -136,7 +144,7 @@ namespace TeamCity.Docker
             graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
         }
 
-        private IEnumerable<string> CreatePublishBuildConfiguration(string buildTypeId, string tagPrefix, IEnumerable<Image> allImages, IEnumerable<string> buildBuildTypes)
+        private IEnumerable<string> CreateManifestsBuildConfiguration(string buildTypeId, string tagPrefix, IEnumerable<Image> allImages, string buildAllTypeId)
         {
             var groupedByImageId = allImages
                 .Where(i => i.File.HasManifest)
@@ -144,54 +152,47 @@ namespace TeamCity.Docker
 
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
-            yield return $"name = \"Publish {tagPrefix}\"";
+            yield return $"name = \"Manifest {tagPrefix} on Space\"";
 
             yield return "steps {";
             foreach (var groupByImageId in groupedByImageId)
             {
-                var manifestName = $"{RepositoryName}{groupByImageId.Key}:{tagPrefix}";
-                var createArgs = new List<string>
-                {
-                    "create",
-                    "-a",
-                    manifestName
-                };
-
-                foreach (var image in groupByImageId)
-                {
-                    var tag = image.File.Tags.FirstOrDefault() ?? "latest";
-                    createArgs.Add($"{manifestName}-{tag}");
-                }
-
-                foreach (var line in CreateDockerCommand($"manifest create {groupByImageId.Key}", "manifest", createArgs))
-                {
-                    yield return line;
-                }
-
-                var pushArgs = new List<string>
-                {
-                    "push",
-                    manifestName
-                };
-
-                foreach (var line in CreateDockerCommand($"manifest push {groupByImageId.Key}", "manifest", pushArgs))
-                {
-                    yield return line;
-                }
-
-                var inspectArgs = new List<string>
-                {
-                    "inspect",
-                    manifestName,
-                    "--verbose"
-                };
-
-                foreach (var line in CreateDockerCommand($"manifest inspect {groupByImageId.Key}", "manifest", inspectArgs))
+                foreach (var line in CreateManifestCommands(tagPrefix, groupByImageId.Key, groupByImageId))
                 {
                     yield return line;
                 }
             }
 
+            yield return "}";
+
+            foreach (var line in CreateSnapshotDependencies(Enumerable.Repeat(buildAllTypeId, 1)))
+            {
+                yield return line;
+            }
+
+            foreach (var lines in CreateDockerRequirements())
+            {
+                yield return lines;
+            }
+
+            yield return "features {";
+            foreach (var line in CreateDockerFeature())
+            {
+                yield return line;
+            }
+            yield return "}";
+
+            yield return "})";
+            yield return string.Empty;
+        }
+
+        private IEnumerable<string> CreateBuildBuildConfiguration(string buildTypeId, IEnumerable<string> buildBuildTypes)
+        {
+            yield return $"object {buildTypeId}: BuildType(";
+            yield return "{";
+            yield return "name = \"Build\"";
+
+            yield return "steps {";
             yield return "}";
 
             foreach (var line in CreateSnapshotDependencies(buildBuildTypes))
@@ -199,24 +200,61 @@ namespace TeamCity.Docker
                 yield return line;
             }
 
+            yield return "})";
+            yield return string.Empty;
+        }
+
+        private static IEnumerable<string> CreateDockerRequirements()
+        {
             yield return "requirements {";
             yield return $"noLessThanVer(\"docker.version\", \"{MinDockerVersion}\")";
             yield return "equals(\"docker.server.osType\", \"windows\")";
             yield return "}";
+        }
 
-            yield return "features {";
-            if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
+        private IEnumerable<string> CreateManifestCommands(string tagPrefix, string imageId, IEnumerable<Image> images)
+        {
+            var manifestName = $"{RepositoryName}{imageId}:{tagPrefix}";
+            var createArgs = new List<string>
             {
-                foreach (var line in CreateDockerFeature())
-                {
-                    yield return line;
-                }
+                "create",
+                "-a",
+                manifestName
+            };
+
+            foreach (var image in images)
+            {
+                var tag = image.File.Tags.FirstOrDefault() ?? "latest";
+                createArgs.Add($"{manifestName}-{tag}");
             }
 
-            yield return "}";
+            foreach (var line in CreateDockerCommand($"manifest create {imageId}", "manifest", createArgs))
+            {
+                yield return line;
+            }
 
-            yield return "})";
-            yield return string.Empty;
+            var pushArgs = new List<string>
+            {
+                "push",
+                manifestName
+            };
+
+            foreach (var line in CreateDockerCommand($"manifest push {imageId}", "manifest", pushArgs))
+            {
+                yield return line;
+            }
+
+            var inspectArgs = new List<string>
+            {
+                "inspect",
+                manifestName,
+                "--verbose"
+            };
+
+            foreach (var line in CreateDockerCommand($"manifest inspect {imageId}", "manifest", inspectArgs))
+            {
+                yield return line;
+            }
         }
 
         private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IReadOnlyCollection<string> tagPrefixes, IGraph<IArtifact, Dependency> buildGraph, int weight)
@@ -243,9 +281,9 @@ namespace TeamCity.Docker
                 }
 
                 description.Append(grp.Key);
-                foreach (var aa in grp)
+                foreach (var dockerfile in grp)
                 {
-                    var tags = string.Join(",", aa.Key.Tags);
+                    var tags = string.Join(",", dockerfile.Key.Tags);
                     if (!string.IsNullOrWhiteSpace(tags))
                     {
                         description.Append(':');
@@ -345,12 +383,12 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> buildTypes)
+        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies)
         {
             yield return "dependencies {";
             yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
             yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
-            foreach (var buildTypeId in buildTypes)
+            foreach (var buildTypeId in dependencies)
             {
                 yield return $"snapshot({buildTypeId})";
                 yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
@@ -382,12 +420,15 @@ namespace TeamCity.Docker
 
         private IEnumerable<string> CreateDockerFeature()
         {
-            yield return "dockerSupport {";
-            yield return "cleanupPushedImages = true";
-            yield return "loginToRegistry = on {";
-            yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
-            yield return "}";
-            yield return "}";
+            if (!string.IsNullOrWhiteSpace(_options.TeamCityDockerRegistryId))
+            {
+                yield return "dockerSupport {";
+                yield return "cleanupPushedImages = true";
+                yield return "loginToRegistry = on {";
+                yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
+                yield return "}";
+                yield return "}";
+            }
         }
 
         private static IEnumerable<string> CreateFreeDiskSpaceFeature(int weight)

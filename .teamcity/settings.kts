@@ -827,9 +827,34 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_latest_publish: BuildType(
+object TC_Trunk_BuildDistTarGzWar_build_all: BuildType(
 {
-name = "Publish latest"
+name = "Build"
+steps {
+}
+dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_18_04_linux)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+}
+})
+
+object TC_Trunk_BuildDistTarGzWar_latest_manifests: BuildType(
+{
+name = "Manifest latest on Space"
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -900,15 +925,7 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_18_04_linux)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -927,9 +944,9 @@ dockerRegistryId = "PROJECT_EXT_315"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_publish: BuildType(
+object TC_Trunk_BuildDistTarGzWar_2020_1_1_manifests: BuildType(
 {
-name = "Publish 2020.1.1"
+name = "Manifest 2020.1.1 on Space"
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -1000,15 +1017,7 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_18_04_linux)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1027,9 +1036,9 @@ dockerRegistryId = "PROJECT_EXT_315"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_eap_publish: BuildType(
+object TC_Trunk_BuildDistTarGzWar_eap_manifests: BuildType(
 {
-name = "Publish eap"
+name = "Manifest eap on Space"
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -1100,15 +1109,7 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_18_04_linux)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
+snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1129,9 +1130,10 @@ dockerRegistryId = "PROJECT_EXT_315"
 
 project {
 vcsRoot(RemoteTeamcityImages)
-buildType(TC_Trunk_BuildDistTarGzWar_latest_publish)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_publish)
-buildType(TC_Trunk_BuildDistTarGzWar_eap_publish)
+buildType(TC_Trunk_BuildDistTarGzWar_latest_manifests)
+buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifests)
+buildType(TC_Trunk_BuildDistTarGzWar_eap_manifests)
+buildType(TC_Trunk_BuildDistTarGzWar_build_all)
 buildType(TC_Trunk_BuildDistTarGzWar_18_04_linux)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1809)
 buildType(TC_Trunk_BuildDistTarGzWar_nanoserver_1903)
