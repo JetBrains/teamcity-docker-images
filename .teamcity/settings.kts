@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
@@ -6,8 +7,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 version = "2019.2"
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_linux : BuildType({
-name = "Build 2020.1.1-linux"
+object push_local_linux : BuildType({
+name = "Push on local registry linux"
 description  = "teamcity-server:2020.1.1-linux,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-linux,latest,2020.1.1 teamcity-agent:2020.1.1-linux,latest,2020.1.1:2020.1.1-linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -163,8 +164,8 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1809 : BuildType({
-name = "Build 2020.1.1-nanoserver-1809"
+object push_local_windows : BuildType({
+name = "Push on local registry windows"
 description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -336,8 +337,8 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1903 : BuildType({
-name = "Build 2020.1.1-nanoserver-1903"
+object push_local_windows_2 : BuildType({
+name = "Push on local registry windows 2"
 description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -509,34 +510,12 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_build_all: BuildType(
+object publish_local: BuildType(
 {
-name = "Build"
-steps {
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_linux)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1809)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1903)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_latest_manifest: BuildType(
-{
-name = "Manifest on build latest"
+name = "Publish on local registry"
+enablePersonalBuilds = false
+type = BuildTypeSettings.Type.DEPLOYMENT
+maxRunningBuilds = 1
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -601,29 +580,6 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
 }
 }
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-requirements {
-noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
-}
-features {
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest: BuildType(
-{
-name = "Manifest on build 2020.1.1"
-steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
 commandType = other {
@@ -687,29 +643,6 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.1.1 --verbose"
 }
 }
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-requirements {
-noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
-}
-features {
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest: BuildType(
-{
-name = "Manifest on build 2020.1.1-windowsservercore"
-steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
 commandType = other {
@@ -737,7 +670,15 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
+snapshot(push_local_linux)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(push_local_windows)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(push_local_windows_2)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -750,38 +691,9 @@ features {
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_manifest_all: BuildType(
+object push_hub_linux: BuildType(
 {
-name = "Manifest on build"
-steps {
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_linux_deploy: BuildType(
-{
-name = "Deploy linux"
+name = "Push on docker hub linux"
 steps {
 dockerCommand {
 name = "pull teamcity-agent"
@@ -904,16 +816,16 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
+snapshot(publish_local)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_windows_deploy: BuildType(
+object push_hub_windows: BuildType(
 {
-name = "Deploy windows"
+name = "Push on docker hub windows"
 steps {
 dockerCommand {
 name = "pull teamcity-agent"
@@ -1144,41 +1056,19 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
+snapshot(publish_local)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_deploy_all: BuildType(
+object publish_hub_latest: BuildType(
 {
-name = "Deploy"
-steps {
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_linux_deploy)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_windows_deploy)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_build_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_latest_manifest_hub: BuildType(
-{
-name = "Manifest on deploy latest"
+name = "Publish on docker hub as latest"
+enablePersonalBuilds = false
+type = BuildTypeSettings.Type.DEPLOYMENT
+maxRunningBuilds = 1
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -1249,7 +1139,11 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_deploy_all)
+snapshot(push_hub_linux)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(push_hub_windows)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1262,9 +1156,12 @@ features {
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest_hub: BuildType(
+object publish_hub_version: BuildType(
 {
-name = "Manifest on deploy 2020.1.1"
+name = "Publish on docker hub as version"
+enablePersonalBuilds = false
+type = BuildTypeSettings.Type.DEPLOYMENT
+maxRunningBuilds = 1
 steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
@@ -1329,29 +1226,6 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-server:2020.1.1 --verbose"
 }
 }
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_deploy_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-requirements {
-noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
-}
-features {
-}
-})
-
-object TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest_hub: BuildType(
-{
-name = "Manifest on deploy 2020.1.1-windowsservercore"
-steps {
 dockerCommand {
 name = "manifest create teamcity-agent"
 commandType = other {
@@ -1379,7 +1253,11 @@ snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(TC_Trunk_BuildDistTarGzWar_deploy_all)
+snapshot(push_hub_linux)
+{
+onDependencyFailure = FailureAction.IGNORE
+}
+snapshot(push_hub_windows)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1392,52 +1270,16 @@ features {
 }
 })
 
-object TC_Trunk_BuildDistTarGzWar_manifest_hub_all: BuildType(
-{
-name = "Manifest on deploy"
-steps {
-}
-dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_latest_manifest_hub)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest_hub)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest_hub)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(TC_Trunk_BuildDistTarGzWar_deploy_all)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-})
-
 project {
 vcsRoot(RemoteTeamcityImages)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_linux)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1809)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_nanoserver_1903)
-buildType(TC_Trunk_BuildDistTarGzWar_build_all)
-buildType(TC_Trunk_BuildDistTarGzWar_latest_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest)
-buildType(TC_Trunk_BuildDistTarGzWar_manifest_all)
-buildType(TC_Trunk_BuildDistTarGzWar_linux_deploy)
-buildType(TC_Trunk_BuildDistTarGzWar_windows_deploy)
-buildType(TC_Trunk_BuildDistTarGzWar_deploy_all)
-buildType(TC_Trunk_BuildDistTarGzWar_latest_manifest_hub)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_manifest_hub)
-buildType(TC_Trunk_BuildDistTarGzWar_2020_1_1_windowsservercore_manifest_hub)
-buildType(TC_Trunk_BuildDistTarGzWar_manifest_hub_all)
+buildType(push_local_linux)
+buildType(push_local_windows)
+buildType(push_local_windows_2)
+buildType(publish_local)
+buildType(push_hub_linux)
+buildType(push_hub_windows)
+buildType(publish_hub_latest)
+buildType(publish_hub_version)
 }
 
 object RemoteTeamcityImages : GitVcsRoot({

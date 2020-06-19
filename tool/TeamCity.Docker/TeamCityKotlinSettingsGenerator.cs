@@ -48,11 +48,10 @@ namespace TeamCity.Docker
                 return;
             }
 
-            var buildId = NormalizeName(_options.TeamCityBuildConfigurationId);
-
             // ReSharper disable once UseObjectOrCollectionInitializer
             var lines = new List<string>();
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.*");
+            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace");
@@ -68,8 +67,7 @@ namespace TeamCity.Docker
                 return;
             }
 
-            var counter = 0;
-            var names = new HashSet<string>();
+            var names = new Dictionary<string, int>();
             var buildGraphs = (
                 from buildGraph in buildGraphResult.Value
                 let hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any())
@@ -81,99 +79,71 @@ namespace TeamCity.Docker
                 .ToList();
 
             var buildTypes = new List<string>();
-
-            var buildBuildTypes = new List<string>();
-            foreach (var buildGraph in buildGraphs)
-            {
-                // build build config
-                var name = buildGraph.name;
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    name = "Build";
-                }
-                
-                if (!names.Add(name))
-                {
-                    name = $"{name} {++counter}";
-                }
-
-                var buildTypeId = $"{buildId}_{NormalizeName(name)}";
-                buildBuildTypes.Add(buildTypeId);
-                lines.AddRange(GenerateBuildType(buildTypeId, name, buildGraph.graph, buildGraph.weight));
-                // build build config
-            }
-
-            buildTypes.AddRange(buildBuildTypes);
-
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
 
-            var multiTags = (
-                from image in allImages
-                from tag in image.File.Tags.Skip(1)
-                group image by tag).ToList();
-
-            // build all build config
-            var buildAllBuildTypeId = $"{buildId}_build_all";
-            buildTypes.Add(buildAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(buildAllBuildTypeId, "Build", buildBuildTypes.ToArray()));
-            // build all build config
-
-            var manifestBuildTypes = new List<string>();
-            foreach (var multiTag in multiTags)
+            // Push on local registry
+            var pushLocalBuildTypes = new List<string>();
+            foreach (var buildGraph in buildGraphs)
             {
-                // manifests build config
-                var buildTypeId = $"{buildId}_{NormalizeName(multiTag.Key)}_manifest";
-                manifestBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, BuildRepositoryName, $"Manifest on build {multiTag.Key}", multiTag.Key, multiTag, buildAllBuildTypeId));
-                // manifests build config
+                var path = _buildPathProvider.GetPath(buildGraph.graph).ToList();
+                var name = string.Join("", path.Select(i => i.Value).OfType<Image>().Select(i => i.File.Platform).Distinct().OrderBy(i => i));
+                if (names.TryGetValue(name, out var counter))
+                {
+                    name = $"{name} {++counter}";
+                }
+                else
+                {
+                    names[name] = 1;
+                }
+
+                var buildTypeId = $"push_local_{NormalizeName(name)}";
+                pushLocalBuildTypes.Add(buildTypeId);
+                lines.AddRange(GenerateBuildType(buildTypeId, name, path, buildGraph.weight));
             }
 
-            buildTypes.AddRange(manifestBuildTypes);
+            buildTypes.AddRange(pushLocalBuildTypes);
 
-            // manifest build config
-            var manifestAllBuildTypeId = $"{buildId}_manifest_all";
-            buildTypes.Add(manifestAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(manifestAllBuildTypeId, "Manifest on build", new List<string>(manifestBuildTypes) { buildAllBuildTypeId}.ToArray()));
-            // manifest build config
+            // Publish on local registry
+            var localPublishGroups =
+                from image in allImages
+                from tag in image.File.Tags.Skip(1)
+                group image by tag;
 
-            var deployBuildTypes = new List<string>();
+            var publishLocalId = "publish_local";
+            buildTypes.Add(publishLocalId);
+            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish on local registry", localPublishGroups, pushLocalBuildTypes.ToArray()));
+
+            // Push on docker hub
+            var pushOnHubBuildTypes = new List<string>();
             var platforms = allImages.Select(i => i.File.Platform).Distinct();
             foreach (var platform in platforms)
             {
-                // deploy build config
-                var buildTypeId = $"{buildId}_{NormalizeName(platform)}_deploy";
-                deployBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, buildAllBuildTypeId));
-                // deploy build config
+                var buildTypeId = $"push_hub_{NormalizeName(platform)}";
+                pushOnHubBuildTypes.Add(buildTypeId);
+                lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, publishLocalId));
             }
 
-            buildTypes.AddRange(deployBuildTypes);
+            buildTypes.AddRange(pushOnHubBuildTypes);
 
-            // deploy build config
-            var deployAllBuildTypeId = $"{buildId}_deploy_all";
-            buildTypes.Add(deployAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(deployAllBuildTypeId, "Deploy", new List<string>(deployBuildTypes) { buildAllBuildTypeId }.ToArray()));
-            // deploy build config
+            // Publish on docker hub
+            var publishOnHubBuildTypes = new List<string>();
+            var publishOnHubGroups =
+                from grp in
+                    from image in allImages
+                    from tag in image.File.Tags.Skip(1)
+                    group image by tag
+                group grp by grp.Key.ToLowerInvariant() == "latest" ? "latest" : "version";
 
-            var manifestOnHubBuildTypes = new List<string>();
-            foreach (var multiTag in multiTags)
+            foreach (var group in publishOnHubGroups)
             {
-                // manifests on hub build config
-                var buildTypeId = $"{buildId}_{NormalizeName(multiTag.Key)}_manifest_hub";
-                manifestOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Manifest on deploy {multiTag.Key}", multiTag.Key, multiTag, deployAllBuildTypeId));
-                // manifests build config
+                var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
+                publishOnHubBuildTypes.Add(buildTypeId);
+                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish on docker hub as {group.Key}", group, pushOnHubBuildTypes.ToArray()));
             }
 
-            buildTypes.AddRange(manifestOnHubBuildTypes);
-
-            // manifest build config
-            var manifestHubAllBuildTypeId = $"{buildId}_manifest_hub_all";
-            buildTypes.Add(manifestHubAllBuildTypeId);
-            lines.AddRange(CreateComposingBuildConfiguration(manifestHubAllBuildTypeId, "Manifest on deploy", new List<string>(manifestOnHubBuildTypes) {deployAllBuildTypeId}.ToArray()));
-            // manifest build config
+            buildTypes.AddRange(publishOnHubBuildTypes);
 
             // project
             lines.Add("project {");
@@ -202,7 +172,7 @@ namespace TeamCity.Docker
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
-            yield return $"name = \"Deploy {platform}\"";
+            yield return $"name = \"Push on docker hub {platform}\"";
 
             yield return "steps {";
             foreach (var image in images)
@@ -262,27 +232,31 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, string tag, IEnumerable<Image> images, string buildAllTypeId)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, params string[] dependencies)
         {
-            var groupedByImageId = images
-                .GroupBy(i => i.File.ImageId);
-
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"{name}\"";
+            yield return "enablePersonalBuilds = false";
+            yield return "type = BuildTypeSettings.Type.DEPLOYMENT";
+            yield return "maxRunningBuilds = 1";
 
             yield return "steps {";
-            foreach (var groupByImageId in groupedByImageId)
+            foreach (var group in images)
             {
-                foreach (var line in CreateManifestCommands(repositoryName, tag, groupByImageId.Key, groupByImageId))
+                var groupedByImageId = group.GroupBy(i => i.File.ImageId);
+                foreach (var groupByImageId in groupedByImageId)
                 {
-                    yield return line;
+                    foreach (var line in CreateManifestCommands(repositoryName, group.Key, groupByImageId.Key, groupByImageId))
+                    {
+                        yield return line;
+                    }
                 }
             }
 
             yield return "}";
 
-            foreach (var line in CreateSnapshotDependencies(Enumerable.Repeat(buildAllTypeId, 1)))
+            foreach (var line in CreateSnapshotDependencies(dependencies))
             {
                 yield return line;
             }
@@ -374,9 +348,8 @@ namespace TeamCity.Docker
             }
         }
 
-        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IGraph<IArtifact, Dependency> buildGraph, int weight)
+        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IReadOnlyCollection<INode<IArtifact>> path, int weight)
         {
-            var path = _buildPathProvider.GetPath(buildGraph).ToList();
             var images = path.Select(i => i.Value).OfType<Image>().ToList();
             var references = path.Select(i => i.Value).OfType<Reference>().ToList();
 
@@ -410,7 +383,7 @@ namespace TeamCity.Docker
             }
 
             yield return $"object {buildTypeId} : BuildType({{";
-            yield return $"name = \"Build {name}\"";
+            yield return $"name = \"Push on local registry {name}\"";
             yield return $"description  = \"{description}\"";
             yield return "vcs {root(RemoteTeamcityImages)}";
             yield return "steps {";
