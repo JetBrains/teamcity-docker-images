@@ -8,7 +8,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 version = "2019.2"
 
 object push_local_linux : BuildType({
-name = "Push on local registry linux"
+name = "Push linux"
 description  = "teamcity-server:2020.1.1-linux,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-linux,latest,2020.1.1 teamcity-agent:2020.1.1-linux,latest,2020.1.1:2020.1.1-linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -165,7 +165,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 })
 
 object push_local_windows : BuildType({
-name = "Push on local registry windows"
+name = "Push windows"
 description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -338,7 +338,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 })
 
 object push_local_windows_2 : BuildType({
-name = "Push on local registry windows 2"
+name = "Push windows 2"
 description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -512,7 +512,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 
 object publish_local: BuildType(
 {
-name = "Publish on local registry"
+name = "Publish"
 enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
@@ -693,7 +693,7 @@ features {
 
 object push_hub_linux: BuildType(
 {
-name = "Push on docker hub linux"
+name = "Push linux"
 steps {
 dockerCommand {
 name = "pull teamcity-agent"
@@ -825,7 +825,7 @@ onDependencyFailure = FailureAction.IGNORE
 
 object push_hub_windows: BuildType(
 {
-name = "Push on docker hub windows"
+name = "Push windows"
 steps {
 dockerCommand {
 name = "pull teamcity-agent"
@@ -1065,7 +1065,7 @@ onDependencyFailure = FailureAction.IGNORE
 
 object publish_hub_latest: BuildType(
 {
-name = "Publish on docker hub as latest"
+name = "Publish as latest"
 enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
@@ -1158,7 +1158,7 @@ features {
 
 object publish_hub_version: BuildType(
 {
-name = "Publish on docker hub as version"
+name = "Publish as version"
 enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
@@ -1270,16 +1270,27 @@ features {
 }
 })
 
-project {
-vcsRoot(RemoteTeamcityImages)
+object LocalProject : Project({
+name = "Local registry"
 buildType(push_local_linux)
 buildType(push_local_windows)
 buildType(push_local_windows_2)
 buildType(publish_local)
+})
+object HubProject : Project({
+name = "Docker hub"
 buildType(push_hub_linux)
 buildType(push_hub_windows)
 buildType(publish_hub_latest)
 buildType(publish_hub_version)
+})
+project {
+vcsRoot(RemoteTeamcityImages)
+subProject(LocalProject)
+subProject(HubProject)
+params {
+param("dockerImage.teamcity.buildNumber", "0")
+}
 }
 
 object RemoteTeamcityImages : GitVcsRoot({

@@ -78,7 +78,8 @@ namespace TeamCity.Docker
                 select new { graph = buildGraph, name, weight })
                 .ToList();
 
-            var buildTypes = new List<string>();
+            var localBuildTypes = new List<string>();
+            var hubBuildTypes = new List<string>();
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
@@ -103,7 +104,7 @@ namespace TeamCity.Docker
                 lines.AddRange(GenerateBuildType(buildTypeId, name, path, buildGraph.weight));
             }
 
-            buildTypes.AddRange(pushLocalBuildTypes);
+            localBuildTypes.AddRange(pushLocalBuildTypes);
 
             // Publish on local registry
             var localPublishGroups =
@@ -112,8 +113,8 @@ namespace TeamCity.Docker
                 group image by tag;
 
             var publishLocalId = "publish_local";
-            buildTypes.Add(publishLocalId);
-            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish on local registry", localPublishGroups, pushLocalBuildTypes.ToArray()));
+            localBuildTypes.Add(publishLocalId);
+            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, pushLocalBuildTypes.ToArray()));
 
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
@@ -125,7 +126,7 @@ namespace TeamCity.Docker
                 lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, publishLocalId));
             }
 
-            buildTypes.AddRange(pushOnHubBuildTypes);
+            hubBuildTypes.AddRange(pushOnHubBuildTypes);
 
             // Publish on docker hub
             var publishOnHubBuildTypes = new List<string>();
@@ -140,21 +141,39 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
                 publishOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish on docker hub as {group.Key}", group, pushOnHubBuildTypes.ToArray()));
+                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, pushOnHubBuildTypes.ToArray()));
             }
 
-            buildTypes.AddRange(publishOnHubBuildTypes);
+            hubBuildTypes.AddRange(publishOnHubBuildTypes);
 
-            // project
-            lines.Add("project {");
-            lines.Add("vcsRoot(RemoteTeamcityImages)");
-            foreach (var buildType in buildTypes.Distinct())
+            // Local project
+            lines.Add("object LocalProject : Project({");
+            lines.Add("name = \"Local registry\"");
+            foreach (var buildType in localBuildTypes.Distinct())
             {
                 lines.Add($"buildType({buildType})");
             }
-            lines.Add("}");
-            // project
+            lines.Add("})");
 
+            // Hub project
+            lines.Add("object HubProject : Project({");
+            lines.Add("name = \"Docker hub\"");
+            foreach (var buildType in hubBuildTypes.Distinct())
+            {
+                lines.Add($"buildType({buildType})");
+            }
+            lines.Add("})");
+
+            // root project
+            lines.Add("project {");
+            lines.Add("vcsRoot(RemoteTeamcityImages)");
+            lines.Add("subProject(LocalProject)");
+            lines.Add("subProject(HubProject)");
+            lines.Add("params {");
+            lines.Add("param(\"dockerImage.teamcity.buildNumber\", \"0\")");
+            lines.Add("}");
+
+            lines.Add("}");
             lines.Add(string.Empty);
 
             // vcs
@@ -172,7 +191,7 @@ namespace TeamCity.Docker
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
-            yield return $"name = \"Push on docker hub {platform}\"";
+            yield return $"name = \"Push {platform}\"";
 
             yield return "steps {";
             foreach (var image in images)
@@ -277,24 +296,6 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, params string[] buildBuildTypes)
-        {
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
-            yield return $"name = \"{name}\"";
-
-            yield return "steps {";
-            yield return "}";
-
-            foreach (var line in CreateSnapshotDependencies(buildBuildTypes))
-            {
-                yield return line;
-            }
-
-            yield return "})";
-            yield return string.Empty;
-        }
-
         private static IEnumerable<string> CreateDockerRequirements()
         {
             yield return "requirements {";
@@ -383,7 +384,7 @@ namespace TeamCity.Docker
             }
 
             yield return $"object {buildTypeId} : BuildType({{";
-            yield return $"name = \"Push on local registry {name}\"";
+            yield return $"name = \"Push {name}\"";
             yield return $"description  = \"{description}\"";
             yield return "vcs {root(RemoteTeamcityImages)}";
             yield return "steps {";
@@ -611,5 +612,23 @@ namespace TeamCity.Docker
                 .Replace('-', '_')
                 .Replace("%", "")
                 .Replace(".", "_");
+
+        private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, params string[] buildBuildTypes)
+        {
+            yield return $"object {buildTypeId}: BuildType(";
+            yield return "{";
+            yield return $"name = \"{name}\"";
+
+            yield return "steps {";
+            yield return "}";
+
+            foreach (var line in CreateSnapshotDependencies(buildBuildTypes))
+            {
+                yield return line;
+            }
+
+            yield return "})";
+            yield return string.Empty;
+        }
     }
 }
