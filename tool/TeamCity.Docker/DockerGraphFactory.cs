@@ -95,9 +95,13 @@ namespace TeamCity.Docker
                         }
                     }
 
+                    var dirName = Path.GetDirectoryName(variant.ConfigFile) ?? string.Empty;
+                    var description = Path.GetFileName(dirName);
                     var dockerfile = new Dockerfile(
                         _pathService.Normalize(variant.BuildPath),
-                        imageId, platform,
+                        imageId,
+                        platform,
+                        description,
                         tags.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),
                         components.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),
                         repositories.Where(i => !string.IsNullOrWhiteSpace(i)).ToList(),

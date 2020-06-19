@@ -89,7 +89,17 @@ namespace TeamCity.Docker
             foreach (var buildGraph in buildGraphs)
             {
                 var path = _buildPathProvider.GetPath(buildGraph.graph).ToList();
-                var name = string.Join("", path.Select(i => i.Value).OfType<Image>().Select(i => i.File.Platform).Distinct().OrderBy(i => i));
+                var name = path
+                    .Select(i => i.Value)
+                    .OfType<Image>()
+                    .Select(i => $"{i.File.Platform} {i.File.Description}".Trim())
+                    .Where(i => !string.IsNullOrWhiteSpace(i))
+                    .GroupBy(i => i, s => s, (s, enumerable) => Tuple.Create(s, enumerable.Count()))
+                    .OrderByDescending(i => i.Item2)
+                    .Select(i => i.Item1)
+                    .FirstOrDefault();
+
+                name ??= string.Join("", path.Select(i => i.Value).OfType<Image>().Select(i => i.File.Platform).Distinct().OrderBy(i => i));
                 if (names.TryGetValue(name, out var counter))
                 {
                     name = $"{name} {++counter}";
@@ -384,7 +394,7 @@ namespace TeamCity.Docker
             }
 
             yield return $"object {buildTypeId} : BuildType({{";
-            yield return $"name = \"Push {name}\"";
+            yield return $"name = \"Build and push {name}\"";
             yield return $"description  = \"{description}\"";
             yield return "vcs {root(RemoteTeamcityImages)}";
             yield return "steps {";
@@ -460,8 +470,6 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies)
         {
             yield return "dependencies {";
-            yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
-            yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
             foreach (var buildTypeId in dependencies)
             {
                 yield return $"snapshot({buildTypeId})";

@@ -7,8 +7,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 version = "2019.2"
 
-object push_local_linux : BuildType({
-name = "Push linux"
+object push_local_linux_18_04 : BuildType({
+name = "Build and push linux 18.04"
 description  = "teamcity-server:2020.1.1-linux,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-linux,latest,2020.1.1 teamcity-agent:2020.1.1-linux,latest,2020.1.1:2020.1.1-linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -164,8 +164,8 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object push_local_windows : BuildType({
-name = "Push windows"
+object push_local_windows_1809 : BuildType({
+name = "Build and push windows 1809"
 description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -337,8 +337,8 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
-object push_local_windows_2 : BuildType({
-name = "Push windows 2"
+object push_local_windows_1903 : BuildType({
+name = "Build and push windows 1903"
 description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
@@ -666,19 +666,15 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1-windowsse
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+snapshot(push_local_linux_18_04)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(push_local_linux)
+snapshot(push_local_windows_1809)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
-snapshot(push_local_windows)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(push_local_windows_2)
+snapshot(push_local_windows_1903)
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -812,10 +808,6 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
 snapshot(publish_local)
 {
 onDependencyFailure = FailureAction.IGNORE
@@ -1052,10 +1044,6 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
 snapshot(publish_local)
 {
 onDependencyFailure = FailureAction.IGNORE
@@ -1135,10 +1123,6 @@ commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
 snapshot(push_hub_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
@@ -1249,10 +1233,6 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1-windowss
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
-{
-onDependencyFailure = FailureAction.IGNORE
-}
 snapshot(push_hub_linux)
 {
 onDependencyFailure = FailureAction.IGNORE
@@ -1272,9 +1252,9 @@ features {
 
 object LocalProject : Project({
 name = "Local registry"
-buildType(push_local_linux)
-buildType(push_local_windows)
-buildType(push_local_windows_2)
+buildType(push_local_linux_18_04)
+buildType(push_local_windows_1809)
+buildType(push_local_windows_1903)
 buildType(publish_local)
 })
 object HubProject : Project({
