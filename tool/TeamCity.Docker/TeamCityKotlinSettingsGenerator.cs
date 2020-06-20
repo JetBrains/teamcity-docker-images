@@ -13,6 +13,8 @@ namespace TeamCity.Docker
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
         private const string MinDockerVersion = "18.05.0";
+        private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
+        private string BuildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
         [NotNull] private readonly IGenerateOptions _options;
@@ -180,7 +182,7 @@ namespace TeamCity.Docker
             lines.Add("subProject(LocalProject)");
             lines.Add("subProject(HubProject)");
             lines.Add("params {");
-            lines.Add("param(\"dockerImage.teamcity.buildNumber\", \"0\")");
+            lines.Add($"param(\"{BuildNumberParam}\", \"%dep.{_options.TeamCityBuildConfigurationId}.build.number%\")");
             lines.Add("}");
 
             lines.Add("}");
@@ -202,6 +204,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"Push {platform}\"";
+            yield return BuildNumberPattern;
 
             yield return "steps {";
             foreach (var image in images)
@@ -266,6 +269,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"{name}\"";
+            yield return BuildNumberPattern;
             yield return "enablePersonalBuilds = false";
             yield return "type = BuildTypeSettings.Type.DEPLOYMENT";
             yield return "maxRunningBuilds = 1";
@@ -395,6 +399,7 @@ namespace TeamCity.Docker
 
             yield return $"object {buildTypeId} : BuildType({{";
             yield return $"name = \"Build and push {name}\"";
+            yield return BuildNumberPattern;
             yield return $"description  = \"{description}\"";
             yield return "vcs {root(RemoteTeamcityImages)}";
             yield return "steps {";
@@ -626,6 +631,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"{name}\"";
+            yield return BuildNumberPattern;
 
             yield return "steps {";
             yield return "}";
