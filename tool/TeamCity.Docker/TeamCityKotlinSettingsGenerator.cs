@@ -15,6 +15,7 @@ namespace TeamCity.Docker
         private const string MinDockerVersion = "18.05.0";
         private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
         private string BuildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
+        private const string RemoveManifestsScript = "\"\"rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
         [NotNull] private readonly IGenerateOptions _options;
@@ -54,6 +55,7 @@ namespace TeamCity.Docker
             var lines = new List<string>();
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.*");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*");
+            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport");
             lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace");
@@ -280,6 +282,11 @@ namespace TeamCity.Docker
             yield return "maxRunningBuilds = 1";
 
             yield return "steps {";
+            foreach (var line in AddScript("remove manifests", RemoveManifestsScript))
+            {
+                yield return line;
+            }
+
             foreach (var group in images)
             {
                 var groupedByImageId = group.GroupBy(i => i.File.ImageId);
@@ -334,7 +341,6 @@ namespace TeamCity.Docker
             var createArgs = new List<string>
             {
                 "create",
-                "-a",
                 manifestName
             };
 
@@ -343,7 +349,7 @@ namespace TeamCity.Docker
                 createArgs.Add($"{repo}:{image.File.Tags.First()}");
             }
 
-            foreach (var line in CreateDockerCommand($"manifest create {imageId}", "manifest", createArgs))
+            foreach (var line in CreateDockerCommand($"manifest create {imageId}:{tag}", "manifest", createArgs))
             {
                 yield return line;
             }
@@ -641,6 +647,15 @@ namespace TeamCity.Docker
                 .Replace("%", "")
                 .Replace(".", "_");
 
+        private static IEnumerable<string> AddScript(string name, string script)
+        {
+            yield return "script {";
+            yield return $"name = \"{name}\"";
+            yield return $"scriptContent = \"{script}\"";
+            yield return "}";
+        }
+
+        // ReSharper disable once UnusedMember.Local
         private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, params string[] buildBuildTypes)
         {
             yield return $"object {buildTypeId}: BuildType(";

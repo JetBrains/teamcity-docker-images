@@ -1,5 +1,6 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
@@ -521,11 +522,15 @@ enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
 steps {
+script {
+name = "remove manifests"
+scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+}
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-agent:latest %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:latest %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -543,10 +548,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:latest --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent"
+name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-minimal-agent:latest %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:latest %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -564,10 +569,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:latest --v
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server"
+name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -585,10 +590,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-agent:2020.1.1 %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:2020.1.1 %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -606,10 +611,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1 --verbose
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent"
+name = "manifest create teamcity-minimal-agent:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-minimal-agent:2020.1.1 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:2020.1.1 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -627,10 +632,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:2020.1.1 -
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server"
+name = "manifest create teamcity-server:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-server:2020.1.1 %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-server:2020.1.1 %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -648,10 +653,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.1.1 --verbos
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:2020.1.1-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
 }
 }
 dockerCommand {
@@ -669,10 +674,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1-windowsse
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
 }
 }
 dockerCommand {
@@ -1076,11 +1081,15 @@ enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
 steps {
+script {
+name = "remove manifests"
+scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+}
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1098,10 +1107,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent"
+name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1119,10 +1128,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server"
+name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1166,11 +1175,15 @@ enablePersonalBuilds = false
 type = BuildTypeSettings.Type.DEPLOYMENT
 maxRunningBuilds = 1
 steps {
+script {
+name = "remove manifests"
+scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+}
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-agent:2020.1.1 %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2020.1.1 %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1188,10 +1201,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1 --verbos
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent"
+name = "manifest create teamcity-minimal-agent:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-minimal-agent:2020.1.1 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2020.1.1 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1209,10 +1222,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2020.1.1 
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server"
+name = "manifest create teamcity-server:2020.1.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-server:2020.1.1 %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-server:2020.1.1 %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1230,10 +1243,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-server:2020.1.1 --verbo
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:2020.1.1-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
 }
 }
 dockerCommand {
@@ -1251,10 +1264,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1-windowss
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent"
+name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create -a %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
 }
 }
 dockerCommand {
