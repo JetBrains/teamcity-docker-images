@@ -168,7 +168,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
+description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore,latest-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -342,7 +342,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1903 : BuildType({
 name = "Build and push windows 1903"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
+description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore,latest-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -666,6 +666,27 @@ name = "manifest inspect teamcity-agent"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create -a %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-agent:latest-windowsservercore"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent:latest-windowsservercore --verbose"
 }
 }
 }
@@ -1227,6 +1248,27 @@ name = "manifest inspect teamcity-agent"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create -a %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-agent:latest-windowsservercore"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-agent"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsservercore --verbose"
 }
 }
 }

@@ -9,6 +9,7 @@
 # Id teamcity-agent
 # Tag ${versionTag}-${tag}
 # Tag ${versionTag}-windowsservercore
+# Tag ${latestTag}-windowsservercore
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 11
