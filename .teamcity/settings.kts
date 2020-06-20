@@ -810,6 +810,9 @@ swabra {
 forceCleanCheckout = true
 }
 }
+requirements {
+equals("docker.server.osType", "linux")
+}
 dependencies {
 snapshot(publish_local)
 {
@@ -1032,6 +1035,9 @@ failBuild = true
 swabra {
 forceCleanCheckout = true
 }
+}
+requirements {
+equals("docker.server.osType", "windows")
 }
 dependencies {
 snapshot(publish_local)

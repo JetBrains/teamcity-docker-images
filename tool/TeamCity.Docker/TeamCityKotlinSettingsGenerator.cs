@@ -255,6 +255,11 @@ namespace TeamCity.Docker
 
             yield return "}";
 
+            foreach (var lines in CreateDockerRequirements(platform))
+            {
+                yield return lines;
+            }
+
             foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, false))
             {
                 yield return dependencies;
@@ -294,7 +299,7 @@ namespace TeamCity.Docker
                 yield return line;
             }
 
-            foreach (var lines in CreateDockerRequirements())
+            foreach (var lines in CreateDockerRequirements("windows", MinDockerVersion))
             {
                 yield return lines;
             }
@@ -310,11 +315,15 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private static IEnumerable<string> CreateDockerRequirements()
+        private static IEnumerable<string> CreateDockerRequirements(string platform, string minDockerVersion = "")
         {
             yield return "requirements {";
-            yield return $"noLessThanVer(\"docker.version\", \"{MinDockerVersion}\")";
-            yield return "equals(\"docker.server.osType\", \"windows\")";
+            if (!string.IsNullOrWhiteSpace(minDockerVersion))
+            {
+                yield return $"noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
+            }
+
+            yield return $"equals(\"docker.server.osType\", \"{platform}\")";
             yield return "}";
         }
 
