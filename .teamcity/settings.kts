@@ -670,6 +670,10 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1-windowsse
 }
 }
 dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
 snapshot(push_local_linux_18_04)
 {
 onDependencyFailure = FailureAction.IGNORE
@@ -738,12 +742,10 @@ commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.dep
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-agent:2020.1.1-linux,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-agent:2020.1.1-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2020.1.1-linux
-%docker.deployRepository%teamcity-agent:latest
-%docker.deployRepository%teamcity-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -765,12 +767,10 @@ commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %do
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux
-%docker.deployRepository%teamcity-minimal-agent:latest
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -792,12 +792,10 @@ commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-linux %docker.de
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-server:2020.1.1-linux,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-server:2020.1.1-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-server:2020.1.1-linux
-%docker.deployRepository%teamcity-server:latest
-%docker.deployRepository%teamcity-server:2020.1.1
 """.trimIndent()
 }
 }
@@ -842,12 +840,10 @@ commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809
-%docker.deployRepository%teamcity-agent:latest
-%docker.deployRepository%teamcity-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -869,11 +865,10 @@ commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore"
+name = "push %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809
-%docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore
 """.trimIndent()
 }
 }
@@ -895,12 +890,10 @@ commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserve
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809
-%docker.deployRepository%teamcity-minimal-agent:latest
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -922,12 +915,10 @@ commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809
-%docker.deployRepository%teamcity-server:latest
-%docker.deployRepository%teamcity-server:2020.1.1
 """.trimIndent()
 }
 }
@@ -949,12 +940,10 @@ commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903 %
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903
-%docker.deployRepository%teamcity-agent:latest
-%docker.deployRepository%teamcity-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -976,11 +965,10 @@ commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore"
+name = "push %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903
-%docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore
 """.trimIndent()
 }
 }
@@ -1002,12 +990,10 @@ commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserve
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903
-%docker.deployRepository%teamcity-minimal-agent:latest
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1
 """.trimIndent()
 }
 }
@@ -1029,12 +1015,10 @@ commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903 
 }
 
 dockerCommand {
-name = "push %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1"
+name = "push %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903
-%docker.deployRepository%teamcity-server:latest
-%docker.deployRepository%teamcity-server:2020.1.1
 """.trimIndent()
 }
 }

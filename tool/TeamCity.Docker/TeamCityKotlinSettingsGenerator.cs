@@ -126,7 +126,7 @@ namespace TeamCity.Docker
 
             var publishLocalId = "publish_local";
             localBuildTypes.Add(publishLocalId);
-            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, pushLocalBuildTypes.ToArray()));
+            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, pushLocalBuildTypes.ToArray()));
 
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
@@ -153,7 +153,7 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
                 publishOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, pushOnHubBuildTypes.ToArray()));
+                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, false, pushOnHubBuildTypes.ToArray()));
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
@@ -223,7 +223,7 @@ namespace TeamCity.Docker
                     yield return tagCommand;
                 }
 
-                foreach (var pushCommand in CreatePushCommand($"{newRepo}", newRepo, image.File.Tags.ToArray()))
+                foreach (var pushCommand in CreatePushCommand($"{newRepo}", newRepo, image.File.Tags.First()))
                 {
                     yield return pushCommand;
                 }
@@ -255,7 +255,7 @@ namespace TeamCity.Docker
 
             yield return "}";
 
-            foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes))
+            foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, false))
             {
                 yield return dependencies;
             }
@@ -264,7 +264,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, params string[] dependencies)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, bool dependsOnContext, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
@@ -289,7 +289,7 @@ namespace TeamCity.Docker
 
             yield return "}";
 
-            foreach (var line in CreateSnapshotDependencies(dependencies))
+            foreach (var line in CreateSnapshotDependencies(dependencies, dependsOnContext))
             {
                 yield return line;
             }
@@ -472,9 +472,15 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies)
+        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies, bool dependsOnContext)
         {
             yield return "dependencies {";
+            if (dependsOnContext)
+            {
+                yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
+                yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+            }
+
             foreach (var buildTypeId in dependencies)
             {
                 yield return $"snapshot({buildTypeId})";
@@ -636,7 +642,7 @@ namespace TeamCity.Docker
             yield return "steps {";
             yield return "}";
 
-            foreach (var line in CreateSnapshotDependencies(buildBuildTypes))
+            foreach (var line in CreateSnapshotDependencies(buildBuildTypes, false))
             {
                 yield return line;
             }
