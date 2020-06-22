@@ -26,7 +26,7 @@ namespace TeamCity.Docker
         [NotNull] private readonly IConfigurationExplorer _configurationExplorer;
         [NotNull] private readonly IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>> _buildGraphFactory;
         [NotNull] private readonly IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> _buildGraphsFactory;
-        [NotNull] private readonly IFactory<string, IGraph<IArtifact, Dependency>> _graphNameFactory;
+        [NotNull] private readonly IFactory<NodesDescription, IEnumerable<INode<IArtifact>>> _nodesDescriptionFactory;
         [NotNull] private readonly IBuildPathProvider _buildPathProvider;
         [NotNull] private readonly IContextFactory _contextFactory;
         [NotNull] private readonly IStreamService _streamService;
@@ -42,7 +42,7 @@ namespace TeamCity.Docker
             [NotNull] IConfigurationExplorer configurationExplorer,
             [NotNull] IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>> buildGraphFactory,
             [NotNull] IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> buildGraphsFactory,
-            [NotNull] IFactory<string, IGraph<IArtifact, Dependency>> graphNameFactory,
+            [NotNull] IFactory<NodesDescription, IEnumerable<INode<IArtifact>>> nodesDescriptionFactory,
             [NotNull] IBuildPathProvider buildPathProvider,
             [NotNull] IContextFactory contextFactory,
             [NotNull] IStreamService streamService,
@@ -57,7 +57,7 @@ namespace TeamCity.Docker
             _configurationExplorer = configurationExplorer ?? throw new ArgumentNullException(nameof(configurationExplorer));
             _buildGraphFactory = buildGraphFactory ?? throw new ArgumentNullException(nameof(buildGraphFactory));
             _buildGraphsFactory = buildGraphsFactory ?? throw new ArgumentNullException(nameof(buildGraphsFactory));
-            _graphNameFactory = graphNameFactory ?? throw new ArgumentNullException(nameof(graphNameFactory));
+            _nodesDescriptionFactory = nodesDescriptionFactory ?? throw new ArgumentNullException(nameof(nodesDescriptionFactory));
             _buildPathProvider = buildPathProvider ?? throw new ArgumentNullException(nameof(buildPathProvider));
             _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
             _streamService = streamService ?? throw new ArgumentNullException(nameof(streamService));
@@ -104,7 +104,8 @@ namespace TeamCity.Docker
             {
                 foreach (var buildGraph in buildGraphs)
                 {
-                    var name = _graphNameFactory.Create(buildGraph).Value ?? "Unnamed graph";
+                    var nameResult = _nodesDescriptionFactory.Create(buildGraph.Nodes);
+                    var name = nameResult.State != Result.Error ? nameResult.Value.Name : "Unnamed graph";
                     if (!string.IsNullOrWhiteSpace(_options.FilterRegex) && !new Regex(_options.FilterRegex).IsMatch(name))
                     {
                         _logger.Log($"\"{name}\" was skipped according to filter \"{_options.FilterRegex}\".", Result.Warning);

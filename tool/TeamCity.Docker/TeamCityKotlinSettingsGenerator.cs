@@ -22,20 +22,20 @@ namespace TeamCity.Docker
         [NotNull] private readonly IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> _buildGraphsFactory;
         [NotNull] private readonly IPathService _pathService;
         [NotNull] private readonly IBuildPathProvider _buildPathProvider;
-        [NotNull] private readonly IFactory<string, IGraph<IArtifact, Dependency>> _graphNameFactory;
+        [NotNull] private readonly IFactory<NodesDescription, IEnumerable<INode<IArtifact>>> _nodesDescriptionsFactory;
 
         public TeamCityKotlinSettingsGenerator(
             [NotNull] IGenerateOptions options,
             [NotNull] IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> buildGraphsFactory,
             [NotNull] IPathService pathService,
             [NotNull] IBuildPathProvider buildPathProvider,
-            [NotNull] IFactory<string, IGraph<IArtifact, Dependency>> graphNameFactory)
+            [NotNull] IFactory<NodesDescription, IEnumerable<INode<IArtifact>>> nodesDescriptionFactory)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _buildGraphsFactory = buildGraphsFactory ?? throw new ArgumentNullException(nameof(buildGraphsFactory));
             _pathService = pathService ?? throw new ArgumentNullException(nameof(pathService));
             _buildPathProvider = buildPathProvider ?? throw new ArgumentNullException(nameof(buildPathProvider));
-            _graphNameFactory = graphNameFactory ?? throw new ArgumentNullException(nameof(graphNameFactory));
+            _nodesDescriptionsFactory = nodesDescriptionFactory ?? throw new ArgumentNullException(nameof(nodesDescriptionFactory));
         }
 
         public void Generate([NotNull] IGraph<IArtifact, Dependency> graph)
@@ -76,10 +76,10 @@ namespace TeamCity.Docker
                 from buildGraph in buildGraphResult.Value
                 let hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any())
                 where hasRepoToPush
-                let name = _graphNameFactory.Create(buildGraph).Value
                 let weight = buildGraph.Nodes.Select(i => i.Value.Weight.Value).Sum()
-                orderby name
-                select new { graph = buildGraph, name, weight })
+                let nodesDescription = _nodesDescriptionsFactory.Create(buildGraph.Nodes)
+                orderby nodesDescription.State != Result.Error ? nodesDescription.Value.Name : string.Empty
+                select new { graph = buildGraph, weight })
                 .ToList();
 
             var localBuildTypes = new List<string>();
@@ -93,17 +93,11 @@ namespace TeamCity.Docker
             foreach (var buildGraph in buildGraphs)
             {
                 var path = _buildPathProvider.GetPath(buildGraph.graph).ToList();
-                var name = path
-                    .Select(i => i.Value)
-                    .OfType<Image>()
-                    .Select(i => $"{i.File.Platform} {i.File.Description}".Trim())
-                    .Where(i => !string.IsNullOrWhiteSpace(i))
-                    .GroupBy(i => i, s => s, (s, enumerable) => Tuple.Create(s, enumerable.Count()))
-                    .OrderByDescending(i => i.Item2)
-                    .Select(i => i.Item1)
-                    .FirstOrDefault();
+                var description = _nodesDescriptionsFactory.Create(path);
+                var name = description.State != Result.Error
+                    ? description.Value.Name
+                    : string.Join("", path.Select(i => i.Value).OfType<Image>().Select(i => i.File.Platform).Distinct().OrderBy(i => i));
 
-                name ??= string.Join("", path.Select(i => i.Value).OfType<Image>().Select(i => i.File.Platform).Distinct().OrderBy(i => i));
                 if (names.TryGetValue(name, out var counter))
                 {
                     name = $"{name} {++counter}";
