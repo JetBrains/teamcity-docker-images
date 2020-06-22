@@ -88,8 +88,8 @@ namespace TeamCity.Docker
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .ToList();
 
-            // Push on local registry
-            var pushLocalBuildTypes = new List<string>();
+            // Build and push on local registry
+            var buildAndPushLocalBuildTypes = new List<string>();
             foreach (var buildGraph in buildGraphs)
             {
                 var path = _buildPathProvider.GetPath(buildGraph.graph).ToList();
@@ -108,11 +108,11 @@ namespace TeamCity.Docker
                 }
 
                 var buildTypeId = $"push_local_{NormalizeName(name)}";
-                pushLocalBuildTypes.Add(buildTypeId);
-                lines.AddRange(GenerateBuildType(buildTypeId, name, path, buildGraph.weight));
+                buildAndPushLocalBuildTypes.Add(buildTypeId);
+                lines.AddRange(GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight));
             }
 
-            localBuildTypes.AddRange(pushLocalBuildTypes);
+            localBuildTypes.AddRange(buildAndPushLocalBuildTypes);
 
             // Publish on local registry
             var localPublishGroups =
@@ -122,7 +122,7 @@ namespace TeamCity.Docker
 
             var publishLocalId = "publish_local";
             localBuildTypes.Add(publishLocalId);
-            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, pushLocalBuildTypes.ToArray()));
+            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, buildAndPushLocalBuildTypes.ToArray()));
 
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
@@ -131,7 +131,7 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"push_hub_{NormalizeName(platform)}";
                 pushOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateDeployBuildConfiguration(buildTypeId, platform, allImages, publishLocalId));
+                lines.AddRange(CreatePushBuildConfiguration(buildTypeId, platform, allImages, publishLocalId));
             }
 
             hubBuildTypes.AddRange(pushOnHubBuildTypes);
@@ -194,7 +194,7 @@ namespace TeamCity.Docker
             graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
         }
 
-        private IEnumerable<string> CreateDeployBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
+        private IEnumerable<string> CreatePushBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
         {
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
             yield return $"object {buildTypeId}: BuildType(";
@@ -206,20 +206,22 @@ namespace TeamCity.Docker
             foreach (var image in images)
             {
                 // docker pull
-                var repoTag = $"{BuildRepositoryName}{image.File.ImageId}:{image.File.Tags.FirstOrDefault() ?? "latest"}";
-                foreach (var pullCommand in CreatePullCommand(repoTag, image.File.ImageId))
+                var tag = image.File.Tags.First();
+                var repo = $"{image.File.ImageId}:{tag}";
+                var repoTag = $"{BuildRepositoryName}{repo}";
+                foreach (var pullCommand in CreatePullCommand(repoTag, repo))
                 {
                     yield return pullCommand;
                 }
 
                 var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
-                foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, newRepoTag))
+                foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, repo))
                 {
                     yield return tagCommand;
                 }
 
-                foreach (var pushCommand in CreatePushCommand($"{newRepo}", newRepo, image.File.Tags.First()))
+                foreach (var pushCommand in CreatePushCommand($"{newRepo}", repo, tag))
                 {
                     yield return pushCommand;
                 }
@@ -354,7 +356,7 @@ namespace TeamCity.Docker
                 manifestName
             };
 
-            foreach (var line in CreateDockerCommand($"manifest push {imageId}", "manifest", pushArgs))
+            foreach (var line in CreateDockerCommand($"manifest push {imageId}:{tag}", "manifest", pushArgs))
             {
                 yield return line;
             }
@@ -366,13 +368,13 @@ namespace TeamCity.Docker
                 "--verbose"
             };
 
-            foreach (var line in CreateDockerCommand($"manifest inspect {imageId}", "manifest", inspectArgs))
+            foreach (var line in CreateDockerCommand($"manifest inspect {imageId}:{tag}", "manifest", inspectArgs))
             {
                 yield return line;
             }
         }
 
-        private IEnumerable<string> GenerateBuildType(string buildTypeId, string name, IReadOnlyCollection<INode<IArtifact>> path, int weight)
+        private IEnumerable<string> GenerateBuildAndPushType(string buildTypeId, string name, IReadOnlyCollection<INode<IArtifact>> path, int weight)
         {
             var images = path.Select(i => i.Value).OfType<Image>().ToList();
             var references = path.Select(i => i.Value).OfType<Reference>().ToList();
@@ -441,7 +443,8 @@ namespace TeamCity.Docker
             // docker push
             foreach (var image in images)
             {
-                foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", image.File.ImageId, image.File.Tags.First()))
+                var tag = image.File.Tags.First();
+                foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", $"{image.File.ImageId}:{tag}", tag))
                 {
                     yield return pushCommand;
                 }
@@ -551,7 +554,7 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
-            yield return $"name = \"push {name}:{string.Join(",", tags)}\"";
+            yield return $"name = \"push {name}\"";
             yield return "commandType = push {";
 
             yield return "namesAndTags = \"\"\"";
