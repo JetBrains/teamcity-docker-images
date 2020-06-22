@@ -1,17 +1,24 @@
 ### Tags
 
-- linux
-  - 18.04
+ - multi-arch
+   - latest
     - [2020.1.1-linux](#202011-linux)
-- windows
-  - 1909
-    - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
-  - 1903
-    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-  - 1809
     - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - 1803
-    - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
+    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+   - 2020.1.1
+    - [2020.1.1-linux](#202011-linux)
+    - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+- linux 18.04
+  - [2020.1.1-linux](#202011-linux)
+- windows 1909
+  - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
+- windows 1903
+  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+- windows 1809
+  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+- windows 1803
+  - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
 
 ### 2020.1.1-linux
 

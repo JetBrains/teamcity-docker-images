@@ -54,6 +54,27 @@ namespace TeamCity.Docker
                 lines.Add("### Tags");
                 lines.Add(string.Empty);
 
+                var mutliArch =
+                    from grp in (
+                        from image in groupByImage
+                        where image.Key.Repositories.Any()
+                        from tag in image.Key.Tags.Skip(1)
+                        orderby tag descending
+                        group image by tag)
+                    orderby $"{grp.Count()} {grp.Key}" descending
+                    select grp;
+
+                lines.Add(" - multi-arch");
+                foreach (var dockerfileByMultiArchTag in mutliArch)
+                {
+                    lines.Add($"   - {dockerfileByMultiArchTag.Key}");
+                    foreach (var dockerfile in dockerfileByMultiArchTag)
+                    {
+                        lines.Add($"    - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
+                    }
+                }
+
+
                 var dockerfileGroups =
                     from image in groupByImage
                     orderby image.Key.Platform
@@ -67,13 +88,12 @@ namespace TeamCity.Docker
 
                 foreach (var dockerfileByPlatform in dockerfileGroups)
                 {
-                    lines.Add($"- {dockerfileByPlatform.Key}");
                     foreach (var dockerfileByDescription in dockerfileByPlatform)
                     {
-                        lines.Add($"  - {dockerfileByDescription.Key}");
+                        lines.Add($"- {dockerfileByPlatform.Key} {dockerfileByDescription.Key}");
                         foreach (var dockerfile in dockerfileByDescription)
                         {
-                            lines.Add($"    - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
+                            lines.Add($"  - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
                         }
                     }
                 }
