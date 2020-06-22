@@ -1,21 +1,13 @@
 ### Tags
 
-#### multi-arch
+#### multi-architecture
 
-- latest
-  - [2020.1.1-linux](#202011-linux)
-  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-- 2020.1.1
-  - [2020.1.1-linux](#202011-linux)
-  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-- latest-windowsservercore
-  - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-  - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
-- 2020.1.1-windowsservercore
-  - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-  - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
+
+- [latest](#latest)
+- [2020.1.1](#202011)
+- [latest-windowsservercore](#latest-windowsservercore)
+- [2020.1.1-windowsservercore](#202011-windowsservercore)
 
 #### linux
 
@@ -40,6 +32,45 @@
   - [2020.1.1-windowsservercore-1803](#202011-windowsservercore-1803)
 
 
+### latest
+
+Supported platforms: linux 18.04, windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-linux](#202011-linux)
+- [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+- [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+
+### 2020.1.1
+
+Supported platforms: linux 18.04, windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-linux](#202011-linux)
+- [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+- [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+
+### latest-windowsservercore
+
+Supported platforms: windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
+- [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+
+### 2020.1.1-windowsservercore
+
+Supported platforms: windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
+- [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+
+
 ### 2020.1.1-linux
 
 [Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
@@ -56,7 +87,7 @@ Installed components:
 - Mercurial
 - [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-linux-x64.tar.gz)
 
-Container Platform: linux
+Container platform: linux
 
 Docker pull command:
 
@@ -88,7 +119,7 @@ The docker image is available on:
 
 - [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
 
-Container Platform: linux
+Container platform: linux
 
 Docker pull command:
 
@@ -126,7 +157,7 @@ Installed components:
 - [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -166,7 +197,7 @@ Installed components:
 - [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -208,7 +239,7 @@ Installed components:
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -249,7 +280,7 @@ Installed components:
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -285,7 +316,7 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 
@@ -315,7 +346,7 @@ Installed components:
 - [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 
@@ -346,7 +377,7 @@ Installed components:
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 
@@ -377,7 +408,7 @@ Installed components:
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 - [Mercurial x64 v.4.7.2](https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 

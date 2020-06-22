@@ -68,15 +68,13 @@ namespace TeamCity.Docker
 
                 if (mutliArch.Any())
                 {
-                    lines.Add("#### multi-arch");
+                    lines.Add("#### multi-architecture");
+                    lines.Add(string.Empty);
+                    lines.Add("When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.");
                     lines.Add(string.Empty);
                     foreach (var dockerfileByMultiArchTag in mutliArch)
                     {
-                        lines.Add($"- {dockerfileByMultiArchTag.Key}");
-                        foreach (var dockerfile in dockerfileByMultiArchTag)
-                        {
-                            lines.Add($"  - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
-                        }
+                        lines.Add($"- [{dockerfileByMultiArchTag.Key}](#{Normalize(dockerfileByMultiArchTag.Key)})");
                     }
 
                     lines.Add(string.Empty);
@@ -105,6 +103,25 @@ namespace TeamCity.Docker
                         {
                             lines.Add($"  - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
                         }
+                    }
+
+                    lines.Add(string.Empty);
+                }
+
+                lines.Add(string.Empty);
+
+                foreach (var dockerfileByMultiArchTag in mutliArch)
+                {
+                    lines.Add($"### {dockerfileByMultiArchTag.Key}");
+                    lines.Add(string.Empty);
+                    var platforms = string.Join(", ", dockerfileByMultiArchTag.Select(i => $"{i.Key.Platform} {i.Key.Description}").Distinct().OrderBy(i => i));
+                    lines.Add($"Supported platforms: {platforms}");
+                    lines.Add(string.Empty);
+                    lines.Add("#### Content");
+                    lines.Add(string.Empty);
+                    foreach (var dockerfile in dockerfileByMultiArchTag)
+                    {
+                        lines.Add($"- [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
                     }
 
                     lines.Add(string.Empty);
@@ -156,7 +173,7 @@ namespace TeamCity.Docker
                     }
 
                     lines.Add(string.Empty);
-                    lines.Add($"Container Platform: {dockerFile.Platform}");
+                    lines.Add($"Container platform: {dockerFile.Platform}");
 
                     var publishRepo = dockerFile
                         .Repositories
@@ -250,12 +267,15 @@ namespace TeamCity.Docker
             imageId + ".md";
 
         private string GetTagLink(Dockerfile dockerFile) =>
-            GetReadmeTagName(dockerFile)
-                .Replace(",", string.Empty)
-                .Replace(".", string.Empty)
-                .Replace(" ", "-");
+            Normalize(GetReadmeTagName(dockerFile));
 
         private string GetReadmeTagName(Dockerfile dockerFile) =>
             dockerFile.Tags.First();
+
+        private static string Normalize(string text) =>
+            text
+                .Replace(",", string.Empty)
+                .Replace(".", string.Empty)
+                .Replace(" ", "-");
     }
 }

@@ -1,15 +1,11 @@
 ### Tags
 
-#### multi-arch
+#### multi-architecture
 
-- latest
-  - [2020.1.1-linux](#202011-linux)
-  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-- 2020.1.1
-  - [2020.1.1-linux](#202011-linux)
-  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
+
+- [latest](#latest)
+- [2020.1.1](#202011)
 
 #### linux
 
@@ -28,6 +24,27 @@
   - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
 
 
+### latest
+
+Supported platforms: linux 18.04, windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-linux](#202011-linux)
+- [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+- [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+
+### 2020.1.1
+
+Supported platforms: linux 18.04, windows 1809, windows 1903
+
+#### Content
+
+- [2020.1.1-linux](#202011-linux)
+- [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+- [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+
+
 ### 2020.1.1-linux
 
 [Dockerfile](linux/Server/Ubuntu/18.04/Dockerfile)
@@ -42,7 +59,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz)
 
-Container Platform: linux
+Container platform: linux
 
 Docker pull command:
 
@@ -79,7 +96,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -116,7 +133,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
-Container Platform: windows
+Container platform: windows
 
 Docker pull command:
 
@@ -150,7 +167,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 
@@ -178,7 +195,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
-Container Platform: windows
+Container platform: windows
 
 Docker build commands:
 
