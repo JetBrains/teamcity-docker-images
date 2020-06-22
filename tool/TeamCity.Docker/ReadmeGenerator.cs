@@ -54,17 +54,27 @@ namespace TeamCity.Docker
                 lines.Add("### Tags");
                 lines.Add(string.Empty);
 
-                var dockerfilesByPlatform =
+                var dockerfileGroups =
                     from image in groupByImage
-                    orderby image.Key
-                    group image.Key by image.Key.Platform;
+                    orderby image.Key.Platform
+                    group image by image.Key.Platform
+                    into grp1
+                    from grp2 in (
+                        from image in grp1
+                        orderby image.Key.Description descending
+                        group image by image.Key.Description)
+                    group grp2 by grp1.Key;
 
-                foreach (var dockerfileByPlatform in dockerfilesByPlatform)
+                foreach (var dockerfileByPlatform in dockerfileGroups)
                 {
                     lines.Add($"- {dockerfileByPlatform.Key}");
-                    foreach (var dockerfile in dockerfileByPlatform)
+                    foreach (var dockerfileByDescription in dockerfileByPlatform)
                     {
-                        lines.Add($"  - [{GetReadmeTagName(dockerfile)}](#{GetTagLink(dockerfile)})");
+                        lines.Add($"  - {dockerfileByDescription.Key}");
+                        foreach (var dockerfile in dockerfileByDescription)
+                        {
+                            lines.Add($"    - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
+                        }
                     }
                 }
 

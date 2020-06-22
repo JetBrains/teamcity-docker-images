@@ -1,17 +1,23 @@
 ### Tags
 
 - linux
-  - [2020.1.1-linux](#202011-linux)
-  - [2020.1.1-linux-sudo](#202011-linux-sudo)
+  - 18.04-sudo
+    - [2020.1.1-linux-sudo](#202011-linux-sudo)
+  - 18.04
+    - [2020.1.1-linux](#202011-linux)
 - windows
-  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-  - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-  - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
-  - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
-  - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
-  - [2020.1.1-windowsservercore-1803](#202011-windowsservercore-1803)
-  - [2020.1.1-windowsservercore-1909](#202011-windowsservercore-1909)
+  - 1909
+    - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
+    - [2020.1.1-windowsservercore-1909](#202011-windowsservercore-1909)
+  - 1903
+    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+    - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+  - 1809
+    - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+    - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
+  - 1803
+    - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
+    - [2020.1.1-windowsservercore-1803](#202011-windowsservercore-1803)
 
 ### 2020.1.1-linux
 
