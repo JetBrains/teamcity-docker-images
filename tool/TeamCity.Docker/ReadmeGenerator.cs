@@ -54,7 +54,8 @@ namespace TeamCity.Docker
                 lines.Add("### Tags");
                 lines.Add(string.Empty);
 
-                var mutliArch =
+                // ReSharper disable once IdentifierTypo
+                var mutliArch = (
                     from grp in (
                         from image in groupByImage
                         where image.Key.Repositories.Any()
@@ -62,18 +63,24 @@ namespace TeamCity.Docker
                         orderby tag descending
                         group image by tag)
                     orderby $"{grp.Count()} {grp.Key}" descending
-                    select grp;
+                    select grp)
+                    .ToList();
 
-                lines.Add(" - multi-arch");
-                foreach (var dockerfileByMultiArchTag in mutliArch)
+                if (mutliArch.Any())
                 {
-                    lines.Add($"   - {dockerfileByMultiArchTag.Key}");
-                    foreach (var dockerfile in dockerfileByMultiArchTag)
+                    lines.Add("#### multi-arch");
+                    lines.Add(string.Empty);
+                    foreach (var dockerfileByMultiArchTag in mutliArch)
                     {
-                        lines.Add($"    - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
+                        lines.Add($"- {dockerfileByMultiArchTag.Key}");
+                        foreach (var dockerfile in dockerfileByMultiArchTag)
+                        {
+                            lines.Add($"  - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
+                        }
                     }
-                }
 
+                    lines.Add(string.Empty);
+                }
 
                 var dockerfileGroups =
                     from image in groupByImage
@@ -88,14 +95,19 @@ namespace TeamCity.Docker
 
                 foreach (var dockerfileByPlatform in dockerfileGroups)
                 {
+                    lines.Add($"#### {dockerfileByPlatform.Key}");
+                    lines.Add(string.Empty);
+
                     foreach (var dockerfileByDescription in dockerfileByPlatform)
                     {
-                        lines.Add($"- {dockerfileByPlatform.Key} {dockerfileByDescription.Key}");
+                        lines.Add($"- {dockerfileByDescription.Key}");
                         foreach (var dockerfile in dockerfileByDescription)
                         {
                             lines.Add($"  - [{GetReadmeTagName(dockerfile.Key)}](#{GetTagLink(dockerfile.Key)})");
                         }
                     }
+
+                    lines.Add(string.Empty);
                 }
 
                 lines.Add(string.Empty);

@@ -1,36 +1,44 @@
 ### Tags
 
- - multi-arch
-   - latest
-    - [2020.1.1-linux](#202011-linux)
-    - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-   - 2020.1.1
-    - [2020.1.1-linux](#202011-linux)
-    - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
-    - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
-   - latest-windowsservercore
-    - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-    - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
-   - 2020.1.1-windowsservercore
-    - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-    - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
-- linux 18.04-sudo
-  - [2020.1.1-linux-sudo](#202011-linux-sudo)
-- linux 18.04
+#### multi-arch
+
+- latest
   - [2020.1.1-linux](#202011-linux)
-- windows 1909
+  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+- 2020.1.1
+  - [2020.1.1-linux](#202011-linux)
+  - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
+  - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
+- latest-windowsservercore
+  - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
+  - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+- 2020.1.1-windowsservercore
+  - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
+  - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
+
+#### linux
+
+- 18.04-sudo
+  - [2020.1.1-linux-sudo](#202011-linux-sudo)
+- 18.04
+  - [2020.1.1-linux](#202011-linux)
+
+#### windows
+
+- 1909
   - [2020.1.1-nanoserver-1909](#202011-nanoserver-1909)
   - [2020.1.1-windowsservercore-1909](#202011-windowsservercore-1909)
-- windows 1903
+- 1903
   - [2020.1.1-nanoserver-1903](#202011-nanoserver-1903)
   - [2020.1.1-windowsservercore-1903](#202011-windowsservercore-1903)
-- windows 1809
+- 1809
   - [2020.1.1-nanoserver-1809](#202011-nanoserver-1809)
   - [2020.1.1-windowsservercore-1809](#202011-windowsservercore-1809)
-- windows 1803
+- 1803
   - [2020.1.1-nanoserver-1803](#202011-nanoserver-1803)
   - [2020.1.1-windowsservercore-1803](#202011-windowsservercore-1803)
+
 
 ### 2020.1.1-linux
 
