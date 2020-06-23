@@ -30,7 +30,7 @@ namespace TeamCity.Docker
         {
             if (graph == null) throw new ArgumentNullException(nameof(graph));
 
-            var groups =
+            var groups = (
                 from node in graph.Nodes
                 let image = node.Value as Image
                 where image != null
@@ -42,16 +42,30 @@ namespace TeamCity.Docker
                     where image != null
                     orderby image.File
                     group groupByImageId by image.File
-                group groupByImageId by groupsByImageId.Key;
+                group groupByImageId by groupsByImageId.Key)
+                .ToList();
 
             foreach (var groupByImageId in groups)
             {
                 var imageId = groupByImageId.Key;
                 var lines = new List<string>();
-                graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TargetPath, GetReadmeFilePath(imageId))), lines), out var readmeNode);
+                graph.TryAddNode(new FileArtifact(GetReadmeFile(imageId), lines), out var readmeNode);
                 var groupByImage = groupByImageId.ToList();
 
-                lines.Add("### Tags");
+                lines.Add($"## {imageId} tags");
+                lines.Add(string.Empty);
+
+                var otherImages = groups.Where(i => i.Key != imageId).ToList();
+                if (otherImages.Any())
+                {
+                    lines.Add("Other tags");
+                    lines.Add(string.Empty);
+                    foreach (var image in otherImages)
+                    {
+                        lines.Add($"- [{image.Key}]({GetReadmeFilePath(image.Key)})");
+                    }
+                }
+
                 lines.Add(string.Empty);
 
                 // ReSharper disable once IdentifierTypo
@@ -252,6 +266,11 @@ namespace TeamCity.Docker
                     }
                 }
             }
+        }
+
+        private string GetReadmeFile(string imageId)
+        {
+            return _pathService.Normalize(Path.Combine(_options.TargetPath, GetReadmeFilePath(imageId)));
         }
 
         private static string GeneratePullCommand(string repoTag) => 
