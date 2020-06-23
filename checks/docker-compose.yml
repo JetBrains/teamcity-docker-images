@@ -1,19 +1,25 @@
-version: "3"
+version: '2'
 services:
-  server:
-    image: teamcity-server:linux
+  teamcity-server-instance:
+    image: jetbrains/teamcity-server
     ports:
-      - "8112:8111"
+     - "8111:8111"
+    restart: always
     volumes:
-      - ./data:/data/teamcity_server/datadir
-      - ./logs:/opt/teamcity/logs
-  teamcity-agent:
-    image: teamcity-agent:linux
+      - ./temp/data:/data/teamcity_server/datadir
+      - ./temp/logs:/opt/teamcity/logs
+    networks:
+      - teamcity-network
+ 
+  teamcity-agent-instance:
+    image: jetbrains/teamcity-agent
+    restart: always
+    volumes:
+      - ./temp/agent-conf:/data/teamcity_agent/conf
     environment:
-      - SERVER_URL=http://server:8111
-      - AGENT_NAME=regular_agent
-  teamcity-minimal-agent:
-    image: teamcity-minimal-agent:linux
-    environment:
-      - SERVER_URL=http://server:8111
-      - AGENT_NAME=minimal_agent
+      - SERVER_URL=teamcity-server-instance:8111
+    networks:
+      - teamcity-network
+ 
+networks:
+  teamcity-network:
