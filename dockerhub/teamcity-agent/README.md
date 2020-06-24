@@ -71,14 +71,17 @@ You can use other than `/opt/buildagent/` source path prefix on the host machine
 
 ### Running Builds Which Require Docker
 
-In a Linux container, if you need a Docker daemon available inside your builds, you have two options. 
-Regardless of the selected option, the container must be run under the root user (`-u 0`).
+In a Linux container, if you need a Docker daemon available inside your builds, you have two options.
+
+Regardless of the selected option, the __Docker service inside the container must be started under the root user__. The recommended approach is to use the TeamCity agent `linux-sudo` image that provides the sudo access. Alternatively, if you use a non-sudo agent image, you can run the whole container under the root user by passing `-u 0`.
+
+Initially, the Docker is stopped inside the container. To run it, pass the `-e DOCKER_IN_DOCKER=start` environment variable.
 
 **NOTE:** both of these options require extra trust to your builds, as a build may get
-**root access** to the host where the teamcity agent container is running. 
+**root access** to the host where the TeamCity agent container is running. 
 Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html).  
 
-1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build may actually harm your host Docker, so use it at your own risk) 
+1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build might actually harm your host Docker, so use it at your own risk) 
 
 ```
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \
@@ -94,24 +97,23 @@ docker run -it -e SERVER_URL="<url to TeamCity server>"  \
 ```
 
 Volume options starting with `-v /opt/buildagent/` are required if you want to use [Docker Wrapper](https://www.jetbrains.com/help/teamcity/docker-wrapper.html) on this build agent. 
-Without them, the corresponding builds with the enabled docker wrapper (for Command Line, Maven, Ant, Gradle, and since TeamCity 2018.1, .NET CLI (dotnet) and PowerShell runners) will not work. Unfortunately, using several docker-based build agents from the same host is not possible.
+Without them, the corresponding builds with the enabled docker wrapper (for the Command Line, Maven, Ant, Gradle, .NET, and PowerShell runners) will not work. Unfortunately, using several docker-based build agents from the same host is not possible.
 
-If you omit these options, you can run several build agents (but you need to specify different `<path to agent config folder>` for them), but [Docker Wrapper](https://www.jetbrains.com/help/teamcity/docker-wrapper.html) won't work on such agents. 
+If you omit these options, you can run several build agents (you need to specify different `<path to agent config folder>` paths for them), but [Docker Wrapper](https://www.jetbrains.com/help/teamcity/docker-wrapper.html) won't work on such agents. 
 
-The problem is, that multiple agent containers would use the same (/opt/buildagent/\*) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
+The problem is, that multiple agent containers would use the same (`/opt/buildagent/*`) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
 
 
-2) New Docker daemon running within your container (note that in this case the container should be run with **—-privileged** flag, which is also risky from the security perspective)
+2) New Docker daemon running within your container (note that in this case the container should be run with the **—-privileged** flag, which is also risky from the security perspective). We recommend running such builds on the `linux-sudo` TeamCity image.
 ```
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \
-    -u 0 \
     -v <path to agent config folder>:/data/teamcity_agent/conf \
     -v docker_volumes:/var/lib/docker \
     --privileged -e DOCKER_IN_DOCKER=start \    
     jetbrains/teamcity-agent
 ```
 
-The option `-v docker_volumes:/var/lib/docker` is related to the case when the `aufs` filesystem is used and when a build agent is started from a Windows machine ([related issue](https://youtrack.jetbrains.com/issue/TW-52939)).
+The option `-v docker_volumes:/var/lib/docker` is related to the case when the `aufs` filesystem is used and when a build agent is started from a Windows machine ([related issue](https://youtrack.jetbrains.com/issue/TW-52939)).   
 If you want to start several build agents, you need to specify different volumes for them, like `-v agent1_volumes:/var/lib/docker`, `-v agent2_volumes:/var/lib/docker`.
 
 ### Windows Containers Limitations
