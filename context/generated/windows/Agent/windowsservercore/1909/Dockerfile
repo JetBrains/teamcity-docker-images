@@ -1,7 +1,6 @@
 # Default arguments
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip'
-ARG mercurialWindowsComponent='https://bitbucket.org/tortoisehg/files/downloads/mercurial-4.7.2-x64.msi'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.1.2-nanoserver-1909'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909'
 
@@ -10,7 +9,6 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 # ARG dotnetCoreWindowsComponentVersion
 # ARG jdkWindowsComponent
 # ARG gitWindowsComponent
-# ARG mercurialWindowsComponentName
 # ARG teamcityMinimalAgentImage
 
 
@@ -37,13 +35,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     Remove-Item -Force git.zip
 
-ARG mercurialWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:mercurialWindowsComponent -OutFile hg.msi; \
-    Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
-    Remove-Item -Force hg.msi
-
 ARG teamcityMinimalAgentImage
 
 FROM ${teamcityMinimalAgentImage} AS buildagent
@@ -54,7 +45,6 @@ FROM ${windowsservercoreImage}
 
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-COPY --from=tools ["C:/Program Files/Mercurial", "C:/Program Files/Mercurial"]
 COPY --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090
@@ -81,5 +71,5 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
     NUGET_XMLDOC_MODE=skip
 
 USER ContainerAdministrator
-RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
+RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd' -f $env:PATH, $env:JAVA_HOME)
 USER ContainerUser
