@@ -1329,4 +1329,5 @@ param("dockerImage.teamcity.buildNumber", "%dep.TC2020_1_BuildDistTarGzWar.build
 object RemoteTeamcityImages : GitVcsRoot({
 name = "remote teamcity images"
 url = "https://github.com/JetBrains/teamcity-docker-images.git"
+branch = "refs/heads/Lakhnau-2020.1.x"
 })

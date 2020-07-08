@@ -188,6 +188,7 @@ namespace TeamCity.Docker
             lines.Add("object RemoteTeamcityImages : GitVcsRoot({");
             lines.Add("name = \"remote teamcity images\"");
             lines.Add("url = \"https://github.com/JetBrains/teamcity-docker-images.git\"");
+            lines.Add("branch = \"refs/heads/Lakhnau-2020.1.x\"");
             lines.Add("})");
             // vcs
 
