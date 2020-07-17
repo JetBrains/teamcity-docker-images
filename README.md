@@ -4,6 +4,8 @@
 
 ### Minimal agent (jetbrains/teamcity-minimal-agent)
 
+[![jetbrains/teamcity-minimal-agent](https://img.shields.io/docker/pulls/jetbrains/teamcity-minimal-agent.svg)](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/)
+
 This minimal image adds just a TeamCity agent without any tools like VCS clients, etc. It is suitable for simple builds and can serve as a base for your custom images.
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent)
@@ -12,6 +14,8 @@ This minimal image adds just a TeamCity agent without any tools like VCS clients
 
 ### Agent (jetbrains/teamcity-agent)
 
+[![jetbrains/teamcity-agent](https://img.shields.io/docker/pulls/jetbrains/teamcity-agent.svg)](https://hub.docker.com/r/jetbrains/teamcity-agent/) 
+
 This image adds a TeamCity agent suitable for Java and .NET development.
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-agent)
@@ -19,6 +23,8 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - [Details](dockerhub/teamcity-agent/README.md)
 
 ### Server (jetbrains/teamcity-server)
+
+[![jetbrains/teamcity-server](https://img.shields.io/docker/pulls/jetbrains/teamcity-server.svg)](https://hub.docker.com/r/jetbrains/teamcity-server/)
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-server)
 - [Tags](context/generated/teamcity-server.md)
