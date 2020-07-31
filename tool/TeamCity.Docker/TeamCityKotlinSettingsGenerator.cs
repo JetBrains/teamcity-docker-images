@@ -15,7 +15,7 @@ namespace TeamCity.Docker
         private const string MinDockerVersion = "18.05.0";
         private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
         private string BuildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
-        private const string RemoveManifestsScript = "\"\"rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
+        private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
         [NotNull] private readonly IGenerateOptions _options;
