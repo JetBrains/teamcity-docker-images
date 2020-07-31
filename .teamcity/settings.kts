@@ -152,6 +152,12 @@ freeDiskSpace {
 requiredSpace = "4gb"
 failBuild = true
 }
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 swabra {
 forceCleanCheckout = true
 }
@@ -326,6 +332,12 @@ freeDiskSpace {
 requiredSpace = "27gb"
 failBuild = true
 }
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 swabra {
 forceCleanCheckout = true
 }
@@ -499,6 +511,12 @@ features {
 freeDiskSpace {
 requiredSpace = "27gb"
 failBuild = true
+}
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
 }
 swabra {
 forceCleanCheckout = true
@@ -718,6 +736,12 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 }
 })
 
@@ -831,6 +855,12 @@ features {
 freeDiskSpace {
 requiredSpace = "4gb"
 failBuild = true
+}
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
 }
 swabra {
 forceCleanCheckout = true
@@ -1058,6 +1088,12 @@ freeDiskSpace {
 requiredSpace = "30gb"
 failBuild = true
 }
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 swabra {
 forceCleanCheckout = true
 }
@@ -1164,6 +1200,12 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 }
 })
 
@@ -1300,6 +1342,12 @@ noLessThanVer("docker.version", "18.05.0")
 equals("docker.server.osType", "windows")
 }
 features {
+dockerSupport {
+cleanupPushedImages = true
+loginToRegistry = on {
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+}
+}
 }
 })
 
@@ -1323,6 +1371,7 @@ subProject(LocalProject)
 subProject(HubProject)
 params {
 param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistTarGzWar.build.number%")
+param("teamcity.ui.settings.readOnly", "false")
 }
 }
 

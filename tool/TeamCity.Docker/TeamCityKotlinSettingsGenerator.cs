@@ -179,10 +179,11 @@ namespace TeamCity.Docker
             lines.Add("subProject(HubProject)");
             lines.Add("params {");
             lines.Add($"param(\"{BuildNumberParam}\", \"%dep.{_options.TeamCityBuildConfigurationId}.build.number%\")");
+            lines.Add("param(\"teamcity.ui.settings.readOnly\", \"false\")");
             lines.Add("}");
-
             lines.Add("}");
             lines.Add(string.Empty);
+            // root project
 
             // vcs
             lines.Add("object RemoteTeamcityImages : GitVcsRoot({");
