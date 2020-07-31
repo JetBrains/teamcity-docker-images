@@ -542,7 +542,7 @@ maxRunningBuilds = 1
 steps {
 script {
 name = "remove manifests"
-scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest"
@@ -1119,7 +1119,7 @@ maxRunningBuilds = 1
 steps {
 script {
 name = "remove manifests"
-scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest"
@@ -1219,7 +1219,7 @@ maxRunningBuilds = 1
 steps {
 script {
 name = "remove manifests"
-scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
 name = "manifest create teamcity-agent:EAP"
