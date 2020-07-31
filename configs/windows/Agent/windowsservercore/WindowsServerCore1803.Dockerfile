@@ -3,7 +3,6 @@
 # ARG dotnetCoreWindowsComponentVersion
 # ARG jdkWindowsComponent
 # ARG gitWindowsComponent
-# ARG mercurialWindowsComponentName
 # ARG teamcityMinimalAgentImage
 
 # Id teamcity-agent
@@ -42,14 +41,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     Remove-Item -Force git.zip
 
-# Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
-ARG mercurialWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:mercurialWindowsComponent -OutFile hg.msi; \
-    Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
-    Remove-Item -Force hg.msi
-
 # Based on ${teamcityMinimalAgentImage}
 ARG teamcityMinimalAgentImage
 
@@ -61,7 +52,6 @@ FROM ${windowsservercoreImage}
 
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-COPY --from=tools ["C:/Program Files/Mercurial", "C:/Program Files/Mercurial"]
 COPY --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090
@@ -88,5 +78,5 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
     NUGET_XMLDOC_MODE=skip
 
 USER ContainerAdministrator
-RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
+RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd' -f $env:PATH, $env:JAVA_HOME)
 USER ContainerUser
