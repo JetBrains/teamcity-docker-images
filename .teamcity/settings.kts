@@ -11,7 +11,7 @@ version = "2019.2"
 object push_local_linux_18_04 : BuildType({
 name = "Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.1.1-linux,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-linux,latest,2020.1.1 teamcity-agent:2020.1.1-linux,latest,2020.1.1:2020.1.1-linux-sudo"
+description  = "teamcity-server:EAP-linux,latest,EAP teamcity-minimal-agent:EAP-linux,latest,EAP teamcity-agent:EAP-linux,latest,EAP:EAP-linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -23,125 +23,125 @@ commandArgs = "ubuntu:18.04"
 }
 
 dockerCommand {
-name = "build teamcity-server:2020.1.1-linux"
+name = "build teamcity-server:EAP-linux"
 commandType = build {
 source = file {
 path = """context/generated/linux/Server/Ubuntu/18.04/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:2020.1.1-linux
+teamcity-server:EAP-linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:2020.1.1-linux"
+name = "build teamcity-minimal-agent:EAP-linux"
 commandType = build {
 source = file {
 path = """context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:2020.1.1-linux
+teamcity-minimal-agent:EAP-linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-linux"
+name = "build teamcity-agent:EAP-linux"
 commandType = build {
 source = file {
 path = """context/generated/linux/Agent/Ubuntu/18.04/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-linux
+teamcity-agent:EAP-linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-linux-sudo"
+name = "build teamcity-agent:EAP-linux-sudo"
 commandType = build {
 source = file {
 path = """context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-linux-sudo
+teamcity-agent:EAP-linux-sudo
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-linux"
+name = "tag teamcity-server:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-linux"
+commandArgs = "teamcity-server:EAP-linux %docker.buildRepository%teamcity-server:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-linux"
+name = "tag teamcity-minimal-agent:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux"
+commandArgs = "teamcity-minimal-agent:EAP-linux %docker.buildRepository%teamcity-minimal-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-linux"
+name = "tag teamcity-agent:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-linux"
+commandArgs = "teamcity-agent:EAP-linux %docker.buildRepository%teamcity-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-linux-sudo"
+name = "tag teamcity-agent:EAP-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-linux-sudo %docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo"
+commandArgs = "teamcity-agent:EAP-linux-sudo %docker.buildRepository%teamcity-agent:EAP-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-linux"
+name = "push teamcity-server:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server:2020.1.1-linux
+%docker.buildRepository%teamcity-server:EAP-linux
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-linux"
+name = "push teamcity-minimal-agent:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux
+%docker.buildRepository%teamcity-minimal-agent:EAP-linux
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-linux"
+name = "push teamcity-agent:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-linux
+%docker.buildRepository%teamcity-agent:EAP-linux
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-linux-sudo"
+name = "push teamcity-agent:EAP-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo
+%docker.buildRepository%teamcity-agent:EAP-linux-sudo
 """.trimIndent()
 }
 }
@@ -169,7 +169,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1809,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1809,2020.1.1-windowsservercore,latest-windowsservercore:2020.1.1-nanoserver-1809,latest,2020.1.1"
+description  = "teamcity-server:EAP-nanoserver-1809,latest,EAP teamcity-minimal-agent:EAP-nanoserver-1809,latest,EAP teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,latest-windowsservercore:EAP-nanoserver-1809,latest,EAP"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -197,125 +197,125 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc
 }
 
 dockerCommand {
-name = "build teamcity-server:2020.1.1-nanoserver-1809"
+name = "build teamcity-server:EAP-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Server/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:2020.1.1-nanoserver-1809
+teamcity-server:EAP-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "build teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:2020.1.1-nanoserver-1809
+teamcity-minimal-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "build teamcity-agent:EAP-windowsservercore-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/windowsservercore/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-windowsservercore-1809
+teamcity-agent:EAP-windowsservercore-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-nanoserver-1809"
+name = "build teamcity-agent:EAP-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-nanoserver-1809
+teamcity-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-nanoserver-1809"
+name = "tag teamcity-server:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809"
+commandArgs = "teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "tag teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+commandArgs = "teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "tag teamcity-agent:EAP-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809"
+commandArgs = "teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-nanoserver-1809"
+name = "tag teamcity-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809"
+commandArgs = "teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-nanoserver-1809"
+name = "push teamcity-server:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-server:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "push teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "push teamcity-agent:EAP-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809
+%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-nanoserver-1809"
+name = "push teamcity-agent:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -343,7 +343,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1903 : BuildType({
 name = "Build and push windows 1903"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-minimal-agent:2020.1.1-nanoserver-1903,latest,2020.1.1 teamcity-agent:2020.1.1-windowsservercore-1903,2020.1.1-windowsservercore,latest-windowsservercore:2020.1.1-nanoserver-1903,latest,2020.1.1"
+description  = "teamcity-server:EAP-nanoserver-1903,latest,EAP teamcity-minimal-agent:EAP-nanoserver-1903,latest,EAP teamcity-agent:EAP-windowsservercore-1903,EAP-windowsservercore,latest-windowsservercore:EAP-nanoserver-1903,latest,EAP"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -371,125 +371,125 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 }
 
 dockerCommand {
-name = "build teamcity-server:2020.1.1-nanoserver-1903"
+name = "build teamcity-server:EAP-nanoserver-1903"
 commandType = build {
 source = file {
 path = """context/generated/windows/Server/nanoserver/1903/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:2020.1.1-nanoserver-1903
+teamcity-server:EAP-nanoserver-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "build teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = build {
 source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:2020.1.1-nanoserver-1903
+teamcity-minimal-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "build teamcity-agent:EAP-windowsservercore-1903"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/windowsservercore/1903/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-windowsservercore-1903
+teamcity-agent:EAP-windowsservercore-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.1.1-nanoserver-1903"
+name = "build teamcity-agent:EAP-nanoserver-1903"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/nanoserver/1903/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.1.1-nanoserver-1903
+teamcity-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-nanoserver-1903"
+name = "tag teamcity-server:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.1.1-nanoserver-1903 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "teamcity-server:EAP-nanoserver-1903 %docker.buildRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "tag teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.1.1-nanoserver-1903 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "teamcity-minimal-agent:EAP-nanoserver-1903 %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "tag teamcity-agent:EAP-windowsservercore-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-windowsservercore-1903 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "teamcity-agent:EAP-windowsservercore-1903 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-nanoserver-1903"
+name = "tag teamcity-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.1.1-nanoserver-1903 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "teamcity-agent:EAP-nanoserver-1903 %docker.buildRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-nanoserver-1903"
+name = "push teamcity-server:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903
+%docker.buildRepository%teamcity-server:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "push teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903
+%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "push teamcity-agent:EAP-windowsservercore-1903"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903
+%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-nanoserver-1903"
+name = "push teamcity-agent:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903
+%docker.buildRepository%teamcity-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
@@ -530,7 +530,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:latest %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:latest %docker.buildRepository%teamcity-agent:EAP-linux %docker.buildRepository%teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -551,7 +551,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:latest %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:latest %docker.buildRepository%teamcity-minimal-agent:EAP-linux %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -572,7 +572,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:EAP-linux %docker.buildRepository%teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -590,94 +590,94 @@ commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.1.1"
+name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:2020.1.1 %docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:EAP %docker.buildRepository%teamcity-agent:EAP-linux %docker.buildRepository%teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.1.1"
+name = "manifest push teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent:2020.1.1"
+commandArgs = "push %docker.buildRepository%teamcity-agent:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.1.1"
+name = "manifest inspect teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent:2020.1.1"
+name = "manifest create teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:2020.1.1 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:EAP %docker.buildRepository%teamcity-minimal-agent:EAP-linux %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-minimal-agent:2020.1.1"
+name = "manifest push teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-minimal-agent:2020.1.1"
+commandArgs = "push %docker.buildRepository%teamcity-minimal-agent:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:2020.1.1"
+name = "manifest inspect teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:2020.1.1 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2020.1.1"
+name = "manifest create teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:2020.1.1 %docker.buildRepository%teamcity-server:2020.1.1-linux %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-server:EAP %docker.buildRepository%teamcity-server:EAP-linux %docker.buildRepository%teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2020.1.1"
+name = "manifest push teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:2020.1.1"
+commandArgs = "push %docker.buildRepository%teamcity-server:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2020.1.1"
+name = "manifest inspect teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.1.1 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-server:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest create teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:EAP-windowsservercore %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest push teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore"
+commandArgs = "push %docker.buildRepository%teamcity-agent:EAP-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest inspect teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent:EAP-windowsservercore --verbose"
 }
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
@@ -727,101 +727,101 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-linux-sudo"
+name = "pull teamcity-agent:EAP-linux-sudo"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-linux-sudo"
+name = "tag teamcity-agent:EAP-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-linux-sudo %docker.deployRepository%teamcity-agent:2020.1.1-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-linux-sudo"
+name = "push teamcity-agent:EAP-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-linux-sudo
+%docker.deployRepository%teamcity-agent:EAP-linux-sudo
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-linux"
+name = "pull teamcity-agent:EAP-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-linux"
+name = "tag teamcity-agent:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-linux"
+name = "push teamcity-agent:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-linux
+%docker.deployRepository%teamcity-agent:EAP-linux
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-minimal-agent:2020.1.1-linux"
+name = "pull teamcity-minimal-agent:EAP-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-linux"
+name = "tag teamcity-minimal-agent:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-linux"
+name = "push teamcity-minimal-agent:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux
+%docker.deployRepository%teamcity-minimal-agent:EAP-linux
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-server:2020.1.1-linux"
+name = "pull teamcity-server:EAP-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-linux"
+name = "tag teamcity-server:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-linux"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-linux"
+name = "push teamcity-server:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.1-linux
+%docker.deployRepository%teamcity-server:EAP-linux
 """.trimIndent()
 }
 }
@@ -853,201 +853,201 @@ name = "Push windows"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-nanoserver-1809"
+name = "pull teamcity-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-nanoserver-1809"
+name = "tag teamcity-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-nanoserver-1809"
+name = "push teamcity-agent:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809
+%docker.deployRepository%teamcity-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "pull teamcity-agent:EAP-windowsservercore-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "tag teamcity-agent:EAP-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-windowsservercore-1809"
+name = "push teamcity-agent:EAP-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809
+%docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "pull teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "tag teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-nanoserver-1809"
+name = "push teamcity-minimal-agent:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809
+%docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-server:2020.1.1-nanoserver-1809"
+name = "pull teamcity-server:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-nanoserver-1809"
+name = "tag teamcity-server:EAP-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-nanoserver-1809"
+name = "push teamcity-server:EAP-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809
+%docker.deployRepository%teamcity-server:EAP-nanoserver-1809
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-nanoserver-1903"
+name = "pull teamcity-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-nanoserver-1903"
+name = "tag teamcity-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-nanoserver-1903 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-nanoserver-1903 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-nanoserver-1903"
+name = "push teamcity-agent:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903
+%docker.deployRepository%teamcity-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "pull teamcity-agent:EAP-windowsservercore-1903"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "tag teamcity-agent:EAP-windowsservercore-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.1-windowsservercore-1903 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "%docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.1.1-windowsservercore-1903"
+name = "push teamcity-agent:EAP-windowsservercore-1903"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903
+%docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "pull teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "tag teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+name = "push teamcity-minimal-agent:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903
+%docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
 
 dockerCommand {
-name = "pull teamcity-server:2020.1.1-nanoserver-1903"
+name = "pull teamcity-server:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.1-nanoserver-1903"
+name = "tag teamcity-server:EAP-nanoserver-1903"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.1-nanoserver-1903 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-server:EAP-nanoserver-1903 %docker.deployRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.1-nanoserver-1903"
+name = "push teamcity-server:EAP-nanoserver-1903"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903
+%docker.deployRepository%teamcity-server:EAP-nanoserver-1903
 """.trimIndent()
 }
 }
@@ -1089,7 +1089,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1110,7 +1110,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1131,7 +1131,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:EAP-linux %docker.deployRepository%teamcity-server:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
@@ -1180,94 +1180,94 @@ name = "remove manifests"
 scriptContent = """rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.1.1"
+name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2020.1.1 %docker.deployRepository%teamcity-agent:2020.1.1-linux %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:EAP %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.1.1"
+name = "manifest push teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:2020.1.1"
+commandArgs = "push %docker.deployRepository%teamcity-agent:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.1.1"
+name = "manifest inspect teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent:2020.1.1"
+name = "manifest create teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2020.1.1 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:EAP %docker.deployRepository%teamcity-minimal-agent:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-minimal-agent:2020.1.1"
+name = "manifest push teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:2020.1.1"
+commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:2020.1.1"
+name = "manifest inspect teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2020.1.1 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2020.1.1"
+name = "manifest create teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2020.1.1 %docker.deployRepository%teamcity-server:2020.1.1-linux %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.1-nanoserver-1903"
+commandArgs = "create %docker.deployRepository%teamcity-server:EAP %docker.deployRepository%teamcity-server:EAP-linux %docker.deployRepository%teamcity-server:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2020.1.1"
+name = "manifest push teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:2020.1.1"
+commandArgs = "push %docker.deployRepository%teamcity-server:EAP"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2020.1.1"
+name = "manifest inspect teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:2020.1.1 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:EAP --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest create teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:EAP-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest push teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore"
+commandArgs = "push %docker.deployRepository%teamcity-agent:EAP-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.1.1-windowsservercore"
+name = "manifest inspect teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsservercore --verbose"
 }
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2020.1.1-windowsservercore-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
