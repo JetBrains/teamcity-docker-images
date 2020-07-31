@@ -9,7 +9,6 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [latest](#latest)
 - [EAP](#EAP)
 
 #### linux
@@ -28,16 +27,6 @@ When running an image with multi-architecture support, docker will automatically
 - 1803
   - [EAP-nanoserver-1803](#EAP-nanoserver-1803)
 
-
-### latest
-
-Supported platforms: linux 18.04, windows 1809, windows 1903
-
-#### Content
-
-- [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1809](#EAP-nanoserver-1809)
-- [EAP-nanoserver-1903](#EAP-nanoserver-1903)
 
 ### EAP
 

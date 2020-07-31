@@ -11,7 +11,7 @@ version = "2019.2"
 object push_local_linux_18_04 : BuildType({
 name = "Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-linux,latest,EAP teamcity-minimal-agent:EAP-linux,latest,EAP teamcity-agent:EAP-linux,latest,EAP:EAP-linux-sudo"
+description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -175,7 +175,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-nanoserver-1809,latest,EAP teamcity-minimal-agent:EAP-nanoserver-1809,latest,EAP teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,latest-windowsservercore:EAP-nanoserver-1809,latest,EAP"
+description  = "teamcity-server:EAP-nanoserver-1809,EAP teamcity-minimal-agent:EAP-nanoserver-1809,EAP teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1809,EAP"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -355,7 +355,7 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 object push_local_windows_1903 : BuildType({
 name = "Build and push windows 1903"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-nanoserver-1903,latest,EAP teamcity-minimal-agent:EAP-nanoserver-1903,latest,EAP teamcity-agent:EAP-windowsservercore-1903,EAP-windowsservercore,latest-windowsservercore:EAP-nanoserver-1903,latest,EAP"
+description  = "teamcity-server:EAP-nanoserver-1903,EAP teamcity-minimal-agent:EAP-nanoserver-1903,EAP teamcity-agent:EAP-windowsservercore-1903,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1903,EAP"
 vcs {root(RemoteTeamcityImages)}
 steps {
 dockerCommand {
@@ -545,69 +545,6 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:latest %docker.buildRepository%teamcity-agent:EAP-linux %docker.buildRepository%teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent:latest --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent:latest %docker.buildRepository%teamcity-minimal-agent:EAP-linux %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-minimal-agent:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:latest --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:EAP-linux %docker.buildRepository%teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
@@ -692,24 +629,24 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:EAP-windowsserverc
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:latest-windowsservercore"
+name = "manifest create teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:latest-windowsservercore %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
+commandArgs = "create %docker.buildRepository%teamcity-agent:-windowsservercore %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:latest-windowsservercore"
+name = "manifest push teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent:latest-windowsservercore"
+commandArgs = "push %docker.buildRepository%teamcity-agent:-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:latest-windowsservercore"
+name = "manifest inspect teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent:latest-windowsservercore --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent:-windowsservercore --verbose"
 }
 }
 }
@@ -1109,106 +1046,6 @@ onDependencyFailure = FailureAction.IGNORE
 }
 })
 
-object publish_hub_latest: BuildType(
-{
-name = "Publish as latest"
-buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-enablePersonalBuilds = false
-type = BuildTypeSettings.Type.DEPLOYMENT
-maxRunningBuilds = 1
-steps {
-script {
-name = "remove manifests"
-scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-}
-dockerCommand {
-name = "manifest create teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:EAP-linux %docker.deployRepository%teamcity-server:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
-}
-}
-}
-dependencies {
-snapshot(push_hub_linux)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-snapshot(push_hub_windows)
-{
-onDependencyFailure = FailureAction.IGNORE
-}
-}
-requirements {
-noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
-}
-features {
-dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
-}
-}
-}
-})
-
 object publish_hub_version: BuildType(
 {
 name = "Publish as version"
@@ -1306,24 +1143,24 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsserver
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:latest-windowsservercore"
+name = "manifest create teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
+commandArgs = "create %docker.deployRepository%teamcity-agent:-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:latest-windowsservercore"
+name = "manifest push teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:latest-windowsservercore"
+commandArgs = "push %docker.deployRepository%teamcity-agent:-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:latest-windowsservercore"
+name = "manifest inspect teamcity-agent:-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsservercore --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:-windowsservercore --verbose"
 }
 }
 }
@@ -1362,7 +1199,6 @@ object HubProject : Project({
 name = "Docker hub"
 buildType(push_hub_linux)
 buildType(push_hub_windows)
-buildType(publish_hub_latest)
 buildType(publish_hub_version)
 })
 project {
