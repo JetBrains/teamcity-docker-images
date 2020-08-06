@@ -10,23 +10,23 @@ Other tags
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
 - [latest](#latest)
-- [2020.1.2](#202012)
+- [2020.1.3](#202013)
 
 #### linux
 
 - 18.04
-  - [2020.1.2-linux](#202012-linux)
+  - [2020.1.3-linux](#202013-linux)
 
 #### windows
 
 - 1909
-  - [2020.1.2-nanoserver-1909](#202012-nanoserver-1909)
+  - [2020.1.3-nanoserver-1909](#202013-nanoserver-1909)
 - 1903
-  - [2020.1.2-nanoserver-1903](#202012-nanoserver-1903)
+  - [2020.1.3-nanoserver-1903](#202013-nanoserver-1903)
 - 1809
-  - [2020.1.2-nanoserver-1809](#202012-nanoserver-1809)
+  - [2020.1.3-nanoserver-1809](#202013-nanoserver-1809)
 - 1803
-  - [2020.1.2-nanoserver-1803](#202012-nanoserver-1803)
+  - [2020.1.3-nanoserver-1803](#202013-nanoserver-1803)
 
 
 ### latest
@@ -35,22 +35,22 @@ Supported platforms: linux 18.04, windows 1809, windows 1903
 
 #### Content
 
-- [2020.1.2-linux](#202012-linux)
-- [2020.1.2-nanoserver-1809](#202012-nanoserver-1809)
-- [2020.1.2-nanoserver-1903](#202012-nanoserver-1903)
+- [2020.1.3-linux](#202013-linux)
+- [2020.1.3-nanoserver-1809](#202013-nanoserver-1809)
+- [2020.1.3-nanoserver-1903](#202013-nanoserver-1903)
 
-### 2020.1.2
+### 2020.1.3
 
 Supported platforms: linux 18.04, windows 1809, windows 1903
 
 #### Content
 
-- [2020.1.2-linux](#202012-linux)
-- [2020.1.2-nanoserver-1809](#202012-nanoserver-1809)
-- [2020.1.2-nanoserver-1903](#202012-nanoserver-1903)
+- [2020.1.3-linux](#202013-linux)
+- [2020.1.3-nanoserver-1809](#202013-nanoserver-1809)
+- [2020.1.3-nanoserver-1903](#202013-nanoserver-1903)
 
 
-### 2020.1.2-linux
+### 2020.1.3-linux
 
 [Dockerfile](linux/Server/Ubuntu/18.04/Dockerfile)
 
@@ -69,13 +69,13 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:2020.1.2-linux
+docker pull jetbrains//teamcity-server:2020.1.3-linux
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:2020.1.2-linux "context"
+docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:2020.1.3-linux "context"
 ```
 
 Base images:
@@ -85,7 +85,7 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
-### 2020.1.2-nanoserver-1809
+### 2020.1.3-nanoserver-1809
 
 [Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
 
@@ -106,13 +106,13 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:2020.1.2-nanoserver-1809
+docker pull jetbrains//teamcity-server:2020.1.3-nanoserver-1809
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:2020.1.2-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:2020.1.3-nanoserver-1809 "context"
 ```
 
 Base images:
@@ -122,7 +122,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### 2020.1.2-nanoserver-1903
+### 2020.1.3-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
 
@@ -143,13 +143,13 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:2020.1.2-nanoserver-1903
+docker pull jetbrains//teamcity-server:2020.1.3-nanoserver-1903
 ```
 
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:2020.1.2-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:2020.1.3-nanoserver-1903 "context"
 ```
 
 Base images:
@@ -159,7 +159,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### 2020.1.2-nanoserver-1803
+### 2020.1.3-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
 
@@ -177,7 +177,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:2020.1.2-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:2020.1.3-nanoserver-1803 "context"
 ```
 
 Base images:
@@ -187,7 +187,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### 2020.1.2-nanoserver-1909
+### 2020.1.3-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
 
@@ -205,7 +205,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:2020.1.2-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:2020.1.3-nanoserver-1909 "context"
 ```
 
 Base images:
