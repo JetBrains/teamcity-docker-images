@@ -329,7 +329,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "27gb"
+requiredSpace = "33gb"
 failBuild = true
 }
 dockerSupport {
@@ -509,7 +509,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "27gb"
+requiredSpace = "33gb"
 failBuild = true
 }
 dockerSupport {
@@ -1022,7 +1022,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "30gb"
+requiredSpace = "36gb"
 failBuild = true
 }
 dockerSupport {

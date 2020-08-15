@@ -176,7 +176,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ```
 
-_The required free space to generate image(s) is about **25 GB**._
+_The required free space to generate image(s) is about **31 GB**._
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
@@ -216,7 +216,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
-_The required free space to generate image(s) is about **25 GB**._
+_The required free space to generate image(s) is about **31 GB**._
 ### EAP-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
@@ -256,7 +256,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ```
 
-_The required free space to generate image(s) is about **24 GB**._
+_The required free space to generate image(s) is about **29 GB**._
 ### EAP-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
@@ -296,7 +296,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
-_The required free space to generate image(s) is about **24 GB**._
+_The required free space to generate image(s) is about **29 GB**._
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
@@ -326,7 +326,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
-_The required free space to generate image(s) is about **24 GB**._
+_The required free space to generate image(s) is about **30 GB**._
 ### EAP-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
@@ -355,7 +355,7 @@ docker pull EAP-teamcity-agent:windowsservercore-1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **5 GB**._
 ### EAP-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
@@ -385,7 +385,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
-_The required free space to generate image(s) is about **23 GB**._
+_The required free space to generate image(s) is about **28 GB**._
 ### EAP-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
@@ -416,4 +416,4 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 ```
 
-_The required free space to generate image(s) is about **24 GB**._
+_The required free space to generate image(s) is about **29 GB**._

@@ -11,11 +11,11 @@
 # Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 1
+# Weight 2
 
 ## ${agentCommentHeader}
 
-# Based on ${powershellImage} 1
+# Based on ${powershellImage} 2
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS dotnet
 
