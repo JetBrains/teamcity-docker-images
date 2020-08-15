@@ -74,6 +74,7 @@ namespace TeamCity.Docker
                         from image in groupByImage
                         where image.Key.Repositories.Any()
                         from tag in image.Key.Tags.Skip(1)
+                        where tag.Length > 0 && char.IsLetterOrDigit(tag[0])
                         orderby tag descending
                         group image by tag)
                     orderby $"{grp.Count()} {grp.Key}" descending

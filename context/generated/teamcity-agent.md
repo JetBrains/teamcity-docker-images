@@ -10,7 +10,6 @@ Other tags
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
 - [EAP](#EAP)
-- [-windowsservercore](#-windowsservercore)
 - [EAP-windowsservercore](#EAP-windowsservercore)
 
 #### linux
@@ -45,15 +44,6 @@ Supported platforms: linux 18.04, windows 1809, windows 1903
 - [EAP-linux](#EAP-linux)
 - [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-1903](#EAP-nanoserver-1903)
-
-### -windowsservercore
-
-Supported platforms: windows 1809, windows 1903
-
-#### Content
-
-- [EAP-windowsservercore-1809](#EAP-windowsservercore-1809)
-- [EAP-windowsservercore-1903](#EAP-windowsservercore-1903)
 
 ### EAP-windowsservercore
 
