@@ -11,11 +11,11 @@
 # Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 1
+# Weight 2
 
 ## ${agentCommentHeader}
 
-# Based on ${powershellImage} 1
+# Based on ${powershellImage} 2
 FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]

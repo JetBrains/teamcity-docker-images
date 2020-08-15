@@ -11,11 +11,11 @@
 # Tag ${latestTag}-windowsservercore
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 11
+# Weight 13
 
 ## ${agentCommentHeader}
 
-# Based on ${windowsservercoreImage} 10
+# Based on ${windowsservercoreImage} 12
 FROM ${windowsservercoreImage} AS tools
 
 # Install ${powerShellComponentName}
