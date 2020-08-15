@@ -702,15 +702,15 @@ onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(push_local_linux_18_04)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 snapshot(push_local_windows_1809)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 snapshot(push_local_windows_1903)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 }
 requirements {
@@ -842,7 +842,7 @@ equals("docker.server.osType", "linux")
 dependencies {
 snapshot(publish_local)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 }
 })
@@ -1068,7 +1068,7 @@ equals("docker.server.osType", "windows")
 dependencies {
 snapshot(publish_local)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 }
 })
@@ -1288,11 +1288,11 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 dependencies {
 snapshot(push_hub_linux)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 snapshot(push_hub_windows)
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 }
 requirements {

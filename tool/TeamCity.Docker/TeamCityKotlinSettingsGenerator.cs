@@ -497,7 +497,7 @@ namespace TeamCity.Docker
             foreach (var buildTypeId in dependencies)
             {
                 yield return $"snapshot({buildTypeId})";
-                yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+                yield return "{\nonDependencyFailure =  FailureAction.FAIL_TO_START\n}";
             }
 
             yield return "}";
