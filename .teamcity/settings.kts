@@ -166,6 +166,12 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 })
 
+object push_local_windows_1803 : BuildType({
+name = "ON PAUSE Build and push windows 1803"
+buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+description  = "teamcity-server:EAP-nanoserver-1803,EAP teamcity-minimal-agent:EAP-nanoserver-1803,EAP teamcity-agent:EAP-windowsservercore-1803,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1803,EAP"
+})
+
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
@@ -512,6 +518,12 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 }
 }
+})
+
+object push_local_windows_1909 : BuildType({
+name = "ON PAUSE Build and push windows 1909"
+buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+description  = "teamcity-server:EAP-nanoserver-1909,EAP teamcity-minimal-agent:EAP-nanoserver-1909,EAP teamcity-agent:EAP-windowsservercore-1909,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1909,EAP"
 })
 
 object publish_local: BuildType(
@@ -1306,8 +1318,10 @@ features {
 object LocalProject : Project({
 name = "Local registry"
 buildType(push_local_linux_18_04)
+buildType(push_local_windows_1803)
 buildType(push_local_windows_1809)
 buildType(push_local_windows_1903)
+buildType(push_local_windows_1909)
 buildType(publish_local)
 })
 object HubProject : Project({

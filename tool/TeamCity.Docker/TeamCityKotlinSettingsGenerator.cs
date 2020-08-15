@@ -74,8 +74,6 @@ namespace TeamCity.Docker
             var names = new Dictionary<string, int>();
             var buildGraphs = (
                 from buildGraph in buildGraphResult.Value
-                let hasRepoToPush = buildGraph.Nodes.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any())
-                where hasRepoToPush
                 let weight = buildGraph.Nodes.Select(i => i.Value.Weight.Value).Sum()
                 let nodesDescription = _nodesDescriptionsFactory.Create(buildGraph.Nodes)
                 orderby nodesDescription.State != Result.Error ? nodesDescription.Value.Name : string.Empty
@@ -86,6 +84,7 @@ namespace TeamCity.Docker
             var hubBuildTypes = new List<string>();
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
+                .Where(i => i.File.Repositories.Any())
                 .ToList();
 
             // Build and push on local registry
@@ -108,11 +107,15 @@ namespace TeamCity.Docker
                 }
 
                 var buildTypeId = $"push_local_{NormalizeName(name)}";
-                buildAndPushLocalBuildTypes.Add(buildTypeId);
-                lines.AddRange(GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight));
-            }
+                var onPause = !path.Select(i => i.Value).OfType<Image>().Any(i => i.File.Repositories.Any());
+                localBuildTypes.Add(buildTypeId);
+                if (!onPause)
+                {
+                    buildAndPushLocalBuildTypes.Add(buildTypeId);
+                }
 
-            localBuildTypes.AddRange(buildAndPushLocalBuildTypes);
+                lines.AddRange(GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight, onPause));
+            }
 
             // Publish on local registry
             var localPublishGroups =
@@ -375,7 +378,12 @@ namespace TeamCity.Docker
             }
         }
 
-        private IEnumerable<string> GenerateBuildAndPushType(string buildTypeId, string name, IReadOnlyCollection<INode<IArtifact>> path, int weight)
+        private IEnumerable<string> GenerateBuildAndPushType(
+            string buildTypeId,
+            string name,
+            IReadOnlyCollection<INode<IArtifact>> path,
+            int weight,
+            bool onPause)
         {
             var images = path.Select(i => i.Value).OfType<Image>().ToList();
             var references = path.Select(i => i.Value).OfType<Reference>().ToList();
@@ -409,76 +417,81 @@ namespace TeamCity.Docker
                 }
             }
 
+            var pauseStr = onPause ? "ON PAUSE " : "";
             yield return $"object {buildTypeId} : BuildType({{";
-            yield return $"name = \"Build and push {name}\"";
+            yield return $"name = \"{pauseStr}Build and push {name}\"";
             yield return BuildNumberPattern;
             yield return $"description  = \"{description}\"";
-            yield return "vcs {root(RemoteTeamcityImages)}";
-            yield return "steps {";
 
-            // docker pull
-            foreach (var pullCommand in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
+            if (!onPause)
             {
-                yield return pullCommand;
-            }
+                yield return "vcs {root(RemoteTeamcityImages)}";
+                yield return "steps {";
 
-            // docker build
-            foreach (var buildCommand in images.SelectMany(CreateBuildCommand))
-            {
-                yield return buildCommand;
-            }
-
-            // docker image tag
-            foreach (var image in images)
-            {
-                if (image.File.Tags.Any())
+                // docker pull
+                foreach (var pullCommand in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
                 {
-                    var tag = image.File.Tags.First();
-                    foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}:{tag}", $"{image.File.ImageId}:{tag}"))
+                    yield return pullCommand;
+                }
+
+                // docker build
+                foreach (var buildCommand in images.SelectMany(CreateBuildCommand))
+                {
+                    yield return buildCommand;
+                }
+
+                // docker image tag
+                foreach (var image in images)
+                {
+                    if (image.File.Tags.Any())
                     {
-                        yield return tagCommand;
+                        var tag = image.File.Tags.First();
+                        foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}:{tag}", $"{image.File.ImageId}:{tag}"))
+                        {
+                            yield return tagCommand;
+                        }
                     }
                 }
-            }
 
-            // docker push
-            foreach (var image in images)
-            {
-                var tag = image.File.Tags.First();
-                foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", $"{image.File.ImageId}:{tag}", tag))
+                // docker push
+                foreach (var image in images)
                 {
-                    yield return pushCommand;
+                    var tag = image.File.Tags.First();
+                    foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", $"{image.File.ImageId}:{tag}", tag))
+                    {
+                        yield return pushCommand;
+                    }
                 }
-            }
 
-            yield return "}";
+                yield return "}";
 
-            yield return "features {";
+                yield return "features {";
 
-            if (weight > 0)
-            {
-                foreach (var feature in CreateFreeDiskSpaceFeature(weight))
+                if (weight > 0)
+                {
+                    foreach (var feature in CreateFreeDiskSpaceFeature(weight))
+                    {
+                        yield return feature;
+                    }
+                }
+
+                foreach (var feature in CreateDockerFeature())
                 {
                     yield return feature;
                 }
-            }
 
-            foreach (var feature in CreateDockerFeature())
-            {
-                yield return feature;
-            }
+                // ReSharper disable once StringLiteralTypo
+                foreach (var feature in CreateSwabraFeature())
+                {
+                    yield return feature;
+                }
 
-            // ReSharper disable once StringLiteralTypo
-            foreach (var feature in CreateSwabraFeature())
-            {
-                yield return feature;
-            }
+                yield return "}";
 
-            yield return "}";
-
-            foreach (var dependencies in CreateArtifactsDependencies())
-            {
-                yield return dependencies;
+                foreach (var dependencies in CreateArtifactsDependencies())
+                {
+                    yield return dependencies;
+                }
             }
 
             yield return "})";
