@@ -9,7 +9,7 @@
 This minimal image adds just a TeamCity agent without any tools like VCS clients, etc. It is suitable for simple builds and can serve as a base for your custom images.
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent)
-- [Details](context/generated/teamcity-minimal-agent.md)
+- [Details](generated/teamcity-minimal-agent.md)
 - [How to use](dockerhub/teamcity-minimal-agent/README.md)
 
 ### Agent (jetbrains/teamcity-agent)
@@ -19,7 +19,7 @@ This minimal image adds just a TeamCity agent without any tools like VCS clients
 This image adds a TeamCity agent suitable for Java and .NET development.
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-agent)
-- [Details](context/generated/teamcity-agent.md)
+- [Details](generated/teamcity-agent.md)
 - [How to use](dockerhub/teamcity-agent/README.md)
 
 ### Server (jetbrains/teamcity-server)
@@ -27,7 +27,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 [![jetbrains/teamcity-server](https://img.shields.io/docker/pulls/jetbrains/teamcity-server.svg)](https://hub.docker.com/r/jetbrains/teamcity-server/)
 
 - [Repo](https://hub.docker.com/r/jetbrains/teamcity-server)
-- [Details](context/generated/teamcity-server.md)
+- [Details](generated/teamcity-server.md)
 - [How to use](dockerhub/teamcity-server/README.md)
 
 ### Build images locally
@@ -36,7 +36,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Clone this repository.
 - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.1.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory _context/TeamCity_ within the cloned repository.
-- Run docker build commands like [on this page](context/generated/teamcity-minimal-agent.md) keeping the proposed order from the root directory of the cloned repository. The proposed order is important because some TeamCity images may be based on other TeamCity images.
+- Run docker build commands like [on this page](generated/teamcity-minimal-agent.md) keeping the proposed order from the root directory of the cloned repository. The proposed order is important because some TeamCity images may be based on other TeamCity images.
 
 ### Contribution
 
