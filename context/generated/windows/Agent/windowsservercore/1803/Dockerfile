@@ -1,6 +1,6 @@
 # Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip'
+ARG gitWindowsComponent='https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
+ARG jdkWindowsComponent='https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.1.3-nanoserver-1803'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803'
 

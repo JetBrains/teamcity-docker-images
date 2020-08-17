@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-server](teamcity-server.md)
 - [teamcity-agent](teamcity-agent.md)
+- [teamcity-server](teamcity-server.md)
 
 #### multi-architecture
 
@@ -62,7 +62,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.1](https://corretto.aws/downloads/resources/8.252.09.1/amazon-corretto-8.252.09.1-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.1/amazon-corretto-8.252.09.1-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -97,8 +97,8 @@ The docker image is available on:
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -122,7 +122,7 @@ docker pull mcr.microsoft.com/windows/nanoserver:1809
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 ### 2020.1.3-nanoserver-1903
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1903/Dockerfile)
@@ -135,8 +135,8 @@ The docker image is available on:
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -160,7 +160,7 @@ docker pull mcr.microsoft.com/windows/nanoserver:1903
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 ### 2020.1.3-nanoserver-1803
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1803/Dockerfile)
@@ -171,8 +171,8 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 
 Container platform: windows
 
@@ -188,7 +188,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
-_The required free space to generate image(s) is about **2 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### 2020.1.3-nanoserver-1909
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1909/Dockerfile)
@@ -198,8 +198,8 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -217,4 +217,4 @@ docker pull mcr.microsoft.com/windows/nanoserver:1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
