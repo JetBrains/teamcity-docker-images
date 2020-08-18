@@ -12,7 +12,7 @@ object push_local_linux_18_04 : BuildType({
 name = "Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:2020.1.3-linux,latest,2020.1.3 teamcity-minimal-agent:2020.1.3-linux,latest,2020.1.3 teamcity-agent:2020.1.3-linux,latest,2020.1.3:2020.1.3-linux-sudo"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull ubuntu:18.04"
@@ -176,7 +176,7 @@ object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:2020.1.3-nanoserver-1809,latest,2020.1.3 teamcity-minimal-agent:2020.1.3-nanoserver-1809,latest,2020.1.3 teamcity-agent:2020.1.3-windowsservercore-1809,2020.1.3-windowsservercore,latest-windowsservercore:2020.1.3-nanoserver-1809,latest,2020.1.3"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull mcr.microsoft.com/powershell:nanoserver-1809"
@@ -350,7 +350,7 @@ object push_local_windows_1903 : BuildType({
 name = "Build and push windows 1903"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:2020.1.3-nanoserver-1903,latest,2020.1.3 teamcity-minimal-agent:2020.1.3-nanoserver-1903,latest,2020.1.3 teamcity-agent:2020.1.3-windowsservercore-1903,2020.1.3-windowsservercore,latest-windowsservercore:2020.1.3-nanoserver-1903,latest,2020.1.3"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull mcr.microsoft.com/powershell:nanoserver-1903"
@@ -1332,7 +1332,7 @@ buildType(publish_hub_latest)
 buildType(publish_hub_version)
 })
 project {
-vcsRoot(RemoteTeamcityImages)
+vcsRoot(TeamCityDockerImagesRepo)
 subProject(LocalProject)
 subProject(HubProject)
 params {
@@ -1340,8 +1340,8 @@ param("dockerImage.teamcity.buildNumber", "%dep.TC2020_1_BuildDistTarGzWar.build
 }
 }
 
-object RemoteTeamcityImages : GitVcsRoot({
-name = "remote teamcity images"
+object TeamCityDockerImagesRepo : GitVcsRoot({
+name = "TeamCity Docker Images"
 url = "https://github.com/JetBrains/teamcity-docker-images.git"
-branch = "refs/heads/Lakhnau-2020.1.x"
+branch = "refs/heads/%teamcity.branch%"
 })
