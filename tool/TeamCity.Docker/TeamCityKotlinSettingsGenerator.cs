@@ -177,7 +177,7 @@ namespace TeamCity.Docker
 
             // root project
             lines.Add("project {");
-            lines.Add("vcsRoot(RemoteTeamcityImages)");
+            lines.Add("vcsRoot(TeamCityDockerImagesRepo)");
             lines.Add("subProject(LocalProject)");
             lines.Add("subProject(HubProject)");
             lines.Add("params {");
@@ -189,9 +189,10 @@ namespace TeamCity.Docker
             // root project
 
             // vcs
-            lines.Add("object RemoteTeamcityImages : GitVcsRoot({");
-            lines.Add("name = \"remote teamcity images\"");
+            lines.Add("object TeamCityDockerImagesRepo : GitVcsRoot({");
+            lines.Add("name = \"TeamCity Docker Images\"");
             lines.Add("url = \"https://github.com/JetBrains/teamcity-docker-images.git\"");
+            lines.Add("branch = \"refs/heads/%teamcity.branch%\"");
             lines.Add("})");
             // vcs
 
@@ -425,7 +426,7 @@ namespace TeamCity.Docker
 
             if (!onPause)
             {
-                yield return "vcs {root(RemoteTeamcityImages)}";
+                yield return "vcs {root(TeamCityDockerImagesRepo)}";
                 yield return "steps {";
 
                 // docker pull

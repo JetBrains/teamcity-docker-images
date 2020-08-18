@@ -12,7 +12,7 @@ object push_local_linux_18_04 : BuildType({
 name = "Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull ubuntu:18.04"
@@ -182,7 +182,7 @@ object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:EAP-nanoserver-1809,EAP teamcity-minimal-agent:EAP-nanoserver-1809,EAP teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1809,EAP"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull mcr.microsoft.com/powershell:nanoserver-1809"
@@ -362,7 +362,7 @@ object push_local_windows_1903 : BuildType({
 name = "Build and push windows 1903"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 description  = "teamcity-server:EAP-nanoserver-1903,EAP teamcity-minimal-agent:EAP-nanoserver-1903,EAP teamcity-agent:EAP-windowsservercore-1903,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1903,EAP"
-vcs {root(RemoteTeamcityImages)}
+vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
 name = "pull mcr.microsoft.com/powershell:nanoserver-1903"
@@ -1216,7 +1216,7 @@ buildType(push_hub_windows)
 buildType(publish_hub_version)
 })
 project {
-vcsRoot(RemoteTeamcityImages)
+vcsRoot(TeamCityDockerImagesRepo)
 subProject(LocalProject)
 subProject(HubProject)
 params {
@@ -1225,7 +1225,8 @@ param("teamcity.ui.settings.readOnly", "false")
 }
 }
 
-object RemoteTeamcityImages : GitVcsRoot({
-name = "remote teamcity images"
+object TeamCityDockerImagesRepo : GitVcsRoot({
+name = "TeamCity Docker Images"
 url = "https://github.com/JetBrains/teamcity-docker-images.git"
+branch = "refs/heads/%teamcity.branch%"
 })
