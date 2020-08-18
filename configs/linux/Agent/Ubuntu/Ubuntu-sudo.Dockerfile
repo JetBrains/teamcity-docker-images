@@ -8,7 +8,7 @@
 # Weight 1
 
 ## ${agentCommentHeader}
-## This image allows to do *__sudo__* without a password for the *__builduser__* user. 
+## This image allows to do *__sudo__* without a password for the *__buildagent__* user. 
 
 # Based on ${teamcityAgentImage}
 FROM ${teamcityAgentImage}
