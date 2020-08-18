@@ -119,7 +119,7 @@ _The required free space to generate image(s) is about **2 GB**._
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-This image allows to do *__sudo__* without a password for the *__builduser__* user.
+This image allows to do *__sudo__* without a password for the *__buildagent__* user.
 
 The docker image is available on:
 
