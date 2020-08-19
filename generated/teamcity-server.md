@@ -64,7 +64,7 @@ docker pull jetbrains//teamcity-server:EAP-linux
 Docker build commands:
 
 ```
-docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux ""
+docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux "context"
 ```
 
 Base images:
@@ -101,7 +101,7 @@ docker pull jetbrains//teamcity-server:EAP-nanoserver-1809
 Docker build commands:
 
 ```
-docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 ""
+docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
 ```
 
 Base images:
@@ -110,7 +110,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
@@ -138,7 +138,7 @@ docker pull jetbrains//teamcity-server:EAP-nanoserver-1903
 Docker build commands:
 
 ```
-docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:EAP-nanoserver-1903 ""
+docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:EAP-nanoserver-1903 "context"
 ```
 
 Base images:
@@ -147,7 +147,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
@@ -166,7 +166,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:EAP-nanoserver-1803 ""
+docker build -f "generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:EAP-nanoserver-1803 "context"
 ```
 
 Base images:
@@ -175,7 +175,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
@@ -194,7 +194,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 ""
+docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
 ```
 
 Base images:
@@ -203,4 +203,4 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._

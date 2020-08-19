@@ -18,11 +18,12 @@ FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
-    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-    && locale-gen en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen en_US.UTF-8 && \
+    rm -rf /var/lib/apt/lists/* && \
+    useradd -m buildagent
 
 # Install [${jdkLinuxComponentName}](${jdkLinuxComponent})
 ARG jdkLinuxComponent
@@ -52,30 +53,23 @@ ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
-COPY run-agent.sh /run-agent.sh
-COPY run-agent-services.sh /run-services.sh
-COPY TeamCity/buildAgent /opt/buildagent
+COPY --chown=buildagent:buildagent run-agent.sh /run-agent.sh
+COPY --chown=buildagent:buildagent run-agent-services.sh /run-services.sh
+COPY --chown=buildagent:buildagent TeamCity/buildAgent /opt/buildagent
 
-RUN apt-get update && \
-    useradd -m buildagent && \
-    chmod +x /opt/buildagent/bin/*.sh && \
+RUN chmod +x /opt/buildagent/bin/*.sh && \
     chmod +x /run-agent.sh /run-services.sh && sync && \
     sed -i -e 's/\r$//' /run-agent.sh && \
-    sed -i -e 's/\r$//' /run-services.sh
-
-RUN mkdir -p /data/teamcity_agent/conf \
-    && chown -R buildagent:buildagent /data/teamcity_agent \
-    && mkdir -p /opt/buildagent/work \
-    && mkdir -p /opt/buildagent/system \
-    && mkdir -p /opt/buildagent/temp \
-    && mkdir -p /opt/buildagent/plugins \
-    && mkdir -p /opt/buildagent/logs \
-    && mkdir -p /opt/buildagent/tools \
-    && rm -Rf /opt/buildagent/plugins/* \
-    && chown -R buildagent:buildagent /opt/buildagent \
-    && chown buildagent:buildagent /run-agent.sh \
-    && chown buildagent:buildagent /run-services.sh \
-    && chmod +x /opt/buildagent/bin/*.sh
+    sed -i -e 's/\r$//' /run-services.sh && \
+    mkdir -p /data/teamcity_agent/conf && \
+    chown -R buildagent:buildagent /data/teamcity_agent && \
+    mkdir -p /opt/buildagent/work && \
+    mkdir -p /opt/buildagent/system && \
+    mkdir -p /opt/buildagent/temp && \
+    mkdir -p /opt/buildagent/plugins && \
+    mkdir -p /opt/buildagent/logs && \
+    mkdir -p /opt/buildagent/tools && \
+    rm -Rf /opt/buildagent/plugins/*
 
 VOLUME /data/teamcity_agent/conf
 VOLUME /opt/buildagent/work

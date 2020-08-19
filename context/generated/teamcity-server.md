@@ -110,7 +110,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
@@ -147,7 +147,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
@@ -175,7 +175,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
 ### EAP-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
@@ -203,4 +203,4 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **3 GB**._
