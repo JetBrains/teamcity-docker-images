@@ -15,7 +15,7 @@
 
 ## ${agentCommentHeader}
 
-# Based on ${powershellImage} 2
+# Based on ${powershellImage} 3
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS dotnet
 

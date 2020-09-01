@@ -10,11 +10,11 @@
 # Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 1
+# Weight 3
 
 ## ${agentCommentHeader}
 
-# Based on ${powershellImage} 1
+# Based on ${powershellImage} 3
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
@@ -48,7 +48,7 @@ COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
 ARG nanoserverImage
 
-# Based on ${nanoserverImage} 1
+# Based on ${nanoserverImage} 2
 FROM ${nanoserverImage}
 
 COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
