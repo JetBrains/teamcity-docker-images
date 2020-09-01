@@ -1,6 +1,6 @@
 # Default arguments
-ARG jdkServerLinuxComponent='https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz'
-ARG jdkServerLinuxMD5SUM='7fab667aba936ef21928ce5d079e2e4a'
+ARG jdkServerLinuxComponent='https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-linux-x64.tar.gz'
+ARG jdkServerLinuxMD5SUM='58b8ae057e363594fb2efaf70cf13b4d'
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments

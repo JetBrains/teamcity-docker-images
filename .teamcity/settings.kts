@@ -329,7 +329,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "33gb"
+requiredSpace = "38gb"
 failBuild = true
 }
 swabra {
@@ -503,7 +503,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "33gb"
+requiredSpace = "38gb"
 failBuild = true
 }
 swabra {
@@ -1067,7 +1067,7 @@ namesAndTags = """
 }
 features {
 freeDiskSpace {
-requiredSpace = "36gb"
+requiredSpace = "42gb"
 failBuild = true
 }
 swabra {
@@ -1337,6 +1337,7 @@ subProject(LocalProject)
 subProject(HubProject)
 params {
 param("dockerImage.teamcity.buildNumber", "%dep.TC2020_1_BuildDistTarGzWar.build.number%")
+param("teamcity.ui.settings.readOnly", "false")
 }
 }
 

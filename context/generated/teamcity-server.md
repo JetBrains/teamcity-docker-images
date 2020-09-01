@@ -62,7 +62,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -98,7 +98,7 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
 Container platform: windows
@@ -121,7 +121,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **6 GB**._
 ### 2020.1.3-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
@@ -135,7 +135,7 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
 Container platform: windows
@@ -158,7 +158,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **6 GB**._
 ### 2020.1.3-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
@@ -169,7 +169,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
 Container platform: windows
@@ -186,7 +186,7 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **6 GB**._
 ### 2020.1.3-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
@@ -197,7 +197,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.7.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
 
 Container platform: windows
@@ -214,4 +214,4 @@ Base images:
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **4 GB**._
+_The required free space to generate image(s) is about **6 GB**._

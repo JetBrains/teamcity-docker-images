@@ -90,7 +90,7 @@ Installed components:
 
 - Git
 - Mercurial
-- [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-linux-x64.tar.gz)
+- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -160,7 +160,7 @@ The docker image is available on:
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
+- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -187,7 +187,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ```
 
-_The required free space to generate image(s) is about **31 GB**._
+_The required free space to generate image(s) is about **35 GB**._
 ### 2020.1.3-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
@@ -200,7 +200,7 @@ The docker image is available on:
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
+- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -227,7 +227,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
-_The required free space to generate image(s) is about **31 GB**._
+_The required free space to generate image(s) is about **35 GB**._
 ### 2020.1.3-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
@@ -267,7 +267,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ```
 
-_The required free space to generate image(s) is about **29 GB**._
+_The required free space to generate image(s) is about **33 GB**._
 ### 2020.1.3-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
@@ -307,7 +307,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 ```
 
-_The required free space to generate image(s) is about **29 GB**._
+_The required free space to generate image(s) is about **33 GB**._
 ### 2020.1.3-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
@@ -318,7 +318,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
+- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
 
 Container platform: windows
 
@@ -337,7 +337,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
-_The required free space to generate image(s) is about **30 GB**._
+_The required free space to generate image(s) is about **33 GB**._
 ### 2020.1.3-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
@@ -347,7 +347,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.300](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.300/dotnet-sdk-3.1.300-win-x64.zip)
+- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -366,7 +366,7 @@ docker pull 2020.1.3-teamcity-agent:windowsservercore-1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
-_The required free space to generate image(s) is about **5 GB**._
+_The required free space to generate image(s) is about **7 GB**._
 ### 2020.1.3-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
@@ -396,7 +396,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 ```
 
-_The required free space to generate image(s) is about **28 GB**._
+_The required free space to generate image(s) is about **31 GB**._
 ### 2020.1.3-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
@@ -427,4 +427,4 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 ```
 
-_The required free space to generate image(s) is about **29 GB**._
+_The required free space to generate image(s) is about **33 GB**._
