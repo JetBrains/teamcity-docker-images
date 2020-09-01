@@ -11,11 +11,11 @@
 # Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 2
+# Weight 3
 
 ## ${serverCommentHeader}
 
-# Based on ${powershellImage} 1
+# Based on ${powershellImage} 3
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
