@@ -337,6 +337,11 @@ namespace TeamCity.Docker
 
         private IEnumerable<string> CreateManifestCommands(string repositoryName, string tag, string imageId, IEnumerable<Image> images)
         {
+            if (string.IsNullOrWhiteSpace(tag) || !char.IsLetterOrDigit(tag[0]))
+            {
+                yield break;
+            }
+
             var repo = $"{repositoryName}{imageId}";
             var manifestName = $"{repo}:{tag}";
             var createArgs = new List<string>

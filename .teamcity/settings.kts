@@ -640,27 +640,6 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-agent:EAP-windowsservercore --verbose"
 }
 }
-dockerCommand {
-name = "manifest create teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent:-windowsservercore %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent:EAP-windowsservercore-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent:-windowsservercore"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent:-windowsservercore --verbose"
-}
-}
 }
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
@@ -1152,27 +1131,6 @@ name = "manifest inspect teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsservercore --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:-windowsservercore"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-agent:-windowsservercore"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:-windowsservercore --verbose"
 }
 }
 }
