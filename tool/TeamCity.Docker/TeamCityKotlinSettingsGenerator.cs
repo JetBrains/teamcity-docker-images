@@ -257,6 +257,11 @@ namespace TeamCity.Docker
 
             yield return "}";
 
+            foreach (var param in CreateSpaceParams(weight))
+            {
+                yield return param;
+            }
+
             foreach (var lines in CreateDockerRequirements(platform))
             {
                 yield return lines;
@@ -497,10 +502,25 @@ namespace TeamCity.Docker
                 {
                     yield return dependencies;
                 }
+
+                foreach (var param in CreateSpaceParams(weight))
+                {
+                    yield return param;
+                }
             }
 
             yield return "})";
             yield return string.Empty;
+        }
+
+        private static IEnumerable<string> CreateSpaceParams(int weight)
+        {
+            if (weight > 0)
+            {
+                yield return "params {";
+                yield return $"param(\"system.teamcity.agent.ensure.free.space\", \"{weight}gb\")";
+                yield return "}";
+            }
         }
 
         private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies, bool dependsOnContext)
