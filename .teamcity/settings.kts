@@ -170,6 +170,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 }
 }
+params {
+param("system.teamcity.agent.ensure.free.space", "4gb")
+}
 })
 
 object push_local_windows_1803 : BuildType({
@@ -356,6 +359,9 @@ artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 }
 }
+params {
+param("system.teamcity.agent.ensure.free.space", "38gb")
+}
 })
 
 object push_local_windows_1903 : BuildType({
@@ -535,6 +541,9 @@ artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
 }
+}
+params {
+param("system.teamcity.agent.ensure.free.space", "38gb")
 }
 })
 
@@ -794,6 +803,9 @@ swabra {
 forceCleanCheckout = true
 }
 }
+params {
+param("system.teamcity.agent.ensure.free.space", "4gb")
+}
 requirements {
 equals("docker.server.osType", "linux")
 }
@@ -1025,6 +1037,9 @@ dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
 swabra {
 forceCleanCheckout = true
 }
+}
+params {
+param("system.teamcity.agent.ensure.free.space", "42gb")
 }
 requirements {
 equals("docker.server.osType", "windows")
