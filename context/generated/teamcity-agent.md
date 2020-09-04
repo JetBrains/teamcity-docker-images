@@ -222,6 +222,7 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Mercurial x64 v.5.5.1](https://repo.labs.intellij.net/cache/https/www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
 
@@ -262,6 +263,7 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Mercurial x64 v.5.5.1](https://repo.labs.intellij.net/cache/https/www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
 
@@ -358,6 +360,7 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Mercurial x64 v.5.5.1](https://repo.labs.intellij.net/cache/https/www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
 
@@ -388,6 +391,7 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
 - [Git x64 v.2.19.1](https://repo.labs.intellij.net/cache/https/github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Mercurial x64 v.5.5.1](https://repo.labs.intellij.net/cache/https/www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
 
