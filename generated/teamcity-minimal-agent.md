@@ -75,7 +75,7 @@ docker pull jetbrains//teamcity-minimal-agent:2020.1.3-linux
 Docker build commands:
 
 ```
-docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2020.1.3-linux ""
+docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2020.1.3-linux "context"
 ```
 
 Base images:
@@ -112,7 +112,7 @@ docker pull jetbrains//teamcity-minimal-agent:2020.1.3-nanoserver-1809
 Docker build commands:
 
 ```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1809 ""
+docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1809 "context"
 ```
 
 Base images:
@@ -150,7 +150,7 @@ docker pull jetbrains//teamcity-minimal-agent:2020.1.3-nanoserver-1903
 Docker build commands:
 
 ```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1903 ""
+docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1903 "context"
 ```
 
 Base images:
@@ -179,7 +179,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1803 ""
+docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1803 "context"
 ```
 
 Base images:
@@ -207,7 +207,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1909 ""
+docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2020.1.3-nanoserver-1909 "context"
 ```
 
 Base images:
