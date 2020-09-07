@@ -15,7 +15,7 @@
 
 ## ${agentCommentHeader}
 
-# Based on ${powershellImage} 2
+# Based on ${powershellImage} 3
 FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -40,7 +40,7 @@ FROM ${teamcityWindowsservercoreImage} AS tools
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
 
-# Based on ${nanoserverImage} 1
+# Based on ${nanoserverImage} 2
 FROM ${nanoserverImage}
 
 ENV ProgramFiles="C:\Program Files" \
