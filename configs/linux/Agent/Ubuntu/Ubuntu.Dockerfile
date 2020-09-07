@@ -43,7 +43,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 ARG dotnetCoreLinuxComponent
 
 RUN apt-get update && \
-    apt-get install -y git mercurial apt-transport-https ca-certificates software-properties-common && \
+    apt-get install -y git mercurial apt-transport-https software-properties-common && \
     \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
@@ -58,7 +58,6 @@ RUN apt-get update && \
     curl -SL "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
     \
     apt-get install -y --no-install-recommends \
-            fontconfig \
             libc6 \
             libgcc1 \
             libgssapi-krb5-2 \
@@ -84,10 +83,10 @@ RUN apt-get update && \
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
 
-COPY run-docker.sh /services/run-docker.sh
+COPY --chown=buildagent:buildagent run-docker.sh /services/run-docker.sh
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN chown -R buildagent:buildagent /services && dotnet help && \
+RUN dotnet help && \
     sed -i -e 's/\r$//' /services/run-docker.sh
 
 USER buildagent

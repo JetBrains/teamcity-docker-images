@@ -58,7 +58,7 @@ LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
 RUN apt-get update && \
-    apt-get install -y git mercurial ca-certificates && \
+    apt-get install -y git mercurial && \
     apt-get clean all
 
 COPY welcome.sh /welcome.sh
