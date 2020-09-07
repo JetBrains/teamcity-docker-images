@@ -30,13 +30,13 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 18.04, windows 1809, windows 1903
+Supported platforms: linux 18.04, windows 1903, windows 1909
 
 #### Content
 
 - [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-1903](#EAP-nanoserver-1903)
+- [EAP-nanoserver-1909](#EAP-nanoserver-1909)
 
 
 ### EAP-linux
@@ -74,43 +74,6 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
-### EAP-nanoserver-1809
-
-[Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
-
-Installed components:
-
-- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
-
-Container platform: windows
-
-Docker pull command:
-
-```
-docker pull jetbrains//teamcity-server:EAP-nanoserver-1809
-```
-
-Docker build commands:
-
-```
-docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
-```
-
-_The required free space to generate image(s) is about **6 GB**._
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
@@ -148,6 +111,43 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
+### EAP-nanoserver-1909
+
+[Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
+
+Installed components:
+
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.8.10.1](https://corretto.aws/downloads/resources/11.0.8.10.1/amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip)
+- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+
+Container platform: windows
+
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-server:EAP-nanoserver-1909
+```
+
+Docker build commands:
+
+```
+docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
+```
+
+Base images:
+
+```
+docker pull mcr.microsoft.com/powershell:nanoserver-1909
+```
+
+_The required free space to generate image(s) is about **6 GB**._
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
@@ -176,9 +176,9 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
-### EAP-nanoserver-1909
+### EAP-nanoserver-1809
 
-[Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
+[Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
 The docker image is not available and may be created manually.
@@ -194,13 +194,13 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
+docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
 ```
 
 Base images:
 
 ```
-docker pull mcr.microsoft.com/powershell:nanoserver-1909
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
 _The required free space to generate image(s) is about **6 GB**._

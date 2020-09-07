@@ -30,13 +30,13 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 18.04, windows 1809, windows 1903
+Supported platforms: linux 18.04, windows 1903, windows 1909
 
 #### Content
 
 - [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-1903](#EAP-nanoserver-1903)
+- [EAP-nanoserver-1909](#EAP-nanoserver-1909)
 
 
 ### EAP-linux
@@ -74,44 +74,6 @@ docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
-### EAP-nanoserver-1809
-
-[Dockerfile](windows/MinimalAgent/nanoserver/1809/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-minimal-agent](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent)
-
-Installed components:
-
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
-- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-
-Container platform: windows
-
-Docker pull command:
-
-```
-docker pull jetbrains//teamcity-minimal-agent:EAP-nanoserver-1809
-```
-
-Docker build commands:
-
-```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/windows/nanoserver:1809
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
-```
-
-_The required free space to generate image(s) is about **8 GB**._
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1903/Dockerfile)
@@ -150,6 +112,44 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
 _The required free space to generate image(s) is about **8 GB**._
+### EAP-nanoserver-1909
+
+[Dockerfile](windows/MinimalAgent/nanoserver/1909/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-minimal-agent](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent)
+
+Installed components:
+
+- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jre.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.252.09.2](https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip)
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+
+Container platform: windows
+
+Docker pull command:
+
+```
+docker pull jetbrains//teamcity-minimal-agent:EAP-nanoserver-1909
+```
+
+Docker build commands:
+
+```
+docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
+```
+
+Base images:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:1909
+docker pull mcr.microsoft.com/powershell:nanoserver-1909
+```
+
+_The required free space to generate image(s) is about **8 GB**._
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1803/Dockerfile)
@@ -178,9 +178,9 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
-### EAP-nanoserver-1909
+### EAP-nanoserver-1809
 
-[Dockerfile](windows/MinimalAgent/nanoserver/1909/Dockerfile)
+[Dockerfile](windows/MinimalAgent/nanoserver/1809/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 The docker image is not available and may be created manually.
@@ -196,14 +196,14 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
 ```
 
 Base images:
 
 ```
-docker pull mcr.microsoft.com/windows/nanoserver:1909
-docker pull mcr.microsoft.com/powershell:nanoserver-1909
+docker pull mcr.microsoft.com/windows/nanoserver:1809
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
 _The required free space to generate image(s) is about **8 GB**._

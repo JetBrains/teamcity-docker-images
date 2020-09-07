@@ -3,7 +3,7 @@ ARG dotnetCoreWindowsComponent='https://repo.labs.intellij.net/cache/https/dotne
 ARG dotnetCoreWindowsComponentVersion='3.1.401'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1909'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1909'
-ARG teamcityWindowsservercoreImage='EAP-teamcity-agent:windowsservercore-1909'
+ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1909'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion
