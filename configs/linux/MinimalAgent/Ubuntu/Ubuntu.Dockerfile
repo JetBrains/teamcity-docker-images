@@ -69,7 +69,8 @@ RUN chmod +x /opt/buildagent/bin/*.sh && \
     mkdir -p /opt/buildagent/plugins && \
     mkdir -p /opt/buildagent/logs && \
     mkdir -p /opt/buildagent/tools && \
-    rm -Rf /opt/buildagent/plugins/*
+    rm -Rf /opt/buildagent/plugins/* && \
+    chown -R buildagent:buildagent /opt/buildagent
 
 VOLUME /data/teamcity_agent/conf
 VOLUME /opt/buildagent/work
