@@ -17,30 +17,27 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 
 FROM ${windowsservercoreImage} AS tools
 
+COPY scripts/*.cs /scripts/
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG jdkWindowsComponent
 
+ARG gitWindowsComponent
+
+ARG mercurialWindowsComponent
+
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
+    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi') ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
-    Remove-Item -Force jdk.zip
-
-ARG gitWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:gitWindowsComponent -OutFile git.zip; \
+    Remove-Item -Force jdk.zip ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
-    Remove-Item -Force git.zip
-
-ARG mercurialWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:mercurialWindowsComponent -OutFile hg.msi; \
+    Remove-Item -Force git.zip ; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 

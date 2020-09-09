@@ -19,34 +19,31 @@
 # Based on ${windowsservercoreImage} 12
 FROM ${windowsservercoreImage} AS tools
 
+COPY scripts/*.cs /scripts/
 # Install ${powerShellComponentName}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
 
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
-    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
-    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
-    Remove-Item -Force jdk.zip
-
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:gitWindowsComponent -OutFile git.zip; \
-    Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
-    Remove-Item -Force git.zip
 
 # Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:mercurialWindowsComponent -OutFile hg.msi; \
+    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi') ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
+    Remove-Item -Force jdk.zip ; \
+    Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
+    Remove-Item -Force git.zip ; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 

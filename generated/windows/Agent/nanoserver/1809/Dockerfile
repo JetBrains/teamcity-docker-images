@@ -16,6 +16,7 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1809'
 
 FROM ${powershellImage} AS dotnet
 
+COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetCoreWindowsComponentVersion
@@ -24,7 +25,11 @@ ENV DOTNET_SDK_VERSION ${dotnetCoreWindowsComponentVersion}
 
 ARG dotnetCoreWindowsComponent
 
-RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetCoreWindowsComponent; \
+RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
+    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:dotnetCoreWindowsComponent, 'dotnet.zip') ; \
+    iex $downloadScript ; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}

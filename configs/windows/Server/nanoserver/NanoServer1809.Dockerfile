@@ -19,22 +19,23 @@
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
+COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Install [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
 ARG jdkServerWindowsComponent
 
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jre.zip; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
-    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip
-
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:gitWindowsComponent -OutFile git.zip; \
+    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip') ; \
+    iex $downloadScript ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
+    Remove-Item -Force jdk.zip ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     Remove-Item -Force git.zip
 
@@ -92,7 +93,6 @@ COPY --from=base $TEAMCITY_DIST $TEAMCITY_DIST
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
        $TEAMCITY_TEMP
-
 
 CMD pwsh C:/TeamCity/run-server.ps1
 

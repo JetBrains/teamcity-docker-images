@@ -14,20 +14,21 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1809'
 
 FROM ${powershellImage} AS base
 
+COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG jreWindowsComponent
 
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jreWindowsComponent -OutFile jre.zip; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
-    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip
-
 ARG jdkWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
+    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent, 'jre.zip', $Env:jdkWindowsComponent, 'jdk.zip') ; \
+    iex $downloadScript ; \
+    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
+    Remove-Item -Force jre.zip ; \
     Expand-Archive jdk.zip -DestinationPath $Env:Temp\JDK ; \
     Get-ChildItem $Env:Temp\JDK | Rename-Item -NewName "OpenJDK" ; \
     ('jar.exe', 'jcmd.exe', 'jconsole.exe', 'jmap.exe', 'jstack.exe', 'jps.exe') | foreach { \
