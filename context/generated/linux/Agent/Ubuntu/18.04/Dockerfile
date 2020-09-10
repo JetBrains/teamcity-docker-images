@@ -1,5 +1,5 @@
 # Default arguments
-ARG dotnetCoreLinuxComponent='https://repo.labs.intellij.net/cache/https/dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-linux-x64.tar.gz'
+ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-linux-x64.tar.gz'
 ARG dotnetCoreLinuxComponentVersion='3.1.401'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'

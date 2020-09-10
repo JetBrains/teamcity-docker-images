@@ -1,5 +1,5 @@
 # Default arguments
-ARG jdkLinuxComponent='https://repo.labs.intellij.net/cache/https/corretto.aws/downloads/resources/8.252.09.1/amazon-corretto-8.252.09.1-linux-x64.tar.gz'
+ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.252.09.1/amazon-corretto-8.252.09.1-linux-x64.tar.gz'
 ARG jdkLinuxMD5SUM='7e9925dbe18506ce35e226c3b4d05613'
 ARG ubuntuImage='ubuntu:18.04'
 
