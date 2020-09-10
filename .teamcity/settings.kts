@@ -164,7 +164,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
@@ -359,7 +360,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
@@ -542,7 +544,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }

@@ -26,11 +26,11 @@ ARG gitWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent, 'jre.zip', $Env:gitWindowsComponent, 'git.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip') ; \
     iex $downloadScript ; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip ; \
+    Remove-Item -Force jdk.zip ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     Remove-Item -Force git.zip
 
