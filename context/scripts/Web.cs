@@ -38,7 +38,7 @@ namespace Scripts
                     }
                     else
                     {
-                        WriteLine("{0}\tdownloading", name);
+                        WriteLine("{0}\tdownloading from \"{1}\"", name, sourceUrl);
                     }
 
                     success = await DownloadFile(name, sourceUrl, destinationFile);
