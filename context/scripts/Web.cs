@@ -9,6 +9,8 @@ namespace Scripts
 {
     public class Web
     {
+        private static readonly object LockObject = new object();
+
         public static int DownloadFiles(params string[] args)
         {
             List<Task> tasks = new List<Task>();
@@ -31,12 +33,12 @@ namespace Scripts
                 {
                     if (i > 0)
                     {
-                        Console.WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
+                        WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
                         await Task.Delay(delay);
                     }
                     else
                     {
-                        Console.WriteLine("{0}\tdownloading", name);
+                        WriteLine("{0}\tdownloading", name);
                     }
 
                     success = await DownloadFile(name, sourceUrl, destinationFile);
@@ -45,11 +47,11 @@ namespace Scripts
                         break;
                     }
 
-                    Console.Error.WriteLine("{0}\tabort", name);
+                    WriteErrorLine("{0}\tabort", name);
                 }
                 catch (Exception ex)
                 {
-                    Console.Error.WriteLine("{0}\terror: \"{1}\"", name, ex.Message);
+                    WriteErrorLine("{0}\terror: \"{1}\"", name, ex.Message);
                 }
             }
 
@@ -78,7 +80,7 @@ namespace Scripts
                         }
 
                         lastPercent = percent;
-                        Console.WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
+                        WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
                     }
                 };
 
@@ -90,6 +92,22 @@ namespace Scripts
 
                 await client.DownloadFileTaskAsync(new Uri(sourceUrl), destinationFile);
                 return completed;
+            }
+        }
+
+        private static void WriteLine(string message, params object[] args)
+        {
+            lock (LockObject)
+            {
+                Console.WriteLine(message, args);
+            }
+        }
+
+        private static void WriteErrorLine(string message, params object[] args)
+        {
+            lock (LockObject)
+            {
+                Console.Error.WriteLine(message, args);
             }
         }
     }
