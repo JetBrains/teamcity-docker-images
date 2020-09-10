@@ -158,7 +158,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC2020_1_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
@@ -341,7 +342,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC2020_1_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
@@ -518,7 +520,8 @@ forceCleanCheckout = true
 }
 dependencies {
 dependency(AbsoluteId("TC2020_1_BuildDistTarGzWar")) {
-snapshot { onDependencyFailure = FailureAction.IGNORE }
+snapshot { onDependencyFailure = FailureAction.IGNORE
+reuseBuilds = ReuseBuilds.ANY }
 artifacts {
 artifactRules = "TeamCity-*.tar.gz!/**=>context"
 }
@@ -546,27 +549,6 @@ steps {
 script {
 name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-}
-dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.1.4-linux %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
-}
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest"
@@ -611,24 +593,24 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:latest --v
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2020.1.4"
+name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:2020.1.4 %docker.buildRepository%teamcity-server:2020.1.4-linux %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
+commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.1.4-linux %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2020.1.4"
+name = "manifest push teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:2020.1.4"
+commandArgs = "push %docker.buildRepository%teamcity-server:latest"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2020.1.4"
+name = "manifest inspect teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.1.4 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
 }
 }
 dockerCommand {
@@ -671,6 +653,27 @@ name = "manifest inspect teamcity-minimal-agent:2020.1.4"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:2020.1.4 --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-server:2020.1.4 %docker.buildRepository%teamcity-server:2020.1.4-linux %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-server:2020.1.4"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.1.4 --verbose"
 }
 }
 dockerCommand {
@@ -748,26 +751,26 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server:2020.1.4-linux"
+name = "pull teamcity-agent:2020.1.4-linux-sudo"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.4-linux"
+name = "tag teamcity-agent:2020.1.4-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-linux-sudo %docker.deployRepository%teamcity-agent:2020.1.4-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.4-linux"
+name = "push teamcity-agent:2020.1.4-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.4-linux
+%docker.deployRepository%teamcity-agent:2020.1.4-linux-sudo
 """.trimIndent()
 }
 }
@@ -798,31 +801,6 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.4-linux-sudo"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.1.4-linux-sudo"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-linux-sudo %docker.deployRepository%teamcity-agent:2020.1.4-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.1.4-linux-sudo"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.4-linux-sudo
-""".trimIndent()
-}
-}
-
-dockerCommand {
 name = "pull teamcity-minimal-agent:2020.1.4-linux"
 commandType = other {
 subCommand = "pull"
@@ -843,6 +821,31 @@ name = "push teamcity-minimal-agent:2020.1.4-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:2020.1.4-linux
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server:2020.1.4-linux"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-linux"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server:2020.1.4-linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-linux"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server:2020.1.4-linux"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:2020.1.4-linux
 """.trimIndent()
 }
 }
@@ -877,26 +880,26 @@ name = "Push windows"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server:2020.1.4-nanoserver-1809"
+name = "pull teamcity-agent:2020.1.4-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.4-nanoserver-1809"
+name = "tag teamcity-agent:2020.1.4-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.4-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.4-nanoserver-1809"
+name = "push teamcity-agent:2020.1.4-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809
+%docker.deployRepository%teamcity-agent:2020.1.4-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -927,31 +930,6 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.1.4-nanoserver-1809"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-nanoserver-1809"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.1.4-nanoserver-1809"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.1.4-nanoserver-1809"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.1.4-nanoserver-1809"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.4-nanoserver-1809
-""".trimIndent()
-}
-}
-
-dockerCommand {
 name = "pull teamcity-minimal-agent:2020.1.4-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
@@ -977,51 +955,26 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-server:2020.1.4-nanoserver-1903"
+name = "pull teamcity-server:2020.1.4-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.1.4-nanoserver-1903"
+name = "tag teamcity-server:2020.1.4-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.1.4-nanoserver-1903"
+name = "push teamcity-server:2020.1.4-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903
-""".trimIndent()
-}
-}
-
-dockerCommand {
-name = "pull teamcity-agent:2020.1.4-windowsservercore-1903"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-windowsservercore-1903"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.1.4-windowsservercore-1903"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-windowsservercore-1903 %docker.deployRepository%teamcity-agent:2020.1.4-windowsservercore-1903"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.1.4-windowsservercore-1903"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.1.4-windowsservercore-1903
+%docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -1052,6 +1005,31 @@ namesAndTags = """
 }
 
 dockerCommand {
+name = "pull teamcity-agent:2020.1.4-windowsservercore-1903"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-windowsservercore-1903"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:2020.1.4-windowsservercore-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.1.4-windowsservercore-1903 %docker.deployRepository%teamcity-agent:2020.1.4-windowsservercore-1903"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent:2020.1.4-windowsservercore-1903"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:2020.1.4-windowsservercore-1903
+""".trimIndent()
+}
+}
+
+dockerCommand {
 name = "pull teamcity-minimal-agent:2020.1.4-nanoserver-1903"
 commandType = other {
 subCommand = "pull"
@@ -1072,6 +1050,31 @@ name = "push teamcity-minimal-agent:2020.1.4-nanoserver-1903"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:2020.1.4-nanoserver-1903
+""".trimIndent()
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server:2020.1.4-nanoserver-1903"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server:2020.1.4-nanoserver-1903"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.1.4-nanoserver-1903 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server:2020.1.4-nanoserver-1903"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903
 """.trimIndent()
 }
 }
@@ -1111,27 +1114,6 @@ steps {
 script {
 name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-}
-dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
-}
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest"
@@ -1175,6 +1157,27 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --verbose"
 }
 }
+dockerCommand {
+name = "manifest create teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-server:latest"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
+}
+}
 }
 dependencies {
 snapshot(push_hub_linux)
@@ -1205,27 +1208,6 @@ steps {
 script {
 name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-}
-dockerCommand {
-name = "manifest create teamcity-server:2020.1.4"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2020.1.4 %docker.deployRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:2020.1.4"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:2020.1.4"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:2020.1.4"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:2020.1.4 --verbose"
-}
 }
 dockerCommand {
 name = "manifest create teamcity-agent:2020.1.4"
@@ -1267,6 +1249,27 @@ name = "manifest inspect teamcity-minimal-agent:2020.1.4"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2020.1.4 --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-server:2020.1.4 %docker.deployRepository%teamcity-server:2020.1.4-linux %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.1.4-nanoserver-1903"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-server:2020.1.4"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2020.1.4"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:2020.1.4 --verbose"
 }
 }
 dockerCommand {

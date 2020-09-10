@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-server](teamcity-server.md)
 - [teamcity-minimal-agent](teamcity-minimal-agent.md)
+- [teamcity-server](teamcity-server.md)
 
 #### multi-architecture
 
