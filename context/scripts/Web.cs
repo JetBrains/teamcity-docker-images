@@ -14,14 +14,14 @@ namespace Scripts
             List<Task> tasks = new List<Task>();
             for (int i = 0; i < args.Length / 2; i++)
             {
-                tasks.Add(DownloadFile(args[i * 2], args[i * 2 + 1], 3));
+                tasks.Add(DownloadFile(args[i * 2], args[i * 2 + 1], 300, TimeSpan.FromSeconds(10)));
             }
 
             Task.WhenAll(tasks).Wait();
             return 0;
         }
 
-        private static async Task DownloadFile(string sourceUrl, string destinationFile, int attempts)
+        private static async Task DownloadFile(string sourceUrl, string destinationFile, int attempts, TimeSpan delay)
         {
             string name = Path.GetFileName(destinationFile);
             bool success = false;
@@ -31,7 +31,12 @@ namespace Scripts
                 {
                     if (i > 0)
                     {
-                        Console.WriteLine("     {0} attempt #{1}", name, i + 1);
+                        Console.WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
+                        await Task.Delay(delay);
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0}\tdownloading", name);
                     }
 
                     success = await DownloadFile(name, sourceUrl, destinationFile);
@@ -40,11 +45,11 @@ namespace Scripts
                         break;
                     }
 
-                    Console.Error.WriteLine("   {0} abort", name);
+                    Console.Error.WriteLine("{0}\tabort", name);
                 }
                 catch (Exception ex)
                 {
-                    Console.Error.WriteLine("   {0} error {1}", name, ex.Message);
+                    Console.Error.WriteLine("{0}\terror: \"{1}\"", name, ex.Message);
                 }
             }
 
@@ -73,7 +78,7 @@ namespace Scripts
                         }
 
                         lastPercent = percent;
-                        Console.WriteLine(" {0:00}% {1} {2:0.0} MB/s", percent, name, speed);
+                        Console.WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
                     }
                 };
 
