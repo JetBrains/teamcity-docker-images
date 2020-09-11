@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace Scripts
@@ -13,6 +14,27 @@ namespace Scripts
 
         public static int DownloadFiles(params string[] args)
         {
+            WriteErrorLine("Network interfaces:");
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var networkInterface in interfaces)
+            {
+                if (networkInterface.OperationalStatus != OperationalStatus.Up)
+                {
+                    continue;
+                }
+
+                WriteLine("\t{0}\t\"{1}\"\t\"{2}\"", networkInterface.NetworkInterfaceType, networkInterface.Name, networkInterface.Description);
+                IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
+                IPAddressCollection dnsAddresses = ipProperties.DnsAddresses;
+
+                foreach (IPAddress dnsAddress in dnsAddresses)
+                {
+                    WriteLine("\t\tDNS address {0}", dnsAddress);
+                }
+
+
+            }
+
             List<Task> tasks = new List<Task>();
             for (int i = 0; i < args.Length / 2; i++)
             {
@@ -63,6 +85,20 @@ namespace Scripts
 
         private static async Task<bool> DownloadFile(string name, string sourceUrl, string destinationFile)
         {
+            Uri source = new Uri(sourceUrl);
+            string host = source.DnsSafeHost;
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                throw new InvalidOperationException("Cannot get dns name for " + sourceUrl);
+            }
+
+            WriteErrorLine("{0}\tresolving \"{1}\" by dns", name, source.DnsSafeHost);
+            IPHostEntry hostInfo = await Dns.GetHostEntryAsync(host);
+            foreach (var address in hostInfo.AddressList)
+            {
+                WriteErrorLine("{0}\t address {1}", host, address);
+            }
+
             using (WebClient client = new WebClient())
             {
                 long lastPercent = -1;
@@ -90,7 +126,7 @@ namespace Scripts
                     completed = true;
                 };
 
-                await client.DownloadFileTaskAsync(new Uri(sourceUrl), destinationFile);
+                await client.DownloadFileTaskAsync(source, destinationFile);
                 return completed;
             }
         }
