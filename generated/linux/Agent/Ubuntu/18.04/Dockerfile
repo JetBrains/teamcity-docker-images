@@ -1,6 +1,6 @@
 # Default arguments
-ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-linux-x64.tar.gz'
-ARG dotnetCoreLinuxComponentVersion='3.1.401'
+ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz'
+ARG dotnetCoreLinuxComponentVersion='3.1.402'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.1.4-linux'
 

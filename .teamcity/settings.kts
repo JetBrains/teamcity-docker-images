@@ -1355,6 +1355,7 @@ subProject(LocalProject)
 subProject(HubProject)
 params {
 param("dockerImage.teamcity.buildNumber", "%dep.TC2020_1_BuildDistTarGzWar.build.number%")
+param("teamcity.ui.settings.readOnly", "false")
 }
 }
 
