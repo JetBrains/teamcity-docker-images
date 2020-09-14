@@ -69,7 +69,7 @@ Installed components:
 
 - Git
 - Mercurial
-- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-linux-x64.tar.gz)
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -139,7 +139,7 @@ The docker image is available on:
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -179,7 +179,7 @@ The docker image is available on:
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -299,7 +299,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip)
 
 Container platform: windows
 
@@ -328,7 +328,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.401/dotnet-sdk-3.1.401-win-x64.zip)
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
