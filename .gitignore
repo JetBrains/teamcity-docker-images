@@ -1,7 +1,9 @@
 **/obj/
 **/bin/
 **/.vs/
+**/.gradle/
+**/.idea/
 context/TeamCity/
-.teamcity/.idea/
 *.iml
 checks/temp/
+tool/agent-upgrade-dist/build/

@@ -1,0 +1,1 @@
+data class AgentUpdateMetadata(val version: String, val hash: String)
