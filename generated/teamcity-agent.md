@@ -76,7 +76,7 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-linux
+docker pull jetbrains/teamcity-agent:EAP-linux
 ```
 
 Docker build commands:
@@ -109,7 +109,7 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-linux-sudo
+docker pull jetbrains/teamcity-agent:EAP-linux-sudo
 ```
 
 Docker build commands:
@@ -147,7 +147,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-nanoserver-1903
+docker pull jetbrains/teamcity-agent:EAP-nanoserver-1903
 ```
 
 Docker build commands:
@@ -187,7 +187,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-nanoserver-1909
+docker pull jetbrains/teamcity-agent:EAP-nanoserver-1909
 ```
 
 Docker build commands:
@@ -229,7 +229,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-windowsservercore-1903
+docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1903
 ```
 
 Docker build commands:
@@ -270,7 +270,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-agent:EAP-windowsservercore-1909
+docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1909
 ```
 
 Docker build commands:

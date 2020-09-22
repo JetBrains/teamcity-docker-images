@@ -58,7 +58,7 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:EAP-linux
+docker pull jetbrains/teamcity-server:EAP-linux
 ```
 
 Docker build commands:
@@ -95,7 +95,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:EAP-nanoserver-1903
+docker pull jetbrains/teamcity-server:EAP-nanoserver-1903
 ```
 
 Docker build commands:
@@ -132,7 +132,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains//teamcity-server:EAP-nanoserver-1909
+docker pull jetbrains/teamcity-server:EAP-nanoserver-1909
 ```
 
 Docker build commands:

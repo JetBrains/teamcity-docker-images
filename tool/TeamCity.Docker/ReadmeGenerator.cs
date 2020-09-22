@@ -211,7 +211,7 @@ namespace TeamCity.Docker
                         lines.Add(string.Empty);
 
                         lines.Add("```");
-                        lines.Add(GeneratePullCommand($"{publishRepo.Segments.Last()}/{dockerFile.ImageId}:{dockerFile.Tags.FirstOrDefault() ?? "latest"}"));
+                        lines.Add(GeneratePullCommand($"{publishRepo.Segments.Last()}{dockerFile.ImageId}:{dockerFile.Tags.FirstOrDefault() ?? "latest"}"));
                         lines.Add("```");
                     }
 
