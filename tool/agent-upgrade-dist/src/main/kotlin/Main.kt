@@ -76,23 +76,23 @@ fun main(args: Array<String>) {
                 .map { pluginSource ->
                     val metadata = pluginSource.zipStream.getPluginMetadata(pluginSource.pluginType)
                     val destinationDir = if (metadata.type == PluginType.Plugin) agentPluginsDir else agentToolsDir
+                    val name = File(pluginSource.name).nameWithoutExtension
                     val files = pluginSource
                             .zipStream
                             .unzip()
                             .save() { relativePath ->
-                                val name = File(pluginSource.name).nameWithoutExtension
                                 val pluginDir = if (File(relativePath).startsWith(File(name))) destinationDir else File(destinationDir, name)
                                 val file = File(pluginDir.ensureDirExists("", true), relativePath)
                                 file
                             }
 
-                    Plugin(pluginSource.name, metadata, files)
+                    Plugin(pluginSource.name, File(destinationDir.relativeTo(agentRootDir), name), metadata, files)
                 }
 
         tryGetAgentUpdateMetadata(agentRootDir, agentUpdateFile)?.let {
             val plugins = pluginsSource.toList()
             for (plugin in plugins) {
-                if (plugin.metadata.type == PluginType.Plugin || plugin.metadata.type == PluginType.Tool) {
+                if (plugin.metadata.type != PluginType.Bundled) {
                     // Copy plugin to agent
                     plugin.copy()
                 }

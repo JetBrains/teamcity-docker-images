@@ -167,7 +167,7 @@ dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "context/TeamCity => context/TeamCity"
+artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 }
 }
 }
@@ -363,7 +363,7 @@ dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "context/TeamCity => context/TeamCity"
+artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 }
 }
 }
@@ -547,7 +547,7 @@ dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "context/TeamCity => context/TeamCity"
+artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 }
 }
 }

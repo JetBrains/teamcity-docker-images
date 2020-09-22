@@ -1,12 +1,12 @@
 version: '2'
 services:
   teamcity-server-instance:
-    image: teamcity-server:EAP-linux
+    image: teamcity-server:EAP-nanoserver-1903
     ports:
      - "8112:8111"
     restart: always
  
   teamcity-agent-instance:
-    image: teamcity-minimal-agent:EAP-linux
+    image: teamcity-minimal-agent:EAP-nanoserver-1903
     environment:
       - SERVER_URL=teamcity-server-instance:8111

@@ -1,11 +1,13 @@
 import org.w3c.dom.NodeList
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileWriter
 import java.io.InputStream
 import java.security.MessageDigest
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
+
 
 fun File.computeHashCode(): String =
     FileInputStream(this).use {
@@ -21,11 +23,13 @@ fun InputStream.computeHashCode(): String {
         digest.update(buff, 0, count)
     }
 
-    return String(org.apache.commons.codec.binary.Base64().encode(digest.digest()))
+    return "SHA-1" + String(org.apache.commons.codec.binary.Base64().encode(digest.digest()))
 }
 
 fun InputStream.getPluginMetadata(pluginType: PluginType): PluginMetadata {
     val hash = this.computeHashCode()
+    this.reset()
+
     try {
         return this
             .unzip()
@@ -63,11 +67,14 @@ fun tryGetAgentUpdateMetadata(agentRootDir: File, agentFile: File) =
         else
             null
 
-fun saveMetadata(destinationDir: File, agentUpdateMetadata: AgentUpdateMetadata, plugins: List<Plugin>) =
-    DocumentBuilderFactory
+fun saveMetadata(destinationDir: File, agentUpdateMetadata: AgentUpdateMetadata, plugins: List<Plugin>) {
+     val doc = DocumentBuilderFactory
             .newInstance()
             .newDocumentBuilder()
             .newDocument()
+
+    doc.xmlStandalone = true
+    doc
             .appendChild(
                     E("agent",
                             E("core",
@@ -90,3 +97,15 @@ fun saveMetadata(destinationDir: File, agentUpdateMetadata: AgentUpdateMetadata,
                     ).a("agent-version", agentUpdateMetadata.version))
             .ownerDocument
             .save(File(destinationDir, "teamcity-agent.xml"))
+
+    val lineSeparator = System.getProperty("line.separator")
+    FileWriter(File(destinationDir, "unpacked-plugins.xml"))
+            .use { writer ->
+                for (plugin in plugins.filter { it.metadata.type != PluginType.Bundled }) {
+                    writer.write(plugin.name)
+                    writer.write("=")
+                    writer.write(plugin.path.path.replace("\\", "/"))
+                    writer.write(lineSeparator)
+                }
+            }
+}
