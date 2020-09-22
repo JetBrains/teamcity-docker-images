@@ -553,7 +553,7 @@ namespace TeamCity.Docker
             yield return $"dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
             yield return "snapshot { onDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.ANY }";
             yield return "artifacts {";
-            yield return $"artifactRules = \"TeamCity-*.tar.gz!/**=>{_pathService.Normalize(_options.ContextPath)}\"";
+            yield return $"artifactRules = \"context/TeamCity => {_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
             yield return "}";
             yield return "}";
             yield return "}";

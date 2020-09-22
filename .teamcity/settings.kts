@@ -163,11 +163,11 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
+artifactRules = "context/TeamCity => context/TeamCity"
 }
 }
 }
@@ -359,11 +359,11 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
+artifactRules = "context/TeamCity => context/TeamCity"
 }
 }
 }
@@ -543,11 +543,11 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistTarGzWar")) {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
-artifactRules = "TeamCity-*.tar.gz!/**=>context"
+artifactRules = "context/TeamCity => context/TeamCity"
 }
 }
 }
@@ -654,7 +654,7 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent:EAP-windowsserverc
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistTarGzWar"))
+snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }
@@ -1196,7 +1196,7 @@ vcsRoot(TeamCityDockerImagesRepo)
 subProject(LocalProject)
 subProject(HubProject)
 params {
-param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistTarGzWar.build.number%")
+param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
 param("teamcity.ui.settings.readOnly", "false")
 }
 }
