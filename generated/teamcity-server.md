@@ -64,6 +64,9 @@ docker pull jetbrains/teamcity-server:EAP-linux
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux "context"
 ```
 
@@ -101,6 +104,9 @@ docker pull jetbrains/teamcity-server:EAP-nanoserver-1903
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:EAP-nanoserver-1903 "context"
 ```
 
@@ -138,6 +144,9 @@ docker pull jetbrains/teamcity-server:EAP-nanoserver-1909
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
 ```
 
@@ -166,6 +175,9 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:EAP-nanoserver-1803 "context"
 ```
 
@@ -194,6 +206,9 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
 ```
 

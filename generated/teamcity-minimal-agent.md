@@ -64,6 +64,7 @@ docker pull jetbrains/teamcity-minimal-agent:EAP-linux
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 ```
 
@@ -101,6 +102,7 @@ docker pull jetbrains/teamcity-minimal-agent:EAP-nanoserver-1903
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
 ```
 
@@ -139,6 +141,7 @@ docker pull jetbrains/teamcity-minimal-agent:EAP-nanoserver-1909
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
 ```
 
@@ -168,6 +171,7 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1803 "context"
 ```
 
@@ -196,6 +200,7 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
 ```
 

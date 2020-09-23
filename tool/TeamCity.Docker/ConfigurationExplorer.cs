@@ -78,6 +78,7 @@ namespace TeamCity.Docker
                 {
                     var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
                     var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
+                    var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
                     var variants = new List<Variant>();
                     var configCounter = 0;
                     foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
@@ -90,7 +91,14 @@ namespace TeamCity.Docker
                         }
                     }
 
-                    yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants);
+
+                    var ignore = new List<string>();
+                    if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
+                    {
+                        ignore.AddRange(_fileSystem.ReadLines(dockerignoreTemplatePath));
+                    }
+
+                    yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants.AsReadOnly(), ignore.AsReadOnly());
                 }
             }
         }

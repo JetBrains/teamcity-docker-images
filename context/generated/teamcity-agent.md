@@ -82,7 +82,10 @@ docker pull jetbrains/teamcity-agent:EAP-linux
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
 ```
 
@@ -115,8 +118,13 @@ docker pull jetbrains/teamcity-agent:EAP-linux-sudo
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-sudo "context"
 ```
 
@@ -153,8 +161,13 @@ docker pull jetbrains/teamcity-agent:EAP-nanoserver-1903
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:EAP-nanoserver-1903 "context"
 ```
 
@@ -193,8 +206,13 @@ docker pull jetbrains/teamcity-agent:EAP-nanoserver-1909
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1909 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:EAP-nanoserver-1909 "context"
 ```
 
@@ -235,7 +253,10 @@ docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1903
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
 ```
 
@@ -276,7 +297,10 @@ docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1909
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1909 "context"
 ```
 
@@ -306,8 +330,13 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1803 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1803 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:EAP-nanoserver-1803 "context"
 ```
 
@@ -336,8 +365,13 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:EAP-nanoserver-1809 "context"
 ```
 
@@ -369,7 +403,10 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1803 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1803 "context"
 ```
 
@@ -400,7 +437,10 @@ Container platform: windows
 Docker build commands:
 
 ```
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
+
+echo 2> context/.dockerignore
 docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
 ```
 

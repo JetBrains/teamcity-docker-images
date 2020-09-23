@@ -108,7 +108,8 @@ namespace TeamCity.Docker
                         comments,
                         references,
                         new Weight(weight),
-                        dockerfileLines);
+                        dockerfileLines,
+                        template.Ignore);
 
                     if (graph.TryAddNode(new Image(dockerfile), out var dockerImageNode))
                     {

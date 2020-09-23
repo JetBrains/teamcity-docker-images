@@ -22,6 +22,15 @@ commandArgs = "ubuntu:18.04"
 }
 }
 
+script {
+name = "context teamcity-server:EAP-linux"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-server:EAP-linux"
 commandType = build {
@@ -34,6 +43,13 @@ teamcity-server:EAP-linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
+}
+
+script {
+name = "context teamcity-minimal-agent:EAP-linux"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {
@@ -50,6 +66,13 @@ teamcity-minimal-agent:EAP-linux
 param("dockerImage.platform", "linux")
 }
 
+script {
+name = "context teamcity-agent:EAP-linux"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-agent:EAP-linux"
 commandType = build {
@@ -62,6 +85,13 @@ teamcity-agent:EAP-linux
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
+}
+
+script {
+name = "context teamcity-agent:EAP-linux-sudo"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {
@@ -218,6 +248,15 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 }
 }
 
+script {
+name = "context teamcity-server:EAP-nanoserver-1903"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-server:EAP-nanoserver-1903"
 commandType = build {
@@ -230,6 +269,13 @@ teamcity-server:EAP-nanoserver-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-minimal-agent:EAP-nanoserver-1903"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {
@@ -246,6 +292,13 @@ teamcity-minimal-agent:EAP-nanoserver-1903
 param("dockerImage.platform", "windows")
 }
 
+script {
+name = "context teamcity-agent:EAP-windowsservercore-1903"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-agent:EAP-windowsservercore-1903"
 commandType = build {
@@ -258,6 +311,13 @@ teamcity-agent:EAP-windowsservercore-1903
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-agent:EAP-nanoserver-1903"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {
@@ -402,6 +462,15 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 }
 }
 
+script {
+name = "context teamcity-server:EAP-nanoserver-1909"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-server:EAP-nanoserver-1909"
 commandType = build {
@@ -414,6 +483,13 @@ teamcity-server:EAP-nanoserver-1909
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-minimal-agent:EAP-nanoserver-1909"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {
@@ -430,6 +506,13 @@ teamcity-minimal-agent:EAP-nanoserver-1909
 param("dockerImage.platform", "windows")
 }
 
+script {
+name = "context teamcity-agent:EAP-windowsservercore-1909"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
+}
+
 dockerCommand {
 name = "build teamcity-agent:EAP-windowsservercore-1909"
 commandType = build {
@@ -442,6 +525,13 @@ teamcity-agent:EAP-windowsservercore-1909
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-agent:EAP-nanoserver-1909"
+scriptContent = """
+echo 2> context/.dockerignore
+""".trimIndent()
 }
 
 dockerCommand {

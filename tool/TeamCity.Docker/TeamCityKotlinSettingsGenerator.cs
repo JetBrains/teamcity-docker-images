@@ -440,15 +440,15 @@ namespace TeamCity.Docker
                 yield return "steps {";
 
                 // docker pull
-                foreach (var pullCommand in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
+                foreach (var command in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
                 {
-                    yield return pullCommand;
+                    yield return command;
                 }
 
                 // docker build
-                foreach (var buildCommand in images.SelectMany(CreateBuildCommand))
+                foreach (var command in images.SelectMany(image => CreatePrepareContextCommand(image).Concat(CreateBuildCommand(image))))
                 {
-                    yield return buildCommand;
+                    yield return command;
                 }
 
                 // docker image tag
@@ -621,6 +621,26 @@ namespace TeamCity.Docker
             yield return $"commandArgs = \"{repoTag} {newRepoTag}\"";
 
             yield return "}";
+            yield return "}";
+
+            yield return string.Empty;
+        }
+
+        private IEnumerable<string> CreatePrepareContextCommand(Image image)
+        {
+            var tag = image.File.Tags.First();
+            yield return "script {";
+            yield return $"name = \"context {image.File.ImageId}:{tag}\"";
+            yield return "scriptContent = \"\"\"";
+
+            var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
+            yield return $"echo 2> {dockerignore}";
+            foreach (var ignore in image.File.Ignore)
+            {
+                yield return $"echo {ignore} >> {dockerignore}";
+            }
+
+            yield return "\"\"\".trimIndent()";
             yield return "}";
 
             yield return string.Empty;

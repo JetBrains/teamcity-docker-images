@@ -7,3 +7,4 @@ context/TeamCity/
 *.iml
 checks/temp/
 tool/agent-upgrade-dist/build/
+context/.dockerignore
