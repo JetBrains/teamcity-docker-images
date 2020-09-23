@@ -45,25 +45,26 @@ RUN update-alternatives --install /usr/bin/java java ${JRE_HOME}/bin/java 1 && \
 ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
     LANG=C.UTF-8
 
-LABEL dockerImage.teamcity.version="latest" \
-      dockerImage.teamcity.buildNumber="latest"
-
 COPY --chown=buildagent:buildagent run-agent.sh /run-agent.sh
 COPY --chown=buildagent:buildagent run-agent-services.sh /run-services.sh
-COPY --chown=buildagent:buildagent TeamCity/buildAgent /opt/buildagent
+COPY TeamCity/buildAgent /opt/buildagent
 
 RUN chmod +x /opt/buildagent/bin/*.sh && \
     chmod +x /run-agent.sh /run-services.sh && sync && \
     sed -i -e 's/\r$//' /run-agent.sh && \
     sed -i -e 's/\r$//' /run-services.sh && \
     mkdir -p /data/teamcity_agent/conf && \
-    chown -R buildagent:buildagent /data/teamcity_agent && \
     mkdir -p /opt/buildagent/work && \
     mkdir -p /opt/buildagent/system && \
     mkdir -p /opt/buildagent/temp && \
     mkdir -p /opt/buildagent/plugins && \
     mkdir -p /opt/buildagent/logs && \
     mkdir -p /opt/buildagent/tools && \
+    echo >> /opt/buildagent/system/.teamcity-agent/teamcity-agent.xml && \
+    sed -i -e 's/\r$//' /opt/buildagent/system/.teamcity-agent/teamcity-agent.xml && \
+    echo >> /opt/buildagent/system/.teamcity-agent/unpacked-plugins.xml && \
+    sed -i -e 's/\r$//' /opt/buildagent/system/.teamcity-agent/unpacked-plugins.xml && \
+    chown -R buildagent:buildagent /data/teamcity_agent && \
     chown -R buildagent:buildagent /opt/buildagent
 
 VOLUME /data/teamcity_agent/conf

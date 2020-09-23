@@ -8,7 +8,6 @@ import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
 
-
 fun File.computeHashCode(): String =
     FileInputStream(this).use {
         return it.computeHashCode()
@@ -38,7 +37,7 @@ fun InputStream.getPluginMetadata(pluginType: PluginType): PluginMetadata {
             ?.let {
                 val docBuilder =  DocumentBuilderFactory.newInstance().newDocumentBuilder()
                 val doc = docBuilder.parse(it.stream)
-                var xpath = XPathFactory.newInstance().newXPath()
+                val xpath = XPathFactory.newInstance().newXPath()
                 val pluginDeployment = xpath.evaluate("/teamcity-agent-plugin/plugin-deployment", doc, XPathConstants.NODESET) as NodeList
                 val toolDeployment = xpath.evaluate("/teamcity-agent-plugin/tool-deployment", doc, XPathConstants.NODESET) as NodeList
                 when {

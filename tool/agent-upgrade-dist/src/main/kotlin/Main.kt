@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
                                 .mapNotNull { zip ->
                                     when {
                                         zip.entry.name.startsWith("agent/", true) -> PluginType.Plugin
-                                        zip.entry.name.startsWith("bundled", true) -> PluginType.Bundled
+                                        zip.entry.name.contains("bundled", true) -> PluginType.Bundled
                                         else -> null
                                     }?.let { pluginType ->
                                             // Copy zip stream to buffer
@@ -76,29 +76,37 @@ fun main(args: Array<String>) {
                 .map { pluginSource ->
                     val metadata = pluginSource.zipStream.getPluginMetadata(pluginSource.pluginType)
                     val destinationDir = if (metadata.type == PluginType.Plugin) agentPluginsDir else agentToolsDir
-                    val name = File(pluginSource.name).nameWithoutExtension
+                    var name = File(pluginSource.name).nameWithoutExtension
                     val files = pluginSource
                             .zipStream
                             .unzip()
-                            .save() { relativePath ->
-                                val pluginDir = if (File(relativePath).startsWith(File(name))) destinationDir else File(destinationDir, name)
-                                val file = File(pluginDir.ensureDirExists("", true), relativePath)
+                            .save {
+                                val relativePath = File(it)
+                                var parent = relativePath.parentFile
+                                if (parent != null) {
+                                    while (parent.parentFile != null) {
+                                        parent = parent.parentFile
+                                    }
+
+                                    if(!parent.name.equals(name) && parent.name.equals(name, true)) {
+                                        name = parent.name
+                                    }
+                                }
+                                val pluginDir = if (relativePath.startsWith(File(name))) destinationDir else File(destinationDir, name)
+                                val file = File(pluginDir.ensureDirExists("", true), it)
                                 file
                             }
 
-                    Plugin(pluginSource.name, File(destinationDir.relativeTo(agentRootDir), name), metadata, files)
+                    if (metadata.type != PluginType.Bundled) {
+                        // Copy files
+                        files.toList()
+                    }
+
+                    Plugin(pluginSource.name, File(destinationDir.relativeTo(agentRootDir), name), metadata)
                 }
 
         tryGetAgentUpdateMetadata(agentRootDir, agentUpdateFile)?.let {
-            val plugins = pluginsSource.toList()
-            for (plugin in plugins) {
-                if (plugin.metadata.type != PluginType.Bundled) {
-                    // Copy plugin to agent
-                    plugin.copy()
-                }
-            }
-
-            saveMetadata(agentMetadataDir, it, plugins)
+            saveMetadata(agentMetadataDir, it, pluginsSource.toList())
             exitProcess(0)
         }
     } catch (error: Throwable) {
