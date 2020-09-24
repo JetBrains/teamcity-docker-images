@@ -1,3 +1,1 @@
-pushd tool\agent-upgrade-dist
-gradlew run --args=..\..\context\TeamCity
-popd
+tool/agent-upgrade-dist/gradlew -p tool/agent-upgrade-dist/ run --args=../../context/TeamCity
