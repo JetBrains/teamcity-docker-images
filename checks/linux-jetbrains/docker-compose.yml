@@ -1,0 +1,16 @@
+version: '2'
+services:
+  teamcity-server:
+    image: registry.jetbrains.team/teamcity/teamcity-server:EAP-linux
+    ports:
+     - "8112:8111"
+ 
+  teamcity-minimal-agent:
+    image: registry.jetbrains.team/teamcity/teamcity-minimal-agent:EAP-linux
+    environment:
+      - SERVER_URL=teamcity-server:8111
+
+  teamcity-agent:
+    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-linux
+    environment:
+      - SERVER_URL=teamcity-server:8111

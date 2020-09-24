@@ -1,1 +1,0 @@
-docker run -it -P -e SERVER_URL="http://localhost:8111" teamcity-agent:18.04-sudo
