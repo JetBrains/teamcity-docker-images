@@ -47,14 +47,18 @@ ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \
 
 COPY --chown=buildagent:buildagent run-agent.sh /run-agent.sh
 COPY --chown=buildagent:buildagent run-agent-services.sh /run-services.sh
-COPY TeamCity/buildAgent /opt/buildagent
+COPY --chown=buildagent:buildagent TeamCity/buildAgent /opt/buildagent
 
 RUN chmod +x /opt/buildagent/bin/*.sh && \
     chmod +x /run-agent.sh /run-services.sh && sync && \
-    sed -i -e 's/\r$//' /run-agent.sh && \
-    sed -i -e 's/\r$//' /run-services.sh && \
     mkdir -p /data/teamcity_agent/conf && \
-    mkdir -p /opt/buildagent/work && \
+    chown -R buildagent:buildagent /data/teamcity_agent && \
+    sed -i -e 's/\r$//' /run-agent.sh && \
+    sed -i -e 's/\r$//' /run-services.sh    
+
+USER buildagent
+
+RUN mkdir -p /opt/buildagent/work && \
     mkdir -p /opt/buildagent/system && \
     mkdir -p /opt/buildagent/temp && \
     mkdir -p /opt/buildagent/plugins && \
@@ -63,9 +67,7 @@ RUN chmod +x /opt/buildagent/bin/*.sh && \
     echo >> /opt/buildagent/system/.teamcity-agent/teamcity-agent.xml && \
     sed -i -e 's/\r$//' /opt/buildagent/system/.teamcity-agent/teamcity-agent.xml && \
     echo >> /opt/buildagent/system/.teamcity-agent/unpacked-plugins.xml && \
-    sed -i -e 's/\r$//' /opt/buildagent/system/.teamcity-agent/unpacked-plugins.xml && \
-    chown -R buildagent:buildagent /data/teamcity_agent && \
-    chown -R buildagent:buildagent /opt/buildagent
+    sed -i -e 's/\r$//' /opt/buildagent/system/.teamcity-agent/unpacked-plugins.xml
 
 VOLUME /data/teamcity_agent/conf
 VOLUME /opt/buildagent/work
@@ -74,7 +76,5 @@ VOLUME /opt/buildagent/temp
 VOLUME /opt/buildagent/logs
 VOLUME /opt/buildagent/tools
 VOLUME /opt/buildagent/plugins
-
-USER buildagent
 
 CMD ["/run-services.sh"]
