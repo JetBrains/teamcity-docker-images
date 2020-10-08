@@ -2,7 +2,7 @@
 ARG dotnetCoreWindowsComponent='https://repo.labs.intellij.net/cache/https/dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip'
 ARG dotnetCoreWindowsComponentVersion='3.1.402'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
-ARG teamcityWindowsservercoreImage='teamcity-agent:2020.1.4-windowsservercore-1803'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2020.1.5-windowsservercore-1803'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion
