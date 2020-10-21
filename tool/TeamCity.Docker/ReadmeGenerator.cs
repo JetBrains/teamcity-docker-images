@@ -228,44 +228,38 @@ namespace TeamCity.Docker
                             lines.Add(string.Empty);
 
                             lines.Add("```");
-                            var isFirst = true;
-                            foreach (var image in images)
-                            {
-                                if (isFirst)
-                                {
-                                    isFirst = false;
-                                }
-                                else
-                                {
-                                    lines.Add(string.Empty);
-                                }
-
-                                var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
-                                lines.Add($"echo 2> {dockerignore}");
-                                foreach (var ignore in image.File.Ignore)
-                                {
-                                    lines.Add($"echo {ignore} >> {dockerignore}");
-                                }
-
-                                lines.Add(GenerateBuildCommand(image));
-                                weight += image.Weight.Value;
-                            }
-
-                            lines.Add("```");
-                        }
-
-                        var references = artifacts.OfType<Reference>();
-                        if (references.Any())
-                        {
-                            lines.Add(string.Empty);
-                            lines.Add("Base images:");
-                            lines.Add(string.Empty);
-
-                            lines.Add("```");
                             foreach (var reference in artifacts.OfType<Reference>())
                             {
                                 lines.Add(GeneratePullCommand(reference.RepoTag));
                                 weight += reference.Weight.Value;
+                            }
+
+                            var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
+                            var hasIgnore = true;
+                            foreach (var image in images)
+                            {
+                                if (image.File.Ignore.Any())
+                                {
+                                    var isFirst = true;
+                                    foreach (var ignore in image.File.Ignore)
+                                    {
+                                        var redirection = isFirst ? ">" : ">>";
+                                        isFirst = false;
+                                        lines.Add($"echo {ignore} {redirection} {dockerignore}");
+                                        hasIgnore = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (hasIgnore)
+                                    {
+                                        lines.Add($"echo 2> {dockerignore}");
+                                        hasIgnore = false;
+                                    }
+                                }
+
+                                lines.Add(GenerateBuildCommand(image));
+                                weight += image.Weight.Value;
                             }
 
                             lines.Add("```");

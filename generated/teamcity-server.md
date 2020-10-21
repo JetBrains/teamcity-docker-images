@@ -64,16 +64,10 @@ docker pull jetbrains/teamcity-server:EAP-linux
 Docker build commands:
 
 ```
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
+docker pull ubuntu:18.04
+echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux "context"
-```
-
-Base images:
-
-```
-docker pull ubuntu:18.04
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
@@ -104,16 +98,10 @@ docker pull jetbrains/teamcity-server:EAP-nanoserver-1903
 Docker build commands:
 
 ```
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
+docker pull mcr.microsoft.com/powershell:nanoserver-1903
+echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:EAP-nanoserver-1903 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/powershell:nanoserver-1903
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
@@ -144,16 +132,10 @@ docker pull jetbrains/teamcity-server:EAP-nanoserver-1909
 Docker build commands:
 
 ```
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
+docker pull mcr.microsoft.com/powershell:nanoserver-1909
+echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/powershell:nanoserver-1909
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
@@ -175,16 +157,10 @@ Container platform: windows
 Docker build commands:
 
 ```
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
+docker pull mcr.microsoft.com/powershell:nanoserver-1803
+echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:EAP-nanoserver-1803 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/powershell:nanoserver-1803
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
@@ -206,16 +182,10 @@ Container platform: windows
 Docker build commands:
 
 ```
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
+echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
-```
-
-Base images:
-
-```
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
