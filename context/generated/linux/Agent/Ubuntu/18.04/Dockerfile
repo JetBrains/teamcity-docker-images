@@ -39,6 +39,8 @@ ARG dotnetCoreLinuxComponent
 
 RUN apt-get update && \
     apt-get install -y git mercurial apt-transport-https software-properties-common && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
     \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
@@ -49,6 +51,8 @@ RUN apt-get update && \
                         docker-ce-cli=5:19.03.9~3-0~ubuntu-bionic \
                         containerd.io=1.2.13-2 \
                         systemd && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
     systemctl disable docker && \
     curl -SL "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
     \
@@ -60,9 +64,9 @@ RUN apt-get update && \
             liblttng-ust0 \
             libssl1.0.0 \
             libstdc++6 \
-            zlib1g \
-        && rm -rf /var/lib/apt/lists/* && \
-    \
+            zlib1g \ &&
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
     curl -SL ${dotnetCoreLinuxComponent} --output dotnet.tar.gz \
         && mkdir -p /usr/share/dotnet \
         && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \

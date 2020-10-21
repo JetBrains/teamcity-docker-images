@@ -14,11 +14,13 @@ FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
-    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-    && locale-gen en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip  && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen en_US.UTF-8 && \
+    rm -rf /var/lib/apt/lists/*
 
 # JDK preparation start
 
@@ -54,7 +56,8 @@ LABEL dockerImage.teamcity.version="latest" \
 
 RUN apt-get update && \
     apt-get install -y git mercurial && \
-    apt-get clean all
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
