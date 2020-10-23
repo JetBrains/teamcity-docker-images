@@ -1,16 +1,16 @@
 version: '2'
 services:
   teamcity-server:
-    image: teamcity-server:EAP-linux
+    image: teamcity-server:local-linux
     ports:
      - "8112:8111"
  
   teamcity-minimal-agent:
-    image: teamcity-minimal-agent:EAP-linux
+    image: teamcity-minimal-agent:local-linux
     environment:
       - SERVER_URL=teamcity-server:8111
 
   teamcity-agent:
-    image: teamcity-agent:EAP-linux
+    image: teamcity-agent:local-linux
     environment:
       - SERVER_URL=teamcity-server:8111

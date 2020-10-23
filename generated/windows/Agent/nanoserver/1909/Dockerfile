@@ -3,7 +3,7 @@ ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/S
 ARG dotnetCoreWindowsComponentVersion='3.1.402'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1909'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1909'
-ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1909'
+ARG teamcityWindowsservercoreImage='teamcity-agent:local-windowsservercore-1909'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion

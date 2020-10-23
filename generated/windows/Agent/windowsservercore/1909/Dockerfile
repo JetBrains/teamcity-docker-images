@@ -2,7 +2,7 @@
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.252.09.2/amazon-corretto-8.252.09.2-windows-x64-jdk.zip'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-nanoserver-1909'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-nanoserver-1909'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909'
 
 # The list of required arguments

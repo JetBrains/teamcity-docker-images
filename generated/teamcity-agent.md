@@ -9,53 +9,53 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [EAP](#EAP)
-- [EAP-windowsservercore](#EAP-windowsservercore)
+- [local](#local)
+- [local-windowsservercore](#local-windowsservercore)
 
 #### linux
 
 - 18.04-sudo
-  - [EAP-linux-sudo](#EAP-linux-sudo)
+  - [local-linux-sudo](#local-linux-sudo)
 - 18.04
-  - [EAP-linux](#EAP-linux)
+  - [local-linux](#local-linux)
 
 #### windows
 
 - 1909
-  - [EAP-nanoserver-1909](#EAP-nanoserver-1909)
-  - [EAP-windowsservercore-1909](#EAP-windowsservercore-1909)
+  - [local-nanoserver-1909](#local-nanoserver-1909)
+  - [local-windowsservercore-1909](#local-windowsservercore-1909)
 - 1903
-  - [EAP-nanoserver-1903](#EAP-nanoserver-1903)
-  - [EAP-windowsservercore-1903](#EAP-windowsservercore-1903)
+  - [local-nanoserver-1903](#local-nanoserver-1903)
+  - [local-windowsservercore-1903](#local-windowsservercore-1903)
 - 1809
-  - [EAP-nanoserver-1809](#EAP-nanoserver-1809)
-  - [EAP-windowsservercore-1809](#EAP-windowsservercore-1809)
+  - [local-nanoserver-1809](#local-nanoserver-1809)
+  - [local-windowsservercore-1809](#local-windowsservercore-1809)
 - 1803
-  - [EAP-nanoserver-1803](#EAP-nanoserver-1803)
-  - [EAP-windowsservercore-1803](#EAP-windowsservercore-1803)
+  - [local-nanoserver-1803](#local-nanoserver-1803)
+  - [local-windowsservercore-1803](#local-windowsservercore-1803)
 
 
-### EAP
+### local
 
 Supported platforms: linux 18.04, windows 1903, windows 1909
 
 #### Content
 
-- [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1903](#EAP-nanoserver-1903)
-- [EAP-nanoserver-1909](#EAP-nanoserver-1909)
+- [local-linux](#local-linux)
+- [local-nanoserver-1903](#local-nanoserver-1903)
+- [local-nanoserver-1909](#local-nanoserver-1909)
 
-### EAP-windowsservercore
+### local-windowsservercore
 
 Supported platforms: windows 1903, windows 1909
 
 #### Content
 
-- [EAP-windowsservercore-1903](#EAP-windowsservercore-1903)
-- [EAP-windowsservercore-1909](#EAP-windowsservercore-1909)
+- [local-windowsservercore-1903](#local-windowsservercore-1903)
+- [local-windowsservercore-1909](#local-windowsservercore-1909)
 
 
-### EAP-linux
+### local-linux
 
 [Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
 
@@ -76,7 +76,7 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-linux
+docker pull jetbrains/teamcity-agent:local-linux
 ```
 
 Docker build commands:
@@ -84,12 +84,12 @@ Docker build commands:
 ```
 docker pull ubuntu:18.04
 echo 2> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
-### EAP-linux-sudo
+### local-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -105,7 +105,7 @@ Container platform: linux
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-linux-sudo
+docker pull jetbrains/teamcity-agent:local-linux-sudo
 ```
 
 Docker build commands:
@@ -113,13 +113,13 @@ Docker build commands:
 ```
 docker pull ubuntu:18.04
 echo 2> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-sudo "context"
+docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:local-linux-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### EAP-nanoserver-1903
+### local-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
@@ -139,7 +139,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-nanoserver-1903
+docker pull jetbrains/teamcity-agent:local-nanoserver-1903
 ```
 
 Docker build commands:
@@ -149,13 +149,13 @@ docker pull mcr.microsoft.com/windows/nanoserver:1903
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
-docker build -f "generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:EAP-nanoserver-1903 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1903 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:local-windowsservercore-1903 "context"
+docker build -f "generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:local-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
-### EAP-nanoserver-1909
+### local-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
 
@@ -175,7 +175,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-nanoserver-1909
+docker pull jetbrains/teamcity-agent:local-nanoserver-1909
 ```
 
 Docker build commands:
@@ -185,13 +185,13 @@ docker pull mcr.microsoft.com/windows/nanoserver:1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1909 "context"
-docker build -f "generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:EAP-nanoserver-1909 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
+docker build -f "generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:local-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
-### EAP-windowsservercore-1903
+### local-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
@@ -213,7 +213,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1903
+docker pull jetbrains/teamcity-agent:local-windowsservercore-1903
 ```
 
 Docker build commands:
@@ -223,12 +223,12 @@ docker pull mcr.microsoft.com/windows/nanoserver:1903
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1903 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:local-windowsservercore-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
-### EAP-windowsservercore-1909
+### local-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
 
@@ -250,7 +250,7 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1909
+docker pull jetbrains/teamcity-agent:local-windowsservercore-1909
 ```
 
 Docker build commands:
@@ -260,12 +260,12 @@ docker pull mcr.microsoft.com/windows/nanoserver:1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1909 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1909 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
-### EAP-nanoserver-1803
+### local-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
 
@@ -285,13 +285,13 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1803 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1803 "context"
-docker build -f "generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:EAP-nanoserver-1803 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1803 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:local-windowsservercore-1803 "context"
+docker build -f "generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:local-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
-### EAP-nanoserver-1809
+### local-nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
@@ -312,13 +312,13 @@ docker pull mcr.microsoft.com/windows/nanoserver:1809
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
-docker build -f "generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:EAP-nanoserver-1809 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
+docker build -f "generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:local-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
-### EAP-windowsservercore-1803
+### local-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
 
@@ -340,12 +340,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1803 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1803 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1803 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:local-windowsservercore-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **31 GB**._
-### EAP-windowsservercore-1809
+### local-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
@@ -368,8 +368,8 @@ docker pull mcr.microsoft.com/windows/nanoserver:1809
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 echo 2> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
-docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
+docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
+docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
