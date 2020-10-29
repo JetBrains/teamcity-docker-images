@@ -1,19 +1,15 @@
+# Default arguments
+ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz'
+ARG jdkServerLinuxMD5SUM='aecee89c6817a26c74587c69cc5c2967'
+ARG ubuntuImage='ubuntu:20.04'
+
 # The list of required arguments
 # ARG jdkServerLinuxComponent
 # ARG jdkServerLinuxMD5SUM
 # ARG ubuntuImage
 
-# Id teamcity-server
-# Tag ${versionTag}-linux${linuxVersion}
-# Tag ${latestTag}
-# Tag ${versionTag}
-# Platform ${linuxPlatform}
-# Repo ${repo}
-# Weight 1
 
-## ${serverCommentHeader}
 
-# Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -28,7 +24,6 @@ RUN apt-get update && \
 
 # JDK preparation start
 
-# Install [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
 ARG jdkServerLinuxComponent
 ARG jdkServerLinuxMD5SUM
 

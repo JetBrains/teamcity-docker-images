@@ -204,17 +204,7 @@ namespace TeamCity.Docker
                             }
                         })
                         .FirstOrDefault(i => i != null);
-                    if (publishRepo != null)
-                    {
-                        lines.Add(string.Empty);
-                        lines.Add("Docker pull command:");
-                        lines.Add(string.Empty);
-
-                        lines.Add("```");
-                        lines.Add(GeneratePullCommand($"{publishRepo.Segments.Last()}{dockerFile.ImageId}:{dockerFile.Tags.FirstOrDefault() ?? "latest"}"));
-                        lines.Add("```");
-                    }
-
+                    
                     foreach (var node in groupByFile)
                     {
                         var artifacts = _buildPathProvider.GetPath(graph, node).Select(i => i.Value).ToList();
@@ -235,27 +225,23 @@ namespace TeamCity.Docker
                             }
 
                             var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
-                            var hasIgnore = true;
+                            var ignores = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+                            var isFirst = true;
                             foreach (var image in images)
                             {
-                                if (image.File.Ignore.Any())
+                                if (ignores.Except(image.File.Ignores).Any())
                                 {
-                                    var isFirst = true;
-                                    foreach (var ignore in image.File.Ignore)
-                                    {
-                                        var redirection = isFirst ? ">" : ">>";
-                                        isFirst = false;
-                                        lines.Add($"echo {ignore} {redirection} {dockerignore}");
-                                        hasIgnore = true;
-                                    }
+                                    lines.Add($"echo 2> {dockerignore}");
+                                    ignores.Clear();
+                                    isFirst = false;
                                 }
-                                else
+
+                                foreach (var ignore in image.File.Ignores.Except(ignores))
                                 {
-                                    if (hasIgnore)
-                                    {
-                                        lines.Add($"echo 2> {dockerignore}");
-                                        hasIgnore = false;
-                                    }
+                                    var redirection = isFirst ? ">" : ">>";
+                                    isFirst = false;
+                                    lines.Add($"echo {ignore} {redirection} {dockerignore}");
+                                    ignores.Add(ignore);
                                 }
 
                                 lines.Add(GenerateBuildCommand(image));
@@ -270,6 +256,8 @@ namespace TeamCity.Docker
                             lines.Add(string.Empty);
                             lines.Add($"_The required free space to generate image(s) is about **{weight} GB**._");
                         }
+
+                        lines.Add(string.Empty);
                     }
 
                     foreach (var node in groupByFile)

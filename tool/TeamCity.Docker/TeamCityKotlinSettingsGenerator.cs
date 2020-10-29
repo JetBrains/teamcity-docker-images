@@ -635,7 +635,7 @@ namespace TeamCity.Docker
 
             var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
             yield return $"echo 2> {dockerignore}";
-            foreach (var ignore in image.File.Ignore)
+            foreach (var ignore in image.File.Ignores)
             {
                 yield return $"echo {ignore} >> {dockerignore}";
             }

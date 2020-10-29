@@ -13,8 +13,10 @@ When running an image with multi-architecture support, docker will automatically
 
 #### linux
 
-- 18.04
+- 20.04
   - [EAP-linux](#EAP-linux)
+- 18.04
+  - [EAP-linux-18.04](#EAP-linux-1804)
 
 #### windows
 
@@ -30,7 +32,7 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 18.04, windows 1809, windows 1909
+Supported platforms: linux 20.04, windows 1809, windows 1909
 
 #### Content
 
@@ -41,7 +43,7 @@ Supported platforms: linux 18.04, windows 1809, windows 1909
 
 ### EAP-linux
 
-[Dockerfile](linux/Server/Ubuntu/18.04/Dockerfile)
+[Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
 
@@ -55,22 +57,17 @@ Installed components:
 
 Container platform: linux
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-server:EAP-linux
-```
-
 Docker build commands:
 
 ```
-docker pull ubuntu:18.04
+docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux "context"
+docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:EAP-linux "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
+
 ### EAP-nanoserver-1809
 
 [Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
@@ -89,12 +86,6 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-server:EAP-nanoserver-1809
-```
-
 Docker build commands:
 
 ```
@@ -105,6 +96,7 @@ docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
+
 ### EAP-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
@@ -123,12 +115,6 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-server:EAP-nanoserver-1909
-```
-
 Docker build commands:
 
 ```
@@ -139,6 +125,31 @@ docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
+
+### EAP-linux-18.04
+
+[Dockerfile](linux/Server/Ubuntu/18.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.9.11.1](https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:18.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux-18.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
 ### EAP-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
@@ -164,6 +175,7 @@ docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
+
 ### EAP-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
@@ -189,3 +201,4 @@ docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
+

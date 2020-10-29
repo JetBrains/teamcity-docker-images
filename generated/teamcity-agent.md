@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-server](teamcity-server.md)
 - [teamcity-minimal-agent](teamcity-minimal-agent.md)
+- [teamcity-server](teamcity-server.md)
 
 #### multi-architecture
 
@@ -14,10 +14,14 @@ When running an image with multi-architecture support, docker will automatically
 
 #### linux
 
-- 18.04-sudo
+- 20.04-sudo
   - [local-linux-sudo](#local-linux-sudo)
-- 18.04
+- 20.04
   - [local-linux](#local-linux)
+- 18.04-sudo
+  - [local-linux-18.04-sudo](#local-linux-1804-sudo)
+- 18.04
+  - [local-linux-18.04](#local-linux-1804)
 
 #### windows
 
@@ -37,7 +41,7 @@ When running an image with multi-architecture support, docker will automatically
 
 ### local
 
-Supported platforms: linux 18.04, windows 1809, windows 1909
+Supported platforms: linux 20.04, windows 1809, windows 1909
 
 #### Content
 
@@ -57,7 +61,7 @@ Supported platforms: windows 1809, windows 1909
 
 ### local-linux
 
-[Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
+[Dockerfile](linux/Agent/Ubuntu/20.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
@@ -69,29 +73,28 @@ Installed components:
 
 - Git
 - Mercurial
+- Docker Engine
+- Docker Compose
 - [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-linux
-```
-
 Docker build commands:
 
 ```
-docker pull ubuntu:18.04
-echo 2> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux "context"
+docker pull ubuntu:20.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:local-linux "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
+
 ### local-linux-sudo
 
-[Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
+[Dockerfile](linux/Agent/Ubuntu/20.04-sudo/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 This image allows to do *__sudo__* without a password for the *__buildagent__* user.
@@ -102,23 +105,20 @@ The docker image is available on:
 
 Container platform: linux
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-linux-sudo
-```
-
 Docker build commands:
 
 ```
-docker pull ubuntu:18.04
-echo 2> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux "context"
-docker build -f "generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:local-linux-sudo "context"
+docker pull ubuntu:20.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:local-linux "context"
+docker build -f "generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:local-linux-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
+
 ### local-nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
@@ -136,25 +136,22 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-nanoserver-1809
-```
-
 Docker build commands:
 
 ```
 docker pull mcr.microsoft.com/windows/nanoserver:1809
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
 docker build -f "generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:local-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
+
 ### local-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
@@ -172,25 +169,22 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-nanoserver-1909
-```
-
 Docker build commands:
 
 ```
 docker pull mcr.microsoft.com/windows/nanoserver:1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
 docker build -f "generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:local-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
+
 ### local-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
@@ -210,24 +204,21 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-windowsservercore-1809
-```
-
 Docker build commands:
 
 ```
 docker pull mcr.microsoft.com/windows/nanoserver:1809
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
+
 ### local-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
@@ -247,24 +238,75 @@ Installed components:
 
 Container platform: windows
 
-Docker pull command:
-
-```
-docker pull jetbrains/teamcity-agent:local-windowsservercore-1909
-```
-
 Docker build commands:
 
 ```
 docker pull mcr.microsoft.com/windows/nanoserver:1909
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
+
+### local-linux-18.04
+
+[Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- Git
+- Mercurial
+- Docker Engine
+- Docker Compose
+- [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:18.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux-18.04 "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux-18.04 "context"
+```
+
+_The required free space to generate image(s) is about **2 GB**._
+
+### local-linux-18.04-sudo
+
+[Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+This image allows to do *__sudo__* without a password for the *__buildagent__* user.
+The docker image is not available and may be created manually.
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:18.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux-18.04 "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:local-linux-18.04 "context"
+docker build -f "generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:local-linux-18.04-sudo "context"
+```
+
+_The required free space to generate image(s) is about **3 GB**._
+
 ### local-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
@@ -284,13 +326,16 @@ Docker build commands:
 ```
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1803 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:local-windowsservercore-1803 "context"
 docker build -f "generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:local-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
+
 ### local-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
@@ -311,13 +356,16 @@ Docker build commands:
 docker pull mcr.microsoft.com/windows/nanoserver:1903
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1903 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:local-windowsservercore-1903 "context"
 docker build -f "generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:local-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
+
 ### local-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
@@ -339,12 +387,15 @@ Docker build commands:
 ```
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1803 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:local-windowsservercore-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **31 GB**._
+
 ### local-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
@@ -367,9 +418,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/windows/nanoserver:1903
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
-echo 2> context/.dockerignore
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1903 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:local-windowsservercore-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
+

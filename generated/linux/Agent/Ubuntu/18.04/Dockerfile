@@ -1,13 +1,15 @@
 # Default arguments
 ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz'
 ARG dotnetCoreLinuxComponentVersion='3.1.402'
-ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
+ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
+ARG repo=''
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux-18.04'
 
 # The list of required arguments
 # ARG dotnetCoreLinuxComponentVersion
 # ARG dotnetCoreLinuxComponent
 # ARG teamcityMinimalAgentImage
+# ARG dotnetLibs
 
 
 
@@ -36,6 +38,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
 ARG dotnetCoreLinuxComponent
+ARG dotnetLibs
 
 RUN apt-get update && \
     apt-get install -y git mercurial apt-transport-https software-properties-common && \
@@ -47,21 +50,13 @@ RUN apt-get update && \
     \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=5:19.03.9~3-0~ubuntu-bionic \
-                        docker-ce-cli=5:19.03.9~3-0~ubuntu-bionic \
+    apt-get install -y  docker-ce=5:19.03.9~3-0~ubuntu-$(lsb_release -cs) \
+                        docker-ce-cli=5:19.03.9~3-0~ubuntu-$(lsb_release -cs) \
                         containerd.io=1.2.13-2 \
                         systemd && \
     systemctl disable docker && \
     curl -SL "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
-    apt-get install -y --no-install-recommends \
-            libc6 \
-            libgcc1 \
-            libgssapi-krb5-2 \
-            libicu60 \
-            liblttng-ust0 \
-            libssl1.0.0 \
-            libstdc++6 \
-            zlib1g && \
+    apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     curl -SL ${dotnetCoreLinuxComponent} --output dotnet.tar.gz && \

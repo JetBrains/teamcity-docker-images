@@ -12,7 +12,7 @@ ARG ubuntuImage='ubuntu:18.04'
 
 FROM ${ubuntuImage}
 
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \

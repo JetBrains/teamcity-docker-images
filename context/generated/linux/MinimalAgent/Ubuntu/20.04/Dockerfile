@@ -1,19 +1,15 @@
+# Default arguments
+ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz'
+ARG jdkLinuxMD5SUM='9b9889f6907274aee4814d134beb22d9'
+ARG ubuntuImage='ubuntu:20.04'
+
 # The list of required arguments
 # ARG jdkLinuxComponent
 # ARG jdkLinuxMD5SUM
 # ARG ubuntuImage
 
-# Id teamcity-minimal-agent
-# Tag ${versionTag}-linux${linuxVersion}
-# Tag ${latestTag}
-# Tag ${versionTag}
-# Platform ${linuxPlatform}
-# Repo ${repo}
-# Weight 1
 
-## ${agentCommentHeader}
 
-# Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
@@ -27,7 +23,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m buildagent
 
-# Install [${jdkLinuxComponentName}](${jdkLinuxComponent})
 ARG jdkLinuxComponent
 ARG jdkLinuxMD5SUM
 

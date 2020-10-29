@@ -1,16 +1,11 @@
+# Default arguments
+ARG teamcityAgentImage='teamcity-agent:local-linux'
+
 # The list of required arguments
 # ARG teamcityAgentImage
 
-# Id teamcity-agent
-# Tag ${versionTag}-linux${linuxVersion}-sudo
-# Platform ${linuxPlatform}
-# Repo ${repo}
-# Weight 1
 
-## ${agentCommentHeader}
-## This image allows to do *__sudo__* without a password for the *__buildagent__* user. 
 
-# Based on ${teamcityAgentImage}
 FROM ${teamcityAgentImage}
 
 USER root

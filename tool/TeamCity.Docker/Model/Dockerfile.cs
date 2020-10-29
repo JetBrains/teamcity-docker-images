@@ -18,7 +18,7 @@ namespace TeamCity.Docker.Model
         [NotNull] public readonly IReadOnlyCollection<Reference> References;
         public readonly Weight Weight;
         [NotNull] public readonly IEnumerable<Line> Lines;
-        [NotNull] public readonly IReadOnlyCollection<string> Ignore;
+        [NotNull] public readonly IReadOnlyCollection<string> Ignores;
 
         public Dockerfile(
             [NotNull] string path,
@@ -45,7 +45,7 @@ namespace TeamCity.Docker.Model
             References = references ?? throw new ArgumentNullException(nameof(references));
             Weight = weight;
             Lines = lines ?? throw new ArgumentNullException(nameof(lines));
-            Ignore = ignore ?? throw new ArgumentNullException(nameof(ignore));
+            Ignores = ignore ?? throw new ArgumentNullException(nameof(ignore));
         }
 
         public int CompareTo(Dockerfile other) =>
