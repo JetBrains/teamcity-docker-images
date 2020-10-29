@@ -30,12 +30,12 @@ When running an image with multi-architecture support, docker will automatically
 
 ### local
 
-Supported platforms: linux 18.04, windows 1903, windows 1909
+Supported platforms: linux 18.04, windows 1809, windows 1909
 
 #### Content
 
 - [local-linux](#local-linux)
-- [local-nanoserver-1903](#local-nanoserver-1903)
+- [local-nanoserver-1809](#local-nanoserver-1809)
 - [local-nanoserver-1909](#local-nanoserver-1909)
 
 
@@ -71,9 +71,9 @@ docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-ser
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
-### local-nanoserver-1903
+### local-nanoserver-1809
 
-[Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
+[Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
 
@@ -92,16 +92,16 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-server:local-nanoserver-1903
+docker pull jetbrains/teamcity-server:local-nanoserver-1809
 ```
 
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/powershell:nanoserver-1903
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:local-nanoserver-1903 "context"
+docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:local-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
@@ -164,9 +164,9 @@ docker build -f "generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcit
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
-### local-nanoserver-1809
+### local-nanoserver-1903
 
-[Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
+[Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
 The docker image is not available and may be created manually.
@@ -182,10 +182,10 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
+docker pull mcr.microsoft.com/powershell:nanoserver-1903
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:local-nanoserver-1809 "context"
+docker build -f "generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:local-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._

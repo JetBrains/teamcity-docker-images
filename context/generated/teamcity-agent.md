@@ -37,21 +37,21 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 18.04, windows 1903, windows 1909
+Supported platforms: linux 18.04, windows 1809, windows 1909
 
 #### Content
 
 - [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1903](#EAP-nanoserver-1903)
+- [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-1909](#EAP-nanoserver-1909)
 
 ### EAP-windowsservercore
 
-Supported platforms: windows 1903, windows 1909
+Supported platforms: windows 1809, windows 1909
 
 #### Content
 
-- [EAP-windowsservercore-1903](#EAP-windowsservercore-1903)
+- [EAP-windowsservercore-1809](#EAP-windowsservercore-1809)
 - [EAP-windowsservercore-1909](#EAP-windowsservercore-1909)
 
 
@@ -119,9 +119,9 @@ docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t 
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
-### EAP-nanoserver-1903
+### EAP-nanoserver-1809
 
-[Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
+[Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
@@ -139,19 +139,19 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-nanoserver-1903
+docker pull jetbrains/teamcity-agent:EAP-nanoserver-1809
 ```
 
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/windows/nanoserver:1903
-docker pull mcr.microsoft.com/powershell:nanoserver-1903
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
+docker pull mcr.microsoft.com/windows/nanoserver:1809
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 echo 2> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:EAP-nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:EAP-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
@@ -191,9 +191,9 @@ docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t 
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
-### EAP-windowsservercore-1903
+### EAP-windowsservercore-1809
 
-[Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
+[Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
@@ -213,18 +213,18 @@ Container platform: windows
 Docker pull command:
 
 ```
-docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1903
+docker pull jetbrains/teamcity-agent:EAP-windowsservercore-1809
 ```
 
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/windows/nanoserver:1903
-docker pull mcr.microsoft.com/powershell:nanoserver-1903
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
+docker pull mcr.microsoft.com/windows/nanoserver:1809
+docker pull mcr.microsoft.com/powershell:nanoserver-1809
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 echo 2> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
@@ -291,9 +291,9 @@ docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t 
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
-### EAP-nanoserver-1809
+### EAP-nanoserver-1903
 
-[Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
+[Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 The docker image is not available and may be created manually.
@@ -308,13 +308,13 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/windows/nanoserver:1809
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+docker pull mcr.microsoft.com/windows/nanoserver:1903
+docker pull mcr.microsoft.com/powershell:nanoserver-1903
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo 2> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:EAP-nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:EAP-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **35 GB**._
@@ -345,9 +345,9 @@ docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfi
 ```
 
 _The required free space to generate image(s) is about **31 GB**._
-### EAP-windowsservercore-1809
+### EAP-windowsservercore-1903
 
-[Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
+[Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 The docker image is not available and may be created manually.
@@ -364,12 +364,12 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker pull mcr.microsoft.com/windows/nanoserver:1809
-docker pull mcr.microsoft.com/powershell:nanoserver-1809
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+docker pull mcr.microsoft.com/windows/nanoserver:1903
+docker pull mcr.microsoft.com/powershell:nanoserver-1903
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo 2> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:EAP-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:EAP-windowsservercore-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
