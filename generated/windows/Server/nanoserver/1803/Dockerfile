@@ -1,5 +1,5 @@
 # Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
 ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 ARG windowsBuild='1803'

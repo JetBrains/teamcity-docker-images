@@ -1,5 +1,5 @@
 # Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-nanoserver-1809'

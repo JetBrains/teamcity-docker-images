@@ -85,7 +85,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.9.11.2](https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip)
-- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 
 Container platform: windows
 
@@ -119,7 +119,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.9.11.2](https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip)
-- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 
 Container platform: windows
 
@@ -150,7 +150,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.9.11.2](https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip)
-- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 
 Container platform: windows
 
@@ -175,7 +175,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.9.11.2](https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip)
-- [Git x64 v.2.19.1](https://github.com/git-for-windows/git/releases/download/v2.19.1.windows.1/MinGit-2.19.1-64-bit.zip)
+- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 
 Container platform: windows
 
