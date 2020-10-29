@@ -1,21 +1,21 @@
 version: '2'
 services:
   teamcity-server:
-    image: teamcity-server:local-nanoserver-1903
+    image: teamcity-server:local-nanoserver-2004
     ports:
      - "8112:8111"
  
   teamcity-minimal-agent:
-    image: teamcity-minimal-agent:local-nanoserver-1903
+    image: teamcity-minimal-agent:local-nanoserver-2004
     environment:
       - SERVER_URL=teamcity-server:8111
 
   teamcity-agent:
-    image: teamcity-agent:local-nanoserver-1903
+    image: teamcity-agent:local-nanoserver-2004
     environment:
       - SERVER_URL=teamcity-server:8111
 
   teamcity-core-agent:
-    image: teamcity-agent:local-windowsservercore-1903
+    image: teamcity-agent:local-windowsservercore-2004
     environment:
       - SERVER_URL=teamcity-server:8111
