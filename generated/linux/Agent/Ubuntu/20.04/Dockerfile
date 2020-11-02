@@ -2,6 +2,7 @@
 ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz'
 ARG dotnetCoreLinuxComponentVersion='3.1.402'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
+ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
 
@@ -10,6 +11,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
 # ARG dotnetCoreLinuxComponent
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
+# ARG gitLinuxComponentVersion
 
 
 
@@ -40,8 +42,9 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 ARG dotnetCoreLinuxComponent
 ARG dotnetLibs
 
+ARG gitLinuxComponentVersion
 RUN apt-get update && \
-    apt-get install -y git mercurial apt-transport-https software-properties-common && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     \

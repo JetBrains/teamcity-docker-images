@@ -86,7 +86,7 @@ namespace TeamCity.Docker
                         var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
                         using (_logger.CreateBlock($"{templateCounter:000}.{++configCounter:000} {Path.GetRelativePath(sourcePath, configFile)}"))
                         {
-                            var vars = UpdateVariables(GetVariables(configFile), additionalVars);
+                            var vars = UpdateVariables(additionalVars, GetVariables(configFile));
                             variants.Add(new Variant(buildPath, configFile, vars.Select(i => new Variable(i.Key, i.Value)).ToList()));
                         }
                     }

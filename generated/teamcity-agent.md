@@ -74,7 +74,7 @@ The docker image is available on:
 
 Installed components:
 
-- Git
+- Git v.2.25.1
 - Mercurial
 - Docker Engine
 - Docker Compose
@@ -265,7 +265,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- Git
+- Git v.2.17.1
 - Mercurial
 - Docker Engine
 - Docker Compose

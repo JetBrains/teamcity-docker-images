@@ -2,6 +2,7 @@
 # ARG jdkServerLinuxComponent
 # ARG jdkServerLinuxMD5SUM
 # ARG ubuntuImage
+# ARG gitLinuxComponentVersion
 
 # Id teamcity-server
 # Tag ${versionTag}-linux${linuxVersion}
@@ -56,11 +57,12 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     LANG=C.UTF-8
 
 EXPOSE 8111
-LABEL dockerImage.teamcity.version="latest" \
-      dockerImage.teamcity.buildNumber="latest"
+
+# Install ${gitLinuxComponentName}
+ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
-    apt-get install -y git mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

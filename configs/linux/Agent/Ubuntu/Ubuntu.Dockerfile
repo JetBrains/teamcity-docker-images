@@ -3,6 +3,7 @@
 # ARG dotnetCoreLinuxComponent
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
+# ARG gitLinuxComponentVersion
 
 # Id teamcity-agent
 # Platform ${linuxPlatform}
@@ -18,9 +19,6 @@
 FROM ${teamcityMinimalAgentImage}
 
 USER root
-
-LABEL dockerImage.teamcity.version="latest" \
-      dockerImage.teamcity.buildNumber="latest"
 
 ARG dotnetCoreLinuxComponentVersion
 
@@ -39,13 +37,14 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-# Install Git
-# Install Mercurial
 ARG dotnetCoreLinuxComponent
 ARG dotnetLibs
 
+# Install ${gitLinuxComponentName}
+ARG gitLinuxComponentVersion
+# Install Mercurial
 RUN apt-get update && \
-    apt-get install -y git mercurial apt-transport-https software-properties-common && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     \

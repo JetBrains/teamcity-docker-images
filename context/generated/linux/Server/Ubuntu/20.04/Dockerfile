@@ -1,4 +1,5 @@
 # Default arguments
+ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz'
 ARG jdkServerLinuxMD5SUM='aecee89c6817a26c74587c69cc5c2967'
 ARG ubuntuImage='ubuntu:20.04'
@@ -7,6 +8,7 @@ ARG ubuntuImage='ubuntu:20.04'
 # ARG jdkServerLinuxComponent
 # ARG jdkServerLinuxMD5SUM
 # ARG ubuntuImage
+# ARG gitLinuxComponentVersion
 
 
 
@@ -54,8 +56,10 @@ EXPOSE 8111
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
+ARG gitLinuxComponentVersion
+
 RUN apt-get update && \
-    apt-get install -y git mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
