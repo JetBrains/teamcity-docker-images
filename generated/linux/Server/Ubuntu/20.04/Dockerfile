@@ -53,8 +53,6 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     LANG=C.UTF-8
 
 EXPOSE 8111
-LABEL dockerImage.teamcity.version="latest" \
-      dockerImage.teamcity.buildNumber="latest"
 
 ARG gitLinuxComponentVersion
 

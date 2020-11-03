@@ -4,6 +4,8 @@
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
+# ARG dockerComposeLinuxComponentVersion
+# ARG dockerLinuxComponentVersion
 
 # Id teamcity-agent
 # Platform ${linuxPlatform}
@@ -39,28 +41,30 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetCoreLinuxComponent
 ARG dotnetLibs
-
-# Install ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
-# Install Mercurial
+ARG dockerComposeLinuxComponentVersion
+ARG dockerLinuxComponentVersion
+
 RUN apt-get update && \
+# Install ${gitLinuxComponentName}
+# Install Mercurial
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     \
-# Install Docker Engine
+# Install ${dockerLinuxComponentName}
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=5:19.03.9~3-0~ubuntu-$(lsb_release -cs) \
-                        docker-ce-cli=5:19.03.9~3-0~ubuntu-$(lsb_release -cs) \
+    apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
+                        docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         containerd.io=1.2.13-2 \
                         systemd && \
     systemctl disable docker && \
-# Install Docker Compose
-    curl -SL "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
+# Install [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Install [${dotnetCoreLinuxComponentName}](${dotnetCoreLinuxComponent})
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005

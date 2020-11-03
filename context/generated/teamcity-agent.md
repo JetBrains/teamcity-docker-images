@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-server](teamcity-server.md)
 - [teamcity-minimal-agent](teamcity-minimal-agent.md)
+- [teamcity-server](teamcity-server.md)
 
 #### multi-architecture
 
@@ -76,8 +76,8 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
-- Docker Engine
-- Docker Compose
+- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
+- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 - [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
@@ -267,8 +267,8 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
-- Docker Engine
-- Docker Compose
+- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
+- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 - [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
