@@ -76,8 +76,6 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
-- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
-- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 - [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
@@ -100,11 +98,16 @@ _The required free space to generate image(s) is about **2 GB**._
 [Dockerfile](linux/Agent/Ubuntu/20.04-sudo/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-This image allows to do *__sudo__* without a password for the *__buildagent__* user.
+This image allows to do *__sudo__* without a password for the *__buildagent__* user. ## To enable Docker, please add the following arguments: ```--privileged -e DOCKER_IN_DOCKER=start```.
 
 The docker image is available on:
 
 - [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
+
+Installed components:
+
+- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
+- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 
 Container platform: linux
 
@@ -267,8 +270,6 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
-- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
-- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 - [.NET SDK x64 v.3.1.402](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-linux-x64.tar.gz)
 
 Container platform: linux
@@ -291,8 +292,13 @@ _The required free space to generate image(s) is about **2 GB**._
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-This image allows to do *__sudo__* without a password for the *__buildagent__* user.
+This image allows to do *__sudo__* without a password for the *__buildagent__* user. ## To enable Docker, please add the following arguments: ```--privileged -e DOCKER_IN_DOCKER=start```.
 The docker image is not available and may be created manually.
+
+Installed components:
+
+- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
+- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
 
 Container platform: linux
 

@@ -14,3 +14,10 @@ services:
     image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-linux
     environment:
       - SERVER_URL=teamcity-server:8111
+
+  teamcity-agent-sudo:
+    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-linux-sudo
+    privileged: true
+    environment:
+      - SERVER_URL=teamcity-server:8111
+      - DOCKER_IN_DOCKER=start

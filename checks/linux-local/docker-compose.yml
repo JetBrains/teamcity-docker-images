@@ -14,3 +14,10 @@ services:
     image: teamcity-agent:local-linux
     environment:
       - SERVER_URL=teamcity-server:8111
+
+  teamcity-agent-sudo:
+    image: teamcity-agent:local-linux-sudo
+    privileged: true
+    environment:
+      - SERVER_URL=teamcity-server:8111
+      - DOCKER_IN_DOCKER=start

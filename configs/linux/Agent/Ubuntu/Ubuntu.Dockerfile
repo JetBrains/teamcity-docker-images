@@ -4,8 +4,6 @@
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
-# ARG dockerComposeLinuxComponentVersion
-# ARG dockerLinuxComponentVersion
 
 # Id teamcity-agent
 # Platform ${linuxPlatform}
@@ -42,8 +40,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 ARG dotnetCoreLinuxComponent
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
-ARG dockerComposeLinuxComponentVersion
-ARG dockerLinuxComponentVersion
 
 RUN apt-get update && \
 # Install ${gitLinuxComponentName}
@@ -51,20 +47,6 @@ RUN apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    \
-# Install ${dockerLinuxComponentName}
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
-    \
-    apt-cache policy docker-ce && \
-    apt-get update && \
-    apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io=1.2.13-2 \
-                        systemd && \
-    systemctl disable docker && \
-# Install [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
-    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Install [${dotnetCoreLinuxComponentName}](${dotnetCoreLinuxComponent})
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
@@ -74,17 +56,10 @@ RUN apt-get update && \
     tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
     rm dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-    usermod -aG docker buildagent
-
-# A better fix for TW-52939 Dockerfile build fails because of aufs
-VOLUME /var/lib/docker
-
-COPY --chown=buildagent:buildagent run-docker.sh /services/run-docker.sh
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
-RUN dotnet help && \
-    sed -i -e 's/\r$//' /services/run-docker.sh
+RUN dotnet help
 
 USER buildagent
 
