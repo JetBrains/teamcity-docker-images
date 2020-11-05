@@ -18,12 +18,11 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 FROM ${windowsservercoreImage} AS tools
 
 COPY scripts/*.cs /scripts/
+
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG jdkWindowsComponent
-
 ARG gitWindowsComponent
-
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
@@ -36,8 +35,14 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
-    Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
+    $gitPath = $Env:ProgramFiles + '\Git'; \
+    Expand-Archive git.zip -DestinationPath $gitPath ; \
     Remove-Item -Force git.zip ; \
+    # avoid circular dependencies in gitconfig
+    $gitConfigFile = $gitPath + '\etc\gitconfig'; \
+    $configContent = Get-Content $gitConfigFile; \
+    $configContent = $configContent.Replace('path = C:/Program Files/Git/etc/gitconfig', ''); \
+    Set-Content $gitConfigFile $configContent; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 

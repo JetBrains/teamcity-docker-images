@@ -20,30 +20,35 @@
 FROM ${windowsservercoreImage} AS tools
 
 COPY scripts/*.cs /scripts/
+
 # Install ${powerShellComponentName}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
-
-# Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
-
-# Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi') ; \
+# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
-    Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
+# Install [${gitWindowsComponentName}](${gitWindowsComponent})
+    $gitPath = $Env:ProgramFiles + '\Git'; \
+    Expand-Archive git.zip -DestinationPath $gitPath ; \
     Remove-Item -Force git.zip ; \
+    # avoid circular dependencies in gitconfig
+    $gitConfigFile = $gitPath + '\etc\gitconfig'; \
+    $configContent = Get-Content $gitConfigFile; \
+    $configContent = $configContent.Replace('path = C:/Program Files/Git/etc/gitconfig', ''); \
+    Set-Content $gitConfigFile $configContent; \
+# Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 
