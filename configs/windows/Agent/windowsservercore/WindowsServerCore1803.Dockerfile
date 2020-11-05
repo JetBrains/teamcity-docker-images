@@ -16,14 +16,19 @@
 
 ## ${agentCommentHeader}
 
+# Based on ${teamcityMinimalAgentImage}
+FROM ${teamcityMinimalAgentImage} AS buildagent
+
 # Based on ${windowsservercoreImage} 12
-FROM ${windowsservercoreImage} AS tools
+ARG windowsservercoreImage
+FROM ${windowsservercoreImage}
 
 COPY scripts/*.cs /scripts/
 
 # Install ${powerShellComponentName}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+ARG dotnetCoreWindowsComponent
 ARG jdkWindowsComponent
 ARG gitWindowsComponent
 ARG mercurialWindowsComponent
@@ -31,7 +36,12 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetCoreWindowsComponent, 'dotnet.zip') ; \
+# Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
+    Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \    
+    Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet.zip; \
+    Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
@@ -52,18 +62,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 
-# Based on ${teamcityMinimalAgentImage}
-ARG teamcityMinimalAgentImage
-
-FROM ${teamcityMinimalAgentImage} AS buildagent
-
-ARG windowsservercoreImage
-
-FROM ${windowsservercoreImage}
-
-COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
-COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-COPY --from=tools ["C:/Program Files/Mercurial", "C:/Program Files/Mercurial"]
 COPY --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090

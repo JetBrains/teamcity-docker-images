@@ -23,9 +23,6 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 
 # Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
 ARG dotnetCoreWindowsComponentVersion
-
-ENV DOTNET_SDK_VERSION ${dotnetCoreWindowsComponentVersion}
-
 ARG dotnetCoreWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
@@ -39,12 +36,10 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 
 # Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
-
 FROM ${teamcityWindowsservercoreImage} AS tools
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
-
 # Based on ${nanoserverImage} 2
 FROM ${nanoserverImage}
 

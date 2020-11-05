@@ -1,6 +1,6 @@
 # Default arguments
-ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.402/dotnet-sdk-3.1.402-win-x64.zip'
-ARG dotnetCoreWindowsComponentVersion='3.1.402'
+ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-win-x64.zip'
+ARG dotnetCoreWindowsComponentVersion='3.1.403'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 ARG teamcityWindowsservercoreImage='teamcity-agent:local-windowsservercore-1803'
 
@@ -18,9 +18,6 @@ FROM ${powershellImage} AS dotnet
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetCoreWindowsComponentVersion
-
-ENV DOTNET_SDK_VERSION ${dotnetCoreWindowsComponentVersion}
-
 ARG dotnetCoreWindowsComponent
 
 RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetCoreWindowsComponent; \

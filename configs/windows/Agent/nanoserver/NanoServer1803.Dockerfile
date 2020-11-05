@@ -21,13 +21,10 @@ FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
 ARG dotnetCoreWindowsComponentVersion
-
-ENV DOTNET_SDK_VERSION ${dotnetCoreWindowsComponentVersion}
-
 ARG dotnetCoreWindowsComponent
 
+# Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
 RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetCoreWindowsComponent; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
