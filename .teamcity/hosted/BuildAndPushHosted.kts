@@ -1,5 +1,6 @@
 package hosted
 
+import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -9,7 +10,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 
 object BuildAndPushHosted : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
@@ -17,18 +17,10 @@ object BuildAndPushHosted : BuildType({
     vcs { root(TeamCityDockerImagesRepo) }
     steps {
         dockerCommand {
-            name = "pull mcr.microsoft.com/powershell:nanoserver"
+            name = "pull ubuntu"
             commandType = other {
                 subCommand = "pull"
-                commandArgs = "mcr.microsoft.com/powershell:nanoserver-%windowsBuild%"
-            }
-        }
-
-        dockerCommand {
-            name = "pull mcr.microsoft.com/windows/nanoserver"
-            commandType = other {
-                subCommand = "pull"
-                commandArgs = "mcr.microsoft.com/windows/nanoserver:%windowsBuild%"
+                commandArgs = "ubuntu:%hostedLinuxVersion%"
             }
         }
 
@@ -42,19 +34,19 @@ echo TeamCity/temp >> context/.dockerignore
         }
 
         dockerCommand {
-            name = "build teamcity-server"
+            name = "build teamcity-server:EAP-linux"
             commandType = build {
                 source = file {
-                    path = """context/generated/windows/Server/nanoserver/%windowsBuild%/Dockerfile"""
+                    path = """context/generated/linux/Server/Ubuntu/%hostedLinuxVersion%/Dockerfile"""
                 }
                 contextDir = "context"
                 namesAndTags = "teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
-            param("dockerImage.platform", "windows")
+            param("dockerImage.platform", "linux")
         }
 
         dockerCommand {
-            name = "tag teamcity-server"
+            name = "tag teamcity-server:%dockerImage.teamcity.buildNumber%"
             commandType = other {
                 subCommand = "tag"
                 commandArgs = "teamcity-server:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
@@ -62,7 +54,7 @@ echo TeamCity/temp >> context/.dockerignore
         }
 
         dockerCommand {
-            name = "push teamcity-server"
+            name = "push teamcity-server:EAP-linux"
             commandType = push {
                 namesAndTags = "%docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
@@ -70,7 +62,7 @@ echo TeamCity/temp >> context/.dockerignore
     }
     features {
         freeDiskSpace {
-            requiredSpace = "33gb"
+            requiredSpace = "4gb"
             failBuild = true
         }
         dockerSupport {
@@ -95,6 +87,6 @@ echo TeamCity/temp >> context/.dockerignore
         }
     }
     params {
-        param("system.teamcity.agent.ensure.free.space", "33gb")
+        param("system.teamcity.agent.ensure.free.space", "4gb")
     }
 })

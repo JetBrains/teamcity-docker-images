@@ -15,7 +15,7 @@ object RootProject : Project({
         param("teamcity.ui.settings.readOnly", "false")
 
         // Used by build for teamcity.jetbrains.com
-        param("windowsBuild", "2004")
+        param("hostedLinuxVersion", "20.04")
     }
 })
 
