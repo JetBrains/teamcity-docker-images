@@ -32,12 +32,10 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}
 
 ARG teamcityWindowsservercoreImage
-
 FROM ${teamcityWindowsservercoreImage} AS tools
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
-
 FROM ${nanoserverImage}
 
 ENV ProgramFiles="C:\Program Files" \

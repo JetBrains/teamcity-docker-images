@@ -51,20 +51,6 @@ namespace TeamCity.Docker
                 return;
             }
 
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var lines = new List<string>();
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.*");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace");
-            // ReSharper disable once StringLiteralTypo
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra");
-            lines.Add("import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand");
-            lines.Add("version = \"2019.2\"");
-            lines.Add(string.Empty);
-
             var buildGraphResult = _buildGraphsFactory.Create(graph);
             if (buildGraphResult.State == Result.Error)
             {
@@ -114,7 +100,7 @@ namespace TeamCity.Docker
                     buildAndPushLocalBuildTypes.Add(buildTypeId);
                 }
 
-                lines.AddRange(GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight, onPause));
+                graph.TryAddNode(AddFile(buildTypeId, GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight, onPause)), out _);
             }
 
             // Publish on local registry
@@ -125,8 +111,8 @@ namespace TeamCity.Docker
 
             var publishLocalId = "publish_local";
             localBuildTypes.Add(publishLocalId);
-            lines.AddRange(CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, buildAndPushLocalBuildTypes.ToArray()));
-
+            graph.TryAddNode(AddFile(publishLocalId, CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, buildAndPushLocalBuildTypes.ToArray())), out _);
+            
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
             var platforms = allImages.Select(i => i.File.Platform).Distinct();
@@ -134,7 +120,7 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"push_hub_{NormalizeName(platform)}";
                 pushOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreatePushBuildConfiguration(buildTypeId, platform, allImages, publishLocalId));
+                graph.TryAddNode(AddFile(buildTypeId, CreatePushBuildConfiguration(buildTypeId, platform, allImages, publishLocalId)), out _);
             }
 
             hubBuildTypes.AddRange(pushOnHubBuildTypes);
@@ -152,51 +138,85 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
                 publishOnHubBuildTypes.Add(buildTypeId);
-                lines.AddRange(CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, false, pushOnHubBuildTypes.ToArray()));
+                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, false, pushOnHubBuildTypes.ToArray())), out _);
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
 
             // Local project
+            var lines = new List<string>();
             lines.Add("object LocalProject : Project({");
             lines.Add("name = \"Local registry\"");
             foreach (var buildType in localBuildTypes.Distinct())
             {
-                lines.Add($"buildType({buildType})");
+                lines.Add($"buildType({NormalizeFileName(buildType)}.{buildType})");
             }
             lines.Add("})");
+
+            graph.TryAddNode(AddFile("LocalProject", lines), out _);
+            lines.Clear();
 
             // Hub project
             lines.Add("object HubProject : Project({");
             lines.Add("name = \"Docker hub\"");
             foreach (var buildType in hubBuildTypes.Distinct())
             {
-                lines.Add($"buildType({buildType})");
+                lines.Add($"buildType({NormalizeFileName(buildType)}.{buildType})");
             }
+
             lines.Add("})");
 
-            // root project
-            lines.Add("project {");
-            lines.Add("vcsRoot(TeamCityDockerImagesRepo)");
-            lines.Add("subProject(LocalProject)");
-            lines.Add("subProject(HubProject)");
-            lines.Add("params {");
-            lines.Add($"param(\"{BuildNumberParam}\", \"%dep.{_options.TeamCityBuildConfigurationId}.build.number%\")");
-            lines.Add("param(\"teamcity.ui.settings.readOnly\", \"false\")");
-            lines.Add("}");
-            lines.Add("}");
-            lines.Add(string.Empty);
-            // root project
+            graph.TryAddNode(AddFile("HubProject", lines), out _);
+            lines.Clear();
+        }
 
-            // vcs
-            lines.Add("object TeamCityDockerImagesRepo : GitVcsRoot({");
-            lines.Add("name = \"TeamCity Docker Images\"");
-            lines.Add("url = \"https://github.com/JetBrains/teamcity-docker-images.git\"");
-            lines.Add("branch = \"refs/heads/%teamcity.branch%\"");
-            lines.Add("})");
-            // vcs
+        private FileArtifact AddFile(string fileName, IEnumerable<string> lines)
+        {
+            var curLines = new List<string>
+            {
+                "package generated",
+                string.Empty,
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.*",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
+                "import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo",
+                string.Empty
+            };
+            // ReSharper disable once StringLiteralTypo
 
-            graph.TryAddNode(new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, "settings.kts")), lines), out _);
+            curLines.AddRange(lines);
+            return new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, NormalizeFileName(fileName) + ".kts")), curLines);
+        }
+
+        private string NormalizeFileName(string fileName) => new string(FixFileName(fileName).ToArray());
+
+        private IEnumerable<char> FixFileName(IEnumerable<char> chars)
+        {
+            var first = true;
+            foreach (var c in chars)
+            {
+                if (c == '_')
+                {
+                    first = true;
+                    continue;
+                }
+
+                if (first)
+                {
+                    yield return char.ToUpper(c);
+                }
+                else
+                {
+                    yield return c;
+                }
+
+                first = false;
+            }
         }
 
         private IEnumerable<string> CreatePushBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
@@ -535,7 +555,7 @@ namespace TeamCity.Docker
 
             foreach (var buildTypeId in dependencies)
             {
-                yield return $"snapshot({buildTypeId})";
+                yield return $"snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
                 yield return "{\nonDependencyFailure =  FailureAction.FAIL_TO_START\n}";
             }
 
