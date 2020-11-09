@@ -32,9 +32,9 @@ echo TeamCity/buildAgent >> context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 """.trimIndent()
         }
-
+        
         dockerCommand {
-            name = "build teamcity-server:EAP-linux"
+            name = "build teamcity-server"
             commandType = build {
                 source = file {
                     path = """context/generated/linux/Server/Ubuntu/%hostedLinuxVersion%/Dockerfile"""
@@ -46,7 +46,7 @@ echo TeamCity/temp >> context/.dockerignore
         }
 
         dockerCommand {
-            name = "tag teamcity-server:%dockerImage.teamcity.buildNumber%"
+            name = "tag teamcity-server"
             commandType = other {
                 subCommand = "tag"
                 commandArgs = "teamcity-server:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
@@ -54,7 +54,7 @@ echo TeamCity/temp >> context/.dockerignore
         }
 
         dockerCommand {
-            name = "push teamcity-server:EAP-linux"
+            name = "push teamcity-server"
             commandType = push {
                 namesAndTags = "%docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
