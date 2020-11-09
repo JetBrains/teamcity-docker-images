@@ -48,7 +48,7 @@ echo TeamCity/temp >> context/.dockerignore
                     path = """context/generated/windows/Server/nanoserver/%windowsBuild%/Dockerfile"""
                 }
                 contextDir = "context"
-                namesAndTags = "teamcity-server:%dep.TC_Trunk_BuildDistDocker.build.number%"
+                namesAndTags = "teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
             param("dockerImage.platform", "windows")
         }
@@ -57,14 +57,14 @@ echo TeamCity/temp >> context/.dockerignore
             name = "tag teamcity-server"
             commandType = other {
                 subCommand = "tag"
-                commandArgs = "teamcity-server:%dep.TC_Trunk_BuildDistDocker.build.number% %docker.buildRepository%teamcity-server:%dep.TC_Trunk_BuildDistDocker.build.number%"
+                commandArgs = "teamcity-server:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
         }
 
         dockerCommand {
             name = "push teamcity-server"
             commandType = push {
-                namesAndTags = "%docker.buildRepository%teamcity-server:%dep.TC_Trunk_BuildDistDocker.build.number%"
+                namesAndTags = "%docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
             }
         }
     }
