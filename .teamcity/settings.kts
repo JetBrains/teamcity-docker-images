@@ -13,6 +13,7 @@ object RootProject : Project({
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
+        param("windowsBuild", "2004")
     }
 })
 
