@@ -1,5 +1,4 @@
 # The list of required arguments
-# ARG dotnetCoreWindowsComponentVersion
 # ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
@@ -20,19 +19,6 @@ FROM ${powershellImage} AS dotnet
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-# Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
-ARG dotnetCoreWindowsComponentVersion
-ARG dotnetCoreWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
-    Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:dotnetCoreWindowsComponent, 'dotnet.zip') ; \
-    iex $downloadScript ; \
-    Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet.zip; \
-    Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}
 
 # Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
@@ -68,9 +54,13 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
+# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+# Install [${gitWindowsComponentName}](${gitWindowsComponent})
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-COPY --from=dotnet ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
+# Install [${dotnet2WindowsComponentName}](${dotnet2WindowsComponent})
+# Install [${dotnet1WindowsComponentName}](${dotnet1WindowsComponent})
+COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 
 EXPOSE 9090

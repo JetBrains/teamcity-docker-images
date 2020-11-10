@@ -1,12 +1,9 @@
 # Default arguments
-ARG dotnetCoreWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-win-x64.zip'
-ARG dotnetCoreWindowsComponentVersion='3.1.403'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
 ARG teamcityWindowsservercoreImage='teamcity-agent:local-windowsservercore-1903'
 
 # The list of required arguments
-# ARG dotnetCoreWindowsComponentVersion
 # ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
@@ -18,18 +15,6 @@ FROM ${powershellImage} AS dotnet
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-ARG dotnetCoreWindowsComponentVersion
-ARG dotnetCoreWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
-    Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:dotnetCoreWindowsComponent, 'dotnet.zip') ; \
-    iex $downloadScript ; \
-    Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet.zip; \
-    Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}
 
 ARG teamcityWindowsservercoreImage
 FROM ${teamcityWindowsservercoreImage} AS tools
@@ -64,7 +49,7 @@ RUN pwsh -NoLogo -NoProfile -Command " \
 
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-COPY --from=dotnet ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
+COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 
 EXPOSE 9090

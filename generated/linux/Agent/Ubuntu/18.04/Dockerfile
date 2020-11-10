@@ -1,13 +1,15 @@
 # Default arguments
-ARG dotnetCoreLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-linux-x64.tar.gz'
-ARG dotnetCoreLinuxComponentVersion='3.1.403'
+ARG dotnet1LinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz'
+ARG dotnet2LinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-linux-x64.tar.gz'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux-18.04'
 
 # The list of required arguments
-# ARG dotnetCoreLinuxComponentVersion
-# ARG dotnetCoreLinuxComponent
+# ARG dotnet1LinuxComponentVersion
+# ARG dotnet1LinuxComponent
+# ARG dotnet2LinuxComponentVersion
+# ARG dotnet2LinuxComponent
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -35,7 +37,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetCoreLinuxComponent
+ARG dotnet1LinuxComponent
+ARG dotnet2LinuxComponent
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 
@@ -46,7 +49,15 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetCoreLinuxComponent} --output dotnet.tar.gz && \
+    curl -SL ${dotnet2LinuxComponent} --output dotnet.tar.gz && \
+    mkdir -p /usr/share/dotnet && \
+    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
+    rm dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+    apt-get install -y --no-install-recommends ${dotnetLibs} && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    curl -SL ${dotnet1LinuxComponent} --output dotnet.tar.gz && \
     mkdir -p /usr/share/dotnet && \
     tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
     rm dotnet.tar.gz && \

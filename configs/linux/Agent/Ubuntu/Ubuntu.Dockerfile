@@ -1,6 +1,8 @@
 # The list of required arguments
-# ARG dotnetCoreLinuxComponentVersion
-# ARG dotnetCoreLinuxComponent
+# ARG dotnet1LinuxComponentVersion
+# ARG dotnet1LinuxComponent
+# ARG dotnet2LinuxComponentVersion
+# ARG dotnet2LinuxComponent
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -37,7 +39,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetCoreLinuxComponent
+ARG dotnet1LinuxComponent
+ARG dotnet2LinuxComponent
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 
@@ -47,11 +50,20 @@ RUN apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# Install [${dotnetCoreLinuxComponentName}](${dotnetCoreLinuxComponent})
+# Install [${dotnet2LinuxComponentName}](${dotnet2LinuxComponent})
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetCoreLinuxComponent} --output dotnet.tar.gz && \
+    curl -SL ${dotnet2LinuxComponent} --output dotnet.tar.gz && \
+    mkdir -p /usr/share/dotnet && \
+    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
+    rm dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# Install [${dotnet1LinuxComponentName}](${dotnet1LinuxComponent})
+    apt-get install -y --no-install-recommends ${dotnetLibs} && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    curl -SL ${dotnet1LinuxComponent} --output dotnet.tar.gz && \
     mkdir -p /usr/share/dotnet && \
     tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
     rm dotnet.tar.gz && \
