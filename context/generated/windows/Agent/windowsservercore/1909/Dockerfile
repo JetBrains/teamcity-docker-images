@@ -1,6 +1,6 @@
 # Default arguments
 ARG dotnet1WindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip'
-ARG dotnet2WindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-win-x64.zip'
+ARG dotnet2WindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'

@@ -1,6 +1,6 @@
 # Default arguments
 ARG dotnet1LinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz'
-ARG dotnet2LinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.403/dotnet-sdk-3.1.403-linux-x64.tar.gz'
+ARG dotnet2LinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux-18.04'
