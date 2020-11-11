@@ -61,7 +61,7 @@ RUN chmod +x /opt/buildagent/bin/*.sh && \
 USER buildagent
 
 RUN mkdir -p /opt/buildagent/work && \
-    mkdir -p /opt/buildagent/system && \
+    mkdir -p /opt/buildagent/system/.teamcity-agent && \
     mkdir -p /opt/buildagent/temp && \
     mkdir -p /opt/buildagent/plugins && \
     mkdir -p /opt/buildagent/logs && \
