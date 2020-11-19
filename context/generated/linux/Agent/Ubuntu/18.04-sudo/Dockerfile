@@ -2,7 +2,7 @@
 ARG dockerComposeLinuxComponentVersion='1.24.1'
 ARG dockerLinuxComponentVersion='5:19.03.13~3-0~ubuntu'
 ARG repo=''
-ARG teamcityAgentImage='teamcity-agent:EAP-linux-18.04'
+ARG teamcityAgentImage='teamcity-agent:2020.2-linux-18.04'
 
 # The list of required arguments
 # ARG teamcityAgentImage
