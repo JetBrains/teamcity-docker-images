@@ -1,8 +1,5 @@
 # The list of required arguments
-# ARG dotnet1LinuxComponentVersion
-# ARG dotnet1LinuxComponent
-# ARG dotnet2LinuxComponentVersion
-# ARG dotnet2LinuxComponent
+# ARG dotnetLinuxComponent
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -39,8 +36,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnet1LinuxComponent
-ARG dotnet2LinuxComponent
+ARG dotnetLatestLinuxComponent
+ARG dotnetLinuxComponent
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 
@@ -50,21 +47,12 @@ RUN apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# Install [${dotnet2LinuxComponentName}](${dotnet2LinuxComponent})
+    mkdir -p /usr/share/dotnet && \
+# Install [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnet2LinuxComponent} --output dotnet.tar.gz && \
-    mkdir -p /usr/share/dotnet && \
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
-    rm dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# Install [${dotnet1LinuxComponentName}](${dotnet1LinuxComponent})
-    apt-get install -y --no-install-recommends ${dotnetLibs} && \
-    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnet1LinuxComponent} --output dotnet.tar.gz && \
-    mkdir -p /usr/share/dotnet && \
+    curl -SL ${dotnetLinuxComponent} --output dotnet.tar.gz && \
     tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
     rm dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \

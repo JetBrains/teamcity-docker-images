@@ -1,6 +1,5 @@
 # Default arguments
-ARG dotnet1WindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip'
-ARG dotnet2WindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip'
+ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
@@ -9,8 +8,7 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 
 # The list of required arguments
 # ARG windowsservercoreImage
-# ARG dotnet1WindowsComponentVersion
-# ARG dotnet2WindowsComponentVersion
+# ARG dotnetWindowsComponent
 # ARG jdkWindowsComponent
 # ARG gitWindowsComponent
 # ARG mercurialWindowsComponentName
@@ -27,8 +25,7 @@ COPY scripts/*.cs /scripts/
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG dotnet1WindowsComponent
-ARG dotnet2WindowsComponent
+ARG dotnetWindowsComponent
 ARG jdkWindowsComponent
 ARG gitWindowsComponent
 ARG mercurialWindowsComponent
@@ -36,13 +33,10 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnet1WindowsComponent, 'dotnet1.zip', $Env:dotnet2WindowsComponent, 'dotnet2.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-    Expand-Archive dotnet2.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet2.zip; \
-    Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
-    Expand-Archive dotnet1.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet1.zip; \
+    Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \

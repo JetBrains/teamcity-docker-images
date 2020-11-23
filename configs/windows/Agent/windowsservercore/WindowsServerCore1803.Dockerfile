@@ -1,7 +1,6 @@
 # The list of required arguments
 # ARG windowsservercoreImage
-# ARG dotnet1WindowsComponentVersion
-# ARG dotnet2WindowsComponentVersion
+# ARG dotnetWindowsComponent
 # ARG jdkWindowsComponent
 # ARG gitWindowsComponent
 # ARG mercurialWindowsComponentName
@@ -29,8 +28,7 @@ COPY scripts/*.cs /scripts/
 # Install ${powerShellComponentName}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG dotnet1WindowsComponent
-ARG dotnet2WindowsComponent
+ARG dotnetWindowsComponent
 ARG jdkWindowsComponent
 ARG gitWindowsComponent
 ARG mercurialWindowsComponent
@@ -38,15 +36,11 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnet1WindowsComponent, 'dotnet1.zip', $Env:dotnet2WindowsComponent, 'dotnet2.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# Install [${dotnet2WindowsComponentName}](${dotnet2WindowsComponent})
-    Expand-Archive dotnet2.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet2.zip; \
-    Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
-# Install [${dotnet1WindowsComponentName}](${dotnet1WindowsComponent})
-    Expand-Archive dotnet1.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet1.zip; \
+# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+    Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \

@@ -18,6 +18,8 @@ When running an image with multi-architecture support, docker will automatically
 
 - 20.04-sudo
   - [2020.2-linux-sudo](#20202-linux-sudo)
+- 20.04-dotnet
+  - [linux-dotnet](#linux-dotnet)
 - 20.04
   - [2020.2-linux](#20202-linux)
 - 18.04-sudo
@@ -36,6 +38,8 @@ When running an image with multi-architecture support, docker will automatically
 - 1903
   - [2020.2-nanoserver-1903](#20202-nanoserver-1903)
   - [2020.2-windowsservercore-1903](#20202-windowsservercore-1903)
+- 1809-dotnet
+  - [nanoserver-dotnet](#nanoserver-dotnet)
 - 1809
   - [2020.2-nanoserver-1809](#20202-nanoserver-1809)
   - [2020.2-windowsservercore-1809](#20202-windowsservercore-1809)
@@ -98,7 +102,6 @@ Installed components:
 - Git v.2.25.1
 - Mercurial
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -233,7 +236,6 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
 - [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
@@ -269,7 +271,6 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
 - [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
@@ -303,7 +304,6 @@ Installed components:
 - Git v.2.17.1
 - Mercurial
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -348,6 +348,30 @@ docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t 
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
+
+### linux-dotnet
+
+[Dockerfile](linux/Agent/Ubuntu/20.04-dotnet/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+This image can be built manually. It contains a set of .NET SDK. ## To enable Docker, please add the following arguments: ```--privileged -e DOCKER_IN_DOCKER=start```.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull jetbrains/teamcity-agent:2020.1.5-linux-sudo
+echo TeamCity > context/.dockerignore
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04-dotnet/Dockerfile" -t teamcity-agent:linux-dotnet "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
 
 ### 2020.2-nanoserver-1803
 
@@ -455,7 +479,6 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
 - [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
@@ -487,7 +510,6 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
 - [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
@@ -520,7 +542,6 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
 - [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
@@ -541,4 +562,29 @@ docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfi
 ```
 
 _The required free space to generate image(s) is about **33 GB**._
+
+### nanoserver-dotnet
+
+[Dockerfile](windows/Agent/nanoserver/1809-dotnet/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+This image can be built manually. It contains a set of .NET SDK.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
+- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull jetbrains/teamcity-agent:2020.1.5-nanoserver-1809
+echo TeamCity > context/.dockerignore
+docker build -f "context/generated/windows/Agent/nanoserver/1809-dotnet/Dockerfile" -t teamcity-agent:nanoserver-dotnet "context"
+```
+
+_The required free space to generate image(s) is about **6 GB**._
 

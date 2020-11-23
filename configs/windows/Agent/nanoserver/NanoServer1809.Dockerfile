@@ -58,8 +58,8 @@ RUN pwsh -NoLogo -NoProfile -Command " \
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-# Install [${dotnet2WindowsComponentName}](${dotnet2WindowsComponent})
-# Install [${dotnet1WindowsComponentName}](${dotnet1WindowsComponent})
+# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# Install [${dotnetLatestWindowsComponentName}](${dotnetLatestWindowsComponent})
 COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 
