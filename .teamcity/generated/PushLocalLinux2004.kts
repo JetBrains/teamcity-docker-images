@@ -196,7 +196,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
 }
 }
 swabra {

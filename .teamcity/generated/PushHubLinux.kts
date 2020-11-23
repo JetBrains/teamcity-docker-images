@@ -16,26 +16,26 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server:2020.2-linux"
+name = "pull teamcity-agent:2020.2-linux-sudo"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.2-linux"
+name = "tag teamcity-agent:2020.2-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-linux %docker.deployRepository%teamcity-server:2020.2-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-linux-sudo %docker.deployRepository%teamcity-agent:2020.2-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.2-linux"
+name = "push teamcity-agent:2020.2-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.2-linux
+%docker.deployRepository%teamcity-agent:2020.2-linux-sudo
 """.trimIndent()
 }
 }
@@ -66,31 +66,6 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.2-linux-sudo"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.2-linux-sudo"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-linux-sudo %docker.deployRepository%teamcity-agent:2020.2-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.2-linux-sudo"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.2-linux-sudo
-""".trimIndent()
-}
-}
-
-dockerCommand {
 name = "pull teamcity-minimal-agent:2020.2-linux"
 commandType = other {
 subCommand = "pull"
@@ -115,6 +90,31 @@ namesAndTags = """
 }
 }
 
+dockerCommand {
+name = "pull teamcity-server:2020.2-linux"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-linux"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server:2020.2-linux"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-linux %docker.deployRepository%teamcity-server:2020.2-linux"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server:2020.2-linux"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:2020.2-linux
+""".trimIndent()
+}
+}
+
 }
 features {
 freeDiskSpace {
@@ -124,7 +124,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
 }
 }
 swabra {

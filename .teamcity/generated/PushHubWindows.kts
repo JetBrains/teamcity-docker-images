@@ -16,26 +16,26 @@ name = "Push windows"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server:2020.2-nanoserver-1809"
+name = "pull teamcity-agent:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.2-nanoserver-1809"
+name = "tag teamcity-agent:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.2-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.2-nanoserver-1809"
+name = "push teamcity-agent:2020.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.2-nanoserver-1809
+%docker.deployRepository%teamcity-agent:2020.2-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -66,31 +66,6 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-agent:2020.2-nanoserver-1809"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.2-nanoserver-1809"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809 %docker.deployRepository%teamcity-agent:2020.2-nanoserver-1809"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.2-nanoserver-1809"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.2-nanoserver-1809
-""".trimIndent()
-}
-}
-
-dockerCommand {
 name = "pull teamcity-minimal-agent:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
@@ -116,51 +91,26 @@ namesAndTags = """
 }
 
 dockerCommand {
-name = "pull teamcity-server:2020.2-nanoserver-2004"
+name = "pull teamcity-server:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.2-nanoserver-2004"
+name = "tag teamcity-server:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-2004 %docker.deployRepository%teamcity-server:2020.2-nanoserver-2004"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.deployRepository%teamcity-server:2020.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.2-nanoserver-2004"
+name = "push teamcity-server:2020.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.2-nanoserver-2004
-""".trimIndent()
-}
-}
-
-dockerCommand {
-name = "pull teamcity-agent:2020.2-windowsservercore-2004"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-windowsservercore-2004"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2020.2-windowsservercore-2004"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-windowsservercore-2004 %docker.deployRepository%teamcity-agent:2020.2-windowsservercore-2004"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2020.2-windowsservercore-2004"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.2-windowsservercore-2004
+%docker.deployRepository%teamcity-server:2020.2-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -191,6 +141,31 @@ namesAndTags = """
 }
 
 dockerCommand {
+name = "pull teamcity-agent:2020.2-windowsservercore-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-windowsservercore-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:2020.2-windowsservercore-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent:2020.2-windowsservercore-2004 %docker.deployRepository%teamcity-agent:2020.2-windowsservercore-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent:2020.2-windowsservercore-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:2020.2-windowsservercore-2004
+""".trimIndent()
+}
+}
+
+dockerCommand {
 name = "pull teamcity-minimal-agent:2020.2-nanoserver-2004"
 commandType = other {
 subCommand = "pull"
@@ -215,6 +190,31 @@ namesAndTags = """
 }
 }
 
+dockerCommand {
+name = "pull teamcity-server:2020.2-nanoserver-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server:2020.2-nanoserver-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server:2020.2-nanoserver-2004 %docker.deployRepository%teamcity-server:2020.2-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server:2020.2-nanoserver-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:2020.2-nanoserver-2004
+""".trimIndent()
+}
+}
+
 }
 features {
 freeDiskSpace {
@@ -224,7 +224,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
 }
 }
 swabra {

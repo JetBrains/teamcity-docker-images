@@ -23,27 +23,6 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
@@ -86,24 +65,24 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:latest --v
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2020.2"
+name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server:2020.2 %docker.buildRepository%teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-server:latest %docker.buildRepository%teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2020.2"
+name = "manifest push teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server:2020.2"
+commandArgs = "push %docker.buildRepository%teamcity-server:latest"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2020.2"
+name = "manifest inspect teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.2 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-server:latest --verbose"
 }
 }
 dockerCommand {
@@ -146,6 +125,27 @@ name = "manifest inspect teamcity-minimal-agent:2020.2"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent:2020.2 --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-server:2020.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-server:2020.2 %docker.buildRepository%teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.2-nanoserver-2004"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2020.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-server:2020.2"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2020.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-server:2020.2 --verbose"
 }
 }
 dockerCommand {
@@ -217,7 +217,7 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
 }
 }
 }
