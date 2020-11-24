@@ -366,7 +366,7 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull jetbrains/teamcity-agent:2020.1.5-linux-sudo
+docker pull jetbrains/teamcity-agent:2020.2-linux-sudo
 echo TeamCity > context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/20.04-dotnet/Dockerfile" -t teamcity-agent:linux-dotnet "context"
 ```
@@ -581,7 +581,7 @@ Container platform: windows
 Docker build commands:
 
 ```
-docker pull jetbrains/teamcity-agent:2020.1.5-nanoserver-1809
+docker pull jetbrains/teamcity-agent:2020.2-nanoserver-1809
 echo TeamCity > context/.dockerignore
 docker build -f "context/generated/windows/Agent/nanoserver/1809-dotnet/Dockerfile" -t teamcity-agent:nanoserver-dotnet "context"
 ```
