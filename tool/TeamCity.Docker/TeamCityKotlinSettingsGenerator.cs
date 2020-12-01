@@ -17,6 +17,7 @@ namespace TeamCity.Docker
         private string BuildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
         private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
+        [NotNull] private readonly string BuildImagePostfix = "%docker.buildImagePostfix%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
         [NotNull] private readonly IGenerateOptions _options;
         [NotNull] private readonly IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>> _buildGraphsFactory;
@@ -103,7 +104,7 @@ namespace TeamCity.Docker
                 graph.TryAddNode(AddFile(buildTypeId, GenerateBuildAndPushType(buildTypeId, name, path, buildGraph.weight, onPause)), out _);
             }
 
-            // Publish on local registry
+            // Publish on staging registry
             var localPublishGroups =
                 from image in allImages
                 from tag in image.File.Tags.Skip(1)
@@ -111,7 +112,7 @@ namespace TeamCity.Docker
 
             var publishLocalId = "publish_local";
             localBuildTypes.Add(publishLocalId);
-            graph.TryAddNode(AddFile(publishLocalId, CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, true, buildAndPushLocalBuildTypes.ToArray())), out _);
+            graph.TryAddNode(AddFile(publishLocalId, CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, BuildImagePostfix, true, buildAndPushLocalBuildTypes.ToArray())), out _);
             
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
@@ -138,7 +139,7 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
                 publishOnHubBuildTypes.Add(buildTypeId);
-                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, false, pushOnHubBuildTypes.ToArray())), out _);
+                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, string.Empty, false, pushOnHubBuildTypes.ToArray())), out _);
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
@@ -146,7 +147,7 @@ namespace TeamCity.Docker
             // Local project
             var lines = new List<string>();
             lines.Add("object LocalProject : Project({");
-            lines.Add("name = \"Local registry\"");
+            lines.Add("name = \"Staging registry\"");
             foreach (var buildType in localBuildTypes.Distinct())
             {
                 lines.Add($"buildType({NormalizeFileName(buildType)}.{buildType})");
@@ -232,7 +233,7 @@ namespace TeamCity.Docker
             {
                 // docker pull
                 var tag = image.File.Tags.First();
-                var repo = $"{image.File.ImageId}:{tag}";
+                var repo = $"{image.File.ImageId}{BuildImagePostfix}:{tag}";
                 var repoTag = $"{BuildRepositoryName}{repo}";
                 foreach (var pullCommand in CreatePullCommand(repoTag, repo))
                 {
@@ -297,7 +298,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, bool dependsOnContext, params string[] dependencies)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, string imagePostfix, bool dependsOnContext, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
@@ -318,7 +319,7 @@ namespace TeamCity.Docker
                 var groupedByImageId = group.GroupBy(i => i.File.ImageId);
                 foreach (var groupByImageId in groupedByImageId)
                 {
-                    foreach (var line in CreateManifestCommands(repositoryName, group.Key, groupByImageId.Key, groupByImageId))
+                    foreach (var line in CreateManifestCommands(repositoryName, group.Key, groupByImageId.Key, imagePostfix, groupByImageId))
                     {
                         yield return line;
                     }
@@ -360,14 +361,14 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
-        private IEnumerable<string> CreateManifestCommands(string repositoryName, string tag, string imageId, IEnumerable<Image> images)
+        private IEnumerable<string> CreateManifestCommands(string repositoryName, string tag, string imageId, string imagePostfix, IEnumerable<Image> images)
         {
             if (string.IsNullOrWhiteSpace(tag) || !char.IsLetterOrDigit(tag[0]))
             {
                 yield break;
             }
 
-            var repo = $"{repositoryName}{imageId}";
+            var repo = $"{repositoryName}{imageId}{imagePostfix}";
             var manifestName = $"{repo}:{tag}";
             var createArgs = new List<string>
             {
@@ -477,7 +478,7 @@ namespace TeamCity.Docker
                     if (image.File.Tags.Any())
                     {
                         var tag = image.File.Tags.First();
-                        foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}:{tag}", $"{image.File.ImageId}:{tag}"))
+                        foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}", $"{image.File.ImageId}:{tag}"))
                         {
                             yield return tagCommand;
                         }
@@ -488,7 +489,7 @@ namespace TeamCity.Docker
                 foreach (var image in images)
                 {
                     var tag = image.File.Tags.First();
-                    foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}", $"{image.File.ImageId}:{tag}", tag))
+                    foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}", $"{image.File.ImageId}:{tag}", tag))
                     {
                         yield return pushCommand;
                     }

@@ -11,7 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 
 object LocalProject : Project({
-name = "Local registry"
+name = "Staging registry"
 buildType(PushLocalLinux1804.push_local_linux_18_04)
 buildType(PushLocalLinux2004.push_local_linux_20_04)
 buildType(PushLocalLinux2004Dotnet.push_local_linux_20_04_dotnet)

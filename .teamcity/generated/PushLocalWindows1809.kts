@@ -139,7 +139,7 @@ dockerCommand {
 name = "tag teamcity-server:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server:2020.2-nanoserver-1809"
+commandArgs = "teamcity-server:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2-nanoserver-1809"
 }
 }
 
@@ -147,7 +147,7 @@ dockerCommand {
 name = "tag teamcity-minimal-agent:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent:2020.2-nanoserver-1809"
+commandArgs = "teamcity-minimal-agent:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2-nanoserver-1809"
 }
 }
 
@@ -155,7 +155,7 @@ dockerCommand {
 name = "tag teamcity-agent:2020.2-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent:2020.2-windowsservercore-1809"
+commandArgs = "teamcity-agent:2020.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-windowsservercore-1809"
 }
 }
 
@@ -163,7 +163,7 @@ dockerCommand {
 name = "tag teamcity-agent:2020.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809"
+commandArgs = "teamcity-agent:2020.2-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-nanoserver-1809"
 }
 }
 
@@ -171,7 +171,7 @@ dockerCommand {
 name = "push teamcity-server:2020.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server:2020.2-nanoserver-1809
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -180,7 +180,7 @@ dockerCommand {
 name = "push teamcity-minimal-agent:2020.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent:2020.2-nanoserver-1809
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -189,7 +189,7 @@ dockerCommand {
 name = "push teamcity-agent:2020.2-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.2-windowsservercore-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-windowsservercore-1809
 """.trimIndent()
 }
 }
@@ -198,7 +198,7 @@ dockerCommand {
 name = "push teamcity-agent:2020.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.2-nanoserver-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-nanoserver-1809
 """.trimIndent()
 }
 }
@@ -212,7 +212,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_4022"
 }
 }
 swabra {

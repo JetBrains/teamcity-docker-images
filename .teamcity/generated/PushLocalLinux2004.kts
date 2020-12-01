@@ -123,7 +123,7 @@ dockerCommand {
 name = "tag teamcity-server:2020.2-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server:2020.2-linux"
+commandArgs = "teamcity-server:2020.2-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2-linux"
 }
 }
 
@@ -131,7 +131,7 @@ dockerCommand {
 name = "tag teamcity-minimal-agent:2020.2-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.2-linux %docker.buildRepository%teamcity-minimal-agent:2020.2-linux"
+commandArgs = "teamcity-minimal-agent:2020.2-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2-linux"
 }
 }
 
@@ -139,7 +139,7 @@ dockerCommand {
 name = "tag teamcity-agent:2020.2-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2-linux %docker.buildRepository%teamcity-agent:2020.2-linux"
+commandArgs = "teamcity-agent:2020.2-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-linux"
 }
 }
 
@@ -147,7 +147,7 @@ dockerCommand {
 name = "tag teamcity-agent:2020.2-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2-linux-sudo %docker.buildRepository%teamcity-agent:2020.2-linux-sudo"
+commandArgs = "teamcity-agent:2020.2-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-linux-sudo"
 }
 }
 
@@ -155,7 +155,7 @@ dockerCommand {
 name = "push teamcity-server:2020.2-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server:2020.2-linux
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2-linux
 """.trimIndent()
 }
 }
@@ -164,7 +164,7 @@ dockerCommand {
 name = "push teamcity-minimal-agent:2020.2-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent:2020.2-linux
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2-linux
 """.trimIndent()
 }
 }
@@ -173,7 +173,7 @@ dockerCommand {
 name = "push teamcity-agent:2020.2-linux"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.2-linux
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-linux
 """.trimIndent()
 }
 }
@@ -182,7 +182,7 @@ dockerCommand {
 name = "push teamcity-agent:2020.2-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent:2020.2-linux-sudo
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2-linux-sudo
 """.trimIndent()
 }
 }
@@ -196,7 +196,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_4022"
 }
 }
 swabra {
