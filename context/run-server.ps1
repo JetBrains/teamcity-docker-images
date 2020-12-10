@@ -31,7 +31,7 @@ if ($TEAMCITY_CONTEXT -ne 'ROOT') {
     }
 }
 
-if ($TEAMCITY_CONTEXT -eq 'true') {
+if ($TEAMCITY_HTTPS_PROXY_ENABLED -eq 'true') {
     $TEAMCITY_SERVER_XML = ('-config {0}\conf\server-https-proxy.xml' -f $TEAMCITY_DIST)
 }
 
