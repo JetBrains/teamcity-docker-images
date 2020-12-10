@@ -38,5 +38,6 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
 - Apply required changes in the directory [configs](configs).
 - Generate docker and readme files by running the _generate.sh_ or _generate.cmd_ script. All generated artifacts will be placed into the directory [generated](generated).
+- To add plugins to TeamCity agents run the _context.sh_ or _context.cmd_ script. This is optional as otherwise the TeamCity agents will load plugins by themselves on first launch.
 - Run docker build commands like [on this page](generated/teamcity-agent.md) keeping the proposed order from the root directory of the cloned repository. The proposed order is important because some TeamCity images may be based on other TeamCity images.
 - Check the docker images by running ```docker-compose up``` in the directories like [checks/windows-local](checks/windows-local) or [checks/linux-local](checks/linux-local).
