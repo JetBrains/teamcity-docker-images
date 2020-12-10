@@ -31,8 +31,9 @@ if ($TEAMCITY_CONTEXT -ne 'ROOT') {
     }
 }
 
-if ($TEAMCITY_HTTPS_PROXY_ENABLED -eq 'true') {
+if ($Env:TEAMCITY_HTTPS_PROXY_ENABLED -eq 'true') {
     $TEAMCITY_SERVER_XML = ('-config {0}\conf\server-https-proxy.xml' -f $TEAMCITY_DIST)
+    Write-Host "Proxy is enabled."
 }
 
 # Set traps to gently shutdown server on `docker stop`, `docker restart` or `docker kill -s 15`
