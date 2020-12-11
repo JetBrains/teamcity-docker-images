@@ -76,10 +76,14 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \
-    sed -i -e 's/\r$//' /run-services.sh
+    sed -i -e 's/\r$//' /run-services.sh && \
+    mkdir -p $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $TEAMCITY_TEMP && \
+    chown tcuser:tcuser $TEAMCITY_DIST $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $TEAMCITY_TEMP
 
 COPY --chown=tcuser:tcuser TeamCity $TEAMCITY_DIST
 RUN echo "docker-ubuntu" > $TEAMCITY_DIST/webapps/ROOT/WEB-INF/DistributionType.txt
+
+USER tcuser:tcuser
 
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
