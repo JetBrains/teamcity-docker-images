@@ -52,7 +52,7 @@ RUN update-alternatives --install /usr/bin/java java ${JAVA_HOME}/bin/java 1 && 
 ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     TEAMCITY_DIST=/opt/teamcity \
     TEAMCITY_LOGS=/opt/teamcity/logs \
-    TEAMCITY_TEMP=/opt/teamcity/temp \
+    CATALINA_TMPDIR=/opt/teamcity/temp \
     TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m" \
     LANG=C.UTF-8
 
@@ -68,6 +68,7 @@ RUN apt-get update && \
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
+COPY check-server-volumes.sh /services/check-server-volumes.sh
 COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
@@ -77,8 +78,9 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \
     sed -i -e 's/\r$//' /run-services.sh && \
-    mkdir -p $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $TEAMCITY_TEMP && \
-    chown tcuser:tcuser $TEAMCITY_DIST $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $TEAMCITY_TEMP
+    sed -i -e 's/\r$//' /services/check-server-volumes.sh && \
+    mkdir -p $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $CATALINA_TMPDIR && \
+    chown -R tcuser:tcuser /services $TEAMCITY_DIST $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $CATALINA_TMPDIR
 
 COPY --chown=tcuser:tcuser TeamCity $TEAMCITY_DIST
 RUN echo "docker-ubuntu" > $TEAMCITY_DIST/webapps/ROOT/WEB-INF/DistributionType.txt
@@ -87,6 +89,6 @@ USER tcuser:tcuser
 
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
-       $TEAMCITY_TEMP
+       $CATALINA_TMPDIR
 
 CMD ["/run-services.sh"]

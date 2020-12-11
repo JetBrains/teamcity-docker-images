@@ -1,4 +1,6 @@
 #!/bin/bash
+# Fail if one of the service scripts fail
+set -e
 
 echo '/run-services.sh'
 

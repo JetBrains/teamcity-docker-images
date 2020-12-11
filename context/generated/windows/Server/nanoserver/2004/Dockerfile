@@ -75,7 +75,7 @@ COPY --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
 
 ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
     TEAMCITY_DIST="C:\TeamCity" \
-    TEAMCITY_TEMP="C:\TeamCity\temp" \
+    CATALINA_TMPDIR="C:\TeamCity\temp" \
     TEAMCITY_LOGS="C:\TeamCity\logs" \
     TEAMCITY_DATA_PATH="C:\ProgramData\JetBrains\TeamCity" \
     TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m"
@@ -86,7 +86,7 @@ COPY --from=base $TEAMCITY_DIST $TEAMCITY_DIST
 
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
-       $TEAMCITY_TEMP
+       $CATALINA_TMPDIR
 
 CMD pwsh C:/TeamCity/run-server.ps1
 
