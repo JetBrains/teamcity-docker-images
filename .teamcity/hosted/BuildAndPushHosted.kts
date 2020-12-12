@@ -34,29 +34,29 @@ echo TeamCity/temp >> context/.dockerignore
         }
         
         dockerCommand {
-            name = "build teamcity-server"
+            name = "build teamcity-server-staging"
             commandType = build {
                 source = file {
                     path = """context/generated/linux/Server/Ubuntu/%hostedLinuxVersion%/Dockerfile"""
                 }
                 contextDir = "context"
-                namesAndTags = "teamcity-server:%dockerImage.teamcity.buildNumber%"
+                namesAndTags = "teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
             }
             param("dockerImage.platform", "linux")
         }
 
         dockerCommand {
-            name = "tag teamcity-server"
+            name = "tag teamcity-server-staging"
             commandType = other {
                 subCommand = "tag"
-                commandArgs = "teamcity-server:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
+                commandArgs = "teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
             }
         }
 
         dockerCommand {
-            name = "push teamcity-server"
+            name = "push teamcity-server-staging"
             commandType = push {
-                namesAndTags = "%docker.buildRepository%teamcity-server:%dockerImage.teamcity.buildNumber%"
+                namesAndTags = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
             }
         }
     }
@@ -68,7 +68,7 @@ echo TeamCity/temp >> context/.dockerignore
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_315,PROJECT_EXT_4003,PROJECT_EXT_4022"
+                dockerRegistryId = "PROJECT_EXT_4022"
             }
         }
         swabra {
