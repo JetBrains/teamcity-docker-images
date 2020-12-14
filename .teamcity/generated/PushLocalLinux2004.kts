@@ -75,9 +75,7 @@ script {
 name = "context teamcity-agent:2020.2-linux"
 scriptContent = """
 echo 2> context/.dockerignore
-echo TeamCity/webapps >> context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
+echo TeamCity >> context/.dockerignore
 """.trimIndent()
 }
 
@@ -99,9 +97,7 @@ script {
 name = "context teamcity-agent:2020.2-linux-sudo"
 scriptContent = """
 echo 2> context/.dockerignore
-echo TeamCity/webapps >> context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
+echo TeamCity >> context/.dockerignore
 """.trimIndent()
 }
 
