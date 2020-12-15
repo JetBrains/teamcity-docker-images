@@ -1,20 +1,22 @@
 #!/bin/bash
 
 PERMISSION_PROBLEM=0
-if [ ! -w "$TEAMCITY_DATA_PATH" ]; then
-    echo ">>> TEAMCITY_DATA_PATH '$TEAMCITY_DATA_PATH' is not a writeable directory"
-    PERMISSION_PROBLEM=1
-fi
 
-if [ ! -w "$TEAMCITY_LOGS" ]; then
-    echo ">>> TEAMCITY_LOGS '$TEAMCITY_LOGS' is not a writeable directory"
-    PERMISSION_PROBLEM=1
-fi
+_check_dir() {
+  DIR=$1
+  DIR_NAME=$2
 
-if [ ! -w "$CATALINA_TMPDIR" ]; then
-    echo ">>> CATALINA_TMPDIR '$CATALINA_TMPDIR' is not a writeable directory"
-    PERMISSION_PROBLEM=1
-fi
+  touch "$DIR/.file.txt" 2>/dev/null
+  if [ ! -f "$DIR/.file.txt" ]; then
+      echo ">>> $DIR_NAME '$DIR' is not a writeable directory"
+      export PERMISSION_PROBLEM=1
+  fi
+  rm "$DIR/.file.txt" 2>/dev/null
+}
+
+_check_dir "$TEAMCITY_DATA_PATH" 'TEAMCITY_DATA_PATH'
+_check_dir "$TEAMCITY_LOGS" 'TEAMCITY_LOGS'
+_check_dir "$CATALINA_TMPDIR" 'CATALINA_TMPDIR'
 
 if [ "$PERMISSION_PROBLEM" = "1" ]; then
     echo "    Current user is '`whoami`' (`id -u`/`id -g`)"
