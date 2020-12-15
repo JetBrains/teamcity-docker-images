@@ -6,7 +6,7 @@ ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zli
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
 ARG repo=''
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2-linux-18.04'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.1-linux-18.04'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent
