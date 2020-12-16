@@ -173,6 +173,7 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
 """.trimIndent()
+removeImageAfterPush = false
 }
 }
 
@@ -182,6 +183,7 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
 """.trimIndent()
+removeImageAfterPush = false
 }
 }
 
@@ -191,6 +193,7 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-windowsservercore-2004
 """.trimIndent()
+removeImageAfterPush = false
 }
 }
 
@@ -200,6 +203,7 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
 """.trimIndent()
+removeImageAfterPush = false
 }
 }
 

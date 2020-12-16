@@ -625,6 +625,8 @@ namespace TeamCity.Docker
             }
 
             yield return "\"\"\".trimIndent()";
+            
+            yield return "removeImageAfterPush = false";
 
             yield return "}";
             yield return "}";
