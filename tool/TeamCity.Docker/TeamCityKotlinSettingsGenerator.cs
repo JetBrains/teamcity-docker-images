@@ -289,7 +289,7 @@ namespace TeamCity.Docker
                 yield return lines;
             }
 
-            foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, false))
+            foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, null))
             {
                 yield return dependencies;
             }
@@ -298,7 +298,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, string imagePostfix, bool dependsOnContext, params string[] dependencies)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
@@ -328,7 +328,7 @@ namespace TeamCity.Docker
 
             yield return "}";
 
-            foreach (var line in CreateSnapshotDependencies(dependencies, dependsOnContext))
+            foreach (var line in CreateSnapshotDependencies(dependencies, onStaging))
             {
                 yield return line;
             }
@@ -545,13 +545,20 @@ namespace TeamCity.Docker
             }
         }
 
-        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies, bool dependsOnContext)
+        private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies, bool? onStaging)
         {
             yield return "dependencies {";
-            if (dependsOnContext)
+            if (onStaging != null)
             {
                 yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
-                yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+                if (onStaging == true)
+                {
+                    yield return "{\nonDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
+                }
+                else
+                {
+                    yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+                }
             }
 
             foreach (var buildTypeId in dependencies)
@@ -746,7 +753,7 @@ namespace TeamCity.Docker
             yield return "steps {";
             yield return "}";
 
-            foreach (var line in CreateSnapshotDependencies(buildBuildTypes, false))
+            foreach (var line in CreateSnapshotDependencies(buildBuildTypes, null))
             {
                 yield return line;
             }

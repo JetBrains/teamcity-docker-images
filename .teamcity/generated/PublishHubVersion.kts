@@ -129,6 +129,10 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 }
 }
 dependencies {
+snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+{
+onDependencyFailure = FailureAction.IGNORE
+}
 snapshot(PushHubLinux.push_hub_linux)
 {
 onDependencyFailure =  FailureAction.FAIL_TO_START

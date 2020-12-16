@@ -194,7 +194,9 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImageP
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure = FailureAction.FAIL_TO_START
+reuseBuilds = ReuseBuilds.ANY
+synchronizeRevisions = false
 }
 snapshot(PushLocalLinux2004.push_local_linux_20_04)
 {
