@@ -9,21 +9,21 @@ using TeamCity.Docker.Model;
 
 namespace TeamCity.Docker
 {
-    internal class ReadmeGenerator : IGenerator
+    internal class ReadmeFilesGenerator : IGenerator
     {
         private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
         [NotNull] private readonly IGenerateOptions _options;
         [NotNull] private readonly IPathService _pathService;
-        [NotNull] private readonly IBuildPathProvider _buildPathProvider;
+        [NotNull] private readonly IScriptGenerator _scriptGenerator;
 
-        public ReadmeGenerator(
+        public ReadmeFilesGenerator(
             [NotNull] IGenerateOptions options,
             [NotNull] IPathService pathService,
-            [NotNull] IBuildPathProvider buildPathProvider)
+            [NotNull] IScriptGenerator scriptGenerator)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _pathService = pathService ?? throw new ArgumentNullException(nameof(pathService));
-            _buildPathProvider = buildPathProvider ?? throw new ArgumentNullException(nameof(buildPathProvider));
+            _scriptGenerator = scriptGenerator ?? throw new ArgumentNullException(nameof(scriptGenerator));
         }
 
         public void Generate([NotNull] IGraph<IArtifact, Dependency> graph)
@@ -190,74 +190,33 @@ namespace TeamCity.Docker
                     lines.Add(string.Empty);
                     lines.Add($"Container platform: {dockerFile.Platform}");
 
-                    var publishRepo = dockerFile
-                        .Repositories
-                        .Select(i =>
-                        {
-                            try
-                            {
-                                return new Uri(i);
-                            }
-                            catch
-                            {
-                                return null;
-                            }
-                        })
-                        .FirstOrDefault(i => i != null);
-                    
                     foreach (var node in groupByFile)
                     {
-                        var artifacts = _buildPathProvider.GetPath(graph, node).Select(i => i.Value).ToList();
-                        var images = artifacts.OfType<Image>().ToList();
                         var weight = 0;
+                        var script = _scriptGenerator.GenerateScript(graph, node, artifact =>
+                        {
+                            weight += artifact.Weight.Value;
+                            return true;
+                        }).ToList();
 
-                        if (images.Any())
+                        if (weight > 0)
                         {
                             lines.Add(string.Empty);
                             lines.Add("Docker build commands:");
                             lines.Add(string.Empty);
 
                             lines.Add("```");
-                            foreach (var reference in artifacts.OfType<Reference>())
-                            {
-                                lines.Add(GeneratePullCommand(reference.RepoTag));
-                                weight += reference.Weight.Value;
-                            }
-
-                            var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
-                            var ignores = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-                            var isFirst = true;
-                            foreach (var image in images)
-                            {
-                                if (ignores.Except(image.File.Ignores).Any())
-                                {
-                                    lines.Add($"echo 2> {dockerignore}");
-                                    ignores.Clear();
-                                    isFirst = false;
-                                }
-
-                                foreach (var ignore in image.File.Ignores.Except(ignores))
-                                {
-                                    var redirection = isFirst ? ">" : ">>";
-                                    isFirst = false;
-                                    lines.Add($"echo {ignore} {redirection} {dockerignore}");
-                                    ignores.Add(ignore);
-                                }
-
-                                lines.Add(GenerateBuildCommand(image));
-                                weight += image.Weight.Value;
-                            }
-
+                            lines.AddRange(script);
                             lines.Add("```");
-                        }
+                            
+                            if (weight > 0)
+                            {
+                                lines.Add(string.Empty);
+                                lines.Add($"_The required free space to generate image(s) is about **{weight} GB**._");
+                            }
 
-                        if (weight > 0)
-                        {
                             lines.Add(string.Empty);
-                            lines.Add($"_The required free space to generate image(s) is about **{weight} GB**._");
                         }
-
-                        lines.Add(string.Empty);
                     }
 
                     foreach (var node in groupByFile)
@@ -271,15 +230,6 @@ namespace TeamCity.Docker
         private string GetReadmeFile(string imageId)
         {
             return _pathService.Normalize(Path.Combine(_options.TargetPath, GetReadmeFilePath(imageId)));
-        }
-
-        private static string GeneratePullCommand(string repoTag) => 
-            $"docker pull {repoTag}";
-
-        private string GenerateBuildCommand(Image image)
-        {
-            var dockerFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"));
-            return $"docker build -f \"{dockerFilePath}\" -t {image.File.ImageId}:{image.File.Tags.First()} \"{_options.ContextPath}\"";
         }
 
         private static string GetReadmeFilePath(string imageId) =>
