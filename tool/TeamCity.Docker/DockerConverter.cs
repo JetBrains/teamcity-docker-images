@@ -1,16 +1,15 @@
-﻿using System;
-using IoC;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using IoC;
+
     internal class DockerConverter : IDockerConverter
     {
         private const string EmptyId = "   <missing>";
         static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-        public string TryConvertRepoTagToTag([NotNull] string repoTag)
+        public string TryConvertRepoTagToTag(string repoTag)
         {
             if (repoTag == null)
             {
@@ -26,7 +25,7 @@ namespace TeamCity.Docker
             return null;
         }
 
-        public string TryConvertRepoTagToRepositoryName([NotNull] string repoTag)
+        public string TryConvertRepoTagToRepositoryName(string repoTag)
         {
             if (repoTag == null)
             {
@@ -42,7 +41,7 @@ namespace TeamCity.Docker
             return null;
         }
 
-        public string TryConvertConvertHashToImageId([NotNull] string hash)
+        public string TryConvertConvertHashToImageId(string hash)
         {
             if (hash == null)
             {

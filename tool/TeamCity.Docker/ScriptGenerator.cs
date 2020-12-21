@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Generic;
+    using IoC;
+    using Model;
+
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class ScriptGenerator: IScriptGenerator
     {
         [NotNull] private readonly IGenerateOptions _options;
@@ -26,6 +27,9 @@ namespace TeamCity.Docker
 
         public IEnumerable<string> GenerateScript(IGraph<IArtifact, Dependency> graph, INode<IArtifact> node, Func<IArtifact, bool> artifactSelector)
         {
+            if (graph == null)throw new ArgumentNullException(nameof(graph));
+            if (node == null)throw new ArgumentNullException(nameof(node));
+            if (artifactSelector == null)throw new ArgumentNullException(nameof(artifactSelector));
             var artifacts = _buildPathProvider.GetPath(graph, node).Select(i => i.Value).ToList();
             var images = artifacts.OfType<Image>().ToList();
 
@@ -39,6 +43,7 @@ namespace TeamCity.Docker
                     }
                 }
 
+                // ReSharper disable once IdentifierTypo
                 var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
                 var ignores = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
                 var isFirst = true;

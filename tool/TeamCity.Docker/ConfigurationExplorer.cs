@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
-using IoC;
-using TeamCity.Docker.Model;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Immutable;
+    using System.IO;
+    using System.Linq;
+    using IoC;
+    using Model;
+
     internal class ConfigurationExplorer : IConfigurationExplorer
     {
         [NotNull] private readonly ILogger _logger;
@@ -78,6 +77,7 @@ namespace TeamCity.Docker
                 {
                     var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
                     var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
+                    // ReSharper disable once IdentifierTypo
                     var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
                     var variants = new List<Variant>();
                     var configCounter = 0;

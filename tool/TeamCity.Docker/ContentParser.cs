@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using IoC;
-using TeamCity.Docker.Model;
-
-// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+﻿// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 // ReSharper disable ClassNeverInstantiated.Global
-
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using IoC;
+    using Model;
+
     internal class ContentParser : IContentParser
     {
-        private static readonly Regex ArgRegex = new Regex(@"\s*ARG\s+(?<name>\w+)=(?<value>.*)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex ArgRegex = new(@"\s*ARG\s+(?<name>\w+)=(?<value>.*)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Variable[] EmptyVars = new Variable[0];
         private readonly ILogger _logger;
 
@@ -27,6 +26,7 @@ namespace TeamCity.Docker
             foreach (var line in content)
             {
                 var vars = (
+                    // ReSharper disable once PossibleMultipleEnumeration
                     from variable in variables
                     where line.Contains($"{variable.Name}")
                     select new Variable(variable.Name, variable.Value))

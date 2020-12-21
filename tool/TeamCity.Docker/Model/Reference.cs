@@ -1,8 +1,8 @@
-﻿using System;
-using IoC;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
+    using System;
+    using IoC;
+
     internal class Reference: IArtifact
     {
         [NotNull] public readonly string RepoTag;

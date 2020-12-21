@@ -1,11 +1,11 @@
 ﻿namespace TeamCity.Docker.Model
 {
-    internal struct Dependency
+    internal readonly struct Dependency
     {
-        public readonly DependencyType Type;
+        private readonly DependencyType _type;
         
-        public Dependency(DependencyType type) => Type = type;
+        public Dependency(DependencyType type) => _type = type;
 
-        public override string ToString() => Type.ToString();
+        public override string ToString() => _type.ToString();
     }
 }

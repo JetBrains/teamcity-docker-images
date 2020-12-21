@@ -1,8 +1,8 @@
-﻿using System;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using IoC;
+
     internal class Logger: ILogger
     {
         [NotNull] private readonly IOptions _options;

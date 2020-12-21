@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System.Collections.Generic;
+    using IoC;
+
     internal interface IOptions
     {
         [NotNull] string SourcePath { get; }

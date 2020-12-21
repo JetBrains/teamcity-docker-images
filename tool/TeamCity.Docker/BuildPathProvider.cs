@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Generic;
+    using Model;
+
     internal class BuildPathProvider : IBuildPathProvider
     {
         public IEnumerable<INode<IArtifact>> GetPath(IGraph<IArtifact, Dependency> buildGraph)
@@ -30,7 +29,7 @@ namespace TeamCity.Docker
             return path.Distinct();
         }
 
-        public IEnumerable<INode<IArtifact>> GetPath(IGraph<IArtifact, Dependency> buildGraph, [NotNull] INode<IArtifact> leafNode)
+        public IEnumerable<INode<IArtifact>> GetPath(IGraph<IArtifact, Dependency> buildGraph, INode<IArtifact> leafNode)
         {
             if (buildGraph == null) throw new ArgumentNullException(nameof(buildGraph));
             if (leafNode == null) throw new ArgumentNullException(nameof(leafNode));

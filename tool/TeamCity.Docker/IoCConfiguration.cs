@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using Docker.DotNet;
-using IoC;
-using JetBrains.TeamCity.ServiceMessages.Write;
-using JetBrains.TeamCity.ServiceMessages.Write.Special;
-using JetBrains.TeamCity.ServiceMessages.Write.Special.Impl.Updater;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-using static IoC.Lifetime;
-// ReSharper disable InconsistentNaming
-
+﻿// ReSharper disable InconsistentNaming
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using Generic;
+    using global::Docker.DotNet;
+    using IoC;
+    using JetBrains.TeamCity.ServiceMessages.Write;
+    using JetBrains.TeamCity.ServiceMessages.Write.Special;
+    using JetBrains.TeamCity.ServiceMessages.Write.Special.Impl.Updater;
+    using Model;
+    using static IoC.Lifetime;
+
     internal class IoCConfiguration: IConfiguration
     {
         public IEnumerable<IToken> Apply(IMutableContainer container)

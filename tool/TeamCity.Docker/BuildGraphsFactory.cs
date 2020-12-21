@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Generic;
+    using Model;
+
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class BuildGraphsFactory : IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>>
     {

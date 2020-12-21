@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using IoC;
-
-// ReSharper disable UnusedMember.Global
-
+﻿// ReSharper disable UnusedMember.Global
 namespace TeamCity.Docker
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using IoC;
+
     internal interface IFileSystem
     {
         [NotNull] string UniqueName { get; }

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Generic;
+    using IoC;
+    using Model;
+
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class ScriptsGenerator : IGenerator
     {
         private static readonly string WindowsEndOfLine = System.Text.Encoding.UTF8.GetString(new byte[] { 0x0d, 0x0a });
@@ -79,9 +80,9 @@ namespace TeamCity.Docker
             }
 
             lines.Add($"cd {root}");
-            lines.AddRange(_scriptGenerator.GenerateScript(graph, node, artifact => true));
+            lines.AddRange(_scriptGenerator.GenerateScript(graph, node, _ => true));
             var scriptFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, scriptFileName));
-            graph.TryAddNode(new FileArtifact(scriptFilePath, new[] {string.Join(newLine, lines)}), out var scriptNode);
+            graph.TryAddNode(new FileArtifact(scriptFilePath, new[] {string.Join(newLine, lines)}), out var _);
         }
     }
 }

@@ -1,20 +1,20 @@
 ﻿// ReSharper disable ClassNeverInstantiated.Global
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Docker.DotNet;
-using Docker.DotNet.Models;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Generic;
+    using global::Docker.DotNet;
+    using global::Docker.DotNet.Models;
+    using IoC;
+    using Model;
+
     internal class BuildCommand: ICommand<IBuildOptions>
     {
         [NotNull] private readonly ILogger _logger;
@@ -152,7 +152,7 @@ namespace TeamCity.Docker
 
                                         var filter = new Dictionary<string, IDictionary<string, bool>>
                                         {
-                                            {"label", labels.ToDictionary(i => $"{i.Key}={i.Value}", i => true)}
+                                            {"label", labels.ToDictionary(i => $"{i.Key}={i.Value}", _ => true)}
                                         };
 
                                         var images = await _dockerClient.Images.ListImagesAsync(new ImagesListParameters { Filters = filter });

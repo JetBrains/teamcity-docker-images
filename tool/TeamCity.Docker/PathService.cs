@@ -1,11 +1,10 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using IoC;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Runtime.InteropServices;
+    using IoC;
+
     internal class PathService : IPathService
     {
         private readonly IEnvironment _environment;
@@ -15,11 +14,7 @@ namespace TeamCity.Docker
 
         public string Normalize(string path)
         {
-            if (path == null)
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
+            if (path == null) throw new ArgumentNullException(nameof(path));
             return _environment.IsOSPlatform(OSPlatform.Windows) ? path.Replace('\\', '/') : path;
         }
     }

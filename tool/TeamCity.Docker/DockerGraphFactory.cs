@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Immutable;
+    using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal class DockerGraphFactory: IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>>
     {
-        private static readonly Regex ReferenceRegex = new Regex(@"^\s*(?<reference>.+?)(\s+(?<weight>\d+)|)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
+        private static readonly Regex ReferenceRegex = new(@"^\s*(?<reference>.+?)(\s+(?<weight>\d+)|)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Dependency GenerateDependency = new(DependencyType.Generate);
         private const string CommentPrefix = "##";
         private const string IdPrefix = "# Id ";
         private const string TagPrefix = "# Tag ";

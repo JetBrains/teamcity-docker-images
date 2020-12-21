@@ -1,8 +1,8 @@
-﻿using System;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using IoC;
+
     internal interface ILogger
     {
         void Log([NotNull] string text, Result result = Result.Success);

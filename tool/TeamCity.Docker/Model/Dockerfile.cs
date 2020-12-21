@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IoC;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
-    internal struct Dockerfile: IComparable<Dockerfile>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using IoC;
+
+    internal readonly struct Dockerfile: IComparable<Dockerfile>
     {
         [NotNull] public readonly string Path;
         [NotNull] public readonly string ImageId;

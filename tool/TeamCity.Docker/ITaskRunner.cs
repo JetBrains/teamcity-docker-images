@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Threading.Tasks;
+    using IoC;
+
     internal interface ITaskRunner<out TState> : ILogger
         where TState : IDisposable
     {

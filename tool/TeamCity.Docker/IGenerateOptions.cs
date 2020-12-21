@@ -1,7 +1,7 @@
-﻿using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using IoC;
+
     internal interface IGenerateOptions: IOptions
     {
         [NotNull] string TargetPath { get; }

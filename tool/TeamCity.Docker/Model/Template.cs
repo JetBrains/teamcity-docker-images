@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using IoC;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
-    internal struct Template
+    using System;
+    using System.Collections.Generic;
+    using IoC;
+
+    internal readonly struct Template
     {
         [NotNull] public readonly IEnumerable<string> Lines;
         [NotNull] public readonly IEnumerable<Variant> Variants;

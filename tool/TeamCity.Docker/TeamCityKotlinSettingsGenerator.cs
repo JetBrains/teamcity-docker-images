@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
         private const string MinDockerVersion = "18.05.0";
         private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
-        private string BuildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
+        private readonly string _buildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
         private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string BuildImagePostfix = "%docker.buildImagePostfix%";
@@ -39,7 +39,7 @@ namespace TeamCity.Docker
             _nodesDescriptionsFactory = nodesDescriptionFactory ?? throw new ArgumentNullException(nameof(nodesDescriptionFactory));
         }
 
-        public void Generate([NotNull] IGraph<IArtifact, Dependency> graph)
+        public void Generate(IGraph<IArtifact, Dependency> graph)
         {
             if (graph == null) throw new ArgumentNullException(nameof(graph));
             if (string.IsNullOrWhiteSpace(_options.TeamCityDslPath))
@@ -145,6 +145,7 @@ namespace TeamCity.Docker
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
 
             // Local project
+            // ReSharper disable once UseObjectOrCollectionInitializer
             var lines = new List<string>();
             lines.Add("object LocalProject : Project({");
             lines.Add("name = \"Staging registry\"");
@@ -183,6 +184,7 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace",
+                // ReSharper disable once StringLiteralTypo
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
                 "import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo",
@@ -194,7 +196,7 @@ namespace TeamCity.Docker
             return new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, NormalizeFileName(fileName) + ".kts")), curLines);
         }
 
-        private string NormalizeFileName(string fileName) => new string(FixFileName(fileName).ToArray());
+        private string NormalizeFileName(string fileName) => new(FixFileName(fileName).ToArray());
 
         private IEnumerable<char> FixFileName(IEnumerable<char> chars)
         {
@@ -226,7 +228,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"Push {platform}\"";
-            yield return BuildNumberPattern;
+            yield return _buildNumberPattern;
 
             yield return "steps {";
             foreach (var image in images)
@@ -303,7 +305,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
             yield return $"name = \"{name}\"";
-            yield return BuildNumberPattern;
+            yield return _buildNumberPattern;
             yield return "enablePersonalBuilds = false";
             yield return "type = BuildTypeSettings.Type.DEPLOYMENT";
             yield return "maxRunningBuilds = 1";
@@ -452,7 +454,7 @@ namespace TeamCity.Docker
             var pauseStr = onPause ? "ON PAUSE " : "";
             yield return $"object {buildTypeId} : BuildType({{";
             yield return $"name = \"{pauseStr}Build and push {name}\"";
-            yield return BuildNumberPattern;
+            yield return _buildNumberPattern;
             yield return $"description  = \"{description}\"";
 
             if (!onPause)
@@ -663,6 +665,8 @@ namespace TeamCity.Docker
             yield return $"name = \"context {image.File.ImageId}:{tag}\"";
             yield return "scriptContent = \"\"\"";
 
+            // ReSharper disable once IdentifierTypo
+            // ReSharper disable once StringLiteralTypo
             var dockerignore = Path.Combine(_options.ContextPath, ".dockerignore").Replace("\\", "/");
             yield return $"echo 2> {dockerignore}";
             foreach (var ignore in image.File.Ignores)
@@ -740,26 +744,6 @@ namespace TeamCity.Docker
             yield return $"name = \"{name}\"";
             yield return $"scriptContent = \"{script}\"";
             yield return "}";
-        }
-
-        // ReSharper disable once UnusedMember.Local
-        private IEnumerable<string> CreateComposingBuildConfiguration(string buildTypeId, string name, params string[] buildBuildTypes)
-        {
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
-            yield return $"name = \"{name}\"";
-            yield return BuildNumberPattern;
-
-            yield return "steps {";
-            yield return "}";
-
-            foreach (var line in CreateSnapshotDependencies(buildBuildTypes, null))
-            {
-                yield return line;
-            }
-
-            yield return "})";
-            yield return string.Empty;
         }
     }
 }

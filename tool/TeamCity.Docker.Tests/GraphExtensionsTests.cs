@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Shouldly;
-using TeamCity.Docker.Generic;
-using Xunit;
-// ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
-
+﻿// ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 namespace TeamCity.Docker.Tests
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Generic;
+    using Shouldly;
+    using Xunit;
+
     public class GraphExtensionsTests
     {
         private static readonly IEnumerable<ILink<int, string>> Empty = new ILink<int, string>[0];
@@ -90,6 +90,7 @@ namespace TeamCity.Docker.Tests
         }
 
         [Fact]
+        // ReSharper disable once IdentifierTypo
         public void ShouldFindMinimumCutByStoerWagner()
         {
             // Given

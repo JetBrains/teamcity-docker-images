@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CommandLine;
-
-// ReSharper disable ClassNeverInstantiated.Global
+﻿// ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
-
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using CommandLine;
+
     [Verb("generate", HelpText = "Generate docker and readme files.")]
     internal class GenerateOptions: IGenerateOptions
     {

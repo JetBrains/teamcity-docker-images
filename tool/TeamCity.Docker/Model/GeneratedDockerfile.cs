@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
+    using System.Collections.Generic;
+
     internal class GeneratedDockerfile: IArtifact
     {
         public readonly string Path;

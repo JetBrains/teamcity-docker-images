@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System.Collections.Generic;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal interface IBuildPathProvider
     {
         [NotNull] IEnumerable<INode<IArtifact>> GetPath([NotNull] IGraph<IArtifact, Dependency> buildGraph);

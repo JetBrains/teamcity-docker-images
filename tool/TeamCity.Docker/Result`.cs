@@ -1,8 +1,8 @@
-﻿using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
-    internal struct Result<T>
+    using IoC;
+
+    internal readonly struct Result<T>
     {
         [CanBeNull] public readonly T Value;
         public readonly Result State;

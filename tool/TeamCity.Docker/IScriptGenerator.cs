@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal interface IScriptGenerator
     {
-        IEnumerable<string> GenerateScript(IGraph<IArtifact, Dependency> graph, INode<IArtifact> node, Func<IArtifact, bool> artifactSelector);
+        [NotNull] IEnumerable<string> GenerateScript([NotNull] IGraph<IArtifact, Dependency> graph, [NotNull] INode<IArtifact> node, [NotNull] Func<IArtifact, bool> artifactSelector);
     }
 }

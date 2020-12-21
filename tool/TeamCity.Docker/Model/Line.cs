@@ -4,7 +4,7 @@ using IoC;
 
 namespace TeamCity.Docker.Model
 {
-    internal struct Line
+    internal readonly struct Line
     {
         [NotNull] public readonly string Text;
         public readonly LineType Type;

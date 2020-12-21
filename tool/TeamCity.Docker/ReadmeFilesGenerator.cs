@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal class ReadmeFilesGenerator : IGenerator
     {
-        private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
+        private static readonly Dependency GenerateDependency = new(DependencyType.Generate);
         [NotNull] private readonly IGenerateOptions _options;
         [NotNull] private readonly IPathService _pathService;
         [NotNull] private readonly IScriptGenerator _scriptGenerator;
@@ -26,7 +26,7 @@ namespace TeamCity.Docker
             _scriptGenerator = scriptGenerator ?? throw new ArgumentNullException(nameof(scriptGenerator));
         }
 
-        public void Generate([NotNull] IGraph<IArtifact, Dependency> graph)
+        public void Generate(IGraph<IArtifact, Dependency> graph)
         {
             if (graph == null) throw new ArgumentNullException(nameof(graph));
 

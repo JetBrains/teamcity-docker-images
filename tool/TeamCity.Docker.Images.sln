@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.Docker", "TeamCity.Docker\TeamCity.Docker.csproj", "{323F43A3-0CFF-4B46-902E-F112E4597626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamCity.Docker.Tests", "TeamCity.Docker.Tests\TeamCity.Docker.Tests.csproj", "{180DCF47-666C-4302-89FA-8AA134E3FCCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamCity.Docker.Tests", "TeamCity.Docker.Tests\TeamCity.Docker.Tests.csproj", "{180DCF47-666C-4302-89FA-8AA134E3FCCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

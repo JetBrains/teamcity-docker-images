@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IoC;
-
-namespace TeamCity.Docker.Generic
+﻿namespace TeamCity.Docker.Generic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using IoC;
+
     internal class Graph<TNode, TLink> : IGraph<TNode, TLink>
     {
         [NotNull] private readonly IEqualityComparer<TNode> _nodeComparer;
@@ -87,7 +87,7 @@ namespace TeamCity.Docker.Generic
 
             foreach (var link in Links)
             {
-                if (newNodes.TryGetValue(link.From, out var newFrom) && newNodes.TryGetValue(link.To, out var newTo))
+                if (newNodes.TryGetValue(link.From, out _) && newNodes.TryGetValue(link.To, out _))
                 {
                     clone.TryAddLink(newNodes[link.From], link.Value, newNodes[link.To], out var _);
                 }
@@ -223,7 +223,7 @@ namespace TeamCity.Docker.Generic
                 }
 
                 _linkComparer = linkComparer ?? throw new ArgumentNullException(nameof(linkComparer));
-                From = from ?? throw new ArgumentNullException(nameof(@from));
+                From = from ?? throw new ArgumentNullException(nameof(from));
                 To = to ?? throw new ArgumentNullException(nameof(to));
                 Value = value;
             }

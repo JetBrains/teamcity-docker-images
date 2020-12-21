@@ -1,14 +1,13 @@
-﻿using System;
-using System.Buffers;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using IoC;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Buffers;
+    using System.IO;
+    using System.Text;
+    using System.Threading.Tasks;
+    using IoC;
+
     internal class StreamService : IStreamService
     {
         private readonly ILogger _logger;
@@ -43,7 +42,7 @@ namespace TeamCity.Docker
                         break;
                     }
 
-                    targetStream.Write(buffer, 0, bytes);
+                    await targetStream.WriteAsync(buffer, 0, bytes);
                 }
                 catch (Exception ex)
                 {
@@ -67,17 +66,15 @@ namespace TeamCity.Docker
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            using (var streamReader = new StreamReader(source, Encoding.UTF8))
+            using var streamReader = new StreamReader(source, Encoding.UTF8);
+            do
             {
-                do
+                var line = streamReader.ReadLine();
+                if (line != null)
                 {
-                    var line = streamReader.ReadLine();
-                    if (line != null)
-                    {
-                        handler(line);
-                    }
-                } while (!streamReader.EndOfStream);
-            }
+                    handler(line);
+                }
+            } while (!streamReader.EndOfStream);
         }
     }
 }

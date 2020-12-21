@@ -1,10 +1,11 @@
-﻿using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using Generic;
+    using IoC;
+    using Model;
+
     internal interface IGenerator
     {
-        void Generate(IGraph<IArtifact, Dependency> graph);
+        void Generate([NotNull] IGraph<IArtifact, Dependency> graph);
     }
 }

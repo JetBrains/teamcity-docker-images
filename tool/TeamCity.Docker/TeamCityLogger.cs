@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using IoC;
-using JetBrains.TeamCity.ServiceMessages.Write.Special;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using IoC;
+    using JetBrains.TeamCity.ServiceMessages.Write.Special;
+
     internal class TeamCityLogger: ILogger, IDisposable
     {
         [NotNull] private readonly IOptions _options;
-        private readonly Stack<ITeamCityWriter>_teamCityWriters = new Stack<ITeamCityWriter>();
+        private readonly Stack<ITeamCityWriter>_teamCityWriters = new();
 
         public TeamCityLogger(
             [NotNull] ITeamCityWriter teamCityWriter,

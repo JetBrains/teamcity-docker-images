@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using ICSharpCode.SharpZipLib.Tar;
-using IoC;
-using TeamCity.Docker.Model;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Threading.Tasks;
+    using ICSharpCode.SharpZipLib.Tar;
+    using IoC;
+    using Model;
+
     internal class ContextFactory : IContextFactory
     {
         private readonly IOptions _options;
@@ -49,76 +48,70 @@ namespace TeamCity.Docker
             using (_logger.CreateBlock("Context"))
             {
                 var context = new MemoryStream();
-                using (var archive = new TarOutputStream(context, Encoding.UTF8) {IsStreamOwner = false})
+                await using var archive = new TarOutputStream(context, Encoding.UTF8) {IsStreamOwner = false};
+                var number = 0;
+                if (!string.IsNullOrWhiteSpace(_options.ContextPath))
                 {
-                    var number = 0;
-                    if (!string.IsNullOrWhiteSpace(_options.ContextPath))
+                    var path = Path.GetFullPath(_options.ContextPath);
+                    if (!_fileSystem.IsDirectoryExist(path))
                     {
-                        var path = Path.GetFullPath(_options.ContextPath);
-                        if (!_fileSystem.IsDirectoryExist(path))
-                        {
-                            throw new InvalidOperationException($"The docker build context directory \"{path}\" does not exist.");
-                        }
-
-                        foreach (var file in _fileSystem.EnumerateFileSystemEntries(path))
-                        {
-                            if (!_fileSystem.IsFileExist(file))
-                            {
-                                continue;
-                            }
-
-                            number++;
-                            using (var fileStream = _fileSystem.OpenRead(file))
-                            {
-                                var filePathInArchive = _pathService.Normalize(Path.GetRelativePath(path, file));
-                                var result = await AddEntry(archive, filePathInArchive, fileStream);
-                                _logger.Details($"{number:0000} \"{filePathInArchive}\" was added."); 
-                                if (result == Result.Error)
-                                {
-                                    return new Result<Stream>(new MemoryStream(), Result.Error);
-                                }
-                            }
-                        }
-
-                        _logger.Log($"{number} files were added to docker build context from the directory \"{_options.ContextPath}\" (\"{path}\").");
-                    }
-                    else
-                    {
-                        _logger.Log("The path for docker build context was not defined.", Result.Warning);
+                        throw new InvalidOperationException($"The docker build context directory \"{path}\" does not exist.");
                     }
 
-                    number = 0;
-                    using (_logger.CreateBlock("Docker files"))
+                    foreach (var file in _fileSystem.EnumerateFileSystemEntries(path))
                     {
-                        foreach (var dockerfile in dockerFiles)
+                        if (!_fileSystem.IsFileExist(file))
                         {
-                            number++;
-                            var dockerFilePathInArchive = _pathService.Normalize(Path.Combine(dockerFilesRootPath, dockerfile.Path));
-                            using (var dockerFileStream = new MemoryStream())
-                            {
-                                using(var writer = new StreamWriter(dockerFileStream, Encoding.UTF8, 0xff, true))
-                                {
-                                    foreach (var line in dockerfile.Lines)
-                                    {
-                                        writer.WriteLine(line.Text);
-                                    }
-                                }
+                            continue;
+                        }
 
-                                dockerFileStream.Position = 0;
-                                var result = await AddEntry(archive, dockerFilePathInArchive, dockerFileStream);
-                                if (result == Result.Error)
-                                {
-                                    return new Result<Stream>(new MemoryStream(), Result.Error);
-                                }
-
-                                _logger.Log($"{number:0000} \"{dockerFilePathInArchive}\" was added ({dockerFileStream.Length} bytes).");
-                            }
+                        number++;
+                        await using var fileStream = _fileSystem.OpenRead(file);
+                        var filePathInArchive = _pathService.Normalize(Path.GetRelativePath(path, file));
+                        var result = await AddEntry(archive, filePathInArchive, fileStream);
+                        _logger.Details($"{number:0000} \"{filePathInArchive}\" was added."); 
+                        if (result == Result.Error)
+                        {
+                            return new Result<Stream>(new MemoryStream(), Result.Error);
                         }
                     }
 
-                    archive.Close();
-                    return new Result<Stream>(context);
+                    _logger.Log($"{number} files were added to docker build context from the directory \"{_options.ContextPath}\" (\"{path}\").");
                 }
+                else
+                {
+                    _logger.Log("The path for docker build context was not defined.", Result.Warning);
+                }
+
+                number = 0;
+                using (_logger.CreateBlock("Docker files"))
+                {
+                    foreach (var dockerfile in dockerFiles)
+                    {
+                        number++;
+                        var dockerFilePathInArchive = _pathService.Normalize(Path.Combine(dockerFilesRootPath, dockerfile.Path));
+                        await using var dockerFileStream = new MemoryStream();
+                        await using(var writer = new StreamWriter(dockerFileStream, Encoding.UTF8, 0xff, true))
+                        {
+                            foreach (var line in dockerfile.Lines)
+                            {
+                                await writer.WriteLineAsync(line.Text);
+                            }
+                        }
+
+                        dockerFileStream.Position = 0;
+                        var result = await AddEntry(archive, dockerFilePathInArchive, dockerFileStream);
+                        if (result == Result.Error)
+                        {
+                            return new Result<Stream>(new MemoryStream(), Result.Error);
+                        }
+
+                        _logger.Log($"{number:0000} \"{dockerFilePathInArchive}\" was added ({dockerFileStream.Length} bytes).");
+                    }
+                }
+
+                archive.Close();
+                return new Result<Stream>(context);
             }
         }
 

@@ -1,9 +1,9 @@
-﻿using System;
-using IoC;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
-    internal struct Variable
+    using System;
+    using IoC;
+
+    internal readonly struct Variable
     {
         [NotNull] public readonly string Name;
         [NotNull] public readonly string Value;

@@ -1,7 +1,7 @@
-﻿using IoC;
-
-namespace TeamCity.Docker.Generic
+﻿namespace TeamCity.Docker.Generic
 {
+    using IoC;
+
     interface ILink<out TNode, out TLink>
     {
         [NotNull] INode<TNode> From { get; }

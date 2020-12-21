@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IoC;
-
-namespace TeamCity.Docker.Generic
+﻿namespace TeamCity.Docker.Generic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using IoC;
+
     internal static class GraphExtensions
     {
         public static IEnumerable<ILink<TNode, TLink>>[,] ToAdjacencyMatrix<TNode, TLink>([NotNull] this IGraph<TNode, TLink> graph)

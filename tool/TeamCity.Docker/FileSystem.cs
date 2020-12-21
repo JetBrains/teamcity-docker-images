@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
     internal class FileSystem : IFileSystem
     {
         public string UniqueName =>
@@ -77,7 +77,7 @@ namespace TeamCity.Docker
                 throw new ArgumentNullException(nameof(content));
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? ".");
             File.WriteAllText(path, content);
         }
 
@@ -93,7 +93,7 @@ namespace TeamCity.Docker
                 throw new ArgumentNullException(nameof(lines));
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? ".");
             File.WriteAllLines(path, lines);
         }
 

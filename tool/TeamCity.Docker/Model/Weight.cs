@@ -1,6 +1,6 @@
 ﻿namespace TeamCity.Docker.Model
 {
-    internal struct Weight
+    internal readonly struct Weight
     {
         public static readonly Weight Empty = new Weight(0);
 

@@ -1,16 +1,15 @@
 ﻿// ReSharper disable ClassNeverInstantiated.Global
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using IoC;
-using TeamCity.Docker.Generic;
-using TeamCity.Docker.Model;
-
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Generic;
+    using IoC;
+    using Model;
+
     internal class GenerateCommand: ICommand<IGenerateOptions>
     {
         private readonly ILogger _logger;

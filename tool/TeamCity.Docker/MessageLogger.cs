@@ -1,13 +1,12 @@
-﻿using System;
-using System.Text;
-using Docker.DotNet.Models;
-using IoC;
-using Newtonsoft.Json;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Text;
+    using global::Docker.DotNet.Models;
+    using IoC;
+    using Newtonsoft.Json;
+
     internal class MessageLogger : IMessageLogger
     {
         private readonly ILogger _logger;

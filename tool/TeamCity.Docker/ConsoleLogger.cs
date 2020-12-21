@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
-using IoC;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Linq;
+    using IoC;
+
     internal class ConsoleLogger : ILogger, IDisposable
     {
         [NotNull] private readonly IOptions _options;
-        private readonly object _lockObject = new object();
+        private readonly object _lockObject = new();
         private int _blockCount;
 
         public ConsoleLogger(

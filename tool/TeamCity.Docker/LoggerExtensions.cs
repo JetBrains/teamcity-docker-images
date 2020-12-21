@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
+    using System;
+    using System.Text;
+    using IoC;
+
     internal static class LoggerExtensions
     {
         public static void Log([NotNull] this ILogger logger, [NotNull] Exception error, bool detailed = true, [NotNull] string message = "")

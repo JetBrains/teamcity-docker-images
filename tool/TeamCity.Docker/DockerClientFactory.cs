@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using Docker.DotNet;
-using IoC;
-
-// ReSharper disable ClassNeverInstantiated.Global
-
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using global::Docker.DotNet;
+    using IoC;
+
     internal class DockerClientFactory : IDockerClientFactory
     {
         private readonly ILogger _logger;
@@ -27,6 +26,7 @@ namespace TeamCity.Docker
             var engineEndpoint = _options.DockerEngineEndpoint;
             if (string.IsNullOrWhiteSpace(engineEndpoint))
             {
+                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                 if ((environment ?? throw new ArgumentNullException(nameof(environment))).IsOSPlatform(OSPlatform.Windows))
                 {
                     _endpoints.Add(new Uri("npipe://./pipe/docker_engine"));

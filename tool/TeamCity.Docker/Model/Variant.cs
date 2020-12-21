@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using IoC;
-
-namespace TeamCity.Docker.Model
+﻿namespace TeamCity.Docker.Model
 {
-    internal struct Variant
+    using System;
+    using System.Collections.Generic;
+    using IoC;
+
+    internal readonly struct Variant
     {
         [NotNull] public readonly string BuildPath;
         [NotNull] public readonly string ConfigFile;

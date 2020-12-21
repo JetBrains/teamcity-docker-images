@@ -1,9 +1,9 @@
-﻿using System;
-using IoC;
-
-namespace TeamCity.Docker
+﻿namespace TeamCity.Docker
 {
-    internal struct NodesDescription
+    using System;
+    using IoC;
+
+    internal readonly struct NodesDescription
     {
         [NotNull] public readonly string Name;
         [NotNull] public readonly string Platform;
