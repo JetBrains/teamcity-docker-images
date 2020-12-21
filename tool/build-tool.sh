@@ -19,4 +19,4 @@ case $(uname | tr '[:upper:]' '[:lower:]') in
     ;;
 esac
 
-bash $(dirname "$0")/sdk.sh dotnet publish "tool/TeamCity.Docker/TeamCity.Docker.csproj" -f netcoreapp3.1 -c release -r $RID --nologo -o bin /p:PublishSingleFile=true
+bash $(dirname "$0")/sdk.sh dotnet publish "tool/TeamCity.Docker/TeamCity.Docker.csproj" -f net5.0 -c release -r $RID --nologo -o bin /p:PublishSingleFile=true
