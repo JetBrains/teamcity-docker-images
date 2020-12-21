@@ -49,7 +49,7 @@ namespace TeamCity.Docker
             using (_logger.CreateBlock("Context"))
             {
                 var context = new MemoryStream();
-                using (var archive = new TarOutputStream(context) {IsStreamOwner = false})
+                using (var archive = new TarOutputStream(context, Encoding.UTF8) {IsStreamOwner = false})
                 {
                     var number = 0;
                     if (!string.IsNullOrWhiteSpace(_options.ContextPath))
