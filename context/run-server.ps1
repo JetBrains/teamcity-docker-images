@@ -13,7 +13,7 @@ Write-Host @"
 # Setting default values if variables not present
 $TEAMCITY_DIST = coalesce $Env:TEAMCITY_DIST 'C:\TeamCity'
 $TEAMCITY_CONTEXT = coalesce $Env:TEAMCITY_CONTEXT 'ROOT'
-$TEAMCITY_SERVER_XML = ('-config {0}\conf\server.xml' -f $TEAMCITY_DIST)
+$TEAMCITY_SERVER_XML = ('{0}\conf\server.xml' -f $TEAMCITY_DIST)
 $TEAMCITY_STOP_WAIT_TIME = coalesce $Env:TEAMCITY_STOP_WAIT_TIME 60
 $TEAMCITY_SERVER_SCRIPT = ('{0}\bin\teamcity-server.bat' -f $TEAMCITY_DIST)
 $Env:TEAMCITY_LOGS = coalesce $Env:TEAMCITY_LOGS ('{0}\logs' -f $TEAMCITY_DIST)
@@ -32,7 +32,7 @@ if ($TEAMCITY_CONTEXT -ne 'ROOT') {
 }
 
 if ($Env:TEAMCITY_HTTPS_PROXY_ENABLED -eq 'true') {
-    $TEAMCITY_SERVER_XML = ('-config {0}\conf\server-https-proxy.xml' -f $TEAMCITY_DIST)
+    $TEAMCITY_SERVER_XML = ('{0}\conf\server-https-proxy.xml' -f $TEAMCITY_DIST)
     Write-Host "Proxy is enabled."
 }
 
@@ -43,5 +43,5 @@ Trap {
 }
 
 # Start and wait for exit
-&$TEAMCITY_SERVER_SCRIPT run $TEAMCITY_SERVER_XML
+&$TEAMCITY_SERVER_SCRIPT run "-config" $TEAMCITY_SERVER_XML
 exit $LastExitCode
