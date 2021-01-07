@@ -29,6 +29,9 @@ if [ "$PERMISSION_PROBLEM" = "1" ]; then
     A quick workaround: pass '-u 0' parameter to 'docker run' command to start it under 'root' user.
     The proper fix: run 'chown -R 1000:1000' on the corresponding volume(s), this can take noticeable time.
 
+    If the problem persists after the permission fix, please check that the corresponding volume(s)
+    are not used by stale stopped Docker containers ("docker container prune" command may help).
+
 END
     exit 1
 fi
