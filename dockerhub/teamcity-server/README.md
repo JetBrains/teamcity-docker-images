@@ -34,12 +34,23 @@ where
 
 If you need to run a Linux-based container with non-root permissions (for example, when using some open source container application platforms), set the server's internal user identifier explicitly by passing an additional `-u 1000:1000` parameter. Note that after switching to a non-root user you might not be able to perform writing operations on files created under the root user. In this case, run `chown -R 1000:1000 <directory>` to change the ownership of the directory containing these files.
 
+#### TeamCity behind HTTPS reverse proxy
+
+If TeamCity acts as an endpoint for a reverse proxy server like Nginx or Apache, 
+it should be configured to provide secure cookies to end users.
+
+To achieve that, you can pass an additional 
+`-e TEAMCITY_HTTPS_PROXY_ENABLED=true` parameter to the `docker run` command. With this parameter, TeamCity will be 
+started with an alternative `server-https-proxy.xml` configuration file which enables HTTPS options.
+
+Alternatively, you can use a custom Tomcat configuration (see below).
+                       
 #### Alternative Tomcat configuration
 
 TeamCity has Tomcat J2EE server under the hood, and if you need to provide an alternative configuration for the TomCat, you can use extra parameter
 ```
 -v /alternative/path/to/conf:/opt/teamcity/conf 
-```  
+```
 
 To get a sample of the current contents of the Tomcat's `conf` directory, use the [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) command.
 
