@@ -57,16 +57,6 @@ namespace Scripts
             {
                 try
                 {
-                    if (i > 0)
-                    {
-                        WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
-                        await Task.Delay(delay);
-                    }
-                    else
-                    {
-                        WriteLine("{0}\tdownloading from \"{1}\"", name, sourceUrl);
-                    }
-
                     string[] sourceParts = sourceUrl.Split('#');
                     HashAlgorithm hashAlgorithm = null;
                     string hashAlgorithmName = string.Empty;
@@ -117,6 +107,16 @@ namespace Scripts
                             default:
                                 throw new InvalidOperationException("Invalid hash algorithm: " + hashAlgorithmName);
                         }
+                    }
+
+                    if (i > 0)
+                    {
+                        WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
+                        await Task.Delay(delay);
+                    }
+                    else
+                    {
+                        WriteLine("{0}\tdownloading from \"{1}\"", name, sourceUrl);
                     }
 
                     if (await DownloadFile(name, sourceUrl, destinationFile))
