@@ -1,9 +1,9 @@
 # Default arguments
 ARG dockerComposeLinuxComponentVersion='1.24.1'
 ARG dockerLinuxComponentVersion='5:19.03.13~3-0~ubuntu'
-ARG dotnetLatestLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz'
+ARG dotnetLatestLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.102/dotnet-sdk-5.0.102-linux-x64.tar.gz'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
-ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz'
+ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux-18.04'
