@@ -1,15 +1,16 @@
 # Default arguments
 ARG dockerComposeLinuxComponentVersion='1.24.1'
 ARG dockerLinuxComponentVersion='5:19.03.13~3-0~ubuntu'
-ARG dotnetLatestLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.102/dotnet-sdk-5.0.102-linux-x64.tar.gz'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz'
+ARG dotnetLinuxComponentSHA512='924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.1-linux'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent
+# ARG dotnetLinuxComponentSHA512
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -41,8 +42,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetLatestLinuxComponent
 ARG dotnetLinuxComponent
+ARG dotnetLinuxComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
@@ -66,10 +67,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetLinuxComponent} --output dotnet.tar.gz && \
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     mkdir -p /usr/share/dotnet && \
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
-    rm dotnet.tar.gz && \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
