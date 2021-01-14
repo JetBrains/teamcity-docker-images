@@ -5,6 +5,7 @@
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG gitWindowsComponent
+# ARG gitWindowsComponentSHA256
 # ARG mercurialWindowsComponentName
 # ARG teamcityMinimalAgentImage
 
@@ -35,12 +36,13 @@ ARG dotnetWindowsComponentSHA512
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 ARG gitWindowsComponent
+ARG gitWindowsComponentSHA256
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
 # Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \

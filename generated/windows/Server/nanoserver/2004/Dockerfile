@@ -1,5 +1,6 @@
 # Default arguments
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
+ARG gitWindowsComponentSHA256='6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3'
 ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/11.0.9.11.2/amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip'
 ARG jdkServerWindowsComponentMD5SUM='9757ebcd8094b4d7040886b2c98bcf37'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:2004'
@@ -11,6 +12,7 @@ ARG windowsBuild='2004'
 # ARG jdkServerWindowsComponent
 # ARG jdkServerWindowsComponentMD5SUM
 # ARG gitWindowsComponent
+# ARG gitWindowsComponentSHA256
 # ARG windowsBuild
 # ARG powershellImage
 
@@ -25,11 +27,12 @@ ARG jdkServerWindowsComponent
 ARG jdkServerWindowsComponentMD5SUM
 
 ARG gitWindowsComponent
+ARG gitWindowsComponentSHA256
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
     iex $downloadScript ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \

@@ -3,6 +3,7 @@
 # ARG jdkServerWindowsComponent
 # ARG jdkServerWindowsComponentMD5SUM
 # ARG gitWindowsComponent
+# ARG gitWindowsComponentSHA256
 # ARG windowsBuild
 # ARG powershellImage
 
@@ -29,11 +30,12 @@ ARG jdkServerWindowsComponentMD5SUM
 
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
+ARG gitWindowsComponentSHA256
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
     iex $downloadScript ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
