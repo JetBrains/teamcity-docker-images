@@ -1,11 +1,11 @@
 # Default arguments
 ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz'
-ARG jdkLinuxMD5SUM='9b9889f6907274aee4814d134beb22d9'
+ARG jdkLinuxComponentMD5SUM='9b9889f6907274aee4814d134beb22d9'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
 # ARG jdkLinuxComponent
-# ARG jdkLinuxMD5SUM
+# ARG jdkLinuxComponentMD5SUM
 # ARG ubuntuImage
 
 
@@ -24,11 +24,11 @@ RUN apt-get update && \
     useradd -m buildagent
 
 ARG jdkLinuxComponent
-ARG jdkLinuxMD5SUM
+ARG jdkLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkLinuxComponent}; \
-    echo "${jdkLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \

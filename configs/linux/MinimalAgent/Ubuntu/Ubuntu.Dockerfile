@@ -1,6 +1,6 @@
 # The list of required arguments
 # ARG jdkLinuxComponent
-# ARG jdkLinuxMD5SUM
+# ARG jdkLinuxComponentMD5SUM
 # ARG ubuntuImage
 
 # Id teamcity-minimal-agent
@@ -29,11 +29,11 @@ RUN apt-get update && \
 
 # Install [${jdkLinuxComponentName}](${jdkLinuxComponent})
 ARG jdkLinuxComponent
-ARG jdkLinuxMD5SUM
+ARG jdkLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkLinuxComponent}; \
-    echo "${jdkLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \

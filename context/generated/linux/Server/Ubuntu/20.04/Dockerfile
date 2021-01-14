@@ -1,12 +1,12 @@
 # Default arguments
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz'
-ARG jdkServerLinuxMD5SUM='aecee89c6817a26c74587c69cc5c2967'
+ARG jdkServerLinuxComponentMD5SUM='aecee89c6817a26c74587c69cc5c2967'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
 # ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxMD5SUM
+# ARG jdkServerLinuxComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 
@@ -27,11 +27,11 @@ RUN apt-get update && \
 # JDK preparation start
 
 ARG jdkServerLinuxComponent
-ARG jdkServerLinuxMD5SUM
+ARG jdkServerLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \

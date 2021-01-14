@@ -1,6 +1,6 @@
 # The list of required arguments
 # ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxMD5SUM
+# ARG jdkServerLinuxComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 
@@ -31,11 +31,11 @@ RUN apt-get update && \
 
 # Install [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
 ARG jdkServerLinuxComponent
-ARG jdkServerLinuxMD5SUM
+ARG jdkServerLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
