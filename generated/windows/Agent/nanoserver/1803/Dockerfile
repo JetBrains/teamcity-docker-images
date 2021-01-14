@@ -4,7 +4,6 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:local-windowsservercore-1803'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion
-# ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage

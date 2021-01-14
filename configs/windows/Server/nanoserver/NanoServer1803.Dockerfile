@@ -1,9 +1,10 @@
 # The list of required arguments
 # ARG powershellImage
-# ARG jdkWindowsComponent
+# ARG jdkServerWindowsComponent
 # ARG gitWindowsComponent
 # ARG windowsBuild
 # ARG powershellImage
+# ARG jdkServerWindowsComponent
 
 # Id teamcity-server
 # Tag ${versionTag}-${tag}

@@ -1,6 +1,8 @@
 # The list of required arguments
 # ARG jreWindowsComponent
+# ARG jreWindowsComponentMD5SUM
 # ARG jdkWindowsComponent
+# ARG jdkWindowsComponentMD5SUM
 # ARG nanoserverImage
 # ARG powershellImage
 
@@ -26,14 +28,16 @@ COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
 # Install [${jreWindowsComponentName}](${jreWindowsComponent})
 ARG jreWindowsComponent
+ARG jreWindowsComponentMD5SUM
 
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
+ARG jdkWindowsComponentMD5SUM
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent, 'jre.zip', $Env:jdkWindowsComponent, 'jdk.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent + '#MD5#' + $Env:jreWindowsComponentMD5SUM, 'jre.zip', $Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
     iex $downloadScript ; \
     Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \

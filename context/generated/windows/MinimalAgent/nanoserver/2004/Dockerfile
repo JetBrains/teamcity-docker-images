@@ -1,12 +1,16 @@
 # Default arguments
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='244b50667ef3b040191ae4083e3438e7'
 ARG jreWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip'
+ARG jreWindowsComponentMD5SUM='9f63d24e072072b2e7ec94ddb3f594e2'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:2004'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-2004'
 
 # The list of required arguments
 # ARG jreWindowsComponent
+# ARG jreWindowsComponentMD5SUM
 # ARG jdkWindowsComponent
+# ARG jdkWindowsComponentMD5SUM
 # ARG nanoserverImage
 # ARG powershellImage
 
@@ -22,13 +26,15 @@ COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
 ARG jreWindowsComponent
+ARG jreWindowsComponentMD5SUM
 
 ARG jdkWindowsComponent
+ARG jdkWindowsComponentMD5SUM
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent, 'jre.zip', $Env:jdkWindowsComponent, 'jdk.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent + '#MD5#' + $Env:jreWindowsComponentMD5SUM, 'jre.zip', $Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
     iex $downloadScript ; \
     Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \

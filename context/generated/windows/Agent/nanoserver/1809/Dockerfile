@@ -4,7 +4,6 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1809'
 ARG teamcityWindowsservercoreImage='teamcity-agent:2020.2.1-windowsservercore-1809'
 
 # The list of required arguments
-# ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage
