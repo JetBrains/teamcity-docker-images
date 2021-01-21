@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_windows_2004 : BuildType({
 name = "Build and push windows 2004"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2020.2.1-nanoserver-2004,latest,2020.2.1 teamcity-minimal-agent:2020.2.1-nanoserver-2004,latest,2020.2.1 teamcity-agent:2020.2.1-windowsservercore-2004,2020.2.1-windowsservercore,latest-windowsservercore:2020.2.1-nanoserver-2004,latest,2020.2.1"
+description  = "teamcity-server:EAP-nanoserver-2004,EAP teamcity-minimal-agent:EAP-nanoserver-2004,EAP teamcity-agent:EAP-windowsservercore-2004,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-2004,EAP"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -41,7 +41,7 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
 }
 
 script {
-name = "context teamcity-server:2020.2.1-nanoserver-2004"
+name = "context teamcity-server:EAP-nanoserver-2004"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/buildAgent >> context/.dockerignore
@@ -50,21 +50,21 @@ echo TeamCity/temp >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-server:2020.2.1-nanoserver-2004"
+name = "build teamcity-server:EAP-nanoserver-2004"
 commandType = build {
 source = file {
 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:2020.2.1-nanoserver-2004
+teamcity-server:EAP-nanoserver-2004
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-minimal-agent:2020.2.1-nanoserver-2004"
+name = "context teamcity-minimal-agent:EAP-nanoserver-2004"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -74,21 +74,21 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:2020.2.1-nanoserver-2004"
+name = "build teamcity-minimal-agent:EAP-nanoserver-2004"
 commandType = build {
 source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:2020.2.1-nanoserver-2004
+teamcity-minimal-agent:EAP-nanoserver-2004
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-agent:2020.2.1-windowsservercore-2004"
+name = "context teamcity-agent:EAP-windowsservercore-2004"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -98,21 +98,21 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.2.1-windowsservercore-2004"
+name = "build teamcity-agent:EAP-windowsservercore-2004"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.2.1-windowsservercore-2004
+teamcity-agent:EAP-windowsservercore-2004
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-agent:2020.2.1-nanoserver-2004"
+name = "context teamcity-agent:EAP-nanoserver-2004"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -122,86 +122,86 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-agent:2020.2.1-nanoserver-2004"
+name = "build teamcity-agent:EAP-nanoserver-2004"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2020.2.1-nanoserver-2004
+teamcity-agent:EAP-nanoserver-2004
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "tag teamcity-server:2020.2.1-nanoserver-2004"
+name = "tag teamcity-server:EAP-nanoserver-2004"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2020.2.1-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.1-nanoserver-2004"
+commandArgs = "teamcity-server:EAP-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2020.2.1-nanoserver-2004"
+name = "tag teamcity-minimal-agent:EAP-nanoserver-2004"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2020.2.1-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004"
+commandArgs = "teamcity-minimal-agent:EAP-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.2.1-windowsservercore-2004"
+name = "tag teamcity-agent:EAP-windowsservercore-2004"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2.1-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-windowsservercore-2004"
+commandArgs = "teamcity-agent:EAP-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2020.2.1-nanoserver-2004"
+name = "tag teamcity-agent:EAP-nanoserver-2004"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2020.2.1-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004"
+commandArgs = "teamcity-agent:EAP-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2020.2.1-nanoserver-2004"
+name = "push teamcity-server:EAP-nanoserver-2004"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2020.2.1-nanoserver-2004"
+name = "push teamcity-minimal-agent:EAP-nanoserver-2004"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.2.1-windowsservercore-2004"
+name = "push teamcity-agent:EAP-windowsservercore-2004"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-windowsservercore-2004
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2020.2.1-nanoserver-2004"
+name = "push teamcity-agent:EAP-nanoserver-2004"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.1-nanoserver-2004
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
 removeImageAfterPush = false
 }
