@@ -129,7 +129,7 @@ You can customize the image via the usual Docker procedure:
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \
     --name="my-customized-agent"  \
-    jetbrains/teamcity-agent-minimal  \
+    jetbrains/teamcity-minimal-agent  \
 ```
 2. Enter the container
 ```
