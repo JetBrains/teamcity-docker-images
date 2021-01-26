@@ -1,6 +1,6 @@
 # Default arguments
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
-ARG teamcityWindowsservercoreImage='teamcity-agent:2020.2.1-windowsservercore-1803'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2020.2.2-windowsservercore-1803'
 
 # The list of required arguments
 # ARG dotnetCoreWindowsComponentVersion

@@ -1,7 +1,7 @@
 # Default arguments
 ARG dotnetLatestLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.102/dotnet-sdk-5.0.102-linux-x64.tar.gz'
 ARG dotnetLatestLinuxComponentSHA512='0ce2d5365ca39808fb71baec4584d4ec786491c3735543dc93244604ea97e242377d0987cd8b1e529258dee68f203b5780559201e7ea6d84487d6d8d433329b3'
-ARG teamcityAgentImage='jetbrains/teamcity-agent:2020.2.1-linux-sudo'
+ARG teamcityAgentImage='jetbrains/teamcity-agent:2020.2.2-linux-sudo'
 
 # The list of required arguments
 # ARG dotnetLatestLinuxComponent
