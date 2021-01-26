@@ -559,7 +559,7 @@ namespace TeamCity.Docker
                 }
                 else
                 {
-                    yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+                    yield return "{\nreuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
                 }
             }
 
