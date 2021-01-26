@@ -110,6 +110,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsserver
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
+reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
