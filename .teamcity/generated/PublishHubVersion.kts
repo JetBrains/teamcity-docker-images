@@ -131,7 +131,6 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 dependencies {
 snapshot(AbsoluteId("TC2020_2_BuildDistDocker"))
 {
-reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
