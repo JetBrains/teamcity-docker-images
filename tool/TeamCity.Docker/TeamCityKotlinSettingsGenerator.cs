@@ -359,7 +359,7 @@ namespace TeamCity.Docker
                 yield return $"noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
             }
 
-            yield return $"equals(\"docker.server.osType\", \"{platform}\")";
+            yield return $"contains(\"docker.server.osType\", \"{platform}\")";
             yield return "}";
         }
 
