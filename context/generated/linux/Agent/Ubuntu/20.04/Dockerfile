@@ -6,7 +6,7 @@ ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1
 ARG dotnetLinuxComponentSHA512='924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.2-linux'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.3-linux'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent

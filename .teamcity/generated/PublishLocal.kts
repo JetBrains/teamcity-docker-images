@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -86,94 +86,94 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.bui
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2020.2.2"
+name = "manifest create teamcity-server:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2020.2.2"
+name = "manifest push teamcity-server:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2"
+commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2020.2.2"
+name = "manifest inspect teamcity-server:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.2 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.2.2"
+name = "manifest create teamcity-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.2.2"
+name = "manifest push teamcity-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2"
+commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.2.2"
+name = "manifest inspect teamcity-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent:2020.2.2"
+name = "manifest create teamcity-minimal-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-minimal-agent:2020.2.2"
+name = "manifest push teamcity-minimal-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2"
+commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:2020.2.2"
+name = "manifest inspect teamcity-minimal-agent:2020.2.3"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.2 --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2020.2.2-windowsservercore"
+name = "manifest create teamcity-agent:2020.2.3-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2020.2.2-windowsservercore"
+name = "manifest push teamcity-agent:2020.2.3-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore"
+commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2020.2.2-windowsservercore"
+name = "manifest inspect teamcity-agent:2020.2.3-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore --verbose"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore --verbose"
 }
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.2-windowsservercore-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-windowsservercore-2004"
 }
 }
 dockerCommand {
@@ -219,7 +219,7 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_774"
 }
 }
 }
