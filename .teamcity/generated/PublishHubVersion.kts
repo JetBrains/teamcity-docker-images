@@ -129,7 +129,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC2020_2_BuildDistDocker"))
+snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
 reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
@@ -151,7 +151,7 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_774"
 }
 }
 }

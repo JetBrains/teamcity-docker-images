@@ -216,7 +216,7 @@ failBuild = true
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_4022"
+dockerRegistryId = "PROJECT_EXT_774"
 }
 }
 swabra {
@@ -224,7 +224,7 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-dependency(AbsoluteId("TC2020_2_BuildDistDocker")) {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
