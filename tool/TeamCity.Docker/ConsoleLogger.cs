@@ -8,7 +8,7 @@ namespace TeamCity.Docker
     internal class ConsoleLogger : ILogger, IDisposable
     {
         [NotNull] private readonly IOptions _options;
-        private readonly object _lockObject = new();
+        private readonly object _lockObject = new object();
         private int _blockCount;
 
         public ConsoleLogger(

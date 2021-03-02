@@ -11,7 +11,7 @@ namespace TeamCity.Docker
 
     internal class ReadmeFilesGenerator : IGenerator
     {
-        private static readonly Dependency GenerateDependency = new(DependencyType.Generate);
+        private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
         [NotNull] private readonly IGenerateOptions _options;
         [NotNull] private readonly IPathService _pathService;
         [NotNull] private readonly IScriptGenerator _scriptGenerator;

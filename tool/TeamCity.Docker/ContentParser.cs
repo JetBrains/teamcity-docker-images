@@ -11,7 +11,7 @@ namespace TeamCity.Docker
 
     internal class ContentParser : IContentParser
     {
-        private static readonly Regex ArgRegex = new(@"\s*ARG\s+(?<name>\w+)=(?<value>.*)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex ArgRegex = new Regex(@"\s*ARG\s+(?<name>\w+)=(?<value>.*)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Variable[] EmptyVars = new Variable[0];
         private readonly ILogger _logger;
 
