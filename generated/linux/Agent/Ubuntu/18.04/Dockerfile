@@ -1,6 +1,6 @@
 # Default arguments
-ARG dockerComposeLinuxComponentVersion='1.24.1'
-ARG dockerLinuxComponentVersion='5:19.03.13~3-0~ubuntu'
+ARG dockerComposeLinuxComponentVersion='1.28.5'
+ARG dockerLinuxComponentVersion='5:19.03.14~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd'
