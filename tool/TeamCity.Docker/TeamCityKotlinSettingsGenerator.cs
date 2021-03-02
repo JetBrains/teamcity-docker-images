@@ -196,7 +196,7 @@ namespace TeamCity.Docker
             return new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, NormalizeFileName(fileName) + ".kts")), curLines);
         }
 
-        private string NormalizeFileName(string fileName) => new(FixFileName(fileName).ToArray());
+        private string NormalizeFileName(string fileName) => new string(FixFileName(fileName).ToArray());
 
         private IEnumerable<char> FixFileName(IEnumerable<char> chars)
         {

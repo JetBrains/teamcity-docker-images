@@ -9,7 +9,7 @@ namespace TeamCity.Docker
     internal class TeamCityLogger: ILogger, IDisposable
     {
         [NotNull] private readonly IOptions _options;
-        private readonly Stack<ITeamCityWriter>_teamCityWriters = new();
+        private readonly Stack<ITeamCityWriter> _teamCityWriters = new Stack<ITeamCityWriter>();
 
         public TeamCityLogger(
             [NotNull] ITeamCityWriter teamCityWriter,
