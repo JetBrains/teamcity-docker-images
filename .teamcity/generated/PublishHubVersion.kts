@@ -129,7 +129,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2020_2_BuildDistDocker"))
 {
 reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
