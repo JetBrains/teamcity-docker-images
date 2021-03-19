@@ -13,6 +13,6 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_18_04 : BuildType({
 name = "ON PAUSE Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-linux-18.04,EAP teamcity-minimal-agent:EAP-linux-18.04,EAP teamcity-agent:EAP-linux-18.04,EAP:EAP-linux-18.04-sudo"
+description  = "teamcity-server:EAP-linux-raspberrypi-18.04,EAP:EAP-linux-18.04,EAP teamcity-minimal-agent:EAP-linux-raspberrypi-18.04,EAP:EAP-linux-18.04,EAP teamcity-agent:EAP-linux-18.04,EAP:EAP-linux-18.04-sudo"
 })
 

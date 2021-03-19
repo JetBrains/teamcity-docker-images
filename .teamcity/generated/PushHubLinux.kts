@@ -68,6 +68,32 @@ removeImageAfterPush = false
 }
 
 dockerCommand {
+name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04 %docker.deployRepository%teamcity-minimal-agent:EAP-linux-raspberrypi-20.04"
+}
+}
+
+dockerCommand {
+name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-minimal-agent:EAP-linux-raspberrypi-20.04
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 commandType = other {
 subCommand = "pull"
@@ -88,6 +114,32 @@ name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-minimal-agent:EAP-linux
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04 %docker.deployRepository%teamcity-server:EAP-linux-raspberrypi-20.04"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:EAP-linux-raspberrypi-20.04
 """.trimIndent()
 removeImageAfterPush = false
 }
@@ -122,7 +174,7 @@ removeImageAfterPush = false
 }
 features {
 freeDiskSpace {
-requiredSpace = "4gb"
+requiredSpace = "6gb"
 failBuild = true
 }
 dockerSupport {
@@ -136,7 +188,7 @@ forceCleanCheckout = true
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "4gb")
+param("system.teamcity.agent.ensure.free.space", "6gb")
 }
 requirements {
 contains("docker.server.osType", "linux")
