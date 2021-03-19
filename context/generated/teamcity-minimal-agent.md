@@ -13,6 +13,8 @@ When running an image with multi-architecture support, docker will automatically
 
 #### linux
 
+- 5.4
+  - [EAP-linux-raspbian5.4](#EAP-linux-raspbian54)
 - 20.04
   - [EAP-linux](#EAP-linux)
 - 18.04
@@ -154,6 +156,31 @@ echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-18.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### EAP-linux-raspbian5.4
+
+[Dockerfile](linux/MinimalAgent/Raspbian/5.4/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3 Checksum (MD5) 9b9889f6907274aee4814d134beb22d9](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull raspbian:5.4
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/linux/MinimalAgent/Raspbian/5.4/Dockerfile" -t teamcity-minimal-agent:EAP-linux-raspbian5.4 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
