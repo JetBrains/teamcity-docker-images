@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_20_04 : BuildType({
 name = "Build and push linux 20.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-linux-raspberrypi-20.04,EAP:EAP-linux,EAP teamcity-minimal-agent:EAP-linux-raspberrypi-20.04,EAP:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
+description  = "teamcity-server:EAP-linux-arm64-20.04,EAP:EAP-linux,EAP teamcity-minimal-agent:EAP-linux-arm64-20.04,EAP:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -25,7 +25,7 @@ commandArgs = "ubuntu:20.04"
 }
 
 script {
-name = "context teamcity-server:EAP-linux-raspberrypi-20.04"
+name = "context teamcity-server:EAP-linux-arm64-20.04"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/buildAgent >> context/.dockerignore
@@ -34,14 +34,14 @@ echo TeamCity/temp >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-server:EAP-linux-raspberrypi-20.04"
+name = "build teamcity-server:EAP-linux-arm64-20.04"
 commandType = build {
 source = file {
-path = """context/generated/linux/Server/RaspberryPi/20.04/Dockerfile"""
+path = """context/generated/linux/Server/UbuntuARM/20.04/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:EAP-linux-raspberrypi-20.04
+teamcity-server:EAP-linux-arm64-20.04
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
@@ -71,7 +71,7 @@ param("dockerImage.platform", "linux")
 }
 
 script {
-name = "context teamcity-minimal-agent:EAP-linux-raspberrypi-20.04"
+name = "context teamcity-minimal-agent:EAP-linux-arm64-20.04"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -81,14 +81,14 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:EAP-linux-raspberrypi-20.04"
+name = "build teamcity-minimal-agent:EAP-linux-arm64-20.04"
 commandType = build {
 source = file {
-path = """context/generated/linux/MinimalAgent/RaspberryPi/20.04/Dockerfile"""
+path = """context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:EAP-linux-raspberrypi-20.04
+teamcity-minimal-agent:EAP-linux-arm64-20.04
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
@@ -163,10 +163,10 @@ param("dockerImage.platform", "linux")
 }
 
 dockerCommand {
-name = "tag teamcity-server:EAP-linux-raspberrypi-20.04"
+name = "tag teamcity-server:EAP-linux-arm64-20.04"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:EAP-linux-raspberrypi-20.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandArgs = "teamcity-server:EAP-linux-arm64-20.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
 }
 }
 
@@ -179,10 +179,10 @@ commandArgs = "teamcity-server:EAP-linux %docker.buildRepository%teamcity-server
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:EAP-linux-raspberrypi-20.04"
+name = "tag teamcity-minimal-agent:EAP-linux-arm64-20.04"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:EAP-linux-raspberrypi-20.04 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04"
+commandArgs = "teamcity-minimal-agent:EAP-linux-arm64-20.04 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
 }
 }
 
@@ -211,10 +211,10 @@ commandArgs = "teamcity-agent:EAP-linux-sudo %docker.buildRepository%teamcity-ag
 }
 
 dockerCommand {
-name = "push teamcity-server:EAP-linux-raspberrypi-20.04"
+name = "push teamcity-server:EAP-linux-arm64-20.04"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04
 """.trimIndent()
 removeImageAfterPush = false
 }
@@ -231,10 +231,10 @@ removeImageAfterPush = false
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:EAP-linux-raspberrypi-20.04"
+name = "push teamcity-minimal-agent:EAP-linux-arm64-20.04"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-raspberrypi-20.04
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64-20.04
 """.trimIndent()
 removeImageAfterPush = false
 }

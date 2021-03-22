@@ -15,10 +15,10 @@ When running an image with multi-architecture support, docker will automatically
 
 - 20.04
   - [local-linux](#local-linux)
-  - [local-linux-raspberrypi-20.04](#local-linux-raspberrypi-2004)
+  - [local-linux-arm64-20.04](#local-linux-arm64-2004)
 - 18.04
   - [local-linux-18.04](#local-linux-1804)
-  - [local-linux-raspberrypi-18.04](#local-linux-raspberrypi-1804)
+  - [local-linux-arm64-18.04](#local-linux-arm64-1804)
 
 #### windows
 
@@ -41,7 +41,7 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 #### Content
 
 - [local-linux](#local-linux)
-- [local-linux-raspberrypi-20.04](#local-linux-raspberrypi-2004)
+- [local-linux-arm64-20.04](#local-linux-arm64-2004)
 - [local-nanoserver-1809](#local-nanoserver-1809)
 - [local-nanoserver-2004](#local-nanoserver-2004)
 
@@ -74,9 +74,9 @@ docker build -f "generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamci
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### local-linux-raspberrypi-20.04
+### local-linux-arm64-20.04
 
-[Dockerfile](linux/MinimalAgent/RaspberryPi/20.04/Dockerfile)
+[Dockerfile](linux/MinimalAgent/UbuntuARM/20.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
@@ -86,7 +86,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.272.10.3 Checksum (MD5) ${jdkLinuxARM64ComponentMD5SUM}](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.272.10.3 Checksum (MD5) 234149693da218f25a610a363d376bfd](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz)
 
 Container platform: linux
 
@@ -97,7 +97,7 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/RaspberryPi/20.04/Dockerfile" -t teamcity-minimal-agent:local-linux-raspberrypi-20.04 "context"
+docker build -f "generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:local-linux-arm64-20.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
@@ -189,16 +189,16 @@ docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamci
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### local-linux-raspberrypi-18.04
+### local-linux-arm64-18.04
 
-[Dockerfile](linux/MinimalAgent/RaspberryPi/18.04/Dockerfile)
+[Dockerfile](linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.272.10.3 Checksum (MD5) ${jdkLinuxARM64ComponentMD5SUM}](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.272.10.3 Checksum (MD5) 234149693da218f25a610a363d376bfd](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz)
 
 Container platform: linux
 
@@ -209,7 +209,7 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "generated/linux/MinimalAgent/RaspberryPi/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux-raspberrypi-18.04 "context"
+docker build -f "generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
