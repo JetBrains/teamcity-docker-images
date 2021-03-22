@@ -1,16 +1,16 @@
 # Default arguments
-ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz'
-ARG jdkLinuxComponentMD5SUM='9b9889f6907274aee4814d134beb22d9'
-ARG linuxImage='raspbian:5.4'
+ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz'
+ARG jdkLinuxComponentMD5SUM='234149693da218f25a610a363d376bfd'
+ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
 # ARG jdkLinuxComponent
 # ARG jdkLinuxComponentMD5SUM
-# ARG linuxImage
+# ARG ubuntuImage
 
 
 
-FROM ${linuxImage}
+FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 
