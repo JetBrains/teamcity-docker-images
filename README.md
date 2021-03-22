@@ -30,11 +30,19 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - [Details](context/generated/teamcity-server.md)
 - [How to use](dockerhub/teamcity-server/README.md)
 
-### Build images locally
+### To build Docker images that were not provided in docker repositories, you could generate them by yourself
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.
 - Clone this repository.
-- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.1.tar.gz -O - | tar -xz -C context```
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.2.3.tar.gz -O - | tar -xz -C context```
+- Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
+- Generate an image using a coresponding _.cmd_ or _.sh_ script file in [generated](generated) directory.
+
+### To build your custom Docker images or create a pull request
+
+- Ensure [Docker](https://www.docker.com/get-started) installed.
+- Clone this repository.
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.2.3.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
 - Apply required changes in the directory [configs](configs).
 - Generate docker and readme files by running the _generate.sh_ or _generate.cmd_ script. All generated artifacts will be placed into the directory [generated](generated).
