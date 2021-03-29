@@ -47,11 +47,21 @@ ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
+ARG p4Version
 
 RUN apt-get update && \
 # Install ${gitLinuxComponentName}
 # Install Mercurial
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+# Install ${p4Name}
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # Install ${dockerLinuxComponentName}

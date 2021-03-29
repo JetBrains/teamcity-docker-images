@@ -2,6 +2,7 @@
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='aecee89c6817a26c74587c69cc5c2967'
+ARG p4Version='2020.2-2093246'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
@@ -57,8 +58,16 @@ EXPOSE 8111
 
 ARG gitLinuxComponentVersion
 
+ARG p4Version
+
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial gnupg && \
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

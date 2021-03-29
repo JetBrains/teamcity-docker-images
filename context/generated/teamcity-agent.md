@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-minimal-agent](teamcity-minimal-agent.md)
 - [teamcity-server](teamcity-server.md)
+- [teamcity-minimal-agent](teamcity-minimal-agent.md)
 
 #### multi-architecture
 
@@ -80,6 +80,7 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
+- Perforce Helix Core client (p4) [2020.2-2093246](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.405 Checksum (SHA512) 924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz)
@@ -281,6 +282,7 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
+- Perforce Helix Core client (p4) [2020.2-2093246](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.405 Checksum (SHA512) 924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz)
