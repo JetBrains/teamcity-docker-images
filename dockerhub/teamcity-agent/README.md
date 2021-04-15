@@ -79,7 +79,7 @@ Initially, the Docker is stopped inside the container. To run it, pass the `-e D
 
 **NOTE:** both of these options require extra trust to your builds, as a build may get
 **root access** to the host where the TeamCity agent container is running. 
-Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html).  
+Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html) and review the [TeamCity security notes](https://www.jetbrains.com/help/teamcity/security-notes.html).  
 
 1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build might actually harm your host Docker, so use it at your own risk) 
 
