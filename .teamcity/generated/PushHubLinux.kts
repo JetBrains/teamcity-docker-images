@@ -16,104 +16,104 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux-sudo"
+name = "pull teamcity-server%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux-sudo"
+name = "tag teamcity-server%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux-sudo %docker.deployRepository%teamcity-agent:2020.2.3-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.4-linux %docker.deployRepository%teamcity-server:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux-sudo"
+name = "push teamcity-server%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.2.3-linux-sudo
+%docker.deployRepository%teamcity-server:2020.2.4-linux
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.deployRepository%teamcity-agent:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux %docker.deployRepository%teamcity-agent:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "push teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2020.2.3-linux
+%docker.deployRepository%teamcity-agent:2020.2.4-linux
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux-sudo"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux %docker.deployRepository%teamcity-minimal-agent:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux-sudo %docker.deployRepository%teamcity-agent:2020.2.4-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.3-linux"
+name = "push teamcity-agent%docker.buildImagePostfix%:2020.2.4-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-minimal-agent:2020.2.3-linux
+%docker.deployRepository%teamcity-agent:2020.2.4-linux-sudo
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-server%docker.buildImagePostfix%:2020.2.3-linux"
+name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server%docker.buildImagePostfix%:2020.2.3-linux"
+name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2020.2.3-linux %docker.deployRepository%teamcity-server:2020.2.3-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.4-linux %docker.deployRepository%teamcity-minimal-agent:2020.2.4-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server%docker.buildImagePostfix%:2020.2.3-linux"
+name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2020.2.4-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2020.2.3-linux
+%docker.deployRepository%teamcity-minimal-agent:2020.2.4-linux
 """.trimIndent()
 removeImageAfterPush = false
 }
@@ -139,7 +139,7 @@ params {
 param("system.teamcity.agent.ensure.free.space", "4gb")
 }
 requirements {
-contains("docker.server.osType", "linux")
+equals("docker.server.osType", "linux")
 }
 dependencies {
 snapshot(PublishLocal.publish_local)
