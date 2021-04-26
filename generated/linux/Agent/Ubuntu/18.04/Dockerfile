@@ -5,7 +5,7 @@ ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zli
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.405/dotnet-sdk-3.1.405-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5a817bdc6ef71e4d8e87a91edeeb785f5dff3912cc08fe87615718986bb5540ff23e9edf2302e38dd'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
-ARG p4Version='2020.2-2093246'
+ARG p4Version='2020.2-2112800'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux-18.04'
 
