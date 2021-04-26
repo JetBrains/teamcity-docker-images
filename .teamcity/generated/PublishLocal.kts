@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 dockerCommand {

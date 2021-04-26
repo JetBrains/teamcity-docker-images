@@ -119,36 +119,10 @@ removeImageAfterPush = false
 }
 }
 
-dockerCommand {
-name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04 %docker.deployRepository%teamcity-server:EAP-linux-arm64-20.04"
-}
-}
-
-dockerCommand {
-name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-server:EAP-linux-arm64-20.04
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
 }
 features {
 freeDiskSpace {
-requiredSpace = "5gb"
+requiredSpace = "4gb"
 failBuild = true
 }
 dockerSupport {
@@ -162,7 +136,7 @@ forceCleanCheckout = true
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "5gb")
+param("system.teamcity.agent.ensure.free.space", "4gb")
 }
 requirements {
 contains("docker.server.osType", "linux")
