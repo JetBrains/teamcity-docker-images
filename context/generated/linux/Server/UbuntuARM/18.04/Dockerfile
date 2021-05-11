@@ -1,7 +1,7 @@
 # Default arguments
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.8'
-ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-aarch64.tar.gz'
-ARG jdkServerLinuxARM64ComponentMD5SUM='234149693da218f25a610a363d376bfd'
+ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz'
+ARG jdkServerLinuxARM64ComponentMD5SUM='b0b989af7b8635d0dd0724707206b67c'
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
