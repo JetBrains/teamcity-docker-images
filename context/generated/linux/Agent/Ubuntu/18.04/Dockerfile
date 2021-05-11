@@ -7,7 +7,7 @@ ARG dotnetLinuxComponentSHA512='924ec0ab3f126d340ef37fe90263a91f31218995716d1ad5
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
 ARG p4Version='2020.2-2112800'
 ARG repo=''
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2021.1-linux-18.04'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent
