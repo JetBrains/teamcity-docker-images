@@ -1,6 +1,6 @@
 # Default arguments
-ARG dotnetLatestWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.102/dotnet-sdk-5.0.102-win-x64.zip'
-ARG dotnetLatestWindowsComponentSHA512='118056d7c60d9591b0a803fb4f8941b6fa5166553d1deac625279330b05599073231ee4c4ecdc3f179d57261290b6c62ac7f34d5f89c8b06274e2346a069f79b'
+ARG dotnetLatestWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.203/dotnet-sdk-5.0.203-win-x64.zip'
+ARG dotnetLatestWindowsComponentSHA512='762ad53d66b893cb2cdf61540794a4a1e20b127e371f57f912ad8ebd4102aabf32366ebaabfe90aa362c1fae0bec0aa7ac6af35c6c0153fb913cd4c532149238'
 ARG teamcityAgentImage='jetbrains/teamcity-agent:2021.1-nanoserver-1809'
 
 # The list of required arguments
