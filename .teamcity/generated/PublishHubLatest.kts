@@ -23,27 +23,6 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2021.1-linux %docker.deployRepository%teamcity-server:2021.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1-nanoserver-2004"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
@@ -85,10 +64,32 @@ subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --verbose"
 }
 }
+dockerCommand {
+name = "manifest create teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2021.1-linux %docker.deployRepository%teamcity-server:2021.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1-nanoserver-2004"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-server:latest"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
+}
+}
 }
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
+reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
@@ -102,7 +103,7 @@ onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 requirements {
 noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
+contains("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
