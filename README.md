@@ -51,3 +51,8 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.2.3.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
 - Generate an image using a coresponding _.cmd_ or _.sh_ script file in [generated](generated) directory.
+
+### Bugs/issues/problems
+
+Please use [these channels](https://www.jetbrains.com/help/teamcity/feedback.html) to give feedback on these images, thanks!
+
