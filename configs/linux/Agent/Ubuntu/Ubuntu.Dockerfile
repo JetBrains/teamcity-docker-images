@@ -60,7 +60,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io=1.2.13-2 \
+                        containerd.io:amd64=1.4.4-1 \
                         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
