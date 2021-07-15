@@ -1,6 +1,4 @@
 # The list of required arguments
-# ARG jreWindowsComponent
-# ARG jreWindowsComponentMD5SUM
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG nanoserverImage
@@ -26,10 +24,6 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
-# Install [${jreWindowsComponentName}](${jreWindowsComponent})
-ARG jreWindowsComponent
-ARG jreWindowsComponentMD5SUM
-
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
@@ -37,17 +31,10 @@ ARG jdkWindowsComponentMD5SUM
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jreWindowsComponent + '#MD5#' + $Env:jreWindowsComponentMD5SUM, 'jre.zip', $Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
     iex $downloadScript ; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip ; \
-    Expand-Archive jdk.zip -DestinationPath $Env:Temp\JDK ; \
-    Get-ChildItem $Env:Temp\JDK | Rename-Item -NewName "OpenJDK" ; \
-    ('jar.exe', 'jcmd.exe', 'jconsole.exe', 'jmap.exe', 'jstack.exe', 'jps.exe') | foreach { \
-         Copy-Item $Env:Temp\JDK\OpenJDK\bin\$_ $Env:ProgramFiles\Java\OpenJDK\bin\ \
-    } ; \
-    Remove-Item -Force -Recurse $Env:Temp\JDK ; \
     Remove-Item -Force jdk.zip ; \
     (Get-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml).replace('/', '\\') | Set-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml
 

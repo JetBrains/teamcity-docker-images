@@ -1,5 +1,5 @@
 # The list of required arguments
-# ARG dotnetCoreWindowsComponentVersion
+# ARG dotnetWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage
@@ -20,11 +20,10 @@ FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG dotnetCoreWindowsComponentVersion
-ARG dotnetCoreWindowsComponent
+ARG dotnetWindowsComponent
 
-# Install [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
-RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetCoreWindowsComponent; \
+# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetWindowsComponent; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}

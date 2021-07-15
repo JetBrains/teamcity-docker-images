@@ -51,9 +51,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
     $gitPath = $Env:ProgramFiles + '\Git'; \

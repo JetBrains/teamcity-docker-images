@@ -3,8 +3,8 @@ ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3
 ARG dotnetWindowsComponentSHA512='044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
 ARG gitWindowsComponentSHA256='6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='29403acf16a4bb307002820a7797ca64'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='fb4dafb0db003ed28bb977c6e64fd04c'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-nanoserver-1909'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909'
@@ -49,9 +49,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
     $gitPath = $Env:ProgramFiles + '\Git'; \
     Expand-Archive git.zip -DestinationPath $gitPath ; \

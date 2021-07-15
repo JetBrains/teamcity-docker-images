@@ -1,5 +1,4 @@
 # The list of required arguments
-# ARG jreWindowsComponent
 # ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
@@ -24,26 +23,13 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
-# Install [${jreWindowsComponentName}](${jreWindowsComponent})
-ARG jreWindowsComponent
-
-RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jreWindowsComponent -OutFile jre.zip; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
-    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip
-
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Invoke-WebRequest $Env:jdkWindowsComponent -OutFile jdk.zip; \
-    Expand-Archive jdk.zip -DestinationPath $Env:Temp\JDK ; \
-    Get-ChildItem $Env:Temp\JDK | Rename-Item -NewName "OpenJDK" ; \
-    ('jar.exe', 'jcmd.exe', 'jconsole.exe', 'jmap.exe', 'jstack.exe', 'jps.exe') | foreach { \
-         Copy-Item $Env:Temp\JDK\OpenJDK\bin\$_ $Env:ProgramFiles\Java\OpenJDK\bin\ \
-    } ; \
-    Remove-Item -Force -Recurse $Env:Temp\JDK ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
     (Get-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml).replace('/', '\\') | Set-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml
 
