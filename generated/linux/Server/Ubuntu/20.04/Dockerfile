@@ -2,7 +2,7 @@
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.1'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='215116d48da2383aeda03e57aaa0c746'
-ARG p4Version='2021.1-2126753'
+ARG p4Version='2021.1-2156517'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
