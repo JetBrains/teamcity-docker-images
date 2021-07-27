@@ -1,5 +1,5 @@
 #!/bin/bash
 cd ../..
-docker pull jetbrains/teamcity-agent:2021.1.1-linux-sudo
+docker pull jetbrains/teamcity-agent:2021.1.2-linux-sudo
 echo TeamCity > context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/20.04-dotnet/Dockerfile" -t teamcity-agent:linux-dotnet "context"

@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2021.1.1-nanoserver-1809,latest,2021.1.1 teamcity-minimal-agent:2021.1.1-nanoserver-1809,latest,2021.1.1 teamcity-agent:2021.1.1-windowsservercore-1809,2021.1.1-windowsservercore,latest-windowsservercore:2021.1.1-nanoserver-1809,latest,2021.1.1"
+description  = "teamcity-server:2021.1.2-nanoserver-1809,latest,2021.1.2 teamcity-minimal-agent:2021.1.2-nanoserver-1809,latest,2021.1.2 teamcity-agent:2021.1.2-windowsservercore-1809,2021.1.2-windowsservercore,latest-windowsservercore:2021.1.2-nanoserver-1809,latest,2021.1.2"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -41,7 +41,7 @@ commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc
 }
 
 script {
-name = "context teamcity-server:2021.1.1-nanoserver-1809"
+name = "context teamcity-server:2021.1.2-nanoserver-1809"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/buildAgent >> context/.dockerignore
@@ -50,21 +50,21 @@ echo TeamCity/temp >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-server:2021.1.1-nanoserver-1809"
+name = "build teamcity-server:2021.1.2-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Server/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-server:2021.1.1-nanoserver-1809
+teamcity-server:2021.1.2-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-minimal-agent:2021.1.1-nanoserver-1809"
+name = "context teamcity-minimal-agent:2021.1.2-nanoserver-1809"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -74,21 +74,21 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-minimal-agent:2021.1.1-nanoserver-1809"
+name = "build teamcity-minimal-agent:2021.1.2-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-minimal-agent:2021.1.1-nanoserver-1809
+teamcity-minimal-agent:2021.1.2-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-agent:2021.1.1-windowsservercore-1809"
+name = "context teamcity-agent:2021.1.2-windowsservercore-1809"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -98,21 +98,21 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-agent:2021.1.1-windowsservercore-1809"
+name = "build teamcity-agent:2021.1.2-windowsservercore-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/windowsservercore/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2021.1.1-windowsservercore-1809
+teamcity-agent:2021.1.2-windowsservercore-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 script {
-name = "context teamcity-agent:2021.1.1-nanoserver-1809"
+name = "context teamcity-agent:2021.1.2-nanoserver-1809"
 scriptContent = """
 echo 2> context/.dockerignore
 echo TeamCity/webapps >> context/.dockerignore
@@ -122,86 +122,86 @@ echo TeamCity/lib >> context/.dockerignore
 }
 
 dockerCommand {
-name = "build teamcity-agent:2021.1.1-nanoserver-1809"
+name = "build teamcity-agent:2021.1.2-nanoserver-1809"
 commandType = build {
 source = file {
 path = """context/generated/windows/Agent/nanoserver/1809/Dockerfile"""
 }
 contextDir = "context"
 namesAndTags = """
-teamcity-agent:2021.1.1-nanoserver-1809
+teamcity-agent:2021.1.2-nanoserver-1809
 """.trimIndent()
 }
 param("dockerImage.platform", "windows")
 }
 
 dockerCommand {
-name = "tag teamcity-server:2021.1.1-nanoserver-1809"
+name = "tag teamcity-server:2021.1.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2021.1.1-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2021.1.1-nanoserver-1809"
+commandArgs = "teamcity-server:2021.1.2-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2021.1.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2021.1.1-nanoserver-1809"
+name = "tag teamcity-minimal-agent:2021.1.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2021.1.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2021.1.1-nanoserver-1809"
+commandArgs = "teamcity-minimal-agent:2021.1.2-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2021.1.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2021.1.1-windowsservercore-1809"
+name = "tag teamcity-agent:2021.1.2-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2021.1.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.1-windowsservercore-1809"
+commandArgs = "teamcity-agent:2021.1.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.2-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2021.1.1-nanoserver-1809"
+name = "tag teamcity-agent:2021.1.2-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2021.1.1-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.1-nanoserver-1809"
+commandArgs = "teamcity-agent:2021.1.2-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.2-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2021.1.1-nanoserver-1809"
+name = "push teamcity-server:2021.1.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2021.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2021.1.2-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2021.1.1-nanoserver-1809"
+name = "push teamcity-minimal-agent:2021.1.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2021.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2021.1.2-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2021.1.1-windowsservercore-1809"
+name = "push teamcity-agent:2021.1.2-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.1-windowsservercore-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.2-windowsservercore-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2021.1.1-nanoserver-1809"
+name = "push teamcity-agent:2021.1.2-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.1-nanoserver-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2021.1.2-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
