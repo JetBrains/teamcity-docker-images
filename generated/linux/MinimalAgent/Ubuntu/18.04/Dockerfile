@@ -1,6 +1,6 @@
 # Default arguments
-ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-x64.tar.gz'
-ARG jdkLinuxComponentMD5SUM='9d711fdeb9176a96bae0ba276f3f3695'
+ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz'
+ARG jdkLinuxComponentMD5SUM='215116d48da2383aeda03e57aaa0c746'
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
@@ -36,13 +36,13 @@ RUN set -eux; \
     rm -rf /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
-    JRE_HOME=/opt/java/openjdk/jre \
+    JDK_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
 
-RUN update-alternatives --install /usr/bin/java java ${JRE_HOME}/bin/java 1 && \
-    update-alternatives --set java ${JRE_HOME}/bin/java && \
-    update-alternatives --install /usr/bin/javac javac ${JRE_HOME}/../bin/javac 1 && \
-    update-alternatives --set javac ${JRE_HOME}/../bin/javac
+RUN update-alternatives --install /usr/bin/java java ${JDK_HOME}/bin/java 1 && \
+    update-alternatives --set java ${JDK_HOME}/bin/java && \
+    update-alternatives --install /usr/bin/javac javac ${JDK_HOME}/bin/javac 1 && \
+    update-alternatives --set javac ${JDK_HOME}/bin/javac
 
 # JDK preparation end
 ENV CONFIG_FILE=/data/teamcity_agent/conf/buildAgent.properties \

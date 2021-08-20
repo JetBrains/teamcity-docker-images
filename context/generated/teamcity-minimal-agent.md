@@ -57,7 +57,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.292.10.1 Checksum (MD5) 9d711fdeb9176a96bae0ba276f3f3695](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) 215116d48da2383aeda03e57aaa0c746](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -142,7 +142,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.292.10.1 Checksum (MD5) 9d711fdeb9176a96bae0ba276f3f3695](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) 215116d48da2383aeda03e57aaa0c746](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz)
 
 Container platform: linux
 
