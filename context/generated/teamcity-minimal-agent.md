@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-server](teamcity-server.md)
 - [teamcity-agent](teamcity-agent.md)
+- [teamcity-server](teamcity-server.md)
 
 #### multi-architecture
 
@@ -68,6 +68,7 @@ The docker image is available on:
 
 Installed components:
 
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.292.10.1 Checksum (MD5) 9d711fdeb9176a96bae0ba276f3f3695](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-x64.tar.gz)
 
 Container platform: linux
@@ -155,6 +156,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.292.10.1 Checksum (MD5) 9d711fdeb9176a96bae0ba276f3f3695](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-x64.tar.gz)
 
 Container platform: linux
@@ -180,6 +182,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
 
 Container platform: linux
@@ -205,6 +208,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
 
 Container platform: linux

@@ -23,27 +23,6 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:2021.1.2"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2021.1.2 %docker.deployRepository%teamcity-server:2021.1.2-linux %docker.deployRepository%teamcity-server:2021.1.2-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1.2-nanoserver-2004"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:2021.1.2"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:2021.1.2"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:2021.1.2"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:2021.1.2 --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:2021.1.2"
 commandType = other {
 subCommand = "manifest"
@@ -83,6 +62,27 @@ name = "manifest inspect teamcity-minimal-agent:2021.1.2"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2021.1.2 --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-server:2021.1.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-server:2021.1.2 %docker.deployRepository%teamcity-server:2021.1.2-linux %docker.deployRepository%teamcity-server:2021.1.2-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1.2-nanoserver-2004"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2021.1.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-server:2021.1.2"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2021.1.2"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:2021.1.2 --verbose"
 }
 }
 dockerCommand {
@@ -131,6 +131,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsser
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
+reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
@@ -144,7 +145,7 @@ onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 requirements {
 noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
+contains("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
