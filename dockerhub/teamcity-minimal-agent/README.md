@@ -7,7 +7,7 @@ This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) mi
 <img src="https://raw.githubusercontent.com/JetBrains/teamcity-docker-images/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/generated/teamcity-minimal-agent.md).
 
 The [TeamCity build agent](https://www.jetbrains.com/help/teamcity/build-agent.html) connects to the TeamCity server and spawns the actual build processes.
-You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server.
+You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server. To learn how you can start the TeamCity server together with agents in one go, see these [Docker Compose samples](https://github.com/JetBrains/teamcity-docker-samples).
 
 This minimal image adds just a  TeamCity agent without any tools like VCS clients, etc. It is suitable for simple builds and can serve as a base for your custom images. For Java or .NET development we recommend using the default build agent image [jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent/).
 

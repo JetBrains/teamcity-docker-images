@@ -13,8 +13,8 @@ namespace TeamCity.Docker
 
     internal class DockerGraphFactory: IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>>
     {
-        private static readonly Regex ReferenceRegex = new(@"^\s*(?<reference>.+?)(\s+(?<weight>\d+)|)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Dependency GenerateDependency = new(DependencyType.Generate);
+        private static readonly Regex ReferenceRegex = new Regex(@"^\s*(?<reference>.+?)(\s+(?<weight>\d+)|)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
         private const string CommentPrefix = "##";
         private const string IdPrefix = "# Id ";
         private const string TagPrefix = "# Tag ";

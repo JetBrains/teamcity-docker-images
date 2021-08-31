@@ -78,6 +78,8 @@ To use the server for production, make sure to review and apply the [recommendat
 
 You will need at least one TeamCity agent to run builds. Check the [`jetbrains/teamcity-agent`](https://hub.docker.com/r/jetbrains/teamcity-agent/) and [`jetbrains/teamcity-minimal-agent`](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent/) images.
 
+To learn how you can start the TeamCity server together with agents in one go, see these [Docker Compose samples](https://github.com/JetBrains/teamcity-docker-samples).
+
 ## Additional Commands
 
 When you need to pass additional environment variables to the server process, use the regular `-e` option. For example, to pass TEAMCITY_SERVER_MEM_OPTS environment variable, use:

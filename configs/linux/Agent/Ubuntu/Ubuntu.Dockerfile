@@ -1,5 +1,6 @@
 # The list of required arguments
 # ARG dotnetLinuxComponent
+# ARG dotnetLinuxComponentSHA512
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -40,17 +41,27 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetLatestLinuxComponent
 ARG dotnetLinuxComponent
+ARG dotnetLinuxComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
+ARG p4Version
 
 RUN apt-get update && \
 # Install ${gitLinuxComponentName}
 # Install Mercurial
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+# Install ${p4Name}
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # Install ${dockerLinuxComponentName}
@@ -70,10 +81,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetLinuxComponent} --output dotnet.tar.gz && \
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     mkdir -p /usr/share/dotnet && \
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
-    rm dotnet.tar.gz && \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache

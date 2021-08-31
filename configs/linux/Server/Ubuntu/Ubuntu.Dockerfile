@@ -1,6 +1,6 @@
 # The list of required arguments
 # ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxMD5SUM
+# ARG jdkServerLinuxComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 
@@ -31,14 +31,15 @@ RUN apt-get update && \
 
 # Install [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
 ARG jdkServerLinuxComponent
-ARG jdkServerLinuxMD5SUM
+ARG jdkServerLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
+    chown -R root:root /opt/java; \
     rm -rf /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
@@ -61,8 +62,17 @@ EXPOSE 8111
 # Install ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
 
+# Install ${p4Name}
+ARG p4Version
+
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial gnupg && \
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -73,7 +83,7 @@ COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     groupadd -g 1000 tcuser && \
-    useradd -r -u 1000 -g tcuser tcuser && \
+    useradd -r -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \

@@ -1,16 +1,22 @@
 # Default arguments
-ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip'
+ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip'
+ARG dotnetWindowsComponentSHA512='044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip'
+ARG gitWindowsComponentSHA256='6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='fb4dafb0db003ed28bb977c6e64fd04c'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.1-nanoserver-1803'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-nanoserver-1803'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803'
 
 # The list of required arguments
 # ARG windowsservercoreImage
 # ARG dotnetWindowsComponent
+# ARG dotnetWindowsComponentSHA512
 # ARG jdkWindowsComponent
+# ARG jdkWindowsComponentMD5SUM
 # ARG gitWindowsComponent
+# ARG gitWindowsComponentSHA256
 # ARG mercurialWindowsComponentName
 # ARG teamcityMinimalAgentImage
 
@@ -26,23 +32,24 @@ COPY scripts/*.cs /scripts/
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetWindowsComponent
+ARG dotnetWindowsComponentSHA512
 ARG jdkWindowsComponent
+ARG jdkWindowsComponentMD5SUM
 ARG gitWindowsComponent
+ARG gitWindowsComponentSHA256
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent, 'jdk.zip', $Env:gitWindowsComponent, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent, 'dotnet.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\demo -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\sample -Force -Recurse ; \
-    Remove-Item $Env:ProgramFiles\Java\OpenJDK\src.zip -Force ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
     $gitPath = $Env:ProgramFiles + '\Git'; \
     Expand-Archive git.zip -DestinationPath $gitPath ; \

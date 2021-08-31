@@ -1,10 +1,9 @@
 # Default arguments
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1909'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1909'
-ARG teamcityWindowsservercoreImage='teamcity-agent:2020.2.1-windowsservercore-1909'
+ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1909'
 
 # The list of required arguments
-# ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage

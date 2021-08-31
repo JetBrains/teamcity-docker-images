@@ -196,7 +196,7 @@ namespace TeamCity.Docker
             return new FileArtifact(_pathService.Normalize(Path.Combine(_options.TeamCityDslPath, NormalizeFileName(fileName) + ".kts")), curLines);
         }
 
-        private string NormalizeFileName(string fileName) => new(FixFileName(fileName).ToArray());
+        private string NormalizeFileName(string fileName) => new string(FixFileName(fileName).ToArray());
 
         private IEnumerable<char> FixFileName(IEnumerable<char> chars)
         {
@@ -359,7 +359,7 @@ namespace TeamCity.Docker
                 yield return $"noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
             }
 
-            yield return $"equals(\"docker.server.osType\", \"{platform}\")";
+            yield return $"contains(\"docker.server.osType\", \"{platform}\")";
             yield return "}";
         }
 
@@ -559,7 +559,7 @@ namespace TeamCity.Docker
                 }
                 else
                 {
-                    yield return "{\nonDependencyFailure = FailureAction.IGNORE\n}";
+                    yield return "{\nreuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
                 }
             }
 

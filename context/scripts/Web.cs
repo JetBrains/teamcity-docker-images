@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Scripts
@@ -14,7 +18,7 @@ namespace Scripts
 
         public static int DownloadFiles(params string[] args)
         {
-            WriteErrorLine("Network interfaces:");
+            WriteLine("Network interfaces:");
             NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
             foreach (var networkInterface in interfaces)
             {
@@ -35,17 +39,17 @@ namespace Scripts
 
             }
 
-            List<Task> tasks = new List<Task>();
+            List<Task<bool>> tasks = new List<Task<bool>>();
             for (int i = 0; i < args.Length / 2; i++)
             {
                 tasks.Add(DownloadFile(args[i * 2], args[i * 2 + 1], 300, TimeSpan.FromSeconds(10)));
             }
 
             Task.WhenAll(tasks).Wait();
-            return 0;
+            return tasks.All(i => i.Result) ? 0: 1;
         }
 
-        private static async Task DownloadFile(string sourceUrl, string destinationFile, int attempts, TimeSpan delay)
+        private static async Task<bool> DownloadFile(string sourceUrl, string destinationFile, int attempts, TimeSpan delay)
         {
             string name = Path.GetFileName(destinationFile);
             bool success = false;
@@ -53,6 +57,58 @@ namespace Scripts
             {
                 try
                 {
+                    string[] sourceParts = sourceUrl.Split('#');
+                    HashAlgorithm hashAlgorithm = null;
+                    string hashAlgorithmName = string.Empty;
+                    string hashValue = string.Empty;
+                    byte[] hash = null;
+                    if (sourceParts.Length == 3) // has hash
+                    {
+                        sourceUrl = sourceParts[0];
+                        hashAlgorithmName = sourceParts[1].ToUpperInvariant();
+                        hashValue = sourceParts[2].ToLowerInvariant();
+                        try
+                        {
+                            List<byte> hashBytes = new List<byte>();
+                            for (int j = 0; j < hashValue.Length; j += 2)
+                            {
+                                hashBytes.Add(Convert.ToByte(hashValue.Substring(j, 2), 16));
+                            }
+
+                            hash = hashBytes.ToArray();
+                        }
+                        catch
+                        {
+                            throw new InvalidOperationException("Invalid hash: " + hashValue);
+                        }
+
+                        switch (hashAlgorithmName)
+                        {
+                            case "SHA384":
+                                hashAlgorithm = SHA384.Create();
+                                break;
+
+                            case "SHA512":
+                                hashAlgorithm = SHA512.Create();
+                                break;
+
+                            case "SHA256":
+                                hashAlgorithm = SHA256.Create();
+                                break;
+
+                            case "SHA1":
+                                hashAlgorithm = SHA1.Create();
+                                break;
+
+                            case "MD5":
+                                hashAlgorithm = MD5.Create();
+                                break;
+
+                            default:
+                                throw new InvalidOperationException("Invalid hash algorithm: " + hashAlgorithmName);
+                        }
+                    }
+
                     if (i > 0)
                     {
                         WriteLine("{0}\tattempt #{1}\t after {2}s", name, i + 1, delay.TotalSeconds);
@@ -63,9 +119,30 @@ namespace Scripts
                         WriteLine("{0}\tdownloading from \"{1}\"", name, sourceUrl);
                     }
 
-                    success = await DownloadFile(name, sourceUrl, destinationFile);
-                    if (success)
+                    if (await DownloadFile(name, sourceUrl, destinationFile))
                     {
+                        if (hashAlgorithm != null)
+                        {
+                            using (FileStream fileStream = File.OpenRead(destinationFile))
+                            {
+                                byte[] computedHash = hashAlgorithm.ComputeHash(fileStream);
+                                bool hashIsEqual = StructuralComparisons.StructuralEqualityComparer.Equals(hash, computedHash);
+                                if (!hashIsEqual)
+                                {
+                                    StringBuilder computedHashStr = new StringBuilder(computedHash.Length * 2);
+                                    foreach (byte b in computedHash)
+                                    {
+                                        computedHashStr.AppendFormat("{0:x2}", b);
+                                    }
+
+                                    throw new InvalidOperationException("Hashes are not match. Expected: " + hashValue + ". Actual: " + computedHashStr);
+                                }
+
+                                WriteLine(destinationFile + " checksum(" + hashAlgorithmName + ") " + hashValue + " is valid.");
+                            }
+                        }
+
+                        success = true;
                         break;
                     }
 
@@ -74,6 +151,10 @@ namespace Scripts
                 catch (Exception ex)
                 {
                     WriteErrorLine("{0}\terror: \"{1}\"", name, ex.Message);
+                    if (ex is InvalidOperationException)
+                    {
+                        throw;
+                    }
                 }
             }
 
@@ -81,6 +162,8 @@ namespace Scripts
             {
                 throw new Exception(sourceUrl + " - download failed.");
             }
+
+            return success;
         }
 
         private static async Task<bool> DownloadFile(string name, string sourceUrl, string destinationFile)
@@ -92,11 +175,11 @@ namespace Scripts
                 throw new InvalidOperationException("Cannot get dns name for " + sourceUrl);
             }
 
-            WriteErrorLine("{0}\tresolving \"{1}\" by dns", name, source.DnsSafeHost);
+            WriteLine("{0}\tresolving \"{1}\" by dns", name, source.DnsSafeHost);
             IPHostEntry hostInfo = await Dns.GetHostEntryAsync(host);
             foreach (var address in hostInfo.AddressList)
             {
-                WriteErrorLine("{0}\t address {1}", host, address);
+                WriteLine("{0}\t address {1}", host, address);
             }
 
             using (WebClient client = new WebClient())

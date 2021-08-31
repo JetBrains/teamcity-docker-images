@@ -1,5 +1,4 @@
 # The list of required arguments
-# ARG jdkWindowsComponent
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage
@@ -59,7 +58,6 @@ COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJ
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
 # Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
-# Install [${dotnetLatestWindowsComponentName}](${dotnetLatestWindowsComponent})
 COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 

@@ -80,9 +80,10 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
-- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
-- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz)
+- Perforce Helix Core client (p4) [2021.1-2156517](https://www.perforce.com/products/helix-core)
+- [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
+- [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -143,10 +144,9 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
 
 Container platform: windows
 
@@ -179,10 +179,9 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
 
 Container platform: windows
 
@@ -215,9 +214,9 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
@@ -250,9 +249,9 @@ The docker image is available on:
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
@@ -282,14 +281,14 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz)
+- [.NET SDK x64 v.5.0.203 Checksum (SHA512) 49d8f0414806a9c938192ed13e7707ac2609ca6c2dc408d616e56e98fc0a954b1aa3f569858f7ba38fb79b2ee36dc1920c7f08d1ba4f93da501542b1c8a1320f](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.203/dotnet-sdk-5.0.203-linux-x64.tar.gz)
 
 Container platform: linux
 
 Docker build commands:
 
 ```
-docker pull jetbrains/teamcity-agent:2020.2-linux-sudo
+docker pull jetbrains/teamcity-agent:2020.2.1-linux-sudo
 echo TeamCity > context/.dockerignore
 docker build -f "generated/linux/Agent/Ubuntu/20.04-dotnet/Dockerfile" -t teamcity-agent:linux-dotnet "context"
 ```
@@ -307,9 +306,10 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
-- [Docker v.19.03.13](https://github.com/docker/docker-ce/releases/tag/v19.03.13)
-- [Docker Compose v.1.24.1](https://github.com/docker/compose/releases/tag/1.24.1)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz)
+- Perforce Helix Core client (p4) [2021.1-2156517](https://www.perforce.com/products/helix-core)
+- [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
+- [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -364,7 +364,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [${dotnetCoreWindowsComponentName}](${dotnetCoreWindowsComponent})
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
 
 Container platform: windows
 
@@ -393,10 +393,9 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
 
 Container platform: windows
 
@@ -426,10 +425,9 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
 
 Container platform: windows
 
@@ -459,9 +457,9 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
@@ -490,9 +488,9 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
@@ -522,9 +520,9 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
-- [Git x64 v.2.29.1](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
+- [.NET SDK x64 v.3.1.409 Checksum (SHA512) 044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.29.1 Checksum (SHA256) 6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3](https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip)
 - [Mercurial x64 v.5.5.1](https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi)
 
 Container platform: windows
@@ -554,15 +552,15 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [.NET SDK x64 v.3.1.404](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-win-x64.zip)
-- [.NET SDK x64 v.5.0.100](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-win-x64.zip)
+- [.NET SDK x64 v.5.0.203 Checksum (SHA512) 762ad53d66b893cb2cdf61540794a4a1e20b127e371f57f912ad8ebd4102aabf32366ebaabfe90aa362c1fae0bec0aa7ac6af35c6c0153fb913cd4c532149238](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.203/dotnet-sdk-5.0.203-win-x64.zip)
+- [.NET SDK x64 v.5.0.203 Checksum (SHA512) 762ad53d66b893cb2cdf61540794a4a1e20b127e371f57f912ad8ebd4102aabf32366ebaabfe90aa362c1fae0bec0aa7ac6af35c6c0153fb913cd4c532149238](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.203/dotnet-sdk-5.0.203-win-x64.zip)
 
 Container platform: windows
 
 Docker build commands:
 
 ```
-docker pull jetbrains/teamcity-agent:2020.2-nanoserver-1809
+docker pull jetbrains/teamcity-agent:2020.2.1-nanoserver-1809
 echo TeamCity > context/.dockerignore
 docker build -f "generated/windows/Agent/nanoserver/1809-dotnet/Dockerfile" -t teamcity-agent:nanoserver-dotnet "context"
 ```

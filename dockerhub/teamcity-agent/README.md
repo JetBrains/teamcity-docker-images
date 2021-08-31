@@ -7,7 +7,7 @@ This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) bu
 <img src="https://raw.githubusercontent.com/JetBrains/teamcity-docker-images/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/generated/teamcity-agent.md) .
 
 The [TeamCity build agent](https://www.jetbrains.com/help/teamcity/build-agent.html) connects to the TeamCity server and spawns the actual build processes.
-You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server.
+You can use the ```jetbrains/teamcity-server``` image to run a TeamCity server. To learn how you can start the TeamCity server together with agents in one go, see these [Docker Compose samples](https://github.com/JetBrains/teamcity-docker-samples).
 
 This image adds a TeamCity agent suitable for Java development. It is based on ```jetbrains/teamcity-minimal-agent``` but gives you more benefits, e.g. 
 
@@ -79,7 +79,7 @@ Initially, the Docker is stopped inside the container. To run it, pass the `-e D
 
 **NOTE:** both of these options require extra trust to your builds, as a build may get
 **root access** to the host where the TeamCity agent container is running. 
-Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html).  
+Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html) and review the [TeamCity security notes](https://www.jetbrains.com/help/teamcity/security-notes.html).  
 
 1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build might actually harm your host Docker, so use it at your own risk) 
 
@@ -129,7 +129,7 @@ You can customize the image via the usual Docker procedure:
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \
     --name="my-customized-agent"  \
-    jetbrains/teamcity-agent-minimal  \
+    jetbrains/teamcity-minimal-agent  \
 ```
 2. Enter the container
 ```

@@ -15,8 +15,10 @@ When running an image with multi-architecture support, docker will automatically
 
 - 20.04
   - [local-linux](#local-linux)
+  - [local-linux-arm64-20.04](#local-linux-arm64-2004)
 - 18.04
   - [local-linux-18.04](#local-linux-1804)
+  - [local-linux-arm64-18.04](#local-linux-arm64-1804)
 
 #### windows
 
@@ -55,7 +57,8 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz)
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) 215116d48da2383aeda03e57aaa0c746](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -83,8 +86,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -114,8 +116,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -142,7 +143,8 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-linux-x64.tar.gz)
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) 215116d48da2383aeda03e57aaa0c746](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz)
 
 Container platform: linux
 
@@ -158,6 +160,58 @@ docker build -f "generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamci
 
 _The required free space to generate image(s) is about **1 GB**._
 
+### local-linux-arm64-18.04
+
+[Dockerfile](linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:18.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:local-linux-arm64-18.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### local-linux-arm64-20.04
+
+[Dockerfile](linux/MinimalAgent/UbuntuARM/20.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:20.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:local-linux-arm64-20.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
 ### local-nanoserver-1803
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1803/Dockerfile)
@@ -168,8 +222,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
 
 Container platform: windows
 
@@ -194,8 +247,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -222,8 +274,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JRE <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jre.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.8.272.10.3](https://corretto.aws/downloads/resources/8.272.10.3/amazon-corretto-8.272.10.3-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.11.9.1 Checksum (MD5) fb4dafb0db003ed28bb977c6e64fd04c](https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows

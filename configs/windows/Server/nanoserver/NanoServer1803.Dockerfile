@@ -1,9 +1,10 @@
 # The list of required arguments
 # ARG powershellImage
-# ARG jdkWindowsComponent
+# ARG jdkServerWindowsComponent
 # ARG gitWindowsComponent
 # ARG windowsBuild
 # ARG powershellImage
+# ARG jdkServerWindowsComponent
 
 # Id teamcity-server
 # Tag ${versionTag}-${tag}
@@ -28,7 +29,8 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jre.zip; \
     Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip
+    Remove-Item -Force jre.zip ; \
+    Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force
 
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent

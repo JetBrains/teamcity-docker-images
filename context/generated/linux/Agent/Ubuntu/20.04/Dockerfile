@@ -1,15 +1,17 @@
 # Default arguments
-ARG dockerComposeLinuxComponentVersion='1.24.1'
-ARG dockerLinuxComponentVersion='5:19.03.13~3-0~ubuntu'
-ARG dotnetLatestLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/5.0.100/dotnet-sdk-5.0.100-linux-x64.tar.gz'
+ARG dockerComposeLinuxComponentVersion='1.28.5'
+ARG dockerLinuxComponentVersion='5:19.03.14~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
-ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.404/dotnet-sdk-3.1.404-linux-x64.tar.gz'
-ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3'
+ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-linux-x64.tar.gz'
+ARG dotnetLinuxComponentSHA512='63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6'
+ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.1'
+ARG p4Version='2021.1-2156517'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2020.2.1-linux'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent
+# ARG dotnetLinuxComponentSHA512
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -41,15 +43,24 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetLatestLinuxComponent
 ARG dotnetLinuxComponent
+ARG dotnetLinuxComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
+ARG p4Version
 
 RUN apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
@@ -58,7 +69,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io=1.2.13-2 \
+                        containerd.io:amd64=1.4.4-1 \
                         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
@@ -66,10 +77,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetLinuxComponent} --output dotnet.tar.gz && \
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     mkdir -p /usr/share/dotnet && \
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
-    rm dotnet.tar.gz && \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache

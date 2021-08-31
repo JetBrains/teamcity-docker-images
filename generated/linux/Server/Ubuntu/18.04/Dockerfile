@@ -1,12 +1,13 @@
 # Default arguments
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.7'
-ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.9.11.1-1/amazon-corretto-11.0.9.11.1-linux-x64.tar.gz'
-ARG jdkServerLinuxMD5SUM='aecee89c6817a26c74587c69cc5c2967'
+ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-linux-x64.tar.gz'
+ARG jdkServerLinuxComponentMD5SUM='215116d48da2383aeda03e57aaa0c746'
+ARG p4Version='2021.1-2156517'
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
 # ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxMD5SUM
+# ARG jdkServerLinuxComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 
@@ -27,14 +28,15 @@ RUN apt-get update && \
 # JDK preparation start
 
 ARG jdkServerLinuxComponent
-ARG jdkServerLinuxMD5SUM
+ARG jdkServerLinuxComponentMD5SUM
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
+    chown -R root:root /opt/java; \
     rm -rf /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
@@ -56,8 +58,16 @@ EXPOSE 8111
 
 ARG gitLinuxComponentVersion
 
+ARG p4Version
+
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} mercurial gnupg && \
+    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
+    (. /etc/os-release && \
+      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
+      /etc/apt/sources.list.d/perforce.list ) && \
+    apt-get update && \
+    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -68,7 +78,7 @@ COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     groupadd -g 1000 tcuser && \
-    useradd -r -u 1000 -g tcuser tcuser && \
+    useradd -r -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \

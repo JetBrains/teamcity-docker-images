@@ -68,7 +68,7 @@ echo TeamCity/temp >> context/.dockerignore
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_4022"
+                dockerRegistryId = "PROJECT_EXT_774"
             }
         }
         swabra {
