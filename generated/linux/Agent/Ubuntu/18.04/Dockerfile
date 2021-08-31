@@ -1,4 +1,5 @@
 # Default arguments
+ARG containerdIoLinuxComponentVersion='1.4.9-1'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:19.03.14~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
@@ -49,6 +50,7 @@ ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
+ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
 RUN apt-get update && \
@@ -69,7 +71,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
                         docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io:amd64=1.4.4-1 \
+                        containerd.io:amd64=${containerdIoLinuxComponentVersion} \
                         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
