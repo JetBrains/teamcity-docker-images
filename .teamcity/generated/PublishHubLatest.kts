@@ -87,7 +87,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2021_1_BuildDistDocker"))
 {
 reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
