@@ -101,7 +101,7 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
-- Perforce Helix Core client (p4) [2021.1-2156517](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2021.1-2179737](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.409 Checksum (SHA512) 63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-linux-x64.tar.gz)
@@ -303,7 +303,7 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
-- Perforce Helix Core client (p4) [2021.1-2156517](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2021.1-2179737](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.409 Checksum (SHA512) 63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-linux-x64.tar.gz)
