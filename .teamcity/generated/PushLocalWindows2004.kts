@@ -56,7 +56,7 @@ source = file {
 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-server:2021.1.4-nanoserver-2004
 """.trimIndent()
@@ -81,7 +81,7 @@ source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-minimal-agent:2021.1.4-nanoserver-2004
 """.trimIndent()
@@ -106,7 +106,7 @@ source = file {
 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:2021.1.4-windowsservercore-2004
 """.trimIndent()
@@ -131,7 +131,7 @@ source = file {
 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:2021.1.4-nanoserver-2004
 """.trimIndent()

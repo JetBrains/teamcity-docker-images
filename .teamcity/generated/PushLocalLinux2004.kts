@@ -40,7 +40,7 @@ source = file {
 path = """context/generated/linux/Server/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-server:2021.1.4-linux
 """.trimIndent()
@@ -65,7 +65,7 @@ source = file {
 path = """context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-minimal-agent:2021.1.4-linux
 """.trimIndent()
@@ -88,7 +88,7 @@ source = file {
 path = """context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:2021.1.4-linux
 """.trimIndent()
@@ -111,7 +111,7 @@ source = file {
 path = """context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--pull --no-cache"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:2021.1.4-linux-sudo
 """.trimIndent()
