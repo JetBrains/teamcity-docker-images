@@ -686,16 +686,16 @@ namespace TeamCity.Docker
             yield return "dockerCommand {";
             yield return $"name = \"build {image.File.ImageId}:{tag}\"";
             yield return "commandType = build {";
-
+            
             yield return "source = file {";
             yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
             yield return "}";
 
             yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-
+            yield return "commandArgs = \"--pull --no-cache\"";
+            
             yield return "namesAndTags = \"\"\"";
             yield return $"{image.File.ImageId}:{tag}";
-
             yield return "\"\"\".trimIndent()";
 
             yield return "}";
