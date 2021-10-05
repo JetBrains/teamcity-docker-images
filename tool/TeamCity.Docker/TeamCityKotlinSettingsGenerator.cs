@@ -692,7 +692,7 @@ namespace TeamCity.Docker
             yield return "}";
 
             yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-            yield return "commandArgs = \"--pull --no-cache\"";
+            yield return "commandArgs = \"--no-cache\"";
             
             yield return "namesAndTags = \"\"\"";
             yield return $"{image.File.ImageId}:{tag}";
