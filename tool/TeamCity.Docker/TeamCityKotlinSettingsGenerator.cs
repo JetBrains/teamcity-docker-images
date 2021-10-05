@@ -419,7 +419,7 @@ namespace TeamCity.Docker
             int weight,
             bool onPause)
         {
-            var images = path.Select(i => i.Value).OfType<Image>().ToList();
+            var images = path.Select(i => i.Value).OfType<Image>().Where(i => onPause || i.File.Repositories.Any()).ToList();
             var references = path.Select(i => i.Value).OfType<Reference>().ToList();
 
             var groups =
