@@ -39,6 +39,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Remove-Item -Force jdk.zip ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
+    # https://youtrack.jetbrains.com/issue/TW-73017
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
     Remove-Item -Force git.zip
 
