@@ -14,5 +14,6 @@ object HubProject : Project({
 name = "Docker hub"
 buildType(PushHubLinux.push_hub_linux)
 buildType(PushHubWindows.push_hub_windows)
+buildType(PublishHubLatest.publish_hub_latest)
 buildType(PublishHubVersion.publish_hub_version)
 })

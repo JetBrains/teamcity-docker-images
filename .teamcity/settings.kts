@@ -11,7 +11,7 @@ object RootProject : Project({
     subProject(HubProject.HubProject)
     buildType(BuildAndPushHosted.BuildAndPushHosted)
     params {
-        param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
+        param("dockerImage.teamcity.buildNumber", "%dep.TC2021_2_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
 
         // Used by build for teamcity.jetbrains.com
