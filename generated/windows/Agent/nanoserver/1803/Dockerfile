@@ -1,5 +1,5 @@
 # Default arguments
-ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip'
+ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.413/dotnet-sdk-3.1.413-win-x64.zip'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 ARG teamcityWindowsservercoreImage='teamcity-agent:local-windowsservercore-1803'
 

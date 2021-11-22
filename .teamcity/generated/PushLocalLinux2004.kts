@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_20_04 : BuildType({
 name = "Build and push linux 20.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-linux-arm64-20.04,EAP:EAP-linux,EAP teamcity-minimal-agent:EAP-linux-arm64-20.04,EAP:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
+description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -22,53 +22,6 @@ commandType = other {
 subCommand = "pull"
 commandArgs = "ubuntu:20.04"
 }
-}
-
-script {
-name = "context teamcity-server:EAP-linux-arm64-20.04"
-scriptContent = """
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
-echo TeamCity/temp >> context/.dockerignore
-""".trimIndent()
-}
-
-dockerCommand {
-name = "build teamcity-server:EAP-linux-arm64-20.04"
-commandType = build {
-source = file {
-path = """context/generated/linux/Server/UbuntuARM/20.04/Dockerfile"""
-}
-contextDir = "context"
-namesAndTags = """
-teamcity-server:EAP-linux-arm64-20.04
-""".trimIndent()
-}
-param("dockerImage.platform", "linux")
-}
-
-script {
-name = "context teamcity-minimal-agent:EAP-linux-arm64-20.04"
-scriptContent = """
-echo 2> context/.dockerignore
-echo TeamCity/webapps >> context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-""".trimIndent()
-}
-
-dockerCommand {
-name = "build teamcity-minimal-agent:EAP-linux-arm64-20.04"
-commandType = build {
-source = file {
-path = """context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile"""
-}
-contextDir = "context"
-namesAndTags = """
-teamcity-minimal-agent:EAP-linux-arm64-20.04
-""".trimIndent()
-}
-param("dockerImage.platform", "linux")
 }
 
 script {
@@ -87,6 +40,7 @@ source = file {
 path = """context/generated/linux/Server/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-server:EAP-linux
 """.trimIndent()
@@ -111,6 +65,7 @@ source = file {
 path = """context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-minimal-agent:EAP-linux
 """.trimIndent()
@@ -133,6 +88,7 @@ source = file {
 path = """context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-linux
 """.trimIndent()
@@ -155,27 +111,12 @@ source = file {
 path = """context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-linux-sudo
 """.trimIndent()
 }
 param("dockerImage.platform", "linux")
-}
-
-dockerCommand {
-name = "tag teamcity-server:EAP-linux-arm64-20.04"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-server:EAP-linux-arm64-20.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-minimal-agent:EAP-linux-arm64-20.04"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:EAP-linux-arm64-20.04 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64-20.04"
-}
 }
 
 dockerCommand {
@@ -207,26 +148,6 @@ name = "tag teamcity-agent:EAP-linux-sudo"
 commandType = other {
 subCommand = "tag"
 commandArgs = "teamcity-agent:EAP-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "push teamcity-server:EAP-linux-arm64-20.04"
-commandType = push {
-namesAndTags = """
-%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64-20.04
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
-dockerCommand {
-name = "push teamcity-minimal-agent:EAP-linux-arm64-20.04"
-commandType = push {
-namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64-20.04
-""".trimIndent()
-removeImageAfterPush = false
 }
 }
 

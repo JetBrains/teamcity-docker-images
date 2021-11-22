@@ -31,7 +31,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
-    (Get-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml).replace('/', '\\') | Set-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml
+    if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 ARG nanoserverImage
 

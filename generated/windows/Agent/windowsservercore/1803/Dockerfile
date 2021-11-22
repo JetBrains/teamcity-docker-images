@@ -1,11 +1,11 @@
 # Default arguments
-ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.409/dotnet-sdk-3.1.409-win-x64.zip'
-ARG dotnetWindowsComponentSHA512='044ab6ccf316ac18882ecef98f9ec0a9afd8cf8509991a4f82a5778eefae5ad503bf5da915fd567d8ab17ab0a9d93318c59a8c20a8a45ab255eb25247bbe51a7'
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.29.1.windows.1/MinGit-2.29.1-64-bit.zip'
-ARG gitWindowsComponentSHA256='6aab2a1acce11a765d4dff2b9b5c8fe0feda5ff4067f16a696893786a3bf94c3'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='fb4dafb0db003ed28bb977c6e64fd04c'
-ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.5.1-x64.msi'
+ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.413/dotnet-sdk-3.1.413-win-x64.zip'
+ARG dotnetWindowsComponentSHA512='1fe3beb2e033c557c1577452f341121c1a8b2520b8bc80c2e1291d382964aeef7bfbc3e7b55c9130b934fb89aa6cbf1354cf625b3b1dada1bde3443b43ca2359'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip'
+ARG gitWindowsComponentSHA256='e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='022bf679bc9c337287859264496c2f38'
+ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-nanoserver-1803'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803'
 

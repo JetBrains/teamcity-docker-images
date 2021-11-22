@@ -56,6 +56,7 @@ source = file {
 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-server:EAP-nanoserver-2004
 """.trimIndent()
@@ -80,6 +81,7 @@ source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-minimal-agent:EAP-nanoserver-2004
 """.trimIndent()
@@ -104,6 +106,7 @@ source = file {
 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-windowsservercore-2004
 """.trimIndent()
@@ -128,6 +131,7 @@ source = file {
 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
+commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-nanoserver-2004
 """.trimIndent()
