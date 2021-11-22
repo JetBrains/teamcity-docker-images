@@ -419,7 +419,7 @@ namespace TeamCity.Docker
             int weight,
             bool onPause)
         {
-            var images = path.Select(i => i.Value).OfType<Image>().ToList();
+            var images = path.Select(i => i.Value).OfType<Image>().Where(i => onPause || i.File.Repositories.Any()).ToList();
             var references = path.Select(i => i.Value).OfType<Reference>().ToList();
 
             var groups =
@@ -686,16 +686,16 @@ namespace TeamCity.Docker
             yield return "dockerCommand {";
             yield return $"name = \"build {image.File.ImageId}:{tag}\"";
             yield return "commandType = build {";
-
+            
             yield return "source = file {";
             yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
             yield return "}";
 
             yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-
+            yield return "commandArgs = \"--no-cache\"";
+            
             yield return "namesAndTags = \"\"\"";
             yield return $"{image.File.ImageId}:{tag}";
-
             yield return "\"\"\".trimIndent()";
 
             yield return "}";

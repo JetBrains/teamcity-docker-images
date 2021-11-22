@@ -1,5 +1,5 @@
 # Default arguments
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.11.9.1/amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip'
 ARG nanoserverImage='mcr.microsoft.com/powershell:nanoserver-1803'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 
@@ -25,7 +25,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
-    (Get-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml).replace('/', '\\') | Set-Content /BuildAgent/system/.teamcity-agent/unpacked-plugins.xml
+    if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 ARG nanoserverImage
 
