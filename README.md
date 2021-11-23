@@ -37,7 +37,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Apply required changes in the directory [configs](configs).
 - Generate docker and readme files by running the _generate.sh_ or _generate.cmd_ script. All generated artifacts will be placed into the directory [generated](generated) and [context/generated](context/generated).
 - To check that image build is ok:
-  - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.2.3.tar.gz -O - | tar -xz -C context```
+  - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2021.2.tar.gz -O - | tar -xz -C context```
   - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
   - To add plugins to TeamCity agents run the _context.sh_ or _context.cmd_ script. This is optional as otherwise the TeamCity agents will load plugins by themselves on first launch.
   - Build docker images using a coresponding _.cmd_ or _.sh_ script file in [generated](generated) directory.
@@ -48,7 +48,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.
 - Clone this repository.
-- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2020.2.3.tar.gz -O - | tar -xz -C context```
+- Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2021.2.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
 - Generate an image using a coresponding _.cmd_ or _.sh_ script file in [generated](generated) directory.
 
