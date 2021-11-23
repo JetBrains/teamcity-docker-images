@@ -56,7 +56,6 @@ source = file {
 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-server:EAP-nanoserver-2004
 """.trimIndent()
@@ -81,7 +80,6 @@ source = file {
 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-minimal-agent:EAP-nanoserver-2004
 """.trimIndent()
@@ -106,7 +104,6 @@ source = file {
 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-windowsservercore-2004
 """.trimIndent()
@@ -131,7 +128,6 @@ source = file {
 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
 }
 contextDir = "context"
-commandArgs = "--no-cache"
 namesAndTags = """
 teamcity-agent:EAP-nanoserver-2004
 """.trimIndent()
@@ -177,7 +173,6 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
-removeImageAfterPush = false
 }
 }
 
@@ -187,7 +182,6 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
-removeImageAfterPush = false
 }
 }
 
@@ -197,7 +191,6 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004
 """.trimIndent()
-removeImageAfterPush = false
 }
 }
 
@@ -207,7 +200,6 @@ commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004
 """.trimIndent()
-removeImageAfterPush = false
 }
 }
 
