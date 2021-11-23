@@ -2,8 +2,8 @@
 
 Other tags
 
-- [teamcity-minimal-agent](teamcity-minimal-agent.md)
 - [teamcity-server](teamcity-server.md)
+- [teamcity-minimal-agent](teamcity-minimal-agent.md)
 
 #### multi-architecture
 
@@ -101,7 +101,7 @@ Installed components:
 
 - Git v.2.25.1
 - Mercurial
-- Perforce Helix Core client (p4) [2021.1-2179737](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2021.2-2201121](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14), [Containerd.io v1.4.9-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.9-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.413 Checksum (SHA512) 2a0824f11aba0b79d3f9a36af0395649bc9b4137e61b240a48dccb671df0a5b8c2086054f8e495430b7ed6c344bb3f27ac3dfda5967d863718a6dadeca951a83](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.413/dotnet-sdk-3.1.413-linux-x64.tar.gz)
@@ -303,7 +303,7 @@ Installed components:
 
 - Git v.2.17.1
 - Mercurial
-- Perforce Helix Core client (p4) [2021.1-2179737](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2021.2-2201121](https://www.perforce.com/products/helix-core)
 - [Docker v.19.03.14](https://github.com/docker/docker-ce/releases/tag/v19.03.14), [Containerd.io v1.4.9-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.9-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK x64 v.3.1.413 Checksum (SHA512) 2a0824f11aba0b79d3f9a36af0395649bc9b4137e61b240a48dccb671df0a5b8c2086054f8e495430b7ed6c344bb3f27ac3dfda5967d863718a6dadeca951a83](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.413/dotnet-sdk-3.1.413-linux-x64.tar.gz)
