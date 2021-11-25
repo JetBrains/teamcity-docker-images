@@ -23,27 +23,6 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:EAP"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:EAP"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:EAP"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
@@ -86,6 +65,27 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.bui
 }
 }
 dockerCommand {
+name = "manifest create teamcity-server:EAP"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:EAP"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:EAP"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP --verbose"
+}
+}
+dockerCommand {
 name = "manifest create teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
@@ -110,7 +110,9 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImageP
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
-onDependencyFailure = FailureAction.IGNORE
+onDependencyFailure = FailureAction.FAIL_TO_START
+reuseBuilds = ReuseBuilds.ANY
+synchronizeRevisions = false
 }
 snapshot(PushLocalLinux2004.push_local_linux_20_04)
 {
@@ -127,7 +129,7 @@ onDependencyFailure =  FailureAction.FAIL_TO_START
 }
 requirements {
 noLessThanVer("docker.version", "18.05.0")
-equals("docker.server.osType", "windows")
+contains("docker.server.osType", "windows")
 }
 features {
 dockerSupport {
