@@ -316,7 +316,7 @@ namespace TeamCity.Docker
                 yield return line;
             }
 
-            foreach (var group in images)
+            foreach (var group in images.OrderBy(i => i.Key))
             {
                 var groupedByImageId = group.GroupBy(i => i.File.ImageId);
                 foreach (var groupByImageId in groupedByImageId)
@@ -563,7 +563,7 @@ namespace TeamCity.Docker
                 }
             }
 
-            foreach (var buildTypeId in dependencies)
+            foreach (var buildTypeId in dependencies.OrderBy(i => i))
             {
                 yield return $"snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
                 yield return "{\nonDependencyFailure =  FailureAction.FAIL_TO_START\n}";
