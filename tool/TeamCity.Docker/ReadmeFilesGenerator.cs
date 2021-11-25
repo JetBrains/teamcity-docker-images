@@ -36,6 +36,7 @@ namespace TeamCity.Docker
                 where image != null
                 group node by image.File.ImageId
                 into groupsByImageId
+                orderby groupsByImageId.Key
                 from groupByImageId in
                     from groupByImageId in groupsByImageId
                     let image = groupByImageId.Value as Image
