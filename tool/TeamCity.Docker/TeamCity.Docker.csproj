@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <ApplicationIcon />
     <StartupObject />
     <PublishTrimmed>true</PublishTrimmed>
+    <NoWarn>1701;1702;IL2104;IL2026</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
