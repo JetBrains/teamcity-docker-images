@@ -1,16 +1,16 @@
-﻿using System;
+﻿#pragma warning disable SYSLIB0014 // https://youtrack.jetbrains.com/issue/TW-74012
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualBasic;
 
 namespace Scripts
 {
@@ -37,6 +37,8 @@ namespace Scripts
                 {
                     WriteLine("\t\tDNS address {0}", dnsAddress);
                 }
+
+
             }
 
             List<Task<bool>> tasks = new List<Task<bool>>();
@@ -46,7 +48,7 @@ namespace Scripts
             }
 
             Task.WhenAll(tasks).Wait();
-            return tasks.All(i => i.Result) ? 0 : 1;
+            return tasks.All(i => i.Result) ? 0: 1;
         }
 
         private static async Task<bool> DownloadFile(string sourceUrl, string destinationFile, int attempts, TimeSpan delay)
@@ -182,62 +184,34 @@ namespace Scripts
                 WriteLine("{0}\t address {1}", host, address);
             }
 
-            bool completed = false;
-            using (HttpClient client = new HttpClient())
+            using (WebClient client = new WebClient())
             {
                 long lastPercent = -1;
                 Stopwatch stopwatch = new Stopwatch();
-                using (var response = await client.GetAsync(source, HttpCompletionOption.ResponseHeadersRead))
+                stopwatch.Start();
+                client.DownloadProgressChanged += (sender, args) =>
                 {
-                    if (!response.IsSuccessStatusCode)
+                    long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
+                    if (percent % 5 == 0 && percent > lastPercent)
                     {
-                        throw new InvalidOperationException("Cannot find " + sourceUrl);
-                    }
-                    
-                    var totalBytes = response.Content.Headers.ContentLength ?? 0;
-                    if (totalBytes == 0)
-                    {
-                        throw new InvalidOperationException("File is empty at " + sourceUrl);
-                    }
-                    
-                    stopwatch.Start();
-                    using (FileStream destinationStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write, FileShare.None, 0xffff, true))
-                    using (Stream sourceStream = await response.Content.ReadAsStreamAsync())
-                    {
-                        byte[] buffer = new byte[0xfff];
-                        int totalBytesRead = 0;
-                        do
+                        double speed = args.TotalBytesToReceive / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
+                        if (lastPercent == -1)
                         {
-                            var bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length);
-                            if (bytesRead > 0)
-                            {
-                                await destinationStream.WriteAsync(buffer, 0, bytesRead);
-                                totalBytesRead += bytesRead;
-                                long percent = 100 * totalBytesRead / totalBytes;
-                                if (percent % 5 == 0 && percent > lastPercent)
-                                {
-                                    double speed = totalBytes / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
-                                    if (lastPercent == -1)
-                                    {
-                                        speed = 0;
-                                    }
-
-                                    lastPercent = percent;
-                                    WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            speed = 0;
                         }
-                        while (totalBytesRead < totalBytes);
 
-                        completed = totalBytesRead == totalBytes;
+                        lastPercent = percent;
+                        WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
                     }
-                }
-                
-                stopwatch.Stop();
+                };
+
+                bool completed = false;
+                client.DownloadFileCompleted += (sender, args) =>
+                {
+                    completed = true;
+                };
+
+                await client.DownloadFileTaskAsync(source, destinationFile);
                 return completed;
             }
         }
