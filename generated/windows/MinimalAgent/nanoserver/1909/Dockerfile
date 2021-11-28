@@ -26,7 +26,7 @@ ARG jdkWindowsComponentMD5SUM
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
-    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
     iex $downloadScript ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
