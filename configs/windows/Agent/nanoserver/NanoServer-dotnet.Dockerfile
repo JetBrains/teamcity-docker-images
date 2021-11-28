@@ -26,7 +26,7 @@ ARG dotnetLatestWindowsComponentSHA512
 # Install [${dotnetLatestWindowsComponentName}](${dotnetLatestWindowsComponent})
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
-    Add-Type -TypeDefinition "$code" -Language CSharp ; \
+    Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:dotnetLatestWindowsComponent + '#SHA512#' + $Env:dotnetLatestWindowsComponentSHA512, 'dotnetLatest.zip') ; \
 # Install [${dotnetLatestWindowsComponentName}](${dotnetLatestWindowsComponent})
     Expand-Archive dotnetLatest.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
