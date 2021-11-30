@@ -3,8 +3,12 @@ ARG containerdIoLinuxComponentVersion='1.4.9-1'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:19.03.14~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
-ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/3.1.413/dotnet-sdk-3.1.413-linux-x64.tar.gz'
-ARG dotnetLinuxComponentSHA512='2a0824f11aba0b79d3f9a36af0395649bc9b4137e61b240a48dccb671df0a5b8c2086054f8e495430b7ed6c344bb3f27ac3dfda5967d863718a6dadeca951a83'
+ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-linux-x64.tar.gz'
+ARG dotnetLinuxComponent_31='https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-linux-x64.tar.gz'
+ARG dotnetLinuxComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-linux-x64.tar.gz'
+ARG dotnetLinuxComponentSHA512='cb0d174a79d6294c302261b645dba6a479da8f7cf6c1fe15ae6998bc09c5e0baec810822f9e0104e84b0efd51fdc0333306cb2a0a6fcdbaf515a8ad8cf1af25b'
+ARG dotnetLinuxComponentSHA512_31='cc4b2fef46e94df88bf0fc11cb15439e79bd48da524561dffde80d3cd6db218133468ad2f6785803cf0c13f000d95ff71eb258cec76dd8eb809676ec1cb38fac'
+ARG dotnetLinuxComponentSHA512_50='32b5f86db3b1d4c21e3cf616d22f0e4a7374385dac0cf03cdebf3520dcf846460d9677ec1829a180920740a0237d64f6eaa2421d036a67f4fe9fb15d4f6b1db9'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.2'
 ARG p4Version='2021.2-2201121'
 ARG repo='https://hub.docker.com/r/jetbrains/'
@@ -13,6 +17,10 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
 # The list of required arguments
 # ARG dotnetLinuxComponent
 # ARG dotnetLinuxComponentSHA512
+# ARG dotnetLinuxComponent_31
+# ARG dotnetLinuxComponentSHA512_31
+# ARG dotnetLinuxComponent_50
+# ARG dotnetLinuxComponentSHA512_50
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -46,6 +54,10 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
+ARG dotnetLinuxComponent_31
+ARG dotnetLinuxComponentSHA512_31
+ARG dotnetLinuxComponent_50
+ARG dotnetLinuxComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
@@ -76,18 +88,30 @@ RUN apt-get update && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
+# Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     mkdir -p /usr/share/dotnet && \
+    curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+    curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \   
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
+    dotnet --info && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
