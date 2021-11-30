@@ -1,6 +1,10 @@
 # The list of required arguments
 # ARG dotnetLinuxComponent
 # ARG dotnetLinuxComponentSHA512
+# ARG dotnetLinuxComponent_31
+# ARG dotnetLinuxComponentSHA512_31
+# ARG dotnetLinuxComponent_50
+# ARG dotnetLinuxComponentSHA512_50
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -43,6 +47,10 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
+ARG dotnetLinuxComponent_31
+ARG dotnetLinuxComponentSHA512_31
+ARG dotnetLinuxComponent_50
+ARG dotnetLinuxComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
@@ -78,19 +86,33 @@ RUN apt-get update && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
 # Install [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
-# Install [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     mkdir -p /usr/share/dotnet && \
+# Install [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+    curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+# Install [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+    curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# Install [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \   
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
+    dotnet --info && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
