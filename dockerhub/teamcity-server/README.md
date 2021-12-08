@@ -54,16 +54,29 @@ TeamCity has Tomcat J2EE server under the hood, and if you need to provide an al
 
 To get a sample of the current contents of the Tomcat's `conf` directory, use the [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) command.
 
-### Windows container  
+### Windows container
+
 ```
 docker run -it --name teamcity-server-instance
     -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
     -v <path-to-logs-directory>:C:/TeamCity/logs
+    -v <path-to-temp-directory>:C:/TeamCity/temp
     -p <port-on-host>:8111
     jetbrains/teamcity-server
 ```  
 
-See above for **\<path-to-data-directory>** and **\<path-to-logs-directory>** description.  
+See the **\<path-to-data-directory>** and **\<path-to-logs-directory>** descriptions above; **\<path-to-temp-directory>** is the directory for temporary files.
+
+We also suggest allocating a sufficient amount of resources to the Docker process, like in this example:
+
+```
+docker run -it --memory="6g" --cpus=4 -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m" --name teamcity-server-instance
+    -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
+    -v <path-to-logs-directory>:C:/TeamCity/logs
+    -v <path-to-temp-directory>:C:/TeamCity/temp
+    -p <port-on-host>:8111
+    jetbrains/teamcity-server
+```
 
 The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
 
