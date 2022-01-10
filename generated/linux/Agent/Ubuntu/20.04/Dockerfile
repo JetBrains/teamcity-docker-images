@@ -10,7 +10,7 @@ ARG dotnetLinuxComponentSHA512='cb0d174a79d6294c302261b645dba6a479da8f7cf6c1fe15
 ARG dotnetLinuxComponentSHA512_31='cc4b2fef46e94df88bf0fc11cb15439e79bd48da524561dffde80d3cd6db218133468ad2f6785803cf0c13f000d95ff71eb258cec76dd8eb809676ec1cb38fac'
 ARG dotnetLinuxComponentSHA512_50='32b5f86db3b1d4c21e3cf616d22f0e4a7374385dac0cf03cdebf3520dcf846460d9677ec1829a180920740a0237d64f6eaa2421d036a67f4fe9fb15d4f6b1db9'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.2'
-ARG p4Version='2021.2-2201121'
+ARG p4Version='2021.2-2220431'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
 
@@ -108,7 +108,7 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \   
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
