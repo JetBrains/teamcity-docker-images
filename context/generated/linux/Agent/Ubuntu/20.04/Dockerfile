@@ -1,7 +1,7 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.4.9-1'
+ARG containerdIoLinuxComponentVersion='1.4.12-1'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
-ARG dockerLinuxComponentVersion='5:19.03.14~3-0~ubuntu'
+ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-linux-x64.tar.gz'
 ARG dotnetLinuxComponent_31='https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-linux-x64.tar.gz'
