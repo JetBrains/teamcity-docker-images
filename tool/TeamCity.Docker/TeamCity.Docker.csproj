@@ -16,7 +16,7 @@
     <PackageReference Include="Docker.DotNet" Version="3.125.4" />
     <PackageReference Include="IoC.Container" Version="1.3.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
     <PackageReference Include="TeamCity.ServiceMessages" Version="3.0.13" />
   </ItemGroup>
 
