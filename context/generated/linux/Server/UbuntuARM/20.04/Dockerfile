@@ -79,6 +79,7 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     chown -R tcuser:tcuser /services $TEAMCITY_DIST $TEAMCITY_DATA_PATH $TEAMCITY_LOGS $CATALINA_TMPDIR
 
 COPY --chown=tcuser:tcuser TeamCity $TEAMCITY_DIST
+RUN mkdir -p $TEAMCITY_DIST/webapps/ROOT/WEB-INF/
 RUN echo "docker-ubuntu" > $TEAMCITY_DIST/webapps/ROOT/WEB-INF/DistributionType.txt
 
 USER tcuser:tcuser
