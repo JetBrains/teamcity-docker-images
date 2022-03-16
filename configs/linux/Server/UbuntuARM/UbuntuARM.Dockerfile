@@ -3,6 +3,7 @@
 # ARG jdkServerLinuxARM64ComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
+# ARG gitLFSLinuxComponentVersion
 
 # Id teamcity-server
 # Tag ${versionTag}-linux${linuxVersion}
@@ -62,8 +63,12 @@ EXPOSE 8111
 # Install ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
 
+# Install ${gitLFSLinuxComponentName}
+ARG gitLFSLinuxComponentVersion
+
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial && \
+    git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

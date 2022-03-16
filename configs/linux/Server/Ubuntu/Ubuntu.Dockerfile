@@ -3,6 +3,7 @@
 # ARG jdkServerLinuxComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
+# ARG gitLFSLinuxComponentVersion
 
 # Id teamcity-server
 # Tag ${versionTag}-linux${linuxVersion}
@@ -62,11 +63,15 @@ EXPOSE 8111
 # Install ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
 
+# Install ${gitLFSLinuxComponentName}
+ARG gitLFSLinuxComponentVersion
+
 # Install ${p4Name}
 ARG p4Version
 
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial gnupg && \
+    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial gnupg && \
+    git lfs install --system && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
