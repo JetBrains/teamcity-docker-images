@@ -9,8 +9,9 @@ ARG dotnetLinuxComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.
 ARG dotnetLinuxComponentSHA512='cb0d174a79d6294c302261b645dba6a479da8f7cf6c1fe15ae6998bc09c5e0baec810822f9e0104e84b0efd51fdc0333306cb2a0a6fcdbaf515a8ad8cf1af25b'
 ARG dotnetLinuxComponentSHA512_31='cc4b2fef46e94df88bf0fc11cb15439e79bd48da524561dffde80d3cd6db218133468ad2f6785803cf0c13f000d95ff71eb258cec76dd8eb809676ec1cb38fac'
 ARG dotnetLinuxComponentSHA512_50='32b5f86db3b1d4c21e3cf616d22f0e4a7374385dac0cf03cdebf3520dcf846460d9677ec1829a180920740a0237d64f6eaa2421d036a67f4fe9fb15d4f6b1db9'
+ARG gitLFSLinuxComponentVersion='2.9.2-1'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.2'
-ARG p4Version='2021.2-2250781'
+ARG p4Version='2021.2-2264565'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 
@@ -24,6 +25,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
+# ARG gitLFSLinuxComponentVersion
 # ARG dockerComposeLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 
@@ -60,13 +62,15 @@ ARG dotnetLinuxComponent_50
 ARG dotnetLinuxComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
+ARG gitLFSLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+    git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
