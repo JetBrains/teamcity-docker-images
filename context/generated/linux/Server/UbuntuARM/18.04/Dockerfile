@@ -1,4 +1,5 @@
 # Default arguments
+ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.9'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='b0b989af7b8635d0dd0724707206b67c'
@@ -9,6 +10,7 @@ ARG ubuntuImage='ubuntu:18.04'
 # ARG jdkServerLinuxARM64ComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
+# ARG gitLFSLinuxComponentVersion
 
 
 
@@ -57,8 +59,11 @@ EXPOSE 8111
 
 ARG gitLinuxComponentVersion
 
+ARG gitLFSLinuxComponentVersion
+
 RUN apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} mercurial && \
+    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial && \
+    git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
