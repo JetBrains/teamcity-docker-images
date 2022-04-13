@@ -1,5 +1,5 @@
 # Default arguments
-ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-linux-x64.tar.gz'
+ARG jdkLinuxComponent='https://corretto.aws/downloads/resources/11.0.14.10.1/amazon-corretto-11.0.14.10.1-linux-x64.tar.gz'
 ARG jdkLinuxComponentMD5SUM='55e5ca4565737598ff24c6d927253275'
 ARG ubuntuImage='ubuntu:18.04'
 

@@ -1,7 +1,7 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
 ARG gitLinuxComponentVersion='1:2.25.1-1ubuntu3.2'
-ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-linux-x64.tar.gz'
+ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.14.10.1/amazon-corretto-11.0.14.10.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='55e5ca4565737598ff24c6d927253275'
 ARG p4Version='2021.2-2264565'
 ARG ubuntuImage='ubuntu:20.04'
