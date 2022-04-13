@@ -73,7 +73,7 @@ You can use other than `/opt/buildagent/` source path prefix on the host machine
 
 In a Linux container, if you need a Docker daemon available inside your builds, you have two options.
 
-Regardless of the selected option, the __Docker service inside the container must be started under the root user__. The recommended approach is to use the TeamCity agent `linux-sudo` image that provides the sudo access. Alternatively, if you use a non-sudo agent image, you can run the whole container under the root user by passing `-u 0`.
+Regardless of the selected option, the __Docker service inside the container must be started under the root user__. The recommended approach is to use the TeamCity agent image with the `-linux-sudo` tag suffix that provides the sudo access. Alternatively, if you use a non-sudo agent image, you can run the whole container under the root user by passing `-u 0`.
 
 Initially, the Docker is stopped inside the container. To run it, pass the `-e DOCKER_IN_DOCKER=start` environment variable.
 
@@ -104,7 +104,7 @@ If you omit these options, you can run several build agents (you need to specify
 The problem is, that multiple agent containers would use the same (`/opt/buildagent/*`) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
 
 
-2) New Docker daemon running within your container (note that in this case the container should be run with the **—-privileged** flag, which is also risky from the security perspective). We recommend running such builds on the `linux-sudo` TeamCity image.
+2) New Docker daemon running within your container (note that in this case the container should be run with the **—-privileged** flag, which is also risky from the security perspective). We recommend running such builds on the TeamCity image with the `-linux-sudo` tag suffix.
 ```
 docker run -it -e SERVER_URL="<url to TeamCity server>"  \
     -v <path to agent config folder>:/data/teamcity_agent/conf \
