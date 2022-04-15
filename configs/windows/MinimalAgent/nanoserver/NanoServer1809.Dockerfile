@@ -10,7 +10,7 @@
 # Tag ${versionTag}
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 3
+# Weight 5
 
 ## ${agentCommentHeader}
 

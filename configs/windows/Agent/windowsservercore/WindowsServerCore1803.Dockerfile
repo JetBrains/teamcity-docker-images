@@ -19,7 +19,7 @@
 # Tag ${latestTag}-windowsservercore
 # Platform ${windowsPlatform}
 # Repo ${repo}
-# Weight 13
+# Weight 16
 
 ## ${agentCommentHeader}
 

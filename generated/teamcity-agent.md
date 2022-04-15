@@ -163,7 +163,7 @@ docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t t
 docker build -f "generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:local-nanoserver-1809 "context"
 ```
 
-_The required free space to generate image(s) is about **35 GB**._
+_The required free space to generate image(s) is about **40 GB**._
 
 ### local-nanoserver-2004
 
@@ -198,7 +198,7 @@ docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t t
 docker build -f "generated/windows/Agent/nanoserver/2004/Dockerfile" -t teamcity-agent:local-nanoserver-2004 "context"
 ```
 
-_The required free space to generate image(s) is about **35 GB**._
+_The required free space to generate image(s) is about **40 GB**._
 
 ### local-windowsservercore-1809
 
@@ -235,7 +235,7 @@ docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t t
 docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
 ```
 
-_The required free space to generate image(s) is about **33 GB**._
+_The required free space to generate image(s) is about **38 GB**._
 
 ### local-windowsservercore-2004
 
@@ -272,7 +272,7 @@ docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t t
 docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:local-windowsservercore-2004 "context"
 ```
 
-_The required free space to generate image(s) is about **33 GB**._
+_The required free space to generate image(s) is about **38 GB**._
 
 ### local-linux-18.04
 
@@ -363,7 +363,7 @@ docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t t
 docker build -f "generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:local-nanoserver-1803 "context"
 ```
 
-_The required free space to generate image(s) is about **33 GB**._
+_The required free space to generate image(s) is about **36 GB**._
 
 ### local-nanoserver-1903
 
@@ -395,7 +395,7 @@ docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t t
 docker build -f "generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:local-nanoserver-1903 "context"
 ```
 
-_The required free space to generate image(s) is about **35 GB**._
+_The required free space to generate image(s) is about **40 GB**._
 
 ### local-nanoserver-1909
 
@@ -427,7 +427,7 @@ docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t t
 docker build -f "generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:local-nanoserver-1909 "context"
 ```
 
-_The required free space to generate image(s) is about **35 GB**._
+_The required free space to generate image(s) is about **40 GB**._
 
 ### local-windowsservercore-1803
 
@@ -460,7 +460,7 @@ docker build -f "generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t t
 docker build -f "generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:local-windowsservercore-1803 "context"
 ```
 
-_The required free space to generate image(s) is about **31 GB**._
+_The required free space to generate image(s) is about **34 GB**._
 
 ### local-windowsservercore-1903
 
@@ -494,7 +494,7 @@ docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t t
 docker build -f "generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:local-windowsservercore-1903 "context"
 ```
 
-_The required free space to generate image(s) is about **33 GB**._
+_The required free space to generate image(s) is about **38 GB**._
 
 ### local-windowsservercore-1909
 
@@ -528,5 +528,5 @@ docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t t
 docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
 ```
 
-_The required free space to generate image(s) is about **33 GB**._
+_The required free space to generate image(s) is about **38 GB**._
 

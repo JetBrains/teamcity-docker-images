@@ -214,7 +214,7 @@ removeImageAfterPush = false
 }
 features {
 freeDiskSpace {
-requiredSpace = "38gb"
+requiredSpace = "43gb"
 failBuild = true
 }
 dockerSupport {
@@ -237,7 +237,7 @@ artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "38gb")
+param("system.teamcity.agent.ensure.free.space", "43gb")
 }
 })
 

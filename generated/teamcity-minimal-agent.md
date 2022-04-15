@@ -102,7 +102,7 @@ echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
 ```
 
-_The required free space to generate image(s) is about **8 GB**._
+_The required free space to generate image(s) is about **10 GB**._
 
 ### local-nanoserver-2004
 
@@ -132,7 +132,7 @@ echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-2004 "context"
 ```
 
-_The required free space to generate image(s) is about **8 GB**._
+_The required free space to generate image(s) is about **10 GB**._
 
 ### local-linux-18.04
 
@@ -263,7 +263,7 @@ echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1903 "context"
 ```
 
-_The required free space to generate image(s) is about **8 GB**._
+_The required free space to generate image(s) is about **10 GB**._
 
 ### local-nanoserver-1909
 
@@ -290,5 +290,5 @@ echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
 ```
 
-_The required free space to generate image(s) is about **8 GB**._
+_The required free space to generate image(s) is about **10 GB**._
 
