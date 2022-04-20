@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2021.1.1-linux %docker.deployRepository%teamcity-server:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2022.04-linux %docker.deployRepository%teamcity-server:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2021.1.1-linux %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.04-linux %docker.deployRepository%teamcity-agent:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.04-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2021.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2022.04-linux %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -89,6 +89,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --
 dependencies {
 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
 {
+reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
