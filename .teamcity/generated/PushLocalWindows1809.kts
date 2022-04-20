@@ -228,7 +228,7 @@ forceCleanCheckout = true
 }
 }
 dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+dependency(AbsoluteId("TC2022_04_BuildDistDocker")) {
 snapshot { onDependencyFailure = FailureAction.IGNORE
 reuseBuilds = ReuseBuilds.ANY }
 artifacts {
