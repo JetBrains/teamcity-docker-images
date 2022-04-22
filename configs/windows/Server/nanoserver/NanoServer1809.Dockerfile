@@ -33,18 +33,20 @@ ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
+    $jdkPath = [io.path]::GetTempPath() + 'jdk.zip'; \
+    $gitPath = [io.path]::GetTempPath() + 'git.zip'; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, $jdkPath, $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, $gitPath) ; \
     iex $downloadScript ; \
-    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Expand-Archive $jdkPath -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jdk.zip ; \
+    [io.file]::Delete($jdkPath) ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
-    Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
+    Expand-Archive $gitPath -DestinationPath $Env:ProgramFiles\Git ; \
+    [io.file]::Delete($jdkPath) ; \
     # https://youtrack.jetbrains.com/issue/TW-73017
-    (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
-    Remove-Item -Force git.zip
+    (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig'
 
 # Prepare TeamCity server distribution
 ARG windowsBuild
