@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,8 +36,6 @@ namespace Scripts
                 {
                     WriteLine("\t\tDNS address {0}", dnsAddress);
                 }
-
-
             }
 
             List<Task<bool>> tasks = new List<Task<bool>>();
@@ -182,6 +181,21 @@ namespace Scripts
                 WriteLine("{0}\t address {1}", host, address);
             }
 
+            using (HttpClient client = new HttpClient())
+            {
+                client.Timeout = TimeSpan.FromMinutes(5);
+                byte[] fileBytes = await client.GetByteArrayAsync(source);
+                WriteLine("{0}\tdownloaded {1} bytes", name, fileBytes.Length);
+                if (File.Exists(destinationFile))
+                {
+                    File.Delete(destinationFile);
+                }
+
+                File.WriteAllBytes(destinationFile, fileBytes);
+                WriteLine("{0}\tsaved to \"{1}\"", name, destinationFile);
+            }
+            
+            /*
             using (WebClient client = new WebClient())
             {
                 long lastPercent = -1;
@@ -212,6 +226,9 @@ namespace Scripts
                 await client.DownloadFileTaskAsync(source, destinationFile);
                 return completed;
             }
+            */
+
+            return true;
         }
 
         private static void WriteLine(string message, params object[] args)
