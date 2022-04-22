@@ -49,7 +49,9 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 ARG windowsBuild
 
 COPY TeamCity /TeamCity
-RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
+RUN $distributionTypePath = 'C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt' ; \
+    [io.file]::WriteAllText($distributionTypePath, '') ; \
+    New-Item $distributionTypePath -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 COPY run-server.ps1 /TeamCity/run-server.ps1
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
