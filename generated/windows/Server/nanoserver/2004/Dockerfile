@@ -29,6 +29,8 @@ ARG jdkServerWindowsComponentMD5SUM
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 
+USER ContainerAdministrator
+
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
@@ -43,11 +45,19 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
     Remove-Item -Force git.zip
 
+USER ContainerUser
+
 # Prepare TeamCity server distribution
 ARG windowsBuild
 
 COPY TeamCity /TeamCity
+
+USER ContainerAdministrator
+
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
+
+USER ContainerUser
+
 COPY run-server.ps1 /TeamCity/run-server.ps1
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
