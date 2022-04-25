@@ -29,14 +29,13 @@ ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    $jdkPath = [io.path]::GetTempPath() + 'jdk.zip'; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, $jdkPath) ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip') ; \
     iex $downloadScript ; \
-    Expand-Archive $jdkPath -DestinationPath $Env:ProgramFiles\Java ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    [io.file]::Delete($jdkPath) ; \
+    Remove-Item -Force jdk.zip ; \
     if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164

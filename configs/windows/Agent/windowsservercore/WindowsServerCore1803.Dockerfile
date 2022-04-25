@@ -48,43 +48,37 @@ ARG gitWindowsComponentSHA256
 ARG mercurialWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    $jdkPath = [io.path]::GetTempPath() + 'jdk.zip'; \
-    $gitPath = [io.path]::GetTempPath() + 'git.zip'; \
-    $hgPath = [io.path]::GetTempPath() + 'hg.msi'; \
-    $dotnetPath = [io.path]::GetTempPath() + 'dotnet.zip'; \
-    $dotnet31Path = [io.path]::GetTempPath() + 'dotnet_31.zip'; \
-    $dotnet50Path = [io.path]::GetTempPath() + 'dotnet_50.zip'; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, $jdkPath, $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, $gitPath, $Env:mercurialWindowsComponent, $hgPath, $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, $dotnetPath, $Env:dotnetWindowsComponent_31 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_31, $dotnet31Path, $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, $dotnet50Path) ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_31 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_31, 'dotnet_31.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
 # Install [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
-    Expand-Archive $dotnet31Path -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    [io.file]::Delete($dotnet31Path) ; \
+    Expand-Archive dotnet_31.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet_31.zip; \
 # Install [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
-    Expand-Archive $dotnet50Path -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    [io.file]::Delete($dotnet50Path) ; \
+    Expand-Archive dotnet_50.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet_50.zip; \
 # Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
-    Expand-Archive $dotnetPath -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    [io.file]::Delete($dotnetPath) ; \
+    Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
-    Expand-Archive $jdkPath -DestinationPath $Env:ProgramFiles\Java ; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
-    [io.file]::Delete($jdkPath) ; \
+    Remove-Item -Force jdk.zip ; \
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
-    $gitDestPath = $Env:ProgramFiles + '\Git'; \
-    Expand-Archive $gitPath -DestinationPath $gitDestPath ; \
-    [io.file]::Delete($gitPath) ; \
+    $gitPath = $Env:ProgramFiles + '\Git'; \
+    Expand-Archive git.zip -DestinationPath $gitPath ; \
+    Remove-Item -Force git.zip ; \
     # avoid circular dependencies in gitconfig
-    $gitConfigFile = $gitDestPath + '\etc\gitconfig'; \
+    $gitConfigFile = $gitPath + '\etc\gitconfig'; \
     $configContent = Get-Content $gitConfigFile; \
     $configContent = $configContent.Replace('path = C:/Program Files/Git/etc/gitconfig', ''); \
     Set-Content $gitConfigFile $configContent; \
 # Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
-    Start-Process msiexec -Wait -ArgumentList /q, /i, $hgPath ; \
-    [io.file]::Delete($hgPath)
+    Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
+    Remove-Item -Force hg.msi
 
 COPY --from=buildagent /BuildAgent /BuildAgent
 

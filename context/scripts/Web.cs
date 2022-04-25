@@ -15,7 +15,6 @@ namespace Scripts
     public class Web
     {
         private static readonly object LockObject = new object();
-        private static readonly string[] TestText = new[] { "Test" };
 
         public static int DownloadFiles(params string[] args)
         {
@@ -36,6 +35,8 @@ namespace Scripts
                 {
                     WriteLine("\t\tDNS address {0}", dnsAddress);
                 }
+
+
             }
 
             List<Task<bool>> tasks = new List<Task<bool>>();
@@ -181,36 +182,6 @@ namespace Scripts
                 WriteLine("{0}\t address {1}", host, address);
             }
 
-            try
-            {
-                if (File.Exists(destinationFile))
-                {
-                    File.Delete(destinationFile);
-                }
-
-                // Check writing
-                File.WriteAllLines(destinationFile, TestText);
-                File.Delete(destinationFile);
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLine("{0}\terror writing file: \"{1}\"", name, ex.Message);
-                throw;
-            }
-
-            /*
-            using (HttpClient client = new HttpClient())
-            {
-                client.Timeout = TimeSpan.FromMinutes(5);
-                byte[] fileBytes = await client.GetByteArrayAsync(source);
-                WriteLine("{0}\tdownloaded {1} bytes", name, fileBytes.Length);
-                File.WriteAllBytes(destinationFile, fileBytes);
-                WriteLine("{0}\tsaved to \"{1}\"", name, destinationFile);
-            }
-            
-            return true;
-            */
-            
             using (WebClient client = new WebClient())
             {
                 long lastPercent = -1;
