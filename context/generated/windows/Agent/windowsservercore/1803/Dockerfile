@@ -51,6 +51,8 @@ ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 ARG mercurialWindowsComponent
 
+USER ContainerAdministrator
+
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
@@ -77,6 +79,8 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Set-Content $gitConfigFile $configContent; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
+
+USER ContainerUser
 
 COPY --from=buildagent /BuildAgent /BuildAgent
 
