@@ -23,31 +23,10 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2022.04 %docker.deployRepository%teamcity-server:2022.04-linux %docker.deployRepository%teamcity-server:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04-nanoserver-2004"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:2022.04"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:2022.04 --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:2022.04"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2022.04 %docker.deployRepository%teamcity-agent:2022.04-linux %docker.deployRepository%teamcity-agent:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.04-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2022.04 %docker.deployRepository%teamcity-agent:2022.04-linux %docker.deployRepository%teamcity-agent:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -68,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:2022.04"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2022.04 %docker.deployRepository%teamcity-minimal-agent:2022.04-linux %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2022.04 %docker.deployRepository%teamcity-minimal-agent:2022.04-linux %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -86,10 +65,31 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2022.04 -
 }
 }
 dockerCommand {
+name = "manifest create teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-server:2022.04 %docker.deployRepository%teamcity-server:2022.04-linux %docker.deployRepository%teamcity-server:2022.04-nanoserver-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-server:2022.04"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:2022.04 --verbose"
+}
+}
+dockerCommand {
 name = "manifest create teamcity-agent:2022.04-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2022.04-windowsservercore %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2022.04-windowsservercore %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-1809"
 }
 }
 dockerCommand {
@@ -110,7 +110,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-1809"
 }
 }
 dockerCommand {

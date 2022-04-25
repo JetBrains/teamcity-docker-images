@@ -44,22 +44,20 @@ When running an image with multi-architecture support, docker will automatically
 
 ### local
 
-Supported platforms: linux 20.04, windows 1809, windows 2004
+Supported platforms: linux 20.04, windows 1809
 
 #### Content
 
 - [local-linux](#local-linux)
 - [local-nanoserver-1809](#local-nanoserver-1809)
-- [local-nanoserver-2004](#local-nanoserver-2004)
 
 ### local-windowsservercore
 
-Supported platforms: windows 1809, windows 2004
+Supported platforms: windows 1809
 
 #### Content
 
 - [local-windowsservercore-1809](#local-windowsservercore-1809)
-- [local-windowsservercore-2004](#local-windowsservercore-2004)
 
 
 ### local-linux
@@ -165,41 +163,6 @@ docker build -f "generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### local-nanoserver-2004
-
-[Dockerfile](windows/Agent/nanoserver/2004/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
-
-Installed components:
-
-- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.12.7.1 Checksum (MD5) 022bf679bc9c337287859264496c2f38](https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip)
-- [Git x64 v.2.33.0 Checksum (SHA256) e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95](https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip)
-- [.NET SDK x64 v.6.0.100 Checksum (SHA512) d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-win-x64.zip)
-
-Container platform: windows
-
-Docker build commands:
-
-```
-docker pull mcr.microsoft.com/windows/nanoserver:2004
-docker pull mcr.microsoft.com/powershell:nanoserver-2004
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
-echo TeamCity/webapps > context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-2004 "context"
-docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:local-windowsservercore-2004 "context"
-docker build -f "generated/windows/Agent/nanoserver/2004/Dockerfile" -t teamcity-agent:local-nanoserver-2004 "context"
-```
-
-_The required free space to generate image(s) is about **40 GB**._
-
 ### local-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
@@ -233,43 +196,6 @@ echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1809 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:local-windowsservercore-1809 "context"
-```
-
-_The required free space to generate image(s) is about **38 GB**._
-
-### local-windowsservercore-2004
-
-[Dockerfile](windows/Agent/windowsservercore/2004/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
-
-Installed components:
-
-- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [.NET Runtime x64 v.3.1.21 Checksum (SHA512) 7ba766b2f388ab09beee6a465f1eeb6b9a6858c8b6da51dacc79622b110558ef6211a40e715a16b526f2da08216c99143570b8253ff2c5ad874400475d1feb44](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-win-x64.zip)
-- [.NET Runtime x64 v.5.0.12 Checksum (SHA512) 636f22bfbfd98c80c96f2fc3815beb42ee2699cf2a410eeba24ddcc9304bc39594260eca4061b012d4b02b9c4592fa6927343077df053343a9c344a9289658e1](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-win-x64.zip)
-- [.NET SDK x64 v.6.0.100 Checksum (SHA512) d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-win-x64.zip)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.12.7.1 Checksum (MD5) 022bf679bc9c337287859264496c2f38](https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip)
-- [Git x64 v.2.33.0 Checksum (SHA256) e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95](https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip)
-- [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
-
-Container platform: windows
-
-Docker build commands:
-
-```
-docker pull mcr.microsoft.com/windows/nanoserver:2004
-docker pull mcr.microsoft.com/powershell:nanoserver-2004
-docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
-echo TeamCity/webapps > context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-2004 "context"
-docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:local-windowsservercore-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
@@ -429,6 +355,38 @@ docker build -f "generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity
 
 _The required free space to generate image(s) is about **40 GB**._
 
+### local-nanoserver-2004
+
+[Dockerfile](windows/Agent/nanoserver/2004/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.12.7.1 Checksum (MD5) 022bf679bc9c337287859264496c2f38](https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip)
+- [Git x64 v.2.33.0 Checksum (SHA256) e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95](https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip)
+- [.NET SDK x64 v.6.0.100 Checksum (SHA512) d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-win-x64.zip)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:2004
+docker pull mcr.microsoft.com/powershell:nanoserver-2004
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-2004 "context"
+docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:local-windowsservercore-2004 "context"
+docker build -f "generated/windows/Agent/nanoserver/2004/Dockerfile" -t teamcity-agent:local-nanoserver-2004 "context"
+```
+
+_The required free space to generate image(s) is about **40 GB**._
+
 ### local-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
@@ -526,6 +484,40 @@ echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-1909 "context"
 docker build -f "generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:local-windowsservercore-1909 "context"
+```
+
+_The required free space to generate image(s) is about **38 GB**._
+
+### local-windowsservercore-2004
+
+[Dockerfile](windows/Agent/windowsservercore/2004/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [.NET Runtime x64 v.3.1.21 Checksum (SHA512) 7ba766b2f388ab09beee6a465f1eeb6b9a6858c8b6da51dacc79622b110558ef6211a40e715a16b526f2da08216c99143570b8253ff2c5ad874400475d1feb44](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-win-x64.zip)
+- [.NET Runtime x64 v.5.0.12 Checksum (SHA512) 636f22bfbfd98c80c96f2fc3815beb42ee2699cf2a410eeba24ddcc9304bc39594260eca4061b012d4b02b9c4592fa6927343077df053343a9c344a9289658e1](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-win-x64.zip)
+- [.NET SDK x64 v.6.0.100 Checksum (SHA512) d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-win-x64.zip)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.12.7.1 Checksum (MD5) 022bf679bc9c337287859264496c2f38](https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip)
+- [Git x64 v.2.33.0 Checksum (SHA256) e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95](https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip)
+- [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:2004
+docker pull mcr.microsoft.com/powershell:nanoserver-2004
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:local-nanoserver-2004 "context"
+docker build -f "generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:local-windowsservercore-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
