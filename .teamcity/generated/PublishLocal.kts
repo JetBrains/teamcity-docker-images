@@ -23,6 +23,27 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
+name = "manifest create teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:2022.04"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04 --verbose"
+}
+}
+dockerCommand {
 name = "manifest create teamcity-agent:2022.04"
 commandType = other {
 subCommand = "manifest"
@@ -65,27 +86,6 @@ commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.bui
 }
 }
 dockerCommand {
-name = "manifest create teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-1809"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:2022.04"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04 --verbose"
-}
-}
-dockerCommand {
 name = "manifest create teamcity-agent:2022.04-windowsservercore"
 commandType = other {
 subCommand = "manifest"
@@ -104,6 +104,27 @@ name = "manifest inspect teamcity-agent:2022.04-windowsservercore"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-server:latest"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest --verbose"
 }
 }
 dockerCommand {
@@ -146,27 +167,6 @@ name = "manifest inspect teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest --verbose"
-}
-}
-dockerCommand {
-name = "manifest create teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-1809"
-}
-}
-dockerCommand {
-name = "manifest push teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest"
-}
-}
-dockerCommand {
-name = "manifest inspect teamcity-server:latest"
-commandType = other {
-subCommand = "manifest"
-commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest --verbose"
 }
 }
 dockerCommand {
