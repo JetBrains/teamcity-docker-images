@@ -68,8 +68,10 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
-RUN add-apt-repository ppa:git-core/ppa -y && apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial apt-transport-https software-properties-common && \
+RUN apt-get update && \
+    apt-get install -y mercurial apt-transport-https software-properties-common && \
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
