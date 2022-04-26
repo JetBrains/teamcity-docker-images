@@ -66,8 +66,10 @@ ARG gitLinuxComponentVersion
 # Install ${gitLFSLinuxComponentName}
 ARG gitLFSLinuxComponentVersion
 
-RUN add-apt-repository ppa:git-core/ppa -y && apt-get update && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial && \
+RUN apt-get update && \
+    apt-get install -y mercurial software-properties-common && \
+    add-apt-repository ppa:git-core/ppa -y git-lfs=${gitLFSLinuxComponentVersion} && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
