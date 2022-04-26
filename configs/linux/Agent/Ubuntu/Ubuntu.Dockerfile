@@ -60,7 +60,7 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
-RUN apt-get update && \
+RUN add-apt-repository ppa:git-core/ppa -y && apt-get update && \
 # Install ${gitLinuxComponentName}
 # Install ${gitLFSLinuxComponentName}
 # Install Mercurial
