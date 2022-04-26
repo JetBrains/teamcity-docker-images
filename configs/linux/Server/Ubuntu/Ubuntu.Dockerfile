@@ -69,7 +69,7 @@ ARG gitLFSLinuxComponentVersion
 # Install ${p4Name}
 ARG p4Version
 
-RUN apt-get update && \
+RUN add-apt-repository ppa:git-core/ppa -y && apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial gnupg && \
     git lfs install --system && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \

@@ -1,9 +1,10 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
-ARG gitLinuxComponentVersion='1:2.17.1-1ubuntu0.9'
+ARG gitLinuxComponentVersion='1:2.36.0-0ppa1~ubuntu18.04.1'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='30f9268b8f4c2c2f8c1676611b88aa0d'
 ARG p4Version='2021.2-2273812'
+ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
@@ -64,7 +65,7 @@ ARG gitLFSLinuxComponentVersion
 
 ARG p4Version
 
-RUN apt-get update && \
+RUN add-apt-repository ppa:git-core/ppa -y && apt-get update && \
     apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} mercurial gnupg && \
     git lfs install --system && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
