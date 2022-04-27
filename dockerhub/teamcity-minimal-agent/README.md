@@ -23,14 +23,14 @@ and use the following command to start a container with TeamCity agent running i
 a Linux container:
 
 ```
-docker run -it -e SERVER_URL="<url to TeamCity server>"  \ 
+docker run -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \      
     jetbrains/teamcity-minimal-agent
 ```
 &nbsp;
 or a Windows container:
 ```
-docker run -it -e SERVER_URL="<url to TeamCity server>" 
+docker run -e SERVER_URL="<url to TeamCity server>" 
     -v <path to agent config folder>:C:/BuildAgent/conf      
     jetbrains/teamcity-minimal-agent
 ```
@@ -63,7 +63,7 @@ You can customize the image via the usual Docker procedure:
 
 1. Run the image
 ```
-docker run -it -e SERVER_URL="<url to TeamCity server>"  \ 
+docker run -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \
     --name="my-customized-agent"  \
     jetbrains/teamcity-minimal-agent  \

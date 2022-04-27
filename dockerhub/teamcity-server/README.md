@@ -20,7 +20,7 @@ Use the following command to start a container with TeamCity server
 
 
 ```
-docker run -it --name teamcity-server-instance  \
+docker run --name teamcity-server-instance  \
     -v <path-to-data-directory>:/data/teamcity_server/datadir \
     -v <path-to-logs-directory>:/opt/teamcity/logs  \
     -p <port-on-host>:8111 \
@@ -57,7 +57,7 @@ To get a sample of the current contents of the Tomcat's `conf` directory, use th
 ### Windows container
 
 ```
-docker run -it --name teamcity-server-instance
+docker run --name teamcity-server-instance
     -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
     -v <path-to-logs-directory>:C:/TeamCity/logs
     -v <path-to-temp-directory>:C:/TeamCity/temp
@@ -70,7 +70,7 @@ See the **\<path-to-data-directory>** and **\<path-to-logs-directory>** descript
 We also suggest allocating a sufficient amount of resources to the Docker process, like in this example:
 
 ```
-docker run -it --memory="6g" --cpus=4 -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m" --name teamcity-server-instance
+docker run --memory="6g" --cpus=4 -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m" --name teamcity-server-instance
     -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
     -v <path-to-logs-directory>:C:/TeamCity/logs
     -v <path-to-temp-directory>:C:/TeamCity/temp
@@ -98,7 +98,7 @@ To learn how you can start the TeamCity server together with agents in one go, s
 When you need to pass additional environment variables to the server process, use the regular `-e` option. For example, to pass TEAMCITY_SERVER_MEM_OPTS environment variable, use:
 
 ```
-docker run -it --name teamcity-server-instance   \
+docker run --name teamcity-server-instance   \
        -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
        -v <path-to-data-directory>:/data/teamcity_server/datadir  \
        -v <path-to-log-directory>:/opt/teamcity/logs   \
