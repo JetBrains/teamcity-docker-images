@@ -54,7 +54,8 @@ COPY TeamCity /TeamCity
 
 USER ContainerAdministrator
 
-RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
+RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null ; \
+    cmd.exe /c "ICACLS \TeamCity /setowner 'User Manager\ContainerUser' /T /C /Q" ;
 
 USER ContainerUser
 
