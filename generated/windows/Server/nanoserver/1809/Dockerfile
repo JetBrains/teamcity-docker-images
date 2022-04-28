@@ -53,11 +53,10 @@ ARG windowsBuild
 COPY TeamCity /TeamCity
 
 USER ContainerAdministrator
-
-RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null ; \
-    cmd.exe /c "ICACLS \TeamCity /setowner 'User Manager\ContainerUser' /T /C /Q" ;
-
+RUN cmd.exe /c "ICACLS C:/TeamCity/webapps/ROOT/WEB-INF /grant 'User Manager\ContainerUser:(OI)(CI)FF' /T /C /Q"
 USER ContainerUser
+
+RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 
 COPY run-server.ps1 /TeamCity/run-server.ps1
 
@@ -113,4 +112,4 @@ CMD pwsh C:/TeamCity/run-server.ps1
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
-USER ContainerUser
+#USER ContainerUser
