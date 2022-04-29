@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:2022.04"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-linux"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:2022.04"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-linux"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -86,10 +86,31 @@ commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImage
 }
 }
 dockerCommand {
+name = "manifest create teamcity-agent:2022.04-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-agent:2022.04-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-agent:2022.04-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore --verbose"
+}
+}
+dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-linux"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -110,7 +131,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-linux"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -146,6 +167,27 @@ name = "manifest inspect teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-agent:latest-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-agent:latest-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-agent:latest-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore --verbose"
 }
 }
 }

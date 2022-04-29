@@ -13,22 +13,22 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_windows_1809 : BuildType({
 name = "Build and push windows 1809"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2022.04-nanoserver-1809,latest,2022.04"
+description  = "teamcity-server:2022.04-nanoserver-1809,latest,2022.04 teamcity-minimal-agent:2022.04-nanoserver-1809,latest,2022.04 teamcity-agent:2022.04-windowsservercore-1809,2022.04-windowsservercore,latest-windowsservercore:2022.04-nanoserver-1809,latest,2022.04"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
-dockerCommand {
-name = "pull mcr.microsoft.com/windows/nanoserver:1809"
-commandType = other {
-subCommand = "pull"
-commandArgs = "mcr.microsoft.com/windows/nanoserver:1809"
-}
-}
-
 dockerCommand {
 name = "pull mcr.microsoft.com/powershell:nanoserver-1809"
 commandType = other {
 subCommand = "pull"
 commandArgs = "mcr.microsoft.com/powershell:nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "pull mcr.microsoft.com/windows/nanoserver:1809"
+commandType = other {
+subCommand = "pull"
+commandArgs = "mcr.microsoft.com/windows/nanoserver:1809"
 }
 }
 
@@ -64,6 +64,81 @@ teamcity-server:2022.04-nanoserver-1809
 param("dockerImage.platform", "windows")
 }
 
+script {
+name = "context teamcity-minimal-agent:2022.04-nanoserver-1809"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+""".trimIndent()
+}
+
+dockerCommand {
+name = "build teamcity-minimal-agent:2022.04-nanoserver-1809"
+commandType = build {
+source = file {
+path = """context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile"""
+}
+contextDir = "context"
+commandArgs = "--no-cache"
+namesAndTags = """
+teamcity-minimal-agent:2022.04-nanoserver-1809
+""".trimIndent()
+}
+param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-agent:2022.04-windowsservercore-1809"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+""".trimIndent()
+}
+
+dockerCommand {
+name = "build teamcity-agent:2022.04-windowsservercore-1809"
+commandType = build {
+source = file {
+path = """context/generated/windows/Agent/windowsservercore/1809/Dockerfile"""
+}
+contextDir = "context"
+commandArgs = "--no-cache"
+namesAndTags = """
+teamcity-agent:2022.04-windowsservercore-1809
+""".trimIndent()
+}
+param("dockerImage.platform", "windows")
+}
+
+script {
+name = "context teamcity-agent:2022.04-nanoserver-1809"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+""".trimIndent()
+}
+
+dockerCommand {
+name = "build teamcity-agent:2022.04-nanoserver-1809"
+commandType = build {
+source = file {
+path = """context/generated/windows/Agent/nanoserver/1809/Dockerfile"""
+}
+contextDir = "context"
+commandArgs = "--no-cache"
+namesAndTags = """
+teamcity-agent:2022.04-nanoserver-1809
+""".trimIndent()
+}
+param("dockerImage.platform", "windows")
+}
+
 dockerCommand {
 name = "tag teamcity-server:2022.04-nanoserver-1809"
 commandType = other {
@@ -73,10 +148,64 @@ commandArgs = "teamcity-server:2022.04-nanoserver-1809 %docker.buildRepository%t
 }
 
 dockerCommand {
+name = "tag teamcity-minimal-agent:2022.04-nanoserver-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-minimal-agent:2022.04-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:2022.04-windowsservercore-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:2022.04-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-1809"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:2022.04-nanoserver-1809"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:2022.04-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809"
+}
+}
+
+dockerCommand {
 name = "push teamcity-server:2022.04-nanoserver-1809"
 commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-1809
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "push teamcity-minimal-agent:2022.04-nanoserver-1809"
+commandType = push {
+namesAndTags = """
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent:2022.04-windowsservercore-1809"
+commandType = push {
+namesAndTags = """
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-1809
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent:2022.04-nanoserver-1809"
+commandType = push {
+namesAndTags = """
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }

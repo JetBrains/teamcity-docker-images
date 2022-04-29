@@ -51,8 +51,6 @@ ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 ARG mercurialWindowsComponent
 
-USER ContainerAdministrator
-
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
@@ -79,8 +77,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Set-Content $gitConfigFile $configContent; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
-
-USER ContainerUser
 
 COPY --from=buildagent /BuildAgent /BuildAgent
 
@@ -109,4 +105,6 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 
 USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
+RUN net localgroup administrators "User Manager\ContainerUser" /add
+
 USER ContainerUser
