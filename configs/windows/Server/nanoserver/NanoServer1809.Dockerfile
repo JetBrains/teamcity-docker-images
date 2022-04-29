@@ -21,6 +21,10 @@
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
+USER ContainerAdministrator
+RUN net localgroup administrators "User Manager\ContainerUser" /add
+USER ContainerUser
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -31,8 +35,6 @@ ARG jdkServerWindowsComponentMD5SUM
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
-
-USER ContainerAdministrator
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
@@ -46,18 +48,13 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     # https://youtrack.jetbrains.com/issue/TW-73017
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
-    Remove-Item -Force git.zip
-
-USER ContainerUser
+    Remove-Item -Force git.zip ; \
+    cmd.exe /c "ICACLS 'C:\Program Files' /grant 'User Manager\ContainerUser:(OI)(CI)RX' /T /C /Q"
 
 # Prepare TeamCity server distribution
 ARG windowsBuild
 
 COPY TeamCity /TeamCity
-
-USER ContainerAdministrator
-RUN cmd.exe /c "ICACLS C:/TeamCity/webapps/ROOT/WEB-INF /grant 'User Manager\ContainerUser:(OI)(CI)FF' /T /C /Q"
-USER ContainerUser
 
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 
@@ -115,4 +112,5 @@ CMD pwsh C:/TeamCity/run-server.ps1
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
-#USER ContainerUser
+RUN net localgroup administrators "User Manager\ContainerUser" /add
+USER ContainerUser
