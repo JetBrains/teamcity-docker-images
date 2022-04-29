@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:EAP %docker.deployRepository%teamcity-agent:EAP-linux"
+commandArgs = "create %docker.deployRepository%teamcity-agent:EAP %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:EAP %docker.deployRepository%teamcity-minimal-agent:EAP-linux"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:EAP %docker.deployRepository%teamcity-minimal-agent:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
 }
 }
 dockerCommand {
@@ -83,6 +83,27 @@ name = "manifest inspect teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
 commandArgs = "inspect %docker.deployRepository%teamcity-server:EAP --verbose"
+}
+}
+dockerCommand {
+name = "manifest create teamcity-agent:EAP-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "create %docker.deployRepository%teamcity-agent:EAP-windowsservercore %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809"
+}
+}
+dockerCommand {
+name = "manifest push teamcity-agent:EAP-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "push %docker.deployRepository%teamcity-agent:EAP-windowsservercore"
+}
+}
+dockerCommand {
+name = "manifest inspect teamcity-agent:EAP-windowsservercore"
+commandType = other {
+subCommand = "manifest"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsservercore --verbose"
 }
 }
 }
