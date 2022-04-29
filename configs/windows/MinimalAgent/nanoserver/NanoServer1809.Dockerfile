@@ -17,6 +17,10 @@
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS base
 
+USER ContainerAdministrator
+RUN net localgroup administrators "User Manager\ContainerUser" /add
+USER ContainerUser
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -28,7 +32,6 @@ COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 
-USER ContainerAdministrator
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
@@ -37,10 +40,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
-    cmd.exe /c "ICACLS c:/BuildAgent/system/.teamcity-agent /grant 'User Manager\ContainerUser:(OI)(CI)FF' /T /C /Q"
-USER ContainerUser
-
-RUN if (Test-Path 'c:/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
+    if (Test-Path 'c:/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
@@ -78,11 +78,15 @@ COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJD
 ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
 CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+COPY --from=base /BuildAgent /BuildAgent
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
 VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
+
+USER ContainerAdministrator
+RUN net localgroup administrators "User Manager\ContainerUser" /add
+USER ContainerUser
 
 CMD pwsh ./BuildAgent/run-agent.ps1
