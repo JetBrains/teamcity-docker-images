@@ -23,6 +23,7 @@ namespace TeamCity.Docker
         private const string ComponentsPrefix = "# Install ";
         private const string RepoPrefix = "# Repo ";
         private const string WeightPrefix = "# Weight ";
+        private const string RequiresPrefix = "# Requires ";
 
         private readonly IContentParser _contentParser;
         private readonly IPathService _pathService;
@@ -53,6 +54,7 @@ namespace TeamCity.Docker
                     var comments = new List<string>();
                     var dockerfileLines = new List<Line>();
                     var weight = 0;
+                    var requirements = new List<Requirement>();
 
                     foreach (var line in lines)
                     {
@@ -86,6 +88,14 @@ namespace TeamCity.Docker
                                     {
                                         weight = weightValue;
                                     }
+                                }) ||
+                                TrySetByPrefix(line.Text, RequiresPrefix, expression =>
+                                {
+                                    var values = expression.Split(" ");
+                                    if (values.Length >= 2 && Enum.TryParse<RequirementType>(values[1], true, out var requirementType))
+                                    {
+                                        requirements.Add(new Requirement(values[0], requirementType, values.Length > 2 ? values[2] : string.Empty));
+                                    }
                                 });
                         }
 
@@ -109,7 +119,8 @@ namespace TeamCity.Docker
                         references,
                         new Weight(weight),
                         dockerfileLines,
-                        template.Ignore);
+                        template.Ignore,
+                        requirements);
 
                     if (graph.TryAddNode(new Image(dockerfile), out var dockerImageNode))
                     {

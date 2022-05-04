@@ -112,7 +112,7 @@ namespace TeamCity.Docker
 
             var publishLocalId = "publish_local";
             localBuildTypes.Add(publishLocalId);
-            graph.TryAddNode(AddFile(publishLocalId, CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups, BuildImagePostfix, true, buildAndPushLocalBuildTypes.ToArray())), out _);
+            graph.TryAddNode(AddFile(publishLocalId, CreateManifestBuildConfiguration(publishLocalId, BuildRepositoryName, "Publish", localPublishGroups.ToList(), BuildImagePostfix, true, buildAndPushLocalBuildTypes.ToArray())), out _);
             
             // Push on docker hub
             var pushOnHubBuildTypes = new List<string>();
@@ -139,7 +139,7 @@ namespace TeamCity.Docker
             {
                 var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
                 publishOnHubBuildTypes.Add(buildTypeId);
-                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group, string.Empty, false, pushOnHubBuildTypes.ToArray())), out _);
+                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group.ToList(), string.Empty, false, pushOnHubBuildTypes.ToArray())), out _);
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
@@ -286,7 +286,8 @@ namespace TeamCity.Docker
                 yield return param;
             }
 
-            foreach (var lines in CreateDockerRequirements(platform))
+            var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
+            foreach (var lines in CreateDockerRequirements(platform, requirements))
             {
                 yield return lines;
             }
@@ -300,7 +301,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IEnumerable<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
+        private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
@@ -335,7 +336,8 @@ namespace TeamCity.Docker
                 yield return line;
             }
 
-            foreach (var lines in CreateDockerRequirements("windows", MinDockerVersion))
+            var requirements = images.SelectMany(i => i).SelectMany(i => i.File.Requirements).Distinct().ToList();
+            foreach (var lines in CreateDockerRequirements("windows", requirements, MinDockerVersion))
             {
                 yield return lines;
             }
@@ -351,7 +353,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private static IEnumerable<string> CreateDockerRequirements(string platform, string minDockerVersion = "")
+        private static IEnumerable<string> CreateDockerRequirements(string platform, IReadOnlyCollection<Requirement> requirements, string minDockerVersion = "")
         {
             yield return "requirements {";
             if (!string.IsNullOrWhiteSpace(minDockerVersion))
@@ -360,6 +362,17 @@ namespace TeamCity.Docker
             }
 
             yield return $"contains(\"docker.server.osType\", \"{platform}\")";
+            foreach (var requirement in requirements)
+            {
+                if (string.IsNullOrWhiteSpace(requirement.Value))
+                {
+                    yield return $"{requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\")";
+                }
+                else
+                {
+                    yield return $"{requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\", \"{requirement.Value}\")";   
+                }
+            }
             yield return "}";
         }
 

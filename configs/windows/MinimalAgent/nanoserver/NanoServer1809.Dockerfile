@@ -11,6 +11,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 5
+# Requires system.agent.name contains Docker
 
 ## ${agentCommentHeader}
 

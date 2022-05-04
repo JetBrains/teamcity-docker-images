@@ -19,6 +19,7 @@
         public readonly Weight Weight;
         [NotNull] public readonly IEnumerable<Line> Lines;
         [NotNull] public readonly IReadOnlyCollection<string> Ignores;
+        [NotNull] public readonly IReadOnlyCollection<Requirement> Requirements;
 
         public Dockerfile(
             [NotNull] string path,
@@ -32,7 +33,8 @@
             [NotNull] IReadOnlyCollection<Reference> references,
             Weight weight,
             [NotNull] IReadOnlyCollection<Line> lines,
-            [NotNull] IReadOnlyCollection<string> ignore)
+            [NotNull] IReadOnlyCollection<string> ignore,
+            [NotNull] IReadOnlyCollection<Requirement> requirements)
         {
             Path = path ?? throw new ArgumentNullException(nameof(path));
             ImageId = imageId ?? throw new ArgumentNullException(nameof(imageId));
@@ -46,6 +48,7 @@
             Weight = weight;
             Lines = lines ?? throw new ArgumentNullException(nameof(lines));
             Ignores = ignore ?? throw new ArgumentNullException(nameof(ignore));
+            Requirements = requirements ?? throw new ArgumentNullException(nameof(requirements));
         }
 
         public int CompareTo(Dockerfile other) =>
