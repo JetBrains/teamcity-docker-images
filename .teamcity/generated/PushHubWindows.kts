@@ -140,7 +140,7 @@ param("system.teamcity.agent.ensure.free.space", "26gb")
 }
 requirements {
 contains("docker.server.osType", "windows")
-contains("system.agent.name", "Docker")
+contains("system.agent.name", "-docker-")
 }
 dependencies {
 snapshot(PublishLocal.publish_local)
