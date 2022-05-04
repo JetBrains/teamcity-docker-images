@@ -219,5 +219,7 @@ artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 params {
 param("system.teamcity.agent.ensure.free.space", "6gb")
 }
+requirements {
+}
 })
 

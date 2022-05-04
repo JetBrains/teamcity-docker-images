@@ -287,7 +287,7 @@ namespace TeamCity.Docker
             }
 
             var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
-            foreach (var lines in CreateDockerRequirements(platform, requirements))
+            foreach (var lines in CreateDockerRequirements(requirements, platform))
             {
                 yield return lines;
             }
@@ -337,7 +337,7 @@ namespace TeamCity.Docker
             }
 
             var requirements = images.SelectMany(i => i).SelectMany(i => i.File.Requirements).Distinct().ToList();
-            foreach (var lines in CreateDockerRequirements("windows", requirements, MinDockerVersion))
+            foreach (var lines in CreateDockerRequirements(requirements, "windows", MinDockerVersion))
             {
                 yield return lines;
             }
@@ -353,7 +353,7 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        private static IEnumerable<string> CreateDockerRequirements(string platform, IReadOnlyCollection<Requirement> requirements, string minDockerVersion = "")
+        private static IEnumerable<string> CreateDockerRequirements(IReadOnlyCollection<Requirement> requirements, string platform = "", string minDockerVersion = "")
         {
             yield return "requirements {";
             if (!string.IsNullOrWhiteSpace(minDockerVersion))
@@ -361,7 +361,11 @@ namespace TeamCity.Docker
                 yield return $"noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
             }
 
-            yield return $"contains(\"docker.server.osType\", \"{platform}\")";
+            if (!string.IsNullOrWhiteSpace(platform))
+            {
+                yield return $"contains(\"docker.server.osType\", \"{platform}\")";
+            }
+
             foreach (var requirement in requirements)
             {
                 if (string.IsNullOrWhiteSpace(requirement.Value))
@@ -543,6 +547,12 @@ namespace TeamCity.Docker
                 foreach (var param in CreateSpaceParams(weight))
                 {
                     yield return param;
+                }
+                
+                var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
+                foreach (var lines in CreateDockerRequirements(requirements))
+                {
+                    yield return lines;
                 }
             }
 
