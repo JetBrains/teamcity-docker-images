@@ -83,7 +83,7 @@ The details on the known problems in Windows containers are available in the [Te
 ### Database
 
 TeamCity stores set of users and build results in an SQL database in addition to the Data Directory.
-By default, the TeamCity server uses an internal database stored on the file system under the data directory. However, production use requires an [external database](https://www.jetbrains.com/help/teamcity/setting-up-an-external-database.html#SettingupanExternalDatabase-DefaultInternalDatabase).
+By default, the TeamCity server uses an internal database stored on the file system under the data directory. However, production use requires an [external database](https://www.jetbrains.com/help/teamcity/set-up-external-database.html).
 
 To use the server for production, make sure to review and apply the [recommendations](https://www.jetbrains.com/help/teamcity/installing-and-configuring-the-teamcity-server.html#InstallingandConfiguringtheTeamCityServer-ConfiguringServerforProductionUse).
 
