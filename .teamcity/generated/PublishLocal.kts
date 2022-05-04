@@ -210,6 +210,7 @@ onDependencyFailure =  FailureAction.FAIL_TO_START
 requirements {
 noLessThanVer("docker.version", "18.05.0")
 contains("docker.server.osType", "windows")
+contains("system.agent.name", "Docker")
 }
 features {
 dockerSupport {
