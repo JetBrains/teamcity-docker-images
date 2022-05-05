@@ -38,7 +38,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
-    if (Test-Path 'c:/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
+    if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
@@ -74,9 +74,9 @@ RUN pwsh -NoLogo -NoProfile -Command " \
 COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 
 ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
-CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
+    CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --from=base /BuildAgent /BuildAgent
+COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work

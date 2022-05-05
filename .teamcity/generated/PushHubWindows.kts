@@ -119,10 +119,114 @@ removeImageAfterPush = false
 }
 }
 
+dockerCommand {
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004 %docker.deployRepository%teamcity-agent:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:2022.04-nanoserver-2004
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-2004 %docker.deployRepository%teamcity-agent:2022.04-windowsservercore-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent%docker.buildImagePostfix%:2022.04-windowsservercore-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:2022.04-windowsservercore-2004
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004 %docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-minimal-agent:2022.04-nanoserver-2004
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-2004 %docker.deployRepository%teamcity-server:2022.04-nanoserver-2004"
+}
+}
+
+dockerCommand {
+name = "push teamcity-server%docker.buildImagePostfix%:2022.04-nanoserver-2004"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-server:2022.04-nanoserver-2004
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
 }
 features {
 freeDiskSpace {
-requiredSpace = "26gb"
+requiredSpace = "52gb"
 failBuild = true
 }
 dockerSupport {
@@ -136,11 +240,12 @@ forceCleanCheckout = true
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "26gb")
+param("system.teamcity.agent.ensure.free.space", "52gb")
 }
 requirements {
 contains("docker.server.osType", "windows")
-contains("system.agent.name", "-docker-")
+contains("system.agent.name", "docker")
+contains("system.agent.name", "windows10")
 }
 dependencies {
 snapshot(PublishLocal.publish_local)
