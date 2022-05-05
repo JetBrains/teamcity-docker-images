@@ -107,6 +107,4 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 
 USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
-RUN net localgroup administrators "User Manager\ContainerUser" /add
-
 USER ContainerUser
