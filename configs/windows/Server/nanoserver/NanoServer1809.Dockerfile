@@ -14,17 +14,14 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 3
-# Requires system.agent.name contains -docker-
+# Requires system.agent.name contains docker
+# Requires system.agent.name contains windows10
 
 ## ${serverCommentHeader}
 
 # Based on ${powershellImage} 3
 # Install ${powerShellComponentName}
 FROM ${powershellImage} AS base
-
-USER ContainerAdministrator
-RUN net localgroup administrators "User Manager\ContainerUser" /add
-USER ContainerUser
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -113,5 +110,4 @@ CMD pwsh C:/TeamCity/run-server.ps1
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
-RUN net localgroup administrators "User Manager\ContainerUser" /add
 USER ContainerUser

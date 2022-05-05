@@ -11,16 +11,13 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 5
-# Requires system.agent.name contains -docker-
+# Requires system.agent.name contains docker
+# Requires system.agent.name contains windows10
 
 ## ${agentCommentHeader}
 
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS base
-
-USER ContainerAdministrator
-RUN net localgroup administrators "User Manager\ContainerUser" /add
-USER ContainerUser
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -85,9 +82,5 @@ VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
 VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
-
-USER ContainerAdministrator
-RUN net localgroup administrators "User Manager\ContainerUser" /add
-USER ContainerUser
 
 CMD pwsh ./BuildAgent/run-agent.ps1
