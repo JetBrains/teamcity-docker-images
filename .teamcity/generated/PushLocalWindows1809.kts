@@ -240,7 +240,8 @@ params {
 param("system.teamcity.agent.ensure.free.space", "43gb")
 }
 requirements {
-contains("system.agent.name", "-docker-")
+contains("system.agent.name", "docker")
+contains("system.agent.name", "windows10")
 }
 })
 

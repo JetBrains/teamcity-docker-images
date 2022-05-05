@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-server:EAP"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
+commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -89,7 +89,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:EAP-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 }
 }
 dockerCommand {
@@ -122,11 +122,16 @@ snapshot(PushLocalWindows1809.push_local_windows_1809)
 {
 onDependencyFailure =  FailureAction.FAIL_TO_START
 }
+snapshot(PushLocalWindows2004.push_local_windows_2004)
+{
+onDependencyFailure =  FailureAction.FAIL_TO_START
+}
 }
 requirements {
 noLessThanVer("docker.version", "18.05.0")
 contains("docker.server.osType", "windows")
-contains("system.agent.name", "-docker-")
+contains("system.agent.name", "docker")
+contains("system.agent.name", "windows10")
 }
 features {
 dockerSupport {

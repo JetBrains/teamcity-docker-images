@@ -20,10 +20,6 @@ ARG windowsBuild='1903'
 
 FROM ${powershellImage} AS base
 
-USER ContainerAdministrator
-RUN net localgroup administrators "User Manager\ContainerUser" /add
-USER ContainerUser
-
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -45,16 +41,13 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
     # https://youtrack.jetbrains.com/issue/TW-73017
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
-    Remove-Item -Force git.zip ; \
-    cmd.exe /c "ICACLS 'C:\Program Files' /grant 'User Manager\ContainerUser:(OI)(CI)RX' /T /C /Q"
+    Remove-Item -Force git.zip
 
 # Prepare TeamCity server distribution
 ARG windowsBuild
 
 COPY TeamCity /TeamCity
-
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
-
 COPY run-server.ps1 /TeamCity/run-server.ps1
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
@@ -109,5 +102,4 @@ CMD pwsh C:/TeamCity/run-server.ps1
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
-RUN net localgroup administrators "User Manager\ContainerUser" /add
 USER ContainerUser
