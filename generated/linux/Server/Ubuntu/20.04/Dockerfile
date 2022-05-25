@@ -1,6 +1,6 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
-ARG gitLinuxComponentVersion='1:2.36.0-0ppa1~ubuntu20.04.1'
+ARG gitLinuxComponentVersion='1:2.36.1-0ppa1~ubuntu20.04.1'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='30f9268b8f4c2c2f8c1676611b88aa0d'
 ARG p4Version='2021.2-2273812'
@@ -75,7 +75,7 @@ RUN apt-get update && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
       /etc/apt/sources.list.d/perforce.list ) && \
     apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
+    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
