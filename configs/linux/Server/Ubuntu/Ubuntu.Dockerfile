@@ -79,7 +79,7 @@ RUN apt-get update && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
       /etc/apt/sources.list.d/perforce.list ) && \
     apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
+    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

@@ -74,7 +74,7 @@ The docker image is available on:
 
 Installed components:
 
-- Git v.2.36.0
+- Git v.2.36.1
 - Git LFS v.2.9.2
 - Mercurial
 - Perforce Helix Core client (p4) [2021.2-2273812](https://www.perforce.com/products/helix-core)
@@ -283,7 +283,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- Git v.2.36.0
+- Git v.2.36.1
 - Git LFS v.2.3.4
 - Mercurial
 - Perforce Helix Core client (p4) [2021.2-2273812](https://www.perforce.com/products/helix-core)
