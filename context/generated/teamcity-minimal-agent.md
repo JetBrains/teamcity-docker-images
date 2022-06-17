@@ -15,7 +15,7 @@ When running an image with multi-architecture support, docker will automatically
 
 - 20.04
   - [EAP-linux](#EAP-linux)
-  - [EAP-linux-arm64-20.04](#EAP-linux-arm64-2004)
+  - [EAP-linux-arm64](#EAP-linux-arm64)
 - 18.04
   - [EAP-linux-18.04](#EAP-linux-1804)
   - [EAP-linux-arm64-18.04](#EAP-linux-arm64-1804)
@@ -160,6 +160,32 @@ docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -
 
 _The required free space to generate image(s) is about **1 GB**._
 
+### EAP-linux-arm64
+
+[Dockerfile](linux/MinimalAgent/UbuntuARM/20.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.15.9.1 Checksum (MD5) 9da32690c0b037569e6c622a6795ac80](https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:20.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
 ### EAP-linux-arm64-18.04
 
 [Dockerfile](linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
@@ -170,7 +196,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.15.9.1 Checksum (MD5) 9da32690c0b037569e6c622a6795ac80](https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz)
 
 Container platform: linux
 
@@ -182,32 +208,6 @@ echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64-18.04 "context"
-```
-
-_The required free space to generate image(s) is about **1 GB**._
-
-### EAP-linux-arm64-20.04
-
-[Dockerfile](linux/MinimalAgent/UbuntuARM/20.04/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-The docker image is not available and may be created manually.
-
-Installed components:
-
-- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
-
-Container platform: linux
-
-Docker build commands:
-
-```
-docker pull ubuntu:20.04
-echo TeamCity/webapps > context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64-20.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._

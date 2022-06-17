@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_20_04 : BuildType({
 name = "Build and push linux 20.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo"
+description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo:EAP-linux-arm64,EAP:EAP-linux-arm64-sudo"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -119,6 +119,52 @@ teamcity-agent:EAP-linux-sudo
 param("dockerImage.platform", "linux")
 }
 
+script {
+name = "context teamcity-agent:EAP-linux-arm64"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity >> context/.dockerignore
+""".trimIndent()
+}
+
+dockerCommand {
+name = "build teamcity-agent:EAP-linux-arm64"
+commandType = build {
+source = file {
+path = """context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"""
+}
+contextDir = "context"
+commandArgs = "--no-cache"
+namesAndTags = """
+teamcity-agent:EAP-linux-arm64
+""".trimIndent()
+}
+param("dockerImage.platform", "linux")
+}
+
+script {
+name = "context teamcity-agent:EAP-linux-arm64-sudo"
+scriptContent = """
+echo 2> context/.dockerignore
+echo TeamCity >> context/.dockerignore
+""".trimIndent()
+}
+
+dockerCommand {
+name = "build teamcity-agent:EAP-linux-arm64-sudo"
+commandType = build {
+source = file {
+path = """context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile"""
+}
+contextDir = "context"
+commandArgs = "--no-cache"
+namesAndTags = """
+teamcity-agent:EAP-linux-arm64-sudo
+""".trimIndent()
+}
+param("dockerImage.platform", "linux")
+}
+
 dockerCommand {
 name = "tag teamcity-server:EAP-linux"
 commandType = other {
@@ -148,6 +194,22 @@ name = "tag teamcity-agent:EAP-linux-sudo"
 commandType = other {
 subCommand = "tag"
 commandArgs = "teamcity-agent:EAP-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:EAP-linux-arm64"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:EAP-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent:EAP-linux-arm64-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "teamcity-agent:EAP-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
 }
 }
 
@@ -191,10 +253,30 @@ removeImageAfterPush = false
 }
 }
 
+dockerCommand {
+name = "push teamcity-agent:EAP-linux-arm64"
+commandType = push {
+namesAndTags = """
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent:EAP-linux-arm64-sudo"
+commandType = push {
+namesAndTags = """
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
 }
 features {
 freeDiskSpace {
-requiredSpace = "6gb"
+requiredSpace = "8gb"
 failBuild = true
 }
 dockerSupport {
@@ -217,7 +299,7 @@ artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "6gb")
+param("system.teamcity.agent.ensure.free.space", "8gb")
 }
 requirements {
 }

@@ -15,7 +15,7 @@ When running an image with multi-architecture support, docker will automatically
 
 - 20.04
   - [local-linux](#local-linux)
-  - [local-linux-arm64-20.04](#local-linux-arm64-2004)
+  - [local-linux-arm64](#local-linux-arm64)
 - 18.04
   - [local-linux-18.04](#local-linux-1804)
   - [local-linux-arm64-18.04](#local-linux-arm64-1804)
@@ -160,33 +160,7 @@ docker build -f "generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-ser
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### local-linux-arm64-18.04
-
-[Dockerfile](linux/Server/UbuntuARM/18.04/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
-The docker image is not available and may be created manually.
-
-Installed components:
-
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
-- Git v.2.17.1
-- Git LFS v.2.3.4
-
-Container platform: linux
-
-Docker build commands:
-
-```
-docker pull ubuntu:18.04
-echo TeamCity/buildAgent > context/.dockerignore
-echo TeamCity/temp >> context/.dockerignore
-docker build -f "generated/linux/Server/UbuntuARM/18.04/Dockerfile" -t teamcity-server:local-linux-arm64-18.04 "context"
-```
-
-_The required free space to generate image(s) is about **1 GB**._
-
-### local-linux-arm64-20.04
+### local-linux-arm64
 
 [Dockerfile](linux/Server/UbuntuARM/20.04/Dockerfile)
 
@@ -195,7 +169,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.15.9.1 Checksum (MD5) 9da32690c0b037569e6c622a6795ac80](https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz)
 - Git v.2.36.1
 - Git LFS v.2.9.2
 
@@ -207,7 +181,33 @@ Docker build commands:
 docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:local-linux-arm64-20.04 "context"
+docker build -f "generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:local-linux-arm64 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### local-linux-arm64-18.04
+
+[Dockerfile](linux/Server/UbuntuARM/18.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.15.9.1 Checksum (MD5) 9da32690c0b037569e6c622a6795ac80](https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz)
+- Git v.2.36.1
+- Git LFS v.2.3.4
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:18.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "generated/linux/Server/UbuntuARM/18.04/Dockerfile" -t teamcity-server:local-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._

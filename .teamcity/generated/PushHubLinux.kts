@@ -16,26 +16,78 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:EAP-linux-sudo
+%docker.deployRepository%teamcity-server:EAP-linux
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
+name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux-arm64"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:EAP-linux-arm64
 """.trimIndent()
 removeImageAfterPush = false
 }
@@ -68,6 +120,32 @@ removeImageAfterPush = false
 }
 
 dockerCommand {
+name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+commandType = other {
+subCommand = "pull"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+}
+}
+
+dockerCommand {
+name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+commandType = other {
+subCommand = "tag"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
+}
+}
+
+dockerCommand {
+name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
+commandType = push {
+namesAndTags = """
+%docker.deployRepository%teamcity-agent:EAP-linux-sudo
+""".trimIndent()
+removeImageAfterPush = false
+}
+}
+
+dockerCommand {
 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 commandType = other {
 subCommand = "pull"
@@ -93,36 +171,10 @@ removeImageAfterPush = false
 }
 }
 
-dockerCommand {
-name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
-}
-}
-
-dockerCommand {
-name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-server:EAP-linux
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
 }
 features {
 freeDiskSpace {
-requiredSpace = "4gb"
+requiredSpace = "6gb"
 failBuild = true
 }
 dockerSupport {
@@ -136,7 +188,7 @@ forceCleanCheckout = true
 }
 }
 params {
-param("system.teamcity.agent.ensure.free.space", "4gb")
+param("system.teamcity.agent.ensure.free.space", "6gb")
 }
 requirements {
 contains("docker.server.osType", "linux")
