@@ -3,7 +3,7 @@ ARG gitLFSLinuxComponentVersion='2.9.2-1'
 ARG gitLinuxComponentVersion='1:2.37.3-0ppa1~ubuntu20.04.1'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='30f9268b8f4c2c2f8c1676611b88aa0d'
-ARG p4Version='2021.2-2321724'
+ARG p4Version='2021.2-2338640'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG ubuntuImage='ubuntu:20.04'
 
