@@ -1,8 +1,8 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.37.3-0ppa1~ubuntu18.04.1'
-ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz'
-ARG jdkServerLinuxARM64ComponentMD5SUM='9da32690c0b037569e6c622a6795ac80'
+ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-aarch64.tar.gz'
+ARG jdkServerLinuxARM64ComponentMD5SUM='fd96ceb7be9522eaf545b36a88a3e96a'
 ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 

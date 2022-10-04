@@ -1,6 +1,6 @@
 # Default arguments
-ARG jdkLinuxARM64Component='https://corretto.aws/downloads/resources/11.0.15.9.1/amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz'
-ARG jdkLinuxARM64ComponentMD5SUM='9da32690c0b037569e6c622a6795ac80'
+ARG jdkLinuxARM64Component='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-aarch64.tar.gz'
+ARG jdkLinuxARM64ComponentMD5SUM='fd96ceb7be9522eaf545b36a88a3e96a'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
