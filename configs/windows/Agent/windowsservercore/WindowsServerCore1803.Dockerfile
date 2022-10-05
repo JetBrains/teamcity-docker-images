@@ -20,6 +20,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 16
+# Requires system.agent.name contains windows10
 
 ## ${agentCommentHeader}
 
