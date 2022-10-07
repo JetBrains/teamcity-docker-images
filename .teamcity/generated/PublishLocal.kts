@@ -108,7 +108,7 @@ commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImageP
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2022_10_BuildDistDocker"))
 {
 onDependencyFailure = FailureAction.FAIL_TO_START
 reuseBuilds = ReuseBuilds.ANY

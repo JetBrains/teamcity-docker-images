@@ -108,7 +108,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-agent:EAP-windowsserver
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2022_10_BuildDistDocker"))
 {
 reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
