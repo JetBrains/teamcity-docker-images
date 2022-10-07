@@ -10,7 +10,7 @@ ARG gitWindowsComponentSHA256='e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='e46d240031e3a58f6bfbd1f67044da61'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-nanoserver-1809'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.10-nanoserver-1809'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019'
 
 # The list of required arguments

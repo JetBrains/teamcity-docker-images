@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2021.1.1-linux %docker.deployRepository%teamcity-server:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2022.10-linux %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2021.1.1-linux %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10-linux %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2021.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2022.10-linux %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -87,8 +87,9 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2022_10_BuildDistDocker"))
 {
+reuseBuilds = ReuseBuilds.ANY
 onDependencyFailure = FailureAction.IGNORE
 }
 snapshot(PushHubLinux.push_hub_linux)
@@ -103,6 +104,8 @@ onDependencyFailure =  FailureAction.FAIL_TO_START
 requirements {
 noLessThanVer("docker.version", "18.05.0")
 contains("docker.server.osType", "windows")
+contains("system.agent.name", "docker")
+contains("system.agent.name", "windows10")
 }
 features {
 dockerSupport {
