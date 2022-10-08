@@ -118,7 +118,7 @@ teamcity-agent:2022.10-linux-sudo
 }
 param("dockerImage.platform", "linux")
 }
-
+    /*
 script {
 name = "context teamcity-agent:2022.10-linux-arm64"
 scriptContent = """
@@ -164,7 +164,7 @@ teamcity-agent:2022.10-linux-arm64-sudo
 }
 param("dockerImage.platform", "linux")
 }
-
+*/
 dockerCommand {
 name = "tag teamcity-server:2022.10-linux"
 commandType = other {
@@ -196,7 +196,7 @@ subCommand = "tag"
 commandArgs = "teamcity-agent:2022.10-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-sudo"
 }
 }
-
+/*
 dockerCommand {
 name = "tag teamcity-agent:2022.10-linux-arm64"
 commandType = other {
@@ -212,7 +212,7 @@ subCommand = "tag"
 commandArgs = "teamcity-agent:2022.10-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-arm64-sudo"
 }
 }
-
+ */
 dockerCommand {
 name = "push teamcity-server:2022.10-linux"
 commandType = push {
@@ -252,7 +252,7 @@ namesAndTags = """
 removeImageAfterPush = false
 }
 }
-
+/*
 dockerCommand {
 name = "push teamcity-agent:2022.10-linux-arm64"
 commandType = push {
@@ -272,7 +272,7 @@ namesAndTags = """
 removeImageAfterPush = false
 }
 }
-
+*/
 }
 features {
 freeDiskSpace {

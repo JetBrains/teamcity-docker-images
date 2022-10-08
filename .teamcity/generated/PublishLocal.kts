@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:2022.10"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -131,7 +131,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004"
+commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004"
 }
 }
 dockerCommand {
