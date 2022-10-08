@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Build and push for teamcity.jetbrains.com</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="system.teamcity.agent.ensure.free.space" value="4gb" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="pull ubuntu" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="ubuntu:%hostedLinuxVersion%" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="context" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="build teamcity-server-staging" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="build" />
+          <param name="docker.image.namesAndTags" value="teamcity-server-staging:%dockerImage.teamcity.buildNumber%" />
+          <param name="dockerImage.platform" value="linux" />
+          <param name="dockerfile.contextDir" value="context" />
+          <param name="dockerfile.path" value="context/generated/linux/Server/Ubuntu/%hostedLinuxVersion%/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="tag teamcity-server-staging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="push teamcity-server-staging" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="RootProjectId_TeamCityDockerImagesRepo" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="4gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <artifact-dependencies>
+      <dependency id="ARTIFACT_DEPENDENCY_1" sourceBuildTypeId="TC2022_10_BuildDistDocker" cleanDestination="false">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="TeamCity.zip!/**=&gt;context/TeamCity" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC2022_10_BuildDistDocker">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

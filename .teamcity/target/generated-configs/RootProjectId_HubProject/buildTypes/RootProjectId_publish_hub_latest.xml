@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Publish as latest</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowPersonalBuildTriggering" value="false" />
+      <option name="buildConfigurationType" value="DEPLOYMENT" />
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+      <option name="maximumNumberOfBuilds" value="1" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="remove manifests" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="if exist &quot;%%USERPROFILE%%\.docker\manifests\&quot; rmdir &quot;%%USERPROFILE%%\.docker\manifests\&quot; /s /q" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="manifest create teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2022.10-linux %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="manifest push teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-server:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="manifest inspect teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-server:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="manifest create teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10-linux %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="manifest push teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-agent:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="manifest inspect teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-agent:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="manifest create teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2022.10-linux %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="manifest push teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-minimal-agent:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="manifest inspect teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-minimal-agent:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements>
+      <ver-no-less-than id="RQ_1" name="docker.version" value="18.05.0" />
+      <contains id="RQ_2" name="docker.server.osType" value="windows" />
+      <contains id="RQ_3" name="system.agent.name" value="docker" />
+      <contains id="RQ_4" name="system.agent.name" value="windows10" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC2022_10_BuildDistDocker">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_hub_linux">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_hub_windows">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

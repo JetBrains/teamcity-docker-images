@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>ON PAUSE Build and push windows 1903</name>
+  <description>teamcity-server:2022.10-nanoserver-1903,latest,2022.10 teamcity-minimal-agent:2022.10-nanoserver-1903,latest,2022.10 teamcity-agent:2022.10-windowsservercore-1903,2022.10-windowsservercore,latest-windowsservercore:2022.10-nanoserver-1903,latest,2022.10</description>
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters />
+    <build-runners />
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</build-type>
+

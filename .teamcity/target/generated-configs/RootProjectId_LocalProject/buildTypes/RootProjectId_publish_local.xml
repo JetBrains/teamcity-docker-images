@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Publish</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowPersonalBuildTriggering" value="false" />
+      <option name="buildConfigurationType" value="DEPLOYMENT" />
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+      <option name="maximumNumberOfBuilds" value="1" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="remove manifests" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="if exist &quot;%%USERPROFILE%%\.docker\manifests\&quot; rmdir &quot;%%USERPROFILE%%\.docker\manifests\&quot; /s /q" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="manifest create teamcity-server:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="manifest push teamcity-server:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="manifest inspect teamcity-server:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10 --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="manifest create teamcity-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="manifest push teamcity-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="manifest inspect teamcity-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10 --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="manifest create teamcity-minimal-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="manifest push teamcity-minimal-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="manifest inspect teamcity-minimal-agent:2022.10" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10 --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="manifest create teamcity-agent:2022.10-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="manifest push teamcity-agent:2022.10-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="manifest inspect teamcity-agent:2022.10-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="manifest create teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="manifest push teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="manifest inspect teamcity-server:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_17" name="manifest create teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_18" name="manifest push teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_19" name="manifest inspect teamcity-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_20" name="manifest create teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_21" name="manifest push teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_22" name="manifest inspect teamcity-minimal-agent:latest" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:latest --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_23" name="manifest create teamcity-agent:latest-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_24" name="manifest push teamcity-agent:latest-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_25" name="manifest inspect teamcity-agent:latest-windowsservercore" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:latest-windowsservercore --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements>
+      <ver-no-less-than id="RQ_1" name="docker.version" value="18.05.0" />
+      <contains id="RQ_2" name="docker.server.osType" value="windows" />
+      <contains id="RQ_3" name="system.agent.name" value="docker" />
+      <contains id="RQ_4" name="system.agent.name" value="windows10" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC2022_10_BuildDistDocker">
+        <options>
+          <option name="sync-revisions" value="false" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_linux_20_04">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_windows_1809">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_windows_2004">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+
