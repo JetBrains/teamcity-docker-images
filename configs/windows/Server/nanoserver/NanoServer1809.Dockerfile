@@ -92,7 +92,7 @@ ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
     CATALINA_TMPDIR="C:\TeamCity\temp" \
     TEAMCITY_LOGS="C:\TeamCity\logs" \
     TEAMCITY_DATA_PATH="C:\ProgramData\JetBrains\TeamCity" \
-    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m"
+    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=640m"
 
 EXPOSE 8111
 
