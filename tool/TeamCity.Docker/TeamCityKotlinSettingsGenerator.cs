@@ -39,6 +39,15 @@ namespace TeamCity.Docker
             _nodesDescriptionsFactory = nodesDescriptionFactory ?? throw new ArgumentNullException(nameof(nodesDescriptionFactory));
         }
 
+        /// <summary>
+        /// Generates the following TeamCity Build Configurations (KotlinDSL) responsible for ...
+        /// ... building and publishing docker images. The following configurations are created: ...
+        /// 1. Build and push to local registry. Name pattern: "PushLocal*.kts".
+        /// 2. Publishing docker manifests into registry. Name pattern: "PublishHub*.kts".
+        /// 3. Pushing into Dockerhub. Name pattern: "PushHub*.kts"
+        /// </summary>
+        /// <param> <c>graph</c> - RDF graph containing description of target TeamCity build chain. <param>
+        /// 
         public void Generate(IGraph<IArtifact, Dependency> graph)
         {
             if (graph == null) throw new ArgumentNullException(nameof(graph));
@@ -172,6 +181,12 @@ namespace TeamCity.Docker
             lines.Clear();
         }
 
+        /// <summary>
+        /// Adds imports on top of the Build Configuration (Kotlin DSL) file.
+        /// </summary>
+        /// <param name="fileName"> target KotlinDSL file </param>
+        /// <param name="lines"> import lines to be added. Please, check method's body to see pre-defined importing packages. </param>
+        /// <returns></returns>
         private FileArtifact AddFile(string fileName, IEnumerable<string> lines)
         {
             var curLines = new List<string>

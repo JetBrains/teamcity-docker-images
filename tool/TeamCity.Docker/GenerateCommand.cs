@@ -1,4 +1,4 @@
-﻿// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
     using System;
@@ -46,6 +46,7 @@ namespace TeamCity.Docker
                 return Task.FromResult(Result.Error);
             }
 
+            // conver configuration parameters into grapth for further processing
             var graph = _buildGraphFactory.Create(templates.Value);
             if (graph.State == Result.Error)
             {
