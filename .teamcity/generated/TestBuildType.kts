@@ -11,6 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 
 object TestBuildType : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
