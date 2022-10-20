@@ -5,6 +5,19 @@ import java.lang.Void
 import java.util.concurrent.TimeUnit
 
 /**
+ * Target values used for validation purposes.
+ */
+object ValidationConstants {
+    const val ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT = 5.0
+}
+
+
+/**
+ * Mark-up exception class for failed validation of Docker images.
+ */
+class DockerImageSizeIncreaseException(message: String) : Exception(message)
+
+/**
  * Executes command.
  * @param command - command to be execution
  * @param redirectStderr - indicates if error output must be captured along with ...
@@ -31,6 +44,16 @@ fun executeCommand(command: String, redirectStderr: Boolean, timeoutSec: Long = 
     }.onFailure {
         it.printStackTrace()
     }.getOrNull()
+}
+
+/**
+ * Calculates percentage increase from initial to final value.
+ * @param initial - initial value
+ * @param final - final value
+ * @return percentage increase
+ */
+fun getPercentageIncrease(initial: Int, final: Int): Float {
+    return ((100f*(final - initial)) / initial)
 }
 
 
@@ -66,6 +89,10 @@ fun pullDockerImage(name: String): Boolean {
 }
 
 
+/**
+ * Validates Docker image size.
+ * Criteria: it shouldn't increase by more than threshold (@see ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT).
+ */
 fun verifyImageSizeRegression(currentName: String, previousName: String) {
     // -- get size of current image
     val curSize = this.getDockerImageSize(currentName)
@@ -82,12 +109,13 @@ fun verifyImageSizeRegression(currentName: String, previousName: String) {
         return
     }
 
-    // TODO: change condition
-    if (curSize < prevSize) {
-        // TODO: change exception type
-        throw java.lang.Exception("image size is higher")
+    // -- calculates image increase & notify if exceeds threshold
+    val percentageIncrease = this.getPercentageIncrease(curSize, prevSize)
+    if (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT) {
+        System.err.println("Unexpected percentage increase in image size: $percentageIncrease")
+        throw DockerImageSizeIncreaseException("image size is higher")
     }
-    println("CurSize: $curSize, prevSize: $prevSize")
+
 }
 
 
