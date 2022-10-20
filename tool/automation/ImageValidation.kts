@@ -75,6 +75,30 @@ fun getDockerImageSize(name: String): Int? {
     }
 }
 
+
+/**
+ * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
+ * WARNING: the function depends on the assumption that tag pattern ...
+ * ... is "<year>.<buld number>-<OS>".
+ */
+fun getPrevDockerImageId(imageId: String): String {
+    // TODO: surround with try-catch
+    var curImageTag = imageId.split(":")[1]
+    var curImageTagElems = curImageTag.split(".")
+    var imageBuildNum = curImageTagElems[1].split("-")[0]
+
+    var oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
+
+    // -- construct old image tag based on retrieved information from the current one
+    val oldBuildNumString = if (oldBuildNumber < 10) ("0" + oldBuildNumber) else oldBuildNumber
+    val originalImageValue = curImageTagElems[0] + "." + imageBuildNum + "-"
+    val oldImageValue = curImageTagElems[0] + "." + oldBuildNumString + "-"
+
+    val oldImageId = imageId.replace(originalImageValue, oldImageValue)
+    return oldImageId
+}
+
+
 /**
  * Tries to pull Docker image from registry.
  * @param name - docker image fully-qualified domain name
