@@ -13,9 +13,6 @@ object BuildAndPushHosted : BuildType({
 
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
 
-    params {
-        param("system.teamcity.agent.ensure.free.space", "4gb")
-    }
 
     vcs {
         root(TeamCityDockerImagesRepo)
