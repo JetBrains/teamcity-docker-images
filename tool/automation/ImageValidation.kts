@@ -80,20 +80,30 @@ fun getDockerImageSize(name: String): Int? {
  * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
  * WARNING: the function depends on the assumption that tag pattern ...
  * ... is "<year>.<buld number>-<OS>".
+ * TODO: Handle potential minor releases, e.g. 2022.04.1, 2022.04.4, etc.
  */
 fun getPrevDockerImageId(imageId: String): String {
     // TODO: surround with try-catch
     var curImageTag = imageId.split(":")[1]
     var curImageTagElems = curImageTag.split(".")
-    var imageBuildNum = curImageTagElems[1].split("-")[0]
+
+    // handling 2 types: 2022.04-OS and 2022.04.2-OS
+    val isMinorRelease = curImageTagElems.size > 2
+
+
+    var imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0] else curImageTagElems[1].split("-")[0]
 
     var oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
     // -- construct old image tag based on retrieved information from the current one
-    val oldBuildNumString = if (oldBuildNumber < 10) ("0" + oldBuildNumber) else oldBuildNumber
-    val originalImageValue = curImageTagElems[0] + "." + imageBuildNum + "-"
-    val oldImageValue = curImageTagElems[0] + "." + oldBuildNumString + "-"
+    // -- -- adding "0" since build number has at least 2 digits
+    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber) else oldBuildNumber
 
+    // TODO: CHANGE IF MINOR RELEASE
+    val originalImageValue = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-") else (curImageTagElems[0] + "." + imageBuildNum + "-")
+    val oldImageValue = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-") else (curImageTagElems[0] + "." + oldBuildNumString + "-")
+
+    println(originalImageValue)
     val oldImageId = imageId.replace(originalImageValue, oldImageValue)
     return oldImageId
 }
