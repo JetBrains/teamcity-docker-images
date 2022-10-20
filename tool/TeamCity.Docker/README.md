@@ -15,7 +15,7 @@ The program accepts verbs (main options), as well as their configuration (sub-op
 | `target` | `-t` | true | Path to directory for generating docker files. |
 | `source` | `-s` | false | Path to configuration directory. |
 | `context` | `-c` | false | Path to the context directory. |
-| `files` | `-f` | false | Semicolon separated configuration file. Seoarator - `;` |
+| `files` | `-f` | false | Semicolon separated configuration file. Separator - `;` |
 | `dsl` | `-d` | false | Path to directory for teamcity DSL script settings.kts. |
 | `build` | `-b` | false | TeamCity build configuration id. |
 | `registry` | `-r` | false | TeamCity docker registry id. |
@@ -32,7 +32,7 @@ generate -s configs -f "configs/common.config;configs/local.config;configs/windo
 | Option | short flag | Required | Description |
 | --- | --- | --- | ------ |
 | `source` | `-s` | false | Path to configuration directory. |
-| `files` | `-f` | false | Semicolon separated configuration file. Seoarator - `;` |
+| `files` | `-f` | false | Semicolon separated configuration file. Separator - `;` |
 | `context` | `-c` | false | Path to the context directory. |
 | `docker` | `-d` | false | The Docker Engine endpoint like tcp://localhost:2375 (defaults: npipe://./pipe/docker_engine fo windows and unix:///var/run/docker.sock for others). |
 | `verbose` | `-v` | false | Specified neccessity for verbose (detailed) output. |
