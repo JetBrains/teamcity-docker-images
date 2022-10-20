@@ -12,7 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 
-object BuildAndPushHosted : BuildType({
+object TestBuildType : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
 
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"

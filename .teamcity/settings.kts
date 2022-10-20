@@ -9,7 +9,7 @@ object RootProject : Project({
     vcsRoot(TeamCityDockerImagesRepo)
     subProject(LocalProject.LocalProject)
     subProject(HubProject.HubProject)
-    buildType(BuildAndPushHosted.BuildAndPushHosted)
+    buildType(TestBuildType.TestBuildType)
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
