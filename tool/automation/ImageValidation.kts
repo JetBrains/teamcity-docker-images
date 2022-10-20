@@ -1,3 +1,4 @@
+import java.lang.System
 import java.util.concurrent.TimeUnit
 
 /**
@@ -35,14 +36,23 @@ fun executeCommand(command: String, redirectStderr: Boolean, timeoutSec: Long = 
  * @return image size in bytes, null in case image does not exist
  */
 fun getDockerImageSize(name: String): String? {
-    var cmd = "docker inspect -f \"{{ .Size }}\" $name"
+    val cmd = "docker inspect -f \"{{ .Size }}\" $name"
+    println(cmd)
     return this.executeCommand(cmd, true) ?: null
 }
 
 
-fun main() {
-    var res = this.getDockerImageSize("mcr.microsoft.com/dotnet/core/samples:dotnetapp-buster-slim")
+fun main(args: Array<String>) {
+    val imageName = args[0]
+    val res = this.getDockerImageSize(imageName)
+
+    if (res.isNullOrBlank()) {
+        println("Image does not exist on the agent: $imageName \n Perhaps image tag was not specified?")
+        return
+    }
+
     print(res)
 }
 
-main()
+//  kotlinc -script tool/automation/ImageValidation.kts mcr.microsoft.com/dotnet/core/samples:dotnetapp-buster-slim
+main(args)
