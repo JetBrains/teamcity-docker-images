@@ -13,6 +13,7 @@ object RootProject : Project({
         param("dockerImage.teamcity.buildNumber", "4")
         param("docker.buildRepository", "jetbrains/teamcity")
 
+        param("dockerImage.teamcity.buildNumber-1", "4")
         param("dep.TC_Trunk_BuildDistDocker.build.number", "")
         param("teamcity.ui.settings.readOnly", "false")
 
