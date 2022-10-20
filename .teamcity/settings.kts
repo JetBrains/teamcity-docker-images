@@ -1,6 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import hosted.*
 import generated.*
 
 version = "2019.2"
