@@ -28,7 +28,9 @@ generate -s configs -f "configs/common.config;configs/local.config;configs/windo
 
 ## Build Docker images
 `build` verb specifies the necessity to build Docker images for session. It has the following options:
+
 | Option | short flag | Required | Description |
+| --- | --- | --- | ------ |
 | `source` | `-s` | false | Path to configuration directory. |
 | `files` | `-f` | false | Semicolon separated configuration file. Seoarator - `;` |
 | `context` | `-c` | false | Path to the context directory. |
