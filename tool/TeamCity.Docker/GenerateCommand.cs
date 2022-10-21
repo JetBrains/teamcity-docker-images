@@ -38,6 +38,10 @@ namespace TeamCity.Docker
             _generators = generators ?? throw new ArgumentNullException(nameof(generators));
         }
 
+        /// <summary>
+        /// Generates Dockerfiles.
+        /// </summary>
+        /// <returns>Completed task in case succeeded.</returns>
         public Task<Result> Run()
         {
             var templates = _configurationExplorer.Explore(_options.SourcePath, _options.ConfigurationFiles);
