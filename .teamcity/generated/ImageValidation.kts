@@ -18,72 +18,72 @@ buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" }
 
 kotlinFile {
 name = "Image Verification - %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
-path = "tool/automation/ImageValidation.kts"
+path = "automation/ImageValidation.kts"
 arguments = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" }
 
 }
