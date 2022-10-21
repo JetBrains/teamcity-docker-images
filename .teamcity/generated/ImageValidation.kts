@@ -1,5 +1,6 @@
 package generated
 
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
