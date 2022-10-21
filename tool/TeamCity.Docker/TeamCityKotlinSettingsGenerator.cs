@@ -237,6 +237,14 @@ namespace TeamCity.Docker
             }
         }
 
+        /// <summary>
+        /// Creates KotlinDSL's TeamCity build configuration for the creation and uploading of TeamCity's Docker iamges. 
+        /// </summary>
+        /// <param name="buildTypeId">ID of build confguration within TeamCity</param>
+        /// <param name="platform">target palform for the images (e.g. specific distributives of Linux, Windows)</param>
+        /// <param name="allImages">list of Docker images</param>
+        /// <param name="buildBuildTypes">types of TeamCity builds (e.g. publish_local - the naming is up to user)</param>
+        /// <returns></returns>
         private IEnumerable<string> CreatePushBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
         {
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
@@ -316,6 +324,16 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        /// <summary>
+        /// Generates TeamCity build configuration (Kotlin DSL) for publishment of Docker image manifests.
+        /// </summary>
+        /// <param name="buildTypeId">creating build ID</param>
+        /// <param name="repositoryName">target repository for publishment</param>
+        /// <param name="name">build name</param>
+        /// <param name="images">list of Docker images</param>
+        /// <param name="imagePostfix">postfix that should be appended to the tags of all images</param>
+        /// <param name="onStaging">indicates if the build is being created for staging purposes</param>
+        /// <param name="dependencies">dependencides of the build (other TeamCity build configuration, if any)</param>
         private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
@@ -506,13 +524,21 @@ namespace TeamCity.Docker
                     yield return command;
                 }
 
-                // docker image tag
+                // docker image tag & verification
                 foreach (var image in images)
                 {
                     if (image.File.Tags.Any())
                     {
                         var tag = image.File.Tags.First();
+
+                        // 1. "tag" command
                         foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}", $"{image.File.ImageId}:{tag}"))
+                        {
+                            yield return tagCommand;
+                        }
+
+                        // 2. verification. It's done after re-tag to make the image easily distinguishable
+                        foreach (var tagCommand in CreateImageVerificationStep($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}"))
                         {
                             yield return tagCommand;
                         }
@@ -659,6 +685,12 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
+        /// <summary>
+        /// Constructs Kotlin DSL's dockerCommand {...} for image push.
+        /// </summary>
+        /// <param name="imageId">Docker image ID</param>
+        /// <param name="name">step name</param>
+        /// <param name="tags">target Docker image tags</param>
         private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
@@ -681,6 +713,12 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        /// <summary>
+        /// Constructs Kotlin DSL's dockerComamnd {...} for image re-tag.
+        /// </summary>
+        /// <param name="repoTag">original Docker iamge tag</param>
+        /// <param name="newRepoTag"> target Docker image tag</param>
+        /// <param name="name">step name</param>
         private IEnumerable<string> CreateTagCommand(string repoTag, string newRepoTag, string name)
         {
             yield return "dockerCommand {";
@@ -696,6 +734,11 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        /// <summary>
+        /// Constructs Kotlin DSL's step for preparation to dockerCommand {...}, such as ...
+        /// ... the creation of .dockerignore, append of the entries into ti. 
+        /// </summary>
+        /// <param name="image">info about Docker image</param>
         private IEnumerable<string> CreatePrepareContextCommand(Image image)
         {
             var tag = image.File.Tags.First();
@@ -718,6 +761,10 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        /// <summary>
+        /// Constructs Kotlin DSL's dockerCommand {...} for image build.
+        /// </summary>
+        /// <param name="image">info about Docker image</param>
         private IEnumerable<string> CreateBuildCommand(Image image)
         {
             var tag = image.File.Tags.First();
@@ -743,6 +790,23 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+        /// <summary>
+        /// Constructs Kotlin DSL's Docker image verification step.
+        /// <param name="imageFqdn">Docker mage< fully-qualified domain name/param>
+        private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
+            //string stepContent = $@"
+            yield return "kotlinFile {";
+            yield return $"name = \"Image Verification - {imageFqdn}\"";
+            yield return "path = \"tool/automation/ImageValidation.kts\"";
+            yield return $"arguments = \"{imageFqdn}\" }}";
+            yield return string.Empty;
+        }
+
+        /// <summary>
+        /// Constructs Kotlin DSL's dockerCommand {...} for Docker Image pull.
+        /// </summary>
+        /// <param name="repoTag"> image's registry </param>
+        /// <param name="name">image's tag</param>
         private static IEnumerable<string> CreatePullCommand(string repoTag, string name)
         {
             yield return "dockerCommand {";
