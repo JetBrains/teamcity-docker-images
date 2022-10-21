@@ -132,30 +132,30 @@ fun pullDockerImage(name: String): Boolean {
 /**
  * Validates Docker image size.
  * Criteria: it shouldn't increase by more than threshold (@see ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT).
+ * @param currentName - name of original Docker image
+ * @param previousName - name of previous Docker image
+ * @return true if image size increase suppressed given threshold; false otherwise (including situation when ...
+ * ... it wasn't possible to determine any of image sizes)
  */
-fun verifyImageSizeRegression(currentName: String, previousName: String) {
+fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolean {
     // -- get size of current image
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
-        println("Image does not exist on the agent: $currentName \n Perhaps image tag was not specified?")
-        return
+        System.err.println("Image does not exist on the agent: $currentName \n Perhaps image tag was not specified?")
+        return false
     }
 
     // -- get size of previous image
     val prevImagePullSucceeded = this.pullDockerImage(previousName)
     val prevSize = this.getDockerImageSize(previousName)
     if (!prevImagePullSucceeded || prevSize == null) {
-        println("Unable to get size of previous image: $previousName")
-        return
+        System.err.println("Unable to get size of previous image: $previousName")
+        return false
     }
 
     // -- calculates image increase & notify if exceeds threshold
     val percentageIncrease = this.getPercentageIncrease(curSize, prevSize)
-    if (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT) {
-        System.err.println("Unexpected percentage increase in image size: $percentageIncrease")
-        throw DockerImageSizeIncreaseException("image size is higher")
-    }
-
+    return (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
 }
 
 
@@ -175,8 +175,11 @@ fun main(args: Array<String>) {
         prevImageName = args[1]
     }
 
-    println(prevImageName)
-    verifyImageSizeRegression(imageName, prevImageName)
+    val imageSizeIncreasedTooMuch = this.imageSizeIncreasedTooMuch(imageName, prevImageName)
+    if (imageSizeIncreasedTooMuch) {
+        throw DockerImageSizeIncreaseException("Image $imageName size compared to previous ($prevImageName) " +
+                                                "suppresses $this.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT% threshold.")
+    }
 }
 
 //  kotlinc -script tool/automation/ImageValidation.kts mcr.microsoft.com/dotnet/core/samples:dotnetapp-buster-slim
