@@ -21,7 +21,7 @@ buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 kotlinFile {
 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-path = "automation/ImageValidation.kts"
+path = ".teamcity/automation/ImageValidation.kts"
 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux" }
 
 kotlinFile {
