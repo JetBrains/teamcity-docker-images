@@ -12,6 +12,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 
 object TestBuildType : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
@@ -28,6 +30,17 @@ object TestBuildType : BuildType({
         kotlinFile {
             path = "tool/automation/ImageValidation.kts"
             arguments = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber-1%"
+
+        }
+    }
+
+
+    failureConditions {
+        failOnText {
+            id = "BUILD_EXT_1"
+            conditionType = BuildFailureOnText.ConditionType.REGEXP
+            pattern = ".*DockerImageSizeIncreaseException.*"
+            reverse = false
         }
     }
 
