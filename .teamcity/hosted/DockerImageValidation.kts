@@ -29,7 +29,7 @@ object DockerImageValidation : BuildType({
     steps {
 
         kotlinFile {
-            path = "tool/automation/ImageValidation.kts"
+            path = "automation/ImageValidation.kts"
             arguments = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%" 
             //arguments = "jetbrains/teamcity-server:2022.04.4"
         }
