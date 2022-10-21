@@ -24,8 +24,7 @@ class DockerImageSizeIncreaseException(message: String) : Exception(message)
  * ... stdout
  * @return result of command's execution ; null in case of exception
  */
-fun executeCommand(command: String, redirectStderr: Boolean, timeoutSec: Long = 60): String? {
-    println("Executing $command")
+fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: Long = 60): String? {
     return runCatching {
         // -- converting command to list containing the arguments
         val args = command.split(Regex("(?<!(\"|').{0,255}) | (?!.*\\1.*)"))
@@ -39,8 +38,8 @@ fun executeCommand(command: String, redirectStderr: Boolean, timeoutSec: Long = 
             }
 
         // -- execute command with timeout
-        builder.start().apply {waitFor(timeoutSec, TimeUnit.SECONDS)}
-            .inputStream.bufferedReader().readText()
+        builder.start().apply { waitFor(timeoutSec, TimeUnit.SECONDS) }
+                        .inputStream.bufferedReader().readText()
     }.onFailure {
         it.printStackTrace()
     }.getOrNull()
@@ -66,6 +65,7 @@ fun getDockerImageSize(name: String): Int? {
     // ensure image exists
     if (!this.dockerImageExists(name)) {
         val imgPullSucceeded: Boolean = this.pullDockerImage(name)
+        println("Image $name pull succeeded? $imgPullSucceeded")
         if (!imgPullSucceeded) {
             throw RuntimeException("Image does not exist neither on agent, nor within registry: $name")
         }
@@ -144,8 +144,10 @@ fun getPrevDockerImageId(imageId: String): String {
 fun pullDockerImage(name: String): Boolean {
     val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
 
-    val errMessages = arrayOf("No such object", "no matching manifest", "Error response from daemon")
-    return !errMessages.any { cmdResult.contains(it, ignoreCase = true) }
+    // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
+    // ... captured by Kotlin's ProcessBuilder.
+    val successMessages = arrayOf("Pull complete", "Image is up to date")
+    return successMessages.any { cmdResult.contains(it, ignoreCase = true) }
 }
 
 
