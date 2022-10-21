@@ -63,12 +63,11 @@ fun getPercentageIncrease(initial: Int, final: Int): Float {
  * @return image size in bytes, null in case image does not exist
  */
 fun getDockerImageSize(name: String): Int? {
-    var cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true) ?: null
+    var cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
     try {
         // remove quotes from reult string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
         return Integer.parseInt(imageSizeStr)
-
     } catch (ex: Exception) {
         System.err.println("Unable to convert size of image into an integer number: $cmdResult $ex")
         return null
@@ -87,24 +86,31 @@ fun getPrevDockerImageId(imageId: String): String {
     var curImageTag = imageId.split(":")[1]
     var curImageTagElems = curImageTag.split(".")
 
+    if (curImageTagElems.size < 2) {
+        // image is highly likely doesn't correspond to pattern
+        throw IllegalArgumentException("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $imageId")
+    }
+
     // handling 2 types: 2022.04-OS and 2022.04.2-OS
     val isMinorRelease = curImageTagElems.size > 2
 
-
-    var imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0] else curImageTagElems[1].split("-")[0]
+    var imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0]
+                            else curImageTagElems[1].split("-")[0]
 
     var oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
     // -- construct old image tag based on retrieved information from the current one
     // -- -- adding "0" since build number has at least 2 digits
-    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber) else oldBuildNumber
+    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber)
+                                else oldBuildNumber
 
-    // TODO: CHANGE IF MINOR RELEASE
-    val originalImageValue = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-") else (curImageTagElems[0] + "." + imageBuildNum + "-")
-    val oldImageValue = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-") else (curImageTagElems[0] + "." + oldBuildNumString + "-")
+    // Replace current image's numberic part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
+    val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
+                                else (curImageTagElems[0] + "." + imageBuildNum + "-")
+    val determinedOldImageTagPart = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-")
+                            else (curImageTagElems[0] + "." + oldBuildNumString + "-")
 
-    println(originalImageValue)
-    val oldImageId = imageId.replace(originalImageValue, oldImageValue)
+    val oldImageId = imageId.replace(originalImageTagPart, determinedOldImageTagPart)
     return oldImageId
 }
 
@@ -154,11 +160,22 @@ fun verifyImageSizeRegression(currentName: String, previousName: String) {
 
 
 fun main(args: Array<String>) {
-    if (args.size < 2) {
+    if (args.size < 1) {
         throw IllegalArgumentException("Not enough CLI arguments.")
     }
     val imageName = args[0]
-    val prevImageName = args[1]
+
+
+    // if previous image name is not specified via CLI, try to determine it based on pattern
+    // Note: ternary operator wouldn't work here due to potentially missing array element access
+    var prevImageName = ""
+    if (args.size < 2) {
+        prevImageName = this.getPrevDockerImageId(imageName)
+    } else {
+        prevImageName = args[1]
+    }
+
+    println(prevImageName)
     verifyImageSizeRegression(imageName, prevImageName)
 }
 
