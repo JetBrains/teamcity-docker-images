@@ -15,7 +15,7 @@ object ValidationConstants {
 /**
  * Mark-up exception class for failed validation of Docker images.
  */
-class DockerImageSizeIncreaseException(message: String) : Exception(message)
+class DockerImageValidationException(message: String) : Exception(message)
 
 /**
  * Executes command.
@@ -65,9 +65,8 @@ fun getDockerImageSize(name: String): Int? {
     // ensure image exists
     if (!this.dockerImageExists(name)) {
         val imgPullSucceeded: Boolean = this.pullDockerImage(name)
-        println("Image $name pull succeeded? $imgPullSucceeded")
         if (!imgPullSucceeded) {
-            throw RuntimeException("Image does not exist neither on agent, nor within registry: $name")
+            throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
         }
     }
 
@@ -199,7 +198,7 @@ fun main(args: Array<String>) {
 
     val imageSizeIncreasedTooMuch = this.imageSizeIncreasedTooMuch(imageName, prevImageName)
     if (imageSizeIncreasedTooMuch) {
-        throw DockerImageSizeIncreaseException("Image $imageName size compared to previous ($prevImageName) " +
+        throw DockerImageValidationException("Image $imageName size compared to previous ($prevImageName) " +
                                                 "suppresses $this.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT% threshold.")
     }
 }

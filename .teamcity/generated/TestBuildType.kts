@@ -39,7 +39,7 @@ object TestBuildType : BuildType({
         failOnText {
             id = "BUILD_EXT_1"
             conditionType = BuildFailureOnText.ConditionType.REGEXP
-            pattern = ".*DockerImageSizeIncreaseException.*"
+            pattern = ".*DockerImageValidationException.*"
             reverse = false
         }
     }
