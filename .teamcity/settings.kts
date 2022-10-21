@@ -13,10 +13,9 @@ object RootProject : Project({
         param("dockerImage.teamcity.buildNumber", "4")
         param("docker.buildRepository", "jetbrains/teamcity")
 
-        param("dockerImage.teamcity.buildNumber-1", "4")
-        param("dep.TC_Trunk_BuildDistDocker.build.number", "")
+        param("dep.TC_Trunk_BuildDistDocker.build.number", "%dep.TC2022_10_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
-        param("docker.buildImagePostfix", "")
+        param("docker.buildImagePostfix", "-staging")
 
         // Used by build for teamcity.jetbrains.com
         param("hostedLinuxVersion", "20.04")
