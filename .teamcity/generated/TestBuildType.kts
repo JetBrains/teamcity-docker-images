@@ -29,8 +29,8 @@ object TestBuildType : BuildType({
 
         kotlinFile {
             path = "tool/automation/ImageValidation.kts"
-            arguments = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber-1%"
-
+//            arguments = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber-1%"
+            arguments = "jetbrains/teamcity-server:2022.04.4"
         }
     }
 
