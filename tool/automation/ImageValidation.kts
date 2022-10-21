@@ -2,6 +2,7 @@ import java.lang.Exception
 import java.lang.NumberFormatException
 import java.lang.System
 import java.lang.Void
+import java.util.Objects
 import java.util.concurrent.TimeUnit
 
 /**
@@ -166,6 +167,9 @@ fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolea
         return false
     }
 
+    // -- report image size to TeamCity
+    this.reportTeamCityStatistics("SIZE-$currentName", curSize)
+
     // -- get size of previous image
     val prevImagePullSucceeded = this.pullDockerImage(previousName)
     val prevSize = this.getDockerImageSize(previousName)
@@ -179,6 +183,16 @@ fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolea
     return (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
 }
 
+/**
+ * Reports statistics to TeamCity via Service Messages.
+ * @param key metric ID
+ * @param value metricValue
+ *
+ * TODO: Think about generic 'value' type
+ */
+fun reportTeamCityStatistics(key: String, value: Int) {
+    System.out.println("##teamcity[buildStatisticValue key='$key' value='$value']")
+}
 
 fun main(args: Array<String>) {
     if (args.size < 1) {
