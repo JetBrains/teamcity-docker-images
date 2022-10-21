@@ -25,7 +25,7 @@ class DockerImageSizeIncreaseException(message: String) : Exception(message)
  * @return result of command's execution ; null in case of exception
  */
 fun executeCommand(command: String, redirectStderr: Boolean, timeoutSec: Long = 60): String? {
-    println(command)
+    println("Executing $command")
     return runCatching {
         // -- converting command to list containing the arguments
         val args = command.split(Regex("(?<!(\"|').{0,255}) | (?!.*\\1.*)"))
@@ -63,6 +63,14 @@ fun getPercentageIncrease(initial: Int, final: Int): Float {
  * @return image size in bytes, null in case image does not exist
  */
 fun getDockerImageSize(name: String): Int? {
+    // ensure image exists
+    if (!this.dockerImageExists(name)) {
+        val imgPullSucceeded: Boolean = this.pullDockerImage(name)
+        if (!imgPullSucceeded) {
+            throw RuntimeException("Image does not exist neither on agent, nor within registry: $name")
+        }
+    }
+
     var cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
     try {
         // remove quotes from reult string
@@ -72,6 +80,19 @@ fun getDockerImageSize(name: String): Int? {
         System.err.println("Unable to convert size of image into an integer number: $cmdResult $ex")
         return null
     }
+}
+
+
+/**
+ * Checks if Docker image exists on agent.
+ * @param name Docker image name
+ * @return true if image exists, false otherwise
+ */
+fun dockerImageExists(name: String): Boolean {
+    val cmdResult = this.executeCommand("docker images -q $name", true)
+    if (cmdResult == null) { return false }
+
+    return !cmdResult.isEmpty()
 }
 
 
@@ -121,11 +142,10 @@ fun getPrevDockerImageId(imageId: String): String {
  * @return true if image had been successfully pulled, false otherwise
  */
 fun pullDockerImage(name: String): Boolean {
-    val res = this.executeCommand("docker pull $name", true)
-    if (res == null) {
-        return false
-    }
-    return !(res.contains("Error response from daemon", ignoreCase = true))
+    val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
+
+    val errMessages = arrayOf("No such object", "no matching manifest", "Error response from daemon")
+    return !errMessages.any { cmdResult.contains(it, ignoreCase = true) }
 }
 
 
@@ -141,7 +161,7 @@ fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolea
     // -- get size of current image
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
-        System.err.println("Image does not exist on the agent: $currentName \n Perhaps image tag was not specified?")
+        System.err.println("Image does not exist on the agent: $currentName")
         return false
     }
 
