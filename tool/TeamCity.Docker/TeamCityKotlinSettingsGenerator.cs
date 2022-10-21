@@ -144,14 +144,23 @@ namespace TeamCity.Docker
                     group image by tag
                 group grp by grp.Key.ToLowerInvariant() == "latest" ? "latest" : "version";
 
+
             foreach (var group in publishOnHubGroups)
             {
-                var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
-                publishOnHubBuildTypes.Add(buildTypeId);
-                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group.ToList(), string.Empty, false, pushOnHubBuildTypes.ToArray())), out _);
+                string publishToDockerhubBuildId = $"publish_hub_{NormalizeName(group.Key)}";
+                publishOnHubBuildTypes.Add(publishToDockerhubBuildId);
+                graph.TryAddNode(AddFile(publishToDockerhubBuildId,CreateManifestBuildConfiguration(publishToDockerhubBuildId, 
+                                                                        DeployRepositoryName, $"Publish as {group.Key}",
+                                                                        group.ToList(), string.Empty, false, 
+                                                                        pushOnHubBuildTypes.ToArray())), out _);
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
+
+            // -- post-push docker image validation
+            const string validationBuildTypeId = "image_validation";
+            graph.TryAddNode(AddFile(validationBuildTypeId, CreateImageValidationConfig(validationBuildTypeId, allImages)), out _);
+
 
             // Local project
             // ReSharper disable once UseObjectOrCollectionInitializer
@@ -191,6 +200,9 @@ namespace TeamCity.Docker
         {
             var curLines = new List<string>
             {
+                "// NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...",
+                "// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... ",
+                "// ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.",
                 "package generated",
                 string.Empty,
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.*",
@@ -316,6 +328,52 @@ namespace TeamCity.Docker
             }
 
             foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, null))
+            {
+                yield return dependencies;
+            }
+
+            yield return "})";
+            yield return string.Empty;
+        }
+
+        /// <summary>
+        /// Generates Kotlin DSL file with build configuration for post-push Docker image check.
+        /// A post-push validation build had been done in purpose of lower cost for failure within build chain.
+        /// It includes checks needed for service purposes only.
+        /// </summary>
+        /// <param name="buildTypeId"></param>
+        /// <param name="platform"></param>
+        /// <param name="allImages"></param>
+        /// <param name="buildBuildTypes"></param>
+        /// <returns></returns>
+        private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages) {
+            
+            // -- Validation is done via Kotlin Script located within file on agent
+            yield return "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile";
+
+            yield return $"object {buildTypeId}: BuildType(";
+            yield return "{";
+            yield return "name = \"Validation (post-push) of Docker images\"";
+            yield return _buildNumberPattern;
+
+
+            yield return "steps {";
+            foreach (var image in allImages)
+            {
+                // docker pull
+                var tag = image.File.Tags.First();
+                var repo = $"{image.File.ImageId}{BuildImagePostfix}:{tag}";
+                var repoTag = $"{BuildRepositoryName}{repo}";
+                foreach (var verificationScriptCallStep in CreateImageVerificationStep($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}"))
+                {
+                    // generate verification call for each of the images
+                    yield return verificationScriptCallStep;
+                }
+            }
+            yield return "}";
+
+            // -- depends on Docker image build. TODO: MOVE "OPTIONS" dependency to upper level
+            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(_options.TeamCityDockerRegistryId.ToString()))
             {
                 yield return dependencies;
             }
@@ -636,6 +694,10 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
+        /// <summary>
+        /// Generates dependencies {...} block of Kotlin DSL pipeline. Within this scope, ...
+        /// ... it includes dependencies from builds responsible for the creation of Docker images.
+        /// <returns></returns>
         private IEnumerable<string> CreateArtifactsDependencies()
         {
             if(string.IsNullOrWhiteSpace(_options.TeamCityBuildConfigurationId))
@@ -652,6 +714,27 @@ namespace TeamCity.Docker
             yield return "}";
             yield return "}";
         }
+
+        /// <summary>
+        /// Creates dependencies {...} block for build configuration responsible for post-push ...
+        /// ... validation of Docker images.
+        /// <returns></returns>
+        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string dependantBuildId) {
+            
+            if (dependantBuildId == null) {
+                // dependant build ID must be specified, otherwise the block wouldn't be useful
+                yield break;
+            }
+            yield return "dependencies {";
+            yield return $"dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
+            // doesn't make sense to start verification in case upstream (image build) had failed
+            yield return "snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }";
+            // dependency {...}
+            yield return "}";
+            // dependencies {...}
+            yield return "}";
+        }
+
 
         // ReSharper disable once IdentifierTypo
         private static IEnumerable<string> CreateSwabraFeature()
