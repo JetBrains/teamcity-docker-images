@@ -1,4 +1,7 @@
 # TeamCity Docker Images - tools
+Tools that are used within TeamCity Docker images release process.
+
+
 
 # 1. Dockerfiles & Build Configurations generator
 [TeamCity.Docker](TeamCity.Docker) is an utility application (C#) that generates Dockerfiles along with build configurations for
