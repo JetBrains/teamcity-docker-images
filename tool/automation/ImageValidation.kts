@@ -12,7 +12,6 @@ object ValidationConstants {
     const val ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT = 5.0
 }
 
-
 /**
  * Mark-up exception class for failed validation of Docker images.
  */
@@ -100,7 +99,6 @@ fun dockerImageExists(name: String): Boolean {
  * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
  * WARNING: the function depends on the assumption that tag pattern ...
  * ... is "<year>.<buld number>-<OS>".
- * TODO: Handle potential minor releases, e.g. 2022.04.1, 2022.04.4, etc.
  */
 fun getPrevDockerImageId(imageId: String): String {
     // TODO: surround with try-catch

@@ -1,13 +1,27 @@
 # Automation Utilities
 
-## Purpose
+## 1. Purpose
 Utilities that simplify automation of releasing TeamCity docker images.
 
-## TeamCity statistics
 
-Image size is reported via `"SIZE-$currentName"`
+## 2. Image Validation
+[ImageValidation.kts](ImageValidation.kts) - responsible for validation of Docker images.
+**Usage**:
+```
+kotlic -script ImageValidation.kts \
+    <docker image fully-qualified domain name> \
+    <(optional) previous docker image fully-qualified domain name>
+```
 
-## Dependencies
+### 2.1 TeamCity statistics
+Image size is reported into TeamCity via Servce Message using the following parretn: `"SIZE-$currentName"`.
 
-* TeamCity Kotlin DSL script with file name
-* Pattern (Todo: add link to code where the pattern for image name is deterined)
+
+### 2.2 A note on automation's dependencies / assumptions
+Automtion tools has the following assumptions that might be changed over the time / releases:
+* Automation path. [TeamCityKotlinSettingsGenerator.cs](../TeamCity.Docker/TeamCityKotlinSettingsGenerator.cs)
+```
+path = \"tool/automation/ImageValidation.kts\
+```
+
+* Version pattern. If not explicitly specified, [ImageValidation.kts](ImageValidation.kts) is trying to determine previous Docker image by the following parretn: `<year>.<buld number>-<OS>`. If that would be no longer applicable, please, consider making a related change. 
