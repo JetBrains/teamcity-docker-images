@@ -361,10 +361,11 @@ namespace TeamCity.Docker
             foreach (var image in allImages)
             {
                 // docker pull
-                var tag = image.File.Tags.First();
-                var repo = $"{image.File.ImageId}{BuildImagePostfix}:{tag}";
-                var repoTag = $"{BuildRepositoryName}{repo}";
-                foreach (var verificationScriptCallStep in CreateImageVerificationStep($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}"))
+                // -- we use "new repo" since the original value is not distinguishable (e.g. linux-EAP)
+                var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
+                var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
+                
+                foreach (var verificationScriptCallStep in CreateImageVerificationStep(newRepoTag))
                 {
                     // generate verification call for each of the images
                     yield return verificationScriptCallStep;
@@ -877,9 +878,9 @@ namespace TeamCity.Docker
         /// Constructs Kotlin DSL's Docker image verification step.
         /// <param name="imageFqdn">Docker mage< fully-qualified domain name/param>
         private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
-            //string stepContent = $@"
-            yield return "kotlinFile {";
+             yield return "kotlinFile {";
             yield return $"name = \"Image Verification - {imageFqdn}\"";
+            // TODO: Add implicit note about the path and related dependency
             yield return "path = \"tool/automation/ImageValidation.kts\"";
             yield return $"arguments = \"{imageFqdn}\" }}";
             yield return string.Empty;
