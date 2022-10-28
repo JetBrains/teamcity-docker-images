@@ -374,7 +374,7 @@ namespace TeamCity.Docker
             }
             yield return "}";
 
-            foreach (var failureCondition in CreateFailureConditionRegExpPattern(TeamCityConstants.Conditions.REGEXP)) {
+            foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
                 yield return failureCondition;
             }
 
@@ -758,6 +758,7 @@ namespace TeamCity.Docker
             // Condition num.1 - failOnText {...}
             yield return "failOnText {";
             // -- not setting "ID" - that'd be auto-generated
+            yield return $"conditionType = {TeamCityConstants.Conditions.REGEXP}";
             yield return $"pattern = \"{pattern}\"";
             yield return "reverse = false";
             // end of "failOnText{...}

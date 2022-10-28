@@ -92,7 +92,8 @@ arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-
 }
 failureConditions {
 failOnText {
-pattern = "BuildFailureOnText.ConditionType.REGEXP"
+conditionType = BuildFailureOnText.ConditionType.REGEXP
+pattern = "*DockerImageValidationException.*"
 reverse = false
 }
 }
