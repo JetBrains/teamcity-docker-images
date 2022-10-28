@@ -216,6 +216,9 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
                 "import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo",
+                // Failure Conditions
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText",
                 string.Empty
             };
             // ReSharper disable once StringLiteralTypo

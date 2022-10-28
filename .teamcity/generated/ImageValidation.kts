@@ -12,6 +12,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 object image_validation: BuildType(
