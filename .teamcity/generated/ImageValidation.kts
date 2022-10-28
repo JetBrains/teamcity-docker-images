@@ -4,6 +4,14 @@
 package generated
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
+import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 object image_validation: BuildType(
@@ -13,7 +21,7 @@ buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 kotlinFile {
 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-path = ".teamcity/automation/ImageValidation.kts"
+path = "tool/automation/ImageValidation.kts"
 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux" }
 
 kotlinFile {
@@ -82,10 +90,16 @@ path = "tool/automation/ImageValidation.kts"
 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004" }
 
 }
-// dependencies {
-// dependency(AbsoluteId("PROJECT_EXT_774")) {
-// snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
-// }
+failureConditions {
+failOnText {
+pattern = "BuildFailureOnText.ConditionType.REGEXP"
+reverse = false
+}
+}
+dependencies {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
+}
 }
 })
 
