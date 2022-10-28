@@ -20,6 +20,12 @@ object image_validation: BuildType(
 {
 name = "Validation (post-push) of Docker images"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+
+params {
+    param("dep.TC2022_10_BuildDistDocker.build.number", "andrey-build-number")
+    param("docker.deployRepository", "andrey-build-teamcity-test-non-existing-repo")
+}
+
 steps {
 kotlinFile {
 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
