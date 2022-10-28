@@ -9,6 +9,7 @@ namespace TeamCity.Docker
     using Generic;
     using IoC;
     using Model;
+    using Constants;
 
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
@@ -373,11 +374,17 @@ namespace TeamCity.Docker
             }
             yield return "}";
 
-            // -- depends on Docker image build. TODO: MOVE "OPTIONS" dependency to upper level
-            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(_options.TeamCityDockerRegistryId.ToString()))
+            foreach (var failureCondition in CreateFailureConditionRegExpPattern(TeamCityConstants.Conditions.REGEXP)) {
+                yield return failureCondition;
+            }
+
+            // -- depends on Docker image build. 
+            // TODO: Change "CreateDockerImageValidationSnapDependencies" to method parameter
+            foreach (var dependencies in CreateDockerImageValidationSnapDependencies("TC_Trunk_BuildDistDocker"))
             {
                 yield return dependencies;
             }
+
 
             yield return "})";
             yield return string.Empty;
@@ -736,6 +743,29 @@ namespace TeamCity.Docker
             yield return "}";
         }
 
+        /// <summary>
+        /// Creates failure conditions that terminated the build if an error message with given pattern had occured.
+        /// </summary>
+        /// <param name="pattern">Error pattern.</param>
+        /// <returns></returns>
+        private IEnumerable<string> CreateFailureConditionRegExpPattern(string pattern) {
+            if (pattern == null) {
+                yield break;
+            }
+
+            yield return "failureConditions {";
+
+            // Condition num.1 - failOnText {...}
+            yield return "failOnText {";
+            // -- not setting "ID" - that'd be auto-generated
+            yield return $"pattern = \"{pattern}\"";
+            yield return "reverse = false";
+            // end of "failOnText{...}
+            yield return "}";
+
+            // end of failureConditions {...}
+            yield return "}";
+        }
 
         // ReSharper disable once IdentifierTypo
         private static IEnumerable<string> CreateSwabraFeature()
@@ -880,7 +910,6 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
              yield return "kotlinFile {";
             yield return $"name = \"Image Verification - {imageFqdn}\"";
-            // TODO: Add implicit note about the path and related dependency
             yield return "path = \"tool/automation/ImageValidation.kts\"";
             yield return $"arguments = \"{imageFqdn}\" }}";
             yield return string.Empty;
