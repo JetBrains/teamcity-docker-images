@@ -82,10 +82,10 @@ path = "tool/automation/ImageValidation.kts"
 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004" }
 
 }
-dependencies {
-dependency(AbsoluteId("PROJECT_EXT_774")) {
-snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
-}
+// dependencies {
+// dependency(AbsoluteId("PROJECT_EXT_774")) {
+// snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
+// }
 }
 })
 
