@@ -381,8 +381,7 @@ namespace TeamCity.Docker
                 yield return failureCondition;
             }
 
-            // -- depends on Docker image build. 
-            // TODO: Change "CreateDockerImageValidationSnapDependencies" to method parameter
+            // -- depends on Docker image build.
             foreach (var dependencies in CreateDockerImageValidationSnapDependencies("TC_Trunk_BuildDistDocker"))
             {
                 yield return dependencies;
