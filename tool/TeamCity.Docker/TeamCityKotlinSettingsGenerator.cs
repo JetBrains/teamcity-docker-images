@@ -382,7 +382,7 @@ namespace TeamCity.Docker
             }
 
             // -- depends on Docker image build.
-            foreach (var dependencies in CreateDockerImageValidationSnapDependencies("TC_Trunk_BuildDistDocker"))
+            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(TeamCityConstants.TrunkConfigurations.BUILD_DIST_DOCKER))
             {
                 yield return dependencies;
             }
