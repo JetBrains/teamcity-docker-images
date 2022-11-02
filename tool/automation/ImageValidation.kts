@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
  * Target values used for validation purposes.
  */
 object ValidationConstants {
-    const val ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT = 5.0
+    const val ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT = 5.0f
 }
 
 /**
@@ -45,14 +45,15 @@ fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: 
     }.getOrNull()
 }
 
+
 /**
- * Calculates percentage increase from initial to final value.
+ * Calculates modulo percentage increase from initial to final value.
  * @param initial - initial value
  * @param final - final value
  * @return percentage increase
  */
 fun getPercentageIncrease(initial: Int, final: Int): Float {
-    return ((100f*(final - initial)) / initial)
+    return Math.abs(((100f*(final - initial)) / initial))
 }
 
 
@@ -156,7 +157,7 @@ fun pullDockerImage(name: String): Boolean {
  * @return true if image size increase suppressed given threshold; false otherwise (including situation when ...
  * ... it wasn't possible to determine any of image sizes)
  */
-fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolean {
+fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String, threshold: Float): Boolean {
     // -- get size of current image
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
@@ -177,7 +178,7 @@ fun imageSizeIncreasedTooMuch(currentName: String, previousName: String): Boolea
 
     // -- calculates image increase & notify if exceeds threshold
     val percentageIncrease = this.getPercentageIncrease(curSize, prevSize)
-    return (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
+    return (percentageIncrease > threshold)
 }
 
 /**
@@ -211,10 +212,12 @@ fun main(args: Array<String>) {
         }
     }
 
-    val imageSizeIncreasedTooMuch = this.imageSizeIncreasedTooMuch(imageName, prevImageName)
-    if (imageSizeIncreasedTooMuch) {
+    val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageName,
+                                                                                                prevImageName,
+                                                                                                ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
+    if (imageSizeChangeSuppressesThreshold) {
         throw DockerImageValidationException("Image $imageName size compared to previous ($prevImageName) " +
-                                                "suppresses $this.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT% threshold.")
+                                                "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
     }
 }
 
