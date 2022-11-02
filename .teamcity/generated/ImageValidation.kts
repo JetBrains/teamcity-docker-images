@@ -105,10 +105,10 @@ pattern = "*DockerImageValidationException.*"
 reverse = false
 }
 }
-// dependencies {
-// dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-// snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
-// }
-// }
+dependencies {
+dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
+}
+}
 })
 
