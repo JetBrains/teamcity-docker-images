@@ -101,7 +101,6 @@ fun dockerImageExists(name: String): Boolean {
  * ... is "<year>.<buld number>-<OS>".
  */
 fun getPrevDockerImageId(imageId: String): String {
-    // TODO: surround with try-catch
     var curImageTag = imageId.split(":")[1]
     var curImageTagElems = curImageTag.split(".")
 
@@ -198,14 +197,18 @@ fun main(args: Array<String>) {
     }
     val imageName = args[0]
 
-
-    // if previous image name is not specified via CLI, try to determine it based on pattern
-    // Note: ternary operator wouldn't work here due to potentially missing array element access
     var prevImageName = ""
-    if (args.size < 2) {
-        prevImageName = this.getPrevDockerImageId(imageName)
-    } else {
+    if (args.size >= 2) {
+        // -- take image name
         prevImageName = args[1]
+    } else {
+         // -- previous image name was not explicitly specified => try to determine automatically )by pattern)
+        try {
+            prevImageName = this.getPrevDockerImageId(imageName)
+        } catch (ex: IndexOutOfBoundsException) {
+            throw IllegalArgumentException("Unable to determine previous image tag from given ID: $imageName \n" +
+                                            "Expected image name pattern: \"<year>.<buld number>-<OS>\"")
+        }
     }
 
     val imageSizeIncreasedTooMuch = this.imageSizeIncreasedTooMuch(imageName, prevImageName)
@@ -215,5 +218,4 @@ fun main(args: Array<String>) {
     }
 }
 
-//  kotlinc -script tool/automation/ImageValidation.kts mcr.microsoft.com/dotnet/core/samples:dotnetapp-buster-slim
 main(args)
