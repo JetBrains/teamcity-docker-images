@@ -50,7 +50,7 @@ namespace TeamCity.Docker
                 return Task.FromResult(Result.Error);
             }
 
-            // conver configuration parameters into grapth for further processing
+            // convert configuration parameters into graph for further processing
             var graph = _buildGraphFactory.Create(templates.Value);
             if (graph.State == Result.Error)
             {

@@ -41,11 +41,10 @@ namespace TeamCity.Docker
         }
 
         /// <summary>
-        /// Generates the following TeamCity Build Configurations (KotlinDSL) responsible for ...
-        /// ... building and publishing docker images. The following configurations are created: ...
-        /// 1. Build and push to local registry. Name pattern: "PushLocal*.kts".
-        /// 2. Publishing docker manifests into registry. Name pattern: "PublishHub*.kts".
-        /// 3. Pushing into Dockerhub. Name pattern: "PushHub*.kts"
+        /// Generates the following TeamCity Build Configurations (KotlinDSL) responsible for:
+        /// - 1. Build and push to local registry. Name pattern: "PushLocal*.kts".
+        /// - 2. Publishing docker manifests into registry. Name pattern: "PublishHub*.kts".
+        /// - 3. Pushing into Dockerhub. Name pattern: "PushHub*.kts"
         /// </summary>
         /// <param> <c>graph</c> - RDF graph containing description of target TeamCity build chain. <param>
         /// 
@@ -254,10 +253,10 @@ namespace TeamCity.Docker
         }
 
         /// <summary>
-        /// Creates KotlinDSL's TeamCity build configuration for the creation and uploading of TeamCity's Docker iamges. 
+        /// Creates KotlinDSL's TeamCity build configuration for the creation and uploading of TeamCity's Docker images.
         /// </summary>
-        /// <param name="buildTypeId">ID of build confguration within TeamCity</param>
-        /// <param name="platform">target palform for the images (e.g. specific distributives of Linux, Windows)</param>
+        /// <param name="buildTypeId">ID of build configuration within TeamCity</param>
+        /// <param name="platform">target platform for the images (e.g. specific distributive of Linux, Windows)</param>
         /// <param name="allImages">list of Docker images</param>
         /// <param name="buildBuildTypes">types of TeamCity builds (e.g. publish_local - the naming is up to user)</param>
         /// <returns></returns>
@@ -340,16 +339,13 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
+
         /// <summary>
         /// Generates Kotlin DSL file with build configuration for post-push Docker image check.
-        /// A post-push validation build had been done in purpose of lower cost for failure within build chain.
-        /// It includes checks needed for service purposes only.
+        /// A post-push validation build had been done for the purpose of lower cost for failure within build chain.
         /// </summary>
-        /// <param name="buildTypeId"></param>
-        /// <param name="platform"></param>
-        /// <param name="allImages"></param>
-        /// <param name="buildBuildTypes"></param>
-        /// <returns></returns>
+        /// <param name="buildTypeId">Identifier the the creating build configuration.</param>
+        /// <param name="allImages">Images that will be checked in context of build configuration.</param>
         private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages) {
             
             // -- Validation is done via Kotlin Script located within file on agent
@@ -393,15 +389,15 @@ namespace TeamCity.Docker
         }
 
         /// <summary>
-        /// Generates TeamCity build configuration (Kotlin DSL) for publishment of Docker image manifests.
+        /// Generates TeamCity build configuration (Kotlin DSL) for publishing of Docker image manifests.
         /// </summary>
         /// <param name="buildTypeId">creating build ID</param>
-        /// <param name="repositoryName">target repository for publishment</param>
+        /// <param name="repositoryName">target repository for image publishing</param>
         /// <param name="name">build name</param>
         /// <param name="images">list of Docker images</param>
         /// <param name="imagePostfix">postfix that should be appended to the tags of all images</param>
         /// <param name="onStaging">indicates if the build is being created for staging purposes</param>
-        /// <param name="dependencies">dependencides of the build (other TeamCity build configuration, if any)</param>
+        /// <param name="dependencies">dependencies of the build (other TeamCity build configuration, if any)</param>
         private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
@@ -831,9 +827,9 @@ namespace TeamCity.Docker
         }
 
         /// <summary>
-        /// Constructs Kotlin DSL's dockerComamnd {...} for image re-tag.
+        /// Constructs Kotlin DSL's dockerCommand {...} for image re-tag.
         /// </summary>
-        /// <param name="repoTag">original Docker iamge tag</param>
+        /// <param name="repoTag">original Docker image tag</param>
         /// <param name="newRepoTag"> target Docker image tag</param>
         /// <param name="name">step name</param>
         private IEnumerable<string> CreateTagCommand(string repoTag, string newRepoTag, string name)
@@ -853,7 +849,7 @@ namespace TeamCity.Docker
 
         /// <summary>
         /// Constructs Kotlin DSL's step for preparation to dockerCommand {...}, such as ...
-        /// ... the creation of .dockerignore, append of the entries into ti. 
+        /// ... the creation of .dockerignore, append of the entries into it.
         /// </summary>
         /// <param name="image">info about Docker image</param>
         private IEnumerable<string> CreatePrepareContextCommand(Image image)
