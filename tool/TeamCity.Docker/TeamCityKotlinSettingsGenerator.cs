@@ -378,7 +378,9 @@ namespace TeamCity.Docker
             }
 
             // -- depends on Docker image build.
-            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(TeamCityConstants.TrunkConfigurations.BUILD_DIST_DOCKER))
+
+            string[] imageValidationDependencyIds = { "TC_Trunk_DockerImages_push_hub_windows", "TC_Trunk_DockerImages_push_hub_linux"};
+            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(imageValidationDependencyIds))
             {
                 yield return dependencies;
             }
@@ -724,19 +726,27 @@ namespace TeamCity.Docker
         /// <summary>
         /// Creates dependencies {...} block for build configuration responsible for post-push ...
         /// ... validation of Docker images.
-        /// <returns></returns>
-        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string dependantBuildId) {
+        /// <param name="dependencyIds">IDs of dependant build configuration</param> 
+        /// <returns>none</returns>
+        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string[] dependencyIds) {
             
-            if (dependantBuildId == null) {
-                // dependant build ID must be specified, otherwise the block wouldn't be useful
+            if (dependencyIds == null || dependencyIds.Length == 0) {
+                // dependency IDs must be specified, otherwise the block wouldn't be useful
                 yield break;
             }
-            yield return "dependencies {";
-            yield return $"dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
-            // doesn't make sense to start verification in case upstream (image build) had failed
-            yield return "snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }";
-            // dependency {...}
-            yield return "}";
+
+           yield return "dependencies {";
+
+            foreach (string dependantBuildId in dependencyIds)
+            {
+                yield return $"\t dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
+                // -- build problem is reported, but not termeinated, as some of the dependencies might successfully ...
+                // -- ... create images.
+                yield return "\t\t snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }";
+                // dependency {...}
+                yield return "\t }";
+            }
+            
             // dependencies {...}
             yield return "}";
         }
