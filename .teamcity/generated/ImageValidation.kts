@@ -102,13 +102,18 @@ failureConditions {
 failOnText {
 conditionType = BuildFailureOnText.ConditionType.REGEXP
 pattern = "*DockerImageValidationException.*"
-reverse = false
+    // allows the steps to continue running even in case of one problem
+    reportOnlyFirstMatch = false
 }
 }
 dependencies {
-dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-snapshot { onDependencyFailure = FailureAction.FAIL_TO_START }
-}
+    dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+        snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+    }
+
+    dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+        snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+    }
 }
 })
 
