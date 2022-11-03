@@ -764,13 +764,13 @@ namespace TeamCity.Docker
             yield return "failureConditions {";
 
             // Condition num.1 - failOnText {...}
-            yield return "failOnText {";
+            yield return "\t failOnText {";
             // -- not setting "ID" - that'd be auto-generated
-            yield return $"conditionType = {TeamCityConstants.Conditions.REGEXP}";
-            yield return $"pattern = \"{pattern}\"";
-            yield return "reverse = false";
+            yield return $"\t\t conditionType = {TeamCityConstants.Conditions.REGEXP}";
+            yield return $"\t\t pattern = \"{pattern}\"";
+            yield return "\t\t reverse = false";
             // end of "failOnText{...}
-            yield return "}";
+            yield return "\t }";
 
             // end of failureConditions {...}
             yield return "}";
@@ -917,10 +917,11 @@ namespace TeamCity.Docker
         /// Constructs Kotlin DSL's Docker image verification step.
         /// <param name="imageFqdn">Docker mage< fully-qualified domain name/param>
         private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
-             yield return "kotlinFile {";
-            yield return $"name = \"Image Verification - {imageFqdn}\"";
-            yield return "path = \"tool/automation/ImageValidation.kts\"";
-            yield return $"arguments = \"{imageFqdn}\" }}";
+            yield return "kotlinFile {";
+            yield return $"\t name = \"Image Verification - {imageFqdn}\"";
+            yield return "\t path = \"tool/automation/ImageValidation.kts\"";
+            yield return $"\t arguments = \"{imageFqdn}\"";
+            yield return "}";
             yield return string.Empty;
         }
 
