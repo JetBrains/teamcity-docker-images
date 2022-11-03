@@ -220,8 +220,11 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText",
                 // -- Validation is done via Kotlin Script located within file on agent
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile",
-                // -- target triggers
-                "import jetbrains.buildServer.configs.kotlin.triggers.finishBuildTrigger",
+                // -- please, import all triggers
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
 
                 string.Empty
             };
@@ -380,7 +383,7 @@ namespace TeamCity.Docker
                 yield return $"\t{failureCondition}";
             }
 
-            foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.id", true)) {
+            foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.publish_hub_version.id", true)) {
                 yield return $"\t{trigger}";
             }
 
@@ -786,6 +789,7 @@ namespace TeamCity.Docker
             yield return $"\t\t conditionType = {TeamCityConstants.Conditions.REGEXP}";
             yield return $"\t\t pattern = \"{pattern}\"";
             yield return "\t\t // allows the steps to continue running even in case of one problem";
+            // TODO: Ensure "false" is printed instead of "False"
             yield return $"\t\t reportOnlyFirstMatch = {reportOnlyFirstMatch}";
             // end of "failOnText{...}
             yield return "\t }";
