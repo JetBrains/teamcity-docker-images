@@ -20,6 +20,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+
 object image_validation: BuildType(
 {
 	 name = "Validation (post-push) of Docker images"
@@ -123,13 +124,13 @@ steps {
 			 buildType = "${PublishHubVersion.publish_hub_version.id}"
 		 }
 	}
-	dependencies {
-		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-		 }
-		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-		 }
-	}
+//	dependencies {
+//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+//		 }
+//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+//		 }
+//	}
 })
 
