@@ -756,7 +756,7 @@ namespace TeamCity.Docker
         /// </summary>
         /// <param name="pattern">Error pattern.</param>
         /// <returns></returns>
-        private IEnumerable<string> CreateFailureConditionRegExpPattern(string pattern) {
+        private IEnumerable<string> CreateFailureConditionRegExpPattern(string pattern, bool reportOnlyFirstMatch = false) {
             if (pattern == null) {
                 yield break;
             }
@@ -768,7 +768,8 @@ namespace TeamCity.Docker
             // -- not setting "ID" - that'd be auto-generated
             yield return $"\t\t conditionType = {TeamCityConstants.Conditions.REGEXP}";
             yield return $"\t\t pattern = \"{pattern}\"";
-            yield return "\t\t reverse = false";
+            yield return "\t\t // allows the steps to continue running even in case of one problem";
+            yield return $"\t\t reportOnlyFirstMatch = {reportOnlyFirstMatch}";
             // end of "failOnText{...}
             yield return "\t }";
 
