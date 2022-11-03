@@ -672,7 +672,7 @@ namespace TeamCity.Docker
             if (weight > 0)
             {
                 yield return "params {";
-                yield return $"param(\"system.teamcity.agent.ensure.free.space\", \"{weight}gb\")";
+                yield return $"\t param(\"system.teamcity.agent.ensure.free.space\", \"{weight}gb\")";
                 yield return "}";
             }
         }
@@ -682,21 +682,21 @@ namespace TeamCity.Docker
             yield return "dependencies {";
             if (onStaging != null)
             {
-                yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
+                yield return $"\t snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
                 if (onStaging == true)
                 {
-                    yield return "{\nonDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
+                    yield return "{\n \t onDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
                 }
                 else
                 {
-                    yield return "{\nreuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
+                    yield return "{\n \t reuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
                 }
             }
 
             foreach (var buildTypeId in dependencies.OrderBy(i => i))
             {
-                yield return $"snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
-                yield return "{\nonDependencyFailure =  FailureAction.FAIL_TO_START\n}";
+                yield return $"\t snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
+                yield return "{\n \t onDependencyFailure =  FailureAction.FAIL_TO_START\n}";
             }
 
             yield return "}";
@@ -714,12 +714,12 @@ namespace TeamCity.Docker
             }
 
             yield return "dependencies {";
-            yield return $"dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
-            yield return "snapshot { onDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.ANY }";
-            yield return "artifacts {";
-            yield return $"artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
-            yield return "}";
-            yield return "}";
+            yield return $"\t dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
+            yield return "\t\t snapshot { onDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.ANY }";
+            yield return "\t\t artifacts {";
+            yield return $"\t\t\t artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
+            yield return "\t\t }";
+            yield return "\t }";
             yield return "}";
         }
 
@@ -781,7 +781,7 @@ namespace TeamCity.Docker
         {
             // ReSharper disable once StringLiteralTypo
             yield return "swabra {";
-            yield return "forceCleanCheckout = true";
+            yield return "\t forceCleanCheckout = true";
             yield return "}";
         }
 
@@ -793,18 +793,18 @@ namespace TeamCity.Docker
             }
 
             yield return "dockerSupport {";
-            yield return "cleanupPushedImages = true";
-            yield return "loginToRegistry = on {";
-            yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
-            yield return "}";
+            yield return "\t cleanupPushedImages = true";
+            yield return "\t loginToRegistry = on {";
+            yield return $"\t\t dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
+            yield return "\t }";
             yield return "}";
         }
 
         private static IEnumerable<string> CreateFreeDiskSpaceFeature(int weight)
         {
             yield return "freeDiskSpace {";
-            yield return $"requiredSpace = \"{weight}gb\"";
-            yield return "failBuild = true";
+            yield return $"\t requiredSpace = \"{weight}gb\"";
+            yield return "\t failBuild = true";
             yield return "}";
         }
 
@@ -817,10 +817,10 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
-            yield return $"name = \"push {name}\"";
-            yield return "commandType = push {";
+            yield return $"\t name = \"push {name}\"";
+            yield return "\t commandType = push {";
 
-            yield return "namesAndTags = \"\"\"";
+            yield return "\t\t namesAndTags = \"\"\"";
             foreach (var tag in tags)
             {
                 yield return $"{imageId}:{tag}";
@@ -828,9 +828,9 @@ namespace TeamCity.Docker
 
             yield return "\"\"\".trimIndent()";
             
-            yield return "removeImageAfterPush = false";
+            yield return "\t\t removeImageAfterPush = false";
 
-            yield return "}";
+            yield return "\t }";
             yield return "}";
 
             yield return string.Empty;
@@ -845,11 +845,11 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateTagCommand(string repoTag, string newRepoTag, string name)
         {
             yield return "dockerCommand {";
-            yield return $"name = \"tag {name}\"";
-            yield return "commandType = other {";
+            yield return $"\t name = \"tag {name}\"";
+            yield return "\t commandType = other {";
 
-            yield return "subCommand = \"tag\"";
-            yield return $"commandArgs = \"{repoTag} {newRepoTag}\"";
+            yield return "\t subCommand = \"tag\"";
+            yield return $"\t commandArgs = \"{repoTag} {newRepoTag}\"";
 
             yield return "}";
             yield return "}";
@@ -866,8 +866,8 @@ namespace TeamCity.Docker
         {
             var tag = image.File.Tags.First();
             yield return "script {";
-            yield return $"name = \"context {image.File.ImageId}:{tag}\"";
-            yield return "scriptContent = \"\"\"";
+            yield return $"\t name = \"context {image.File.ImageId}:{tag}\"";
+            yield return "\t scriptContent = \"\"\"";
 
             // ReSharper disable once IdentifierTypo
             // ReSharper disable once StringLiteralTypo
@@ -892,17 +892,17 @@ namespace TeamCity.Docker
         {
             var tag = image.File.Tags.First();
             yield return "dockerCommand {";
-            yield return $"name = \"build {image.File.ImageId}:{tag}\"";
-            yield return "commandType = build {";
+            yield return $"\t name = \"build {image.File.ImageId}:{tag}\"";
+            yield return "\t commandType = build {";
             
-            yield return "source = file {";
-            yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
+            yield return "\t\t source = file {";
+            yield return $"\t\t path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
             yield return "}";
 
-            yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-            yield return "commandArgs = \"--no-cache\"";
+            yield return $"\t contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
+            yield return "\t commandArgs = \"--no-cache\"";
             
-            yield return "namesAndTags = \"\"\"";
+            yield return "\t namesAndTags = \"\"\"";
             yield return $"{image.File.ImageId}:{tag}";
             yield return "\"\"\".trimIndent()";
 
@@ -933,13 +933,13 @@ namespace TeamCity.Docker
         private static IEnumerable<string> CreatePullCommand(string repoTag, string name)
         {
             yield return "dockerCommand {";
-            yield return $"name = \"pull {name}\"";
-            yield return "commandType = other {";
+            yield return $"\t name = \"pull {name}\"";
+            yield return "\t commandType = other {";
 
-            yield return "subCommand = \"pull\"";
-            yield return $"commandArgs = \"{repoTag}\"";
+            yield return "\t\t subCommand = \"pull\"";
+            yield return $"\t\t commandArgs = \"{repoTag}\"";
 
-            yield return "}";
+            yield return "\t }";
             yield return "}";
 
             yield return string.Empty;
@@ -948,11 +948,11 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateDockerCommand(string name, string command, IEnumerable<string> args)
         {
             yield return "dockerCommand {";
-            yield return $"name = \"{name}\"";
-            yield return "commandType = other {";
-            yield return $"subCommand = \"{command}\"";
-            yield return $"commandArgs = \"{string.Join(" ", args)}\"";
-            yield return "}";
+            yield return $"\t name = \"{name}\"";
+            yield return "\t commandType = other {";
+            yield return $"\t subCommand = \"{command}\"";
+            yield return $"\t\t commandArgs = \"{string.Join(" ", args)}\"";
+            yield return "\t }";
             yield return "}";
         }
 
@@ -966,8 +966,8 @@ namespace TeamCity.Docker
         private static IEnumerable<string> AddScript(string name, string script)
         {
             yield return "script {";
-            yield return $"name = \"{name}\"";
-            yield return $"scriptContent = \"{script}\"";
+            yield return $"\t name = \"{name}\"";
+            yield return $"\t scriptContent = \"{script}\"";
             yield return "}";
         }
     }
