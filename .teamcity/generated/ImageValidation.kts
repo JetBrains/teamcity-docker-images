@@ -12,8 +12,10 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+// TODO: Add imports into C# generation
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
+import jetbrains.buildServer.configs.kotlin.triggers.finishBuildTrigger
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 object image_validation: BuildType(
@@ -106,6 +108,13 @@ pattern = "*DockerImageValidationException.*"
     reportOnlyFirstMatch = false
 }
 }
+
+triggers {
+    finishBuildTrigger {
+        id = "${PublishHubVersion.id}"
+    }
+}
+
 dependencies {
     dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
         snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
