@@ -771,7 +771,7 @@ namespace TeamCity.Docker
         }
 
         /// <summary>
-        /// Creates failure conditions that terminated the build if an error message with given pattern had occured.
+        /// Creates failure conditions that terminated the build if an error message with given pattern had occurred.
         /// </summary>
         /// <param name="pattern">Error pattern.</param>
         /// <param name="reportOnlyFirstMatch">Indicates if the steps must continue execution even if after failure.</param> 
@@ -783,9 +783,7 @@ namespace TeamCity.Docker
 
             yield return "failureConditions {";
 
-            // Condition num.1 - failOnText {...}
             yield return "\t failOnText {";
-            // -- not setting "ID" - that'd be auto-generated
             yield return $"\t\t conditionType = {TeamCityConstants.Conditions.REGEXP}";
             yield return $"\t\t pattern = \"{pattern}\"";
             yield return "\t\t // allows the steps to continue running even in case of one problem";
