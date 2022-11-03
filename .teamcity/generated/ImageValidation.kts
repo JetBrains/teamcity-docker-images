@@ -115,12 +115,12 @@ steps {
 			 conditionType = BuildFailureOnText.ConditionType.REGEXP
 			 pattern = "*DockerImageValidationException.*"
 			 // allows the steps to continue running even in case of one problem
-			 reportOnlyFirstMatch = False
+			 reportOnlyFirstMatch = false
 		 }
 	}
 	triggers {
 		 finishBuildTrigger {
-			 buildType = "${PublishHubVersion.id}"
+			 buildType = "${publish_hub_version.id}"
 		 }
 	}
 	dependencies {
