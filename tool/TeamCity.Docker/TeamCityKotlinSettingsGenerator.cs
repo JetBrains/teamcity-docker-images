@@ -218,6 +218,11 @@ namespace TeamCity.Docker
                 // Failure Conditions
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText",
+                // -- Validation is done via Kotlin Script located within file on agent
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile",
+                // -- target triggers
+                "import jetbrains.buildServer.configs.kotlin.triggers.finishBuildTrigger",
+
                 string.Empty
             };
             // ReSharper disable once StringLiteralTypo
@@ -348,8 +353,6 @@ namespace TeamCity.Docker
         /// <param name="allImages">Images that will be checked in context of build configuration.</param>
         private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages) {
             
-            // -- Validation is done via Kotlin Script located within file on agent
-            yield return "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile";
 
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
@@ -375,6 +378,10 @@ namespace TeamCity.Docker
 
             foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
                 yield return failureCondition;
+            }
+
+            foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.id", true)) {
+                yield return trigger;
             }
 
             // -- depends on Docker image build.
@@ -755,6 +762,7 @@ namespace TeamCity.Docker
         /// Creates failure conditions that terminated the build if an error message with given pattern had occured.
         /// </summary>
         /// <param name="pattern">Error pattern.</param>
+        /// <param name="reportOnlyFirstMatch">Indicates if the steps must continue execution even if after failure.</param> 
         /// <returns></returns>
         private IEnumerable<string> CreateFailureConditionRegExpPattern(string pattern, bool reportOnlyFirstMatch = false) {
             if (pattern == null) {
@@ -774,6 +782,31 @@ namespace TeamCity.Docker
             yield return "\t }";
 
             // end of failureConditions {...}
+            yield return "}";
+        }
+
+        /// <summary>
+        /// Create build configuration trigger dependant on finished build. 
+        /// </summary>
+        /// <param name="id">target build ID</param>
+        /// <param name="useEnclosureForId">indicates if enclosure (${...}) should be used for build ID</param>
+        /// <returns></returns>
+        private IEnumerable<string> CreateFinishBuildTrigger(string id, Boolean useEnclosureForId = false) {
+            if (id == null || id.Length == 0) {
+                yield break;
+            }
+
+            yield return "triggers {";
+
+            yield return "\t finishBuildTrigger {";
+            // -- not setting "ID" - that'd be auto-generated
+            var buildId = useEnclosureForId ? ("${" + $"{id}" + "}") : id;
+            yield return $"\t\t id = \"{buildId}\"";
+
+            // closing 'finishBuildTrigger {...}' 
+            yield return "\t }";
+
+            // closing triggers {...}
             yield return "}";
         }
 
