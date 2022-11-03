@@ -120,7 +120,7 @@ steps {
 	}
 	triggers {
 		 finishBuildTrigger {
-			 id = "${PublishHubVersion.id}"
+			 buildType = "${PublishHubVersion.publish_hub_version.id}"
 		 }
 	}
 	dependencies {
