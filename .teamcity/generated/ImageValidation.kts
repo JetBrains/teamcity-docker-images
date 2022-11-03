@@ -15,8 +15,9 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
+import jetbrains.buildServer.configs.kotlin.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.triggers.finishBuildTrigger
-
+import jetbrains.buildServer.configs.kotlin.triggers.vcs
 object image_validation: BuildType(
 {
 	 name = "Validation (post-push) of Docker images"
