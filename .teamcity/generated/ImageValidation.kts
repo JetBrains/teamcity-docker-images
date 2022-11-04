@@ -112,7 +112,11 @@ steps {
 	
 }
 	failureConditions {
-		 failOnText {
+		// Ignore if exit code is zero & test failed
+		testFailure = false
+		nonZeroExitCode = false
+
+		failOnText {
 			 conditionType = BuildFailureOnText.ConditionType.REGEXP
 			 pattern = "*DockerImageValidationException.*"
 			 // allows the steps to continue running even in case of one problem
@@ -121,16 +125,18 @@ steps {
 	}
 	triggers {
 		 finishBuildTrigger {
-			 buildType = "${PublishHubVersion.publish_hub_version.id}"
+			 buildType = "${PublishHubVersion.publish_local.id}"
+			 branchFilter = "+:release/*|+:development/*"
 		 }
 	}
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//	}
+
+	dependencies {
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+	}
 })
 
