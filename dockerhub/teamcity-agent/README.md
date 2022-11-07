@@ -72,17 +72,20 @@ You can use other than `/opt/buildagent/` source path prefix on the host machine
 
 ### Running Builds Which Require Docker
 
-In a Linux container, if you need a Docker daemon available inside your builds, you have two options.
+You have two options if you need a docker daemon available inside your builds.
 
-Regardless of the selected option, the __Docker service inside the container must be started under the root user__. The recommended approach is to use the TeamCity agent image with the `-linux-sudo` tag suffix that provides the sudo access. Alternatively, if you use a non-sudo agent image, you can run the whole container under the root user by passing `-u 0`.
-
-Initially, the Docker is stopped inside the container. To run it, pass the `-e DOCKER_IN_DOCKER=start` environment variable.
+One is to use docker server from the host, which starts teamcity agent container (docker-out-of-docker). 
+Another is to run a docker server inside teamcity agent container (docker-in-docker).  
 
 **NOTE:** both of these options require extra trust to your builds, as a build may get
 **root access** to the host where the TeamCity agent container is running. 
 Read more about [Docker security at OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html) and review the [TeamCity security notes](https://www.jetbrains.com/help/teamcity/security-notes.html).  
+               
+#### Using the docker from the host
 
-1) Docker from the host (in this case you will benefit from the caches shared between the host and all your containers but there is a security concern: your build might actually harm your host Docker, so use it at your own risk) 
+This is the approach of passing docker socket into the started agent, with the `-v /var/run/docker.sock:/var/run/docker.sock` volume parameter.
+
+In this case you will benefit from the docker caches shared between the host and all your containers but there is a security concern: your build might actually harm your host Docker, so use it at your own risk 
 
 ```
 docker run -e SERVER_URL="<url to TeamCity server>"  \
@@ -104,14 +107,21 @@ If you omit these options, you can run several build agents (you need to specify
 
 The problem is, that multiple agent containers would use the same (`/opt/buildagent/*`) directories as they are mounted from the host machine to the agent container and that the docker wrapper mounts the directories from the host to the nested docker wrapper container. And, you cannot use multiple agent containers with *different paths* on the host as the docker wrapper would still try to map the paths as they are in the agent container, but from the host machine to the nested docker wrapper container. To make several agents work with docker wrapper and docker.sock option, one have to build different teamcity-agent docker images with different paths of teamcity-agent installation inside those images (like `/opt/buildagentN`), and start those images with corresponding parameters like `-v /opt/buildagent1/work:/opt/buildagent1/work` etc.
 
+#### Starting docker server inside agent container
 
-2) New Docker daemon running within your container (note that in this case the container should be run with the **—-privileged** flag, which is also risky from the security perspective). We recommend running such builds on the TeamCity image with the `-linux-sudo` tag suffix.
+With this option teamcity agent container starts its own new Docker daemon.
+
+In this case the container should be run with the **—-privileged** flag, which is also risky from the security perspective. 
+
+With this approach, you have to use a TeamCity agent image with the `-linux-sudo` tag suffix:
+
 ```
 docker run -e SERVER_URL="<url to TeamCity server>"  \
+    -u 0 \
     -v <path to agent config folder>:/data/teamcity_agent/conf \
     -v docker_volumes:/var/lib/docker \
     --privileged -e DOCKER_IN_DOCKER=start \    
-    jetbrains/teamcity-agent
+    jetbrains/teamcity-agent:2021.1.1-linux-sudo
 ```
 
 The option `-v docker_volumes:/var/lib/docker` is related to the case when the `aufs` filesystem is used and when a build agent is started from a Windows machine ([related issue](https://youtrack.jetbrains.com/issue/TW-52939)).   
