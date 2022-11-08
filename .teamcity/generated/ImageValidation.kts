@@ -23,7 +23,9 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object image_validation: BuildType(
     {
         name = "Validation (post-push) of Docker images"
-        buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+//        buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+
+
         steps {
             kotlinFile {
                 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
@@ -132,9 +134,9 @@ object image_validation: BuildType(
 //		 }
 
         // -- build number dependency
-        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-            reuseBuilds = ReuseBuilds.ANY
-            onDependencyFailure = FailureAction.IGNORE
-        }
+//        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+//            reuseBuilds = ReuseBuilds.ANY
+//            onDependencyFailure = FailureAction.IGNORE
+//        }
 	}
     })
