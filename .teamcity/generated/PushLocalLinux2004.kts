@@ -272,6 +272,25 @@ namesAndTags = """
 removeImageAfterPush = false
 }
 }
+    // NOTE: The following steps are experimental identification of an EAP TeamCity agent Docker image
+    dockerCommand {
+        name = "Identify EAP TeamCity Agent Image"
+
+        commandType = other {
+            subCommand = "tag"
+            commandArgs = "teamcity-agent:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%dockerImage.teamcity.buildNumber%-%build.counter%-linux-arm64-sudo"
+        }
+    }
+
+    dockerCommand {
+        name = "Push identified EAP TeamCity Agent Image"
+        commandType = push {
+            namesAndTags = """
+%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%dockerImage.teamcity.buildNumber%-%build.counter%-linux-arm64-sudo
+""".trimIndent()
+            removeImageAfterPush = false
+        }
+    }
 
 }
 features {
