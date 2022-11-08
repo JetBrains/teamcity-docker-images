@@ -108,7 +108,7 @@ features {
 dockerSupport {
 cleanupPushedImages = true
 loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_774"
+dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_2845"
 }
 }
 }
