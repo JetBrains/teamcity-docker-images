@@ -24,6 +24,8 @@ object image_validation: BuildType(
     {
         name = "Validation (post-push) of Docker images"
 //        buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+        buildNumberPattern="test-%build.counter%"
+
 
 
         steps {
