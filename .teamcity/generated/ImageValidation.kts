@@ -3,6 +3,10 @@
 // ... USED ANYWHERE.
 package generated
 
+import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+
 object image_validation: BuildType({
     name = "Validation (post-push) of Docker images"
     steps {
