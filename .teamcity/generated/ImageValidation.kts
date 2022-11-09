@@ -133,9 +133,9 @@ object image_validation: BuildType(
 //		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
 //			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
 //		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
 
         // -- build number dependency
 //        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
@@ -143,7 +143,6 @@ object image_validation: BuildType(
 //                reuseBuilds = ReuseBuilds.ANY
 //                onDependencyFailure = FailureAction.IGNORE
 //            }
-//
 //        }
 	}
     })
