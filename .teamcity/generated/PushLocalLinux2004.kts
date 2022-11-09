@@ -327,7 +327,7 @@ dockerRegistryId = "PROJECT_EXT_774"
     dockerSupport {
         cleanupPushedImages = true
         loginToRegistry = on {
-            dockerRegistryId = "PROJECT_EXT_2845"
+            dockerRegistryId = "PROJECT_EXT_315"
         }
     }
 
