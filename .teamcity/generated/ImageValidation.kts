@@ -25,7 +25,10 @@ object image_validation: BuildType(
         name = "Validation (post-push) of Docker images"
         buildNumberPattern="test-%build.counter%"
 
-
+        params {
+            // -- inherited parameter, removed in debug purposes
+            param("dockerImage.teamcity.buildNumber", "-")
+        }
 
         steps {
             kotlinFile {
@@ -135,12 +138,12 @@ object image_validation: BuildType(
 //		 }
 
         // -- build number dependency
-        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-            snapshot {
-                reuseBuilds = ReuseBuilds.ANY
-                onDependencyFailure = FailureAction.IGNORE
-            }
-
-        }
+//        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+//            snapshot {
+//                reuseBuilds = ReuseBuilds.ANY
+//                onDependencyFailure = FailureAction.IGNORE
+//            }
+//
+//        }
 	}
     })
