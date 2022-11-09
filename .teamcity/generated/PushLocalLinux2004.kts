@@ -317,24 +317,17 @@ freeDiskSpace {
 requiredSpace = "8gb"
 failBuild = true
 }
+
+
 dockerSupport {
-cleanupPushedImages = true
-loginToRegistry = on {
-dockerRegistryId = "PROJECT_EXT_774"
-}
-}
-
-    dockerSupport {
-        cleanupPushedImages = true
-        loginToRegistry = on {
-            dockerRegistryId = "PROJECT_EXT_315"
-        }
+    cleanupPushedImages = true
+    loginToRegistry = on {
+        dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
     }
+}
 
 
-
-
-swabra {
+        swabra {
 forceCleanCheckout = true
 }
 }
