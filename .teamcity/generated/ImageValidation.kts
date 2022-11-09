@@ -136,8 +136,11 @@ object image_validation: BuildType(
 
         // -- build number dependency
         dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-            reuseBuilds = ReuseBuilds.ANY
-            onDependencyFailure = FailureAction.IGNORE
+            snapshot {
+                reuseBuilds = ReuseBuilds.ANY
+                onDependencyFailure = FailureAction.IGNORE
+            }
+
         }
 	}
     })
