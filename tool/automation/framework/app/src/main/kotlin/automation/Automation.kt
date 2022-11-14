@@ -15,7 +15,7 @@ class Automation {
 }
 
 fun main(args: Array<String>) {
-    if (args.size < 1) {
+    if (args.isEmpty()) {
         throw IllegalArgumentException("Not enough CLI arguments.")
     }
     val imageName = args[0]
@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
             prevImageName = ImageValidationUtils.getPrevDockerImageId(imageName)
         } catch (ex: IndexOutOfBoundsException) {
             throw IllegalArgumentException("Unable to determine previous image tag from given ID: $imageName \n" +
-                    "Expected image name pattern: \"<year>.<buld number>-<OS>\"")
+                    "Expected image name pattern: \"<year>.<build number>-<OS>\"")
         }
     }
 
