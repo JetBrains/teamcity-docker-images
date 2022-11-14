@@ -1,3 +1,5 @@
+@file:Import("common/OsUtilities.kts")
+
 import java.lang.Exception
 import java.lang.NumberFormatException
 import java.lang.System
@@ -16,35 +18,6 @@ object ValidationConstants {
  * Mark-up exception class for failed validation of Docker images.
  */
 class DockerImageValidationException(message: String) : Exception(message)
-
-/**
- * Executes command.
- * @param command - command to be execution
- * @param redirectStderr - indicates if error output must be captured along with ...
- * ... stdout
- * @return result of command's execution ; null in case of exception
- */
-fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: Long = 60): String? {
-    return runCatching {
-        // -- converting command to list containing the arguments
-        val args = command.split(Regex("(?<!(\"|').{0,255}) | (?!.*\\1.*)"))
-        var builder = ProcessBuilder(args)
-            .redirectOutput(ProcessBuilder.Redirect.PIPE)
-            .apply {
-                // -- attach stderr-redirecting if required
-                if (redirectStderr) {
-                    this.redirectError(ProcessBuilder.Redirect.PIPE)
-                }
-            }
-
-        // -- execute command with timeout
-        builder.start().apply { waitFor(timeoutSec, TimeUnit.SECONDS) }
-                        .inputStream.bufferedReader().readText()
-    }.onFailure {
-        it.printStackTrace()
-    }.getOrNull()
-}
-
 
 /**
  * Calculates modulo percentage increase from initial to final value.
@@ -71,7 +44,7 @@ fun getDockerImageSize(name: String): Int? {
         }
     }
 
-    var cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
+    var cmdResult = OsUtilities.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
     try {
         // remove quotes from reult string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
@@ -89,7 +62,7 @@ fun getDockerImageSize(name: String): Int? {
  * @return true if image exists, false otherwise
  */
 fun dockerImageExists(name: String): Boolean {
-    val cmdResult = this.executeCommand("docker images -q $name", true)
+    val cmdResult = OsUtilities.executeCommand("docker images -q $name", true)
     if (cmdResult == null) { return false }
 
     return !cmdResult.isEmpty()
@@ -140,7 +113,7 @@ fun getPrevDockerImageId(imageId: String): String {
  * @return true if image had been successfully pulled, false otherwise
  */
 fun pullDockerImage(name: String): Boolean {
-    val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
+    val cmdResult = OsUtilities.executeCommand("docker pull $name", true) ?: ""
 
     // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
     // ... captured by Kotlin's ProcessBuilder.
