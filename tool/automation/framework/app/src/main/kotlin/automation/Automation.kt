@@ -7,12 +7,6 @@ import DockerImageValidationException
 import automation.common.constants.ValidationConstants
 import automation.docker.validation.ImageValidationUtils
 
-class Automation {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
