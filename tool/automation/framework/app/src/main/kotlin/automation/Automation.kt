@@ -14,7 +14,10 @@ import java.lang.IllegalArgumentException
 
 
 fun main(args: Array<String>) {
-
+    /**
+     * Subcommand for image validation. Will be consumed by ..
+     * ... argument parser.
+     */
     class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         val imageNames by argument(ArgType.String, description = "Images").vararg()
         var validated: Boolean = false
@@ -34,7 +37,6 @@ fun main(args: Array<String>) {
     }
 
     val parser = ArgParser("automation")
-
     val imageValidation = ValidateImage()
     parser.subcommands(imageValidation)
 
