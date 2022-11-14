@@ -26,3 +26,9 @@ path = \"tool/automation/ImageValidation.kts\
 
 * Version pattern. If not explicitly specified, [ImageValidation.kts](ImageValidation.kts) is trying to determine previous
 * Docker image by the following parent: `<year>.<buld number>-<OS>`. If that would be no longer applicable, please, consider making a related change. 
+
+
+# Updated usage (TODO: Refactor)
+```
+validate jetbrains/teamcity-server:2022.04.3 <(optionally> etbrains/teamcity-server:2022.04.2)
+```

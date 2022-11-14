@@ -1,6 +1,8 @@
 package automation.docker.validation
 
+import DockerImageValidationException
 import automation.common.MathUtils
+import automation.common.constants.ValidationConstants
 import automation.docker.DockerUtilities
 import automation.teamcity.TeamCityUtils
 
@@ -78,6 +80,34 @@ class ImageValidationUtils {
             // -- calculates image increase & notify if exceeds threshold
             val percentageIncrease = MathUtils.getPercentageIncrease(curSize, prevSize)
             return (percentageIncrease > threshold)
+        }
+
+        /**
+         * Validates Docker Image.
+         * @param imageName - image to be validated
+         * @param prevImageName - (optional) previous Docker image
+         * @return true if image matches each criteria
+         */
+        fun validate(imageName: String, prevImageName: String = ""): Boolean {
+
+            var previousImage = prevImageName
+            if (previousImage.isEmpty()) {
+                // -- previous image name was not explicitly specified => try to determine automatically )by pattern)
+                try {
+                    previousImage = getPrevDockerImageId(imageName)
+                } catch (ex: IndexOutOfBoundsException) {
+                    throw java.lang.IllegalArgumentException(
+                        "Unable to determine previous image tag from given ID: $imageName \n" +
+                                "Expected image name pattern: \"<year>.<build number>-<OS>\""
+                    )
+                }
+            }
+
+            return imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
+//            if (imageSizeChangeSuppressesThreshold) {
+//                throw DockerImageValidationException("Image $imageName size compared to previous ($prevImageName) " +
+//                        "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
+//            }
         }
     }
 }

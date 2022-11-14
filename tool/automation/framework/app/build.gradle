@@ -11,6 +11,8 @@ repositories {
 dependencies {
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    // -- CLI arguments
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
 }
 
 application {
