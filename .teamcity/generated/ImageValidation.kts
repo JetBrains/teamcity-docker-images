@@ -25,7 +25,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
 object image_validation: BuildType(
 {
 	 name = "Validation (post-push) of Docker images"
-	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+//	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 
 	params {
 		param("docker.deployRepository", "jetbrains/")
