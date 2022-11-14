@@ -38,7 +38,7 @@ fun getDockerImageSize(name: String): Int? {
 
     var cmdResult = OsUtilities.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
     try {
-        // remove quotes from reult string
+        // remove quotes from result string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
         return Integer.parseInt(imageSizeStr)
     } catch (ex: Exception) {
@@ -88,7 +88,7 @@ fun getPrevDockerImageId(imageId: String): String {
     val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber)
                                 else oldBuildNumber
 
-    // Replace current image's numberic part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
+    // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
     val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
                                 else (curImageTagElems[0] + "." + imageBuildNum + "-")
     val determinedOldImageTagPart = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-")
