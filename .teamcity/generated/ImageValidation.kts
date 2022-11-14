@@ -28,6 +28,7 @@ object image_validation: BuildType(
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 
 	params {
+		param("docker.deployRepository", "jetbrains/")
 		param("dep.TC_Trunk_BuildDistDocker.build.number", "-")
 	}
 steps {
