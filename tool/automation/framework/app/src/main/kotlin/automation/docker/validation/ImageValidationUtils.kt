@@ -5,9 +5,11 @@ import automation.common.constants.ValidationConstants
 import automation.docker.DockerUtils
 import automation.teamcity.TeamCityUtils
 
+/**
+ * Utilities aimed at simplification of Docker Image(-s) validation.
+ */
 class ImageValidationUtils {
     companion object {
-
 
         /**
          * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
@@ -45,9 +47,6 @@ class ImageValidationUtils {
             val oldImageId = imageId.replace(originalImageTagPart, determinedOldImageTagPart)
             return oldImageId
         }
-
-
-
 
         /**
          * Validates Docker image size.

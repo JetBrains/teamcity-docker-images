@@ -1,5 +1,10 @@
 package automation.common
 
+import kotlin.math.abs
+
+/**
+ * Utilities for mathematical operations.
+ */
 class MathUtils {
     companion object {
         /**
@@ -9,7 +14,7 @@ class MathUtils {
          * @return percentage increase
          */
         fun getPercentageIncrease(initial: Int, final: Int): Float {
-            return Math.abs(((100f*(final - initial)) / initial))
+            return abs(((100f*(final - initial)) / initial))
         }
     }
 }

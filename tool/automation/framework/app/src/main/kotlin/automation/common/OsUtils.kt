@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit
  * Utilities dedicated to interaction with OS utilities.
  */
 class OsUtils {
-
     companion object {
         /**
          * Executes command.
@@ -37,5 +36,4 @@ class OsUtils {
             }.getOrNull()
         }
     }
-
 }

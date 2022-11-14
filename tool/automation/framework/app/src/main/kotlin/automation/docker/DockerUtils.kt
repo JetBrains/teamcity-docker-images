@@ -46,7 +46,6 @@ class DockerUtils {
             }
         }
 
-
         /**
          * Checks if Docker image exists on agent.
          * @param name Docker image name
