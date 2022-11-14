@@ -1,11 +1,8 @@
 @file:Import("common/OsUtilities.kts")
+@file:Import("docker/DockerImageValidationException.kts")
 
 import java.lang.Exception
-import java.lang.NumberFormatException
 import java.lang.System
-import java.lang.Void
-import java.util.Objects
-import java.util.concurrent.TimeUnit
 
 /**
  * Target values used for validation purposes.
@@ -13,11 +10,6 @@ import java.util.concurrent.TimeUnit
 object ValidationConstants {
     const val ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT = 5.0f
 }
-
-/**
- * Mark-up exception class for failed validation of Docker images.
- */
-class DockerImageValidationException(message: String) : Exception(message)
 
 /**
  * Calculates modulo percentage increase from initial to final value.
