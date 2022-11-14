@@ -15,7 +15,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
-//import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
