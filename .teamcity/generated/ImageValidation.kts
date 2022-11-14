@@ -26,89 +26,97 @@ object image_validation: BuildType(
 	 name = "Validation (post-push) of Docker images"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
+
+	gradle {
+		name = "Updated Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
+		gradleParams = "validate %docker.deployRepository%teamcity-server:2022.10-linux"
+		workingDir = "tool/automation/framework/app"
+		jdkHome = "%env.JDK_1_8%"
 	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-	}
-	
-	kotlinFile {
-		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-		 path = "tool/automation/ImageValidation.kts"
-		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-	}
+
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+//	}
+//
+//	kotlinFile {
+//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+//		 path = "tool/automation/ImageValidation.kts"
+//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+//	}
 	
 }
 	failureConditions {
