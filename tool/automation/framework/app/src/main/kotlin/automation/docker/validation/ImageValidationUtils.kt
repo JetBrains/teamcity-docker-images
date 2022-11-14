@@ -1,9 +1,8 @@
 package automation.docker.validation
 
-import DockerImageValidationException
 import automation.common.MathUtils
 import automation.common.constants.ValidationConstants
-import automation.docker.DockerUtilities
+import automation.docker.DockerUtils
 import automation.teamcity.TeamCityUtils
 
 class ImageValidationUtils {
@@ -60,7 +59,7 @@ class ImageValidationUtils {
          */
         fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String, threshold: Float): Boolean {
             // -- get size of current image
-            val curSize = DockerUtilities.getDockerImageSize(currentName)
+            val curSize = DockerUtils.getDockerImageSize(currentName)
             if (curSize == null) {
                 System.err.println("Image does not exist on the agent: $currentName")
                 return false
@@ -70,8 +69,8 @@ class ImageValidationUtils {
             TeamCityUtils.reportTeamCityStatistics("SIZE-$currentName", curSize)
 
             // -- get size of previous image
-            val prevImagePullSucceeded = DockerUtilities.pullDockerImage(previousName)
-            val prevSize = DockerUtilities.getDockerImageSize(previousName)
+            val prevImagePullSucceeded = DockerUtils.pullDockerImage(previousName)
+            val prevSize = DockerUtils.getDockerImageSize(previousName)
             if (!prevImagePullSucceeded || prevSize == null) {
                 System.err.println("Unable to get size of previous image: $previousName")
                 return false
@@ -88,7 +87,7 @@ class ImageValidationUtils {
          * @param prevImageName - (optional) previous Docker image
          * @return true if image matches each criteria
          */
-        fun validate(imageName: String, prevImageName: String = ""): Boolean {
+        fun validateSize(imageName: String, prevImageName: String = ""): Boolean {
 
             var previousImage = prevImageName
             if (previousImage.isEmpty()) {
@@ -104,10 +103,6 @@ class ImageValidationUtils {
             }
 
             return imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
-//            if (imageSizeChangeSuppressesThreshold) {
-//                throw DockerImageValidationException("Image $imageName size compared to previous ($prevImageName) " +
-//                        "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
-//            }
         }
     }
 }

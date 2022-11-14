@@ -1,9 +1,9 @@
 package automation.docker
 
 import DockerImageValidationException
-import automation.common.OsUtilities
+import automation.common.OsUtils
 
-class DockerUtilities {
+class DockerUtils {
 
     companion object {
 
@@ -13,7 +13,7 @@ class DockerUtilities {
          * @return true if image had been successfully pulled, false otherwise
          */
         fun pullDockerImage(name: String): Boolean {
-            val cmdResult = OsUtilities.executeCommand("docker pull $name", true) ?: ""
+            val cmdResult = OsUtils.executeCommand("docker pull $name", true) ?: ""
 
             // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
             // ... captured by Kotlin's ProcessBuilder.
@@ -35,7 +35,7 @@ class DockerUtilities {
                 }
             }
 
-            var cmdResult = OsUtilities.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
+            var cmdResult = OsUtils.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
             try {
                 // remove quotes from result string
                 val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
@@ -53,10 +53,8 @@ class DockerUtilities {
          * @return true if image exists, false otherwise
          */
         fun dockerImageExists(name: String): Boolean {
-            val cmdResult = OsUtilities.executeCommand("docker images -q $name", true)
-            if (cmdResult == null) { return false }
-
-            return !cmdResult.isEmpty()
+            val cmdResult = OsUtils.executeCommand("docker images -q $name", true) ?: return false
+            return cmdResult.isNotEmpty()
         }
     }
 }

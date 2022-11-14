@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Utilities dedicated to interaction with OS utilities.
  */
-class OsUtilities {
+class OsUtils {
 
     companion object {
         /**

@@ -23,8 +23,13 @@ fun main(args: Array<String>) {
             if (imageNames.size > 2) {
                 throw IllegalArgumentException("Too much image names")
             }
+            val imageName = imageNames[0]
             val previousImageName = if (imageNames.size > 1) imageNames[1] else ""
-            validated = ImageValidationUtils.validate(imageNames[0], previousImageName)
+            validated = ImageValidationUtils.validateSize(imageName, previousImageName)
+            if (!validated) {
+                throw DockerImageValidationException("Image $imageName size compared to previous ($previousImageName) " +
+                        "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
+            }
         }
     }
 
