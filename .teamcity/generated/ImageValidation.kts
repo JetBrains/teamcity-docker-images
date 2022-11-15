@@ -3,17 +3,23 @@
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
 package generated
 
+import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
 object image_validation: BuildType(
     {
+
+
         name = "Validation (post-push) of Docker images"
         buildNumberPattern="test-%build.counter%"
+
+        vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
 
         params {
             // -- inherited parameter, removed in debug purposes
@@ -28,6 +34,7 @@ object image_validation: BuildType(
                 path = "tool/automation/ImageValidation.main.kts"
                 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
             }
+
 
             kotlinFile {
                 executionMode = BuildStep.ExecutionMode.ALWAYS
