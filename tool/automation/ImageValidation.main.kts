@@ -140,7 +140,7 @@ fun pullDockerImage(name: String): Boolean {
     println("Pulling $name ... \n $cmdResult")
     // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
     // ... captured by Kotlin's ProcessBuilder.
-    val successMessages = arrayOf("Pull complete", "Image is up to date")
+    val successMessages = arrayOf("Pull complete", "Image is up to date", "Downloaded newer")
     return successMessages.any { cmdResult.contains(it, ignoreCase = true) }
 }
 
