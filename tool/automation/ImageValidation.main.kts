@@ -52,7 +52,7 @@ fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: 
  * @param final - final value
  * @return percentage increase
  */
-fun getPercentageIncrease(initial: Int, final: Int): Float {
+fun getPercentageIncrease(initial: Long, final: Long): Float {
     return Math.abs(((100f*(final - initial)) / initial))
 }
 
@@ -62,7 +62,7 @@ fun getPercentageIncrease(initial: Int, final: Int): Float {
  * @param name image fully-qualified domain name
  * @return image size in bytes, null in case image does not exist
  */
-fun getDockerImageSize(name: String): Int? {
+fun getDockerImageSize(name: String): Long? {
     // ensure image exists
     if (!this.dockerImageExists(name)) {
         val imgPullSucceeded: Boolean = this.pullDockerImage(name)
@@ -75,7 +75,8 @@ fun getDockerImageSize(name: String): Int? {
     try {
         // remove quotes from reult string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
-        return Integer.parseInt(imageSizeStr)
+        println("Image size is $imageSizeStr")
+        return imageSizeStr.toLong()
     } catch (ex: Exception) {
         System.err.println("Unable to convert size of image into an integer number: $cmdResult $ex")
         return null
@@ -188,7 +189,7 @@ fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String
  *
  * TODO: Think about generic 'value' type
  */
-fun reportTeamCityStatistics(key: String, value: Int) {
+fun reportTeamCityStatistics(key: String, value: Long) {
     System.out.println("##teamcity[buildStatisticValue key='$key' value='$value']")
 }
 
