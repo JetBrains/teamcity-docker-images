@@ -62,7 +62,7 @@ fun getPercentageIncrease(initial: Long, final: Long): Float {
 fun getDockerImageSize(name: String): Long? {
     // ensure image exists
     if (!this.dockerImageExists(name)) {
-        val imgPullSucceeded: Boolean = this.pullDockerImage(name)
+        val imgPullSucceeded: Boolean = this.pullDockerImageWithRetry(name, 2)
         if (!imgPullSucceeded) {
             throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
         }
@@ -144,6 +144,26 @@ fun pullDockerImage(name: String): Boolean {
     return successMessages.any { cmdResult.contains(it, ignoreCase = true) }
 }
 
+/**
+ * Pulls Docker image with certain amount of retries. Purpose: handle potential communication issues with ...
+ * ... Docker agent.
+ * @param name - Docker Image fully-qualified domain name
+ * @param retryCount - amount of total attempts to pull the image
+ * @param delayMillis - delay between attempts
+ */
+fun pullDockerImageWithRetry(name: String, retryCount: Int, delayMillis: Long = 1000): Boolean {
+    var pullSucceeded = false
+    var attempts = retryCount
+    while (attempts > 0) {
+        pullSucceeded = this.pullDockerImage(name)
+        if (pullSucceeded) {
+            break
+        }
+        attempts--
+        Thread.sleep(delayMillis)
+    }
+    return pullSucceeded
+}
 
 /**
  * Validates Docker image size.
@@ -165,7 +185,7 @@ fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String
     this.reportTeamCityStatistics("SIZE-$currentName", curSize)
 
     // -- get size of previous image
-    val prevImagePullSucceeded = this.pullDockerImage(previousName)
+    val prevImagePullSucceeded = this.pullDockerImageWithRetry(previousName, 2)
     val prevSize = this.getDockerImageSize(previousName)
     if (!prevImagePullSucceeded || prevSize == null) {
         System.err.println("Unable to get size of previous image: $previousName")
