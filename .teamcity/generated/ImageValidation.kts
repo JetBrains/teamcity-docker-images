@@ -27,6 +27,10 @@ object image_validation: BuildType(
         }
 
         steps {
+            script {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+                scriptContent = "ls -lta"
+            }
 
             kotlinFile {
                 executionMode = BuildStep.ExecutionMode.ALWAYS
