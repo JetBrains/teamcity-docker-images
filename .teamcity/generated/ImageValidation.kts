@@ -5,6 +5,7 @@ package generated
 
 import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
@@ -70,6 +71,14 @@ object image_validation: BuildType(
         requirements {
             // -- compatibility with Windows images
             contains("teamcity.agent.jvm.os.name", "Windows")
+        }
+        features {
+            dockerSupport {
+                cleanupPushedImages = true
+                loginToRegistry = on {
+                    dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+                }
+            }
         }
 //	dependencies {
 //		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
