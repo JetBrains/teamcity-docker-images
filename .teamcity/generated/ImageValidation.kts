@@ -62,16 +62,6 @@ object image_validation: BuildType(
                 // allows the steps to continue running even in case of one problem
                 reportOnlyFirstMatch = false
             }
-            failOnMetricChange {
-                id = "BUILD_EXT_3"
-                metric = BuildFailureOnMetric.MetricType.ARTIFACT_SIZE
-                threshold = 2
-                units = BuildFailureOnMetric.MetricUnit.PERCENTS
-                comparison = BuildFailureOnMetric.MetricComparison.DIFF
-                compareTo = build {
-                    buildRule = lastFinished()
-                }
-            }
         }
         triggers {
             finishBuildTrigger {
