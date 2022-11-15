@@ -26,7 +26,7 @@ object image_validation: BuildType(
                 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
                 path = "tool/automation/ImageValidation.main.kts"
                 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
-//            }
+            }
 //
 //            kotlinFile {
 //                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
