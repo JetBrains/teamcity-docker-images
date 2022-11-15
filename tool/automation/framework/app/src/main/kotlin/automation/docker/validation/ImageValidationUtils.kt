@@ -32,6 +32,8 @@ class ImageValidationUtils {
             val isMinorRelease = curImageTagElems.size > 2
 
             if (!isMinorRelease) {
+                // TODO: Determine via REST here
+                // SET URL via parameters
                 throw IllegalArgumentException("Automatic determination is only implemented for TeamCity minor releases.")
             }
 
