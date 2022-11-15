@@ -137,7 +137,7 @@ fun getPrevDockerImageId(imageId: String): String {
  */
 fun pullDockerImage(name: String): Boolean {
     val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
-
+    println("Pulling $name ... \n $cmdResult")
     // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
     // ... captured by Kotlin's ProcessBuilder.
     val successMessages = arrayOf("Pull complete", "Image is up to date")
