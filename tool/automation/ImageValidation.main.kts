@@ -69,6 +69,7 @@ fun getDockerImageSize(name: String): Long? {
     }
 
     val cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
+    println("Checking the size of image: $name ... \n $cmdResult")
     return try {
         // remove quotes from result string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
