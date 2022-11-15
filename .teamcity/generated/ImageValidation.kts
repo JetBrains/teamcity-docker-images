@@ -1,151 +1,85 @@
 // NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...
-// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... 
+// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ...
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
 package generated
 
+import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
-import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
-import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
-import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
+
 
 object image_validation: BuildType(
-{
-	 name = "Validation (post-push) of Docker images"
-//	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-
-	params {
-		param("docker.deployRepository", "jetbrains/")
-		param("dep.TC_Trunk_BuildDistDocker.build.number", "-")
-	}
-steps {
-
-	gradle {
-		name = "Updated Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-		gradleParams = "validate %docker.deployRepository%teamcity-server:2022.10-linux"
-		workingDir = "tool/automation/framework/app"
-		jdkHome = "%env.JDK_1_8%"
-	}
-
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-//	}
-//
-//	kotlinFile {
-//		 name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-//		 path = "tool/automation/ImageValidation.kts"
-//		 arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-//	}
-	
-}
+	{
 
 
-//	failureConditions {
-//		// Ignore if exit code is zero & test failed
-//		testFailure = false
-//		nonZeroExitCode = false
-//
-//		failOnText {
-//			 conditionType = BuildFailureOnText.ConditionType.REGEXP
-//			 pattern = "*DockerImageValidationException.*"
-//			 // allows the steps to continue running even in case of one problem
-//			 reportOnlyFirstMatch = false
-//		 }
-//	}
-//	triggers {
-//		 finishBuildTrigger {
-//			 buildType = "${PublishHubVersion.publish_local.id}"
-//			 branchFilter = "+:release/*|+:development/*"
-//		 }
-//	}
+		name = "Validation (post-push) of Docker images"
+		buildNumberPattern="test-%build.counter%"
 
+		vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
+
+		params {
+			// -- inherited parameter, removed in debug purposes
+			param("dockerImage.teamcity.buildNumber", "-")
+		}
+
+		val images = listOf("%docker.deployRepository%teamcity-server:2022.10-linux",
+			"%docker.deployRepository%teamcity-agent:2022.10-linux",
+			"%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
+			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
+			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
+			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809",
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809",
+			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
+			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
+			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004")
+
+		steps {
+			images.forEach {
+				kotlinFile {
+					name = "Image Verification - $it"
+
+					path = "tool/automation/ImageValidation.main.kts"
+					arguments = "$it"
+					executionMode = BuildStep.ExecutionMode.ALWAYS
+
+				}
+			}
+		}
+
+
+		failureConditions {
+			failOnText {
+				conditionType = BuildFailureOnText.ConditionType.CONTAINS
+				pattern = "DockerImageValidationException"
+				failureMessage = "Docker Image validation have failed"
+				// allows the steps to continue running even in case of one problem
+				reportOnlyFirstMatch = false
+			}
+		}
+		triggers {
+			finishBuildTrigger {
+				buildType = "${PublishHubVersion.publish_hub_version.id}"
+			}
+		}
+//        requirements {
+//            // -- compatibility with Windows images
+//            contains("teamcity.agent.jvm.os.name", "Windows")
+//        }
+		features {
+			dockerSupport {
+				cleanupPushedImages = true
+				loginToRegistry = on {
+					dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+				}
+			}
+		}
 //	dependencies {
 //		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
 //			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
@@ -153,8 +87,13 @@ steps {
 //		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
 //			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
 //		 }
+
+		// -- build number dependency
+//        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+//            snapshot {
+//                reuseBuilds = ReuseBuilds.ANY
+//                onDependencyFailure = FailureAction.IGNORE
+//            }
+//        }
 //	}
-
-
-})
-
+	})
