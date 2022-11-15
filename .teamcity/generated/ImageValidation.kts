@@ -111,7 +111,7 @@ object image_validation: BuildType(
 
         failureConditions {
             failOnText {
-                conditionType = BuildFailureOnText.ConditionType.REGEXP
+                conditionType = BuildFailureOnText.ConditionType.CONTAINS
                 pattern = "DockerImageValidationException"
                 failureMessage = "Docker Image validation have failed"
                 // allows the steps to continue running even in case of one problem
