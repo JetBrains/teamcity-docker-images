@@ -125,18 +125,20 @@ steps {
 //	}
 	
 }
-	failureConditions {
-		// Ignore if exit code is zero & test failed
-		testFailure = false
-		nonZeroExitCode = false
 
-		failOnText {
-			 conditionType = BuildFailureOnText.ConditionType.REGEXP
-			 pattern = "*DockerImageValidationException.*"
-			 // allows the steps to continue running even in case of one problem
-			 reportOnlyFirstMatch = false
-		 }
-	}
+
+//	failureConditions {
+//		// Ignore if exit code is zero & test failed
+//		testFailure = false
+//		nonZeroExitCode = false
+//
+//		failOnText {
+//			 conditionType = BuildFailureOnText.ConditionType.REGEXP
+//			 pattern = "*DockerImageValidationException.*"
+//			 // allows the steps to continue running even in case of one problem
+//			 reportOnlyFirstMatch = false
+//		 }
+//	}
 //	triggers {
 //		 finishBuildTrigger {
 //			 buildType = "${PublishHubVersion.publish_local.id}"
@@ -152,5 +154,7 @@ steps {
 //			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
 //		 }
 //	}
+
+
 })
 
