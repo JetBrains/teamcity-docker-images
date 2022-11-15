@@ -1,5 +1,9 @@
 import java.lang.Exception
 import java.lang.System
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
 import java.util.concurrent.TimeUnit
 
 /**
@@ -13,6 +17,21 @@ object ValidationConstants {
  * Mark-up exception class for failed validation of Docker images.
  */
 class DockerImageValidationException(message: String) : Exception(message)
+
+
+fun getLastReleaseNumber(name: String): String {
+
+    val client = HttpClient.newBuilder().build();
+    val serverUrl = java.lang.System.getProperty("teamcity.serverUrl")
+    val request = HttpRequest.newBuilder()
+        .uri(URI.create("$serverUrl/app/rest/projects"))
+        .header("Accept", "application/json")
+        .build();
+
+    val response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    println(response.body())
+    return response.body()
+}
 
 /**
  * Executes command.
@@ -214,6 +233,10 @@ fun main(args: Array<String>) {
         throw IllegalArgumentException("Not enough CLI arguments.")
     }
     val imageName = args[0]
+
+    print(getLastReleaseNumber(imageName))
+    return
+
 
     val prevImageName = if (args.size >= 2) {
         // -- take image name
