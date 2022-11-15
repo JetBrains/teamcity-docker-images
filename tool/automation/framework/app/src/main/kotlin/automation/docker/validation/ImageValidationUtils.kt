@@ -65,10 +65,11 @@ class ImageValidationUtils {
             }
 
             // -- report image size to TeamCity
-            TeamCityUtils.reportTeamCityStatistics("SIZE-$currentName", curSize)
+            val imageNameNoTag = currentName.split(":")[0]
+            TeamCityUtils.reportTeamCityStatistics("SIZE-$imageNameNoTag", curSize)
 
             // -- get size of previous image
-            val prevImagePullSucceeded = DockerUtils.pullDockerImage(previousName)
+            val prevImagePullSucceeded = DockerUtils.pullDockerImageWithRetry(previousName, 2)
             val prevSize = DockerUtils.getDockerImageSize(previousName)
             if (!prevImagePullSucceeded || prevSize == null) {
                 System.err.println("Unable to get size of previous image: $previousName")

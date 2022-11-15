@@ -13,12 +13,33 @@ class DockerUtils {
          * @return true if image had been successfully pulled, false otherwise
          */
         fun pullDockerImage(name: String): Boolean {
-            val cmdResult = OsUtils.executeCommand("docker pull $name", true) ?: ""
-
+            val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
+            println("Pulling $name ... \n $cmdResult")
             // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
             // ... captured by Kotlin's ProcessBuilder.
-            val successMessages = arrayOf("Pull complete", "Image is up to date")
+            val successMessages = arrayOf("Pull complete", "Image is up to date", "Downloaded newer", "Download complete")
             return successMessages.any { cmdResult.contains(it, ignoreCase = true) }
+        }
+
+        /**
+         * Pulls Docker image with certain amount of retries. Purpose: handle potential communication issues with ...
+         * ... Docker agent.
+         * @param name - Docker Image fully-qualified domain name
+         * @param retryCount - amount of total attempts to pull the image
+         * @param delayMillis - delay between attempts
+         */
+        fun pullDockerImageWithRetry(name: String, retryCount: Int, delayMillis: Long = 1000): Boolean {
+            var pullSucceeded = false
+            var attempts = retryCount
+            while (attempts > 0) {
+                pullSucceeded = this.pullDockerImage(name)
+                if (pullSucceeded) {
+                    break
+                }
+                attempts--
+                Thread.sleep(delayMillis)
+            }
+            return pullSucceeded
         }
 
         /**
@@ -29,7 +50,7 @@ class DockerUtils {
         fun getDockerImageSize(name: String): Int? {
             // ensure image exists
             if (!this.dockerImageExists(name)) {
-                val imgPullSucceeded: Boolean = this.pullDockerImage(name)
+                val imgPullSucceeded: Boolean = this.pullDockerImageWithRetry(name, 2)
                 if (!imgPullSucceeded) {
                     throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
                 }
