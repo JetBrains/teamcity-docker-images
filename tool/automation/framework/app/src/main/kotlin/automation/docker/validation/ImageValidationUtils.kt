@@ -4,6 +4,9 @@ import automation.common.MathUtils
 import automation.common.constants.ValidationConstants
 import automation.docker.DockerUtils
 import automation.teamcity.TeamCityUtils
+import java.lang.Exception
+import java.lang.IllegalArgumentException
+import java.util.IllegalFormatException
 
 /**
  * Utilities aimed at simplification of Docker Image(-s) validation.
@@ -14,11 +17,11 @@ class ImageValidationUtils {
         /**
          * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
          * WARNING: the function depends on the assumption that tag pattern ...
-         * ... is "<year>.<buld number>-<OS>".
+         * ... is "<year>.<month of release number>-<OS>".
          */
         fun getPrevDockerImageId(imageId: String): String {
-            var curImageTag = imageId.split(":")[1]
-            var curImageTagElems = curImageTag.split(".")
+            val curImageTag = imageId.split(":")[1]
+            val curImageTagElems = curImageTag.split(".")
 
             if (curImageTagElems.size < 2) {
                 // image is highly likely doesn't correspond to pattern
@@ -28,15 +31,22 @@ class ImageValidationUtils {
             // handling 2 types: 2022.04-OS and 2022.04.2-OS
             val isMinorRelease = curImageTagElems.size > 2
 
-            var imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0]
-            else curImageTagElems[1].split("-")[0]
+            if (!isMinorRelease) {
+                throw IllegalArgumentException("Automatic determination is only implemented for TeamCity minor releases.")
+            }
 
-            var oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
+            // if minor release => simply "-1", else determine please
+            val imageBuildNum = curImageTagElems[2].split("-")[0]
+            val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
+            if (oldBuildNumber < 1) {
+                throw IllegalFormatException("Unable to determine previous TeamCity release automatically as it's first minor release: $imageId")
+            }
 
             // -- construct old image tag based on retrieved information from the current one
             // -- -- adding "0" since build number has at least 2 digits
-            val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber)
-            else oldBuildNumber
+            val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease)
+                                                                    ("0$oldBuildNumber")
+                                                                    else oldBuildNumber
 
             // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
             val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
@@ -91,13 +101,13 @@ class ImageValidationUtils {
 
             var previousImage = prevImageName
             if (previousImage.isEmpty()) {
-                // -- previous image name was not explicitly specified => try to determine automatically )by pattern)
+                // -- previous image name was not explicitly specified => try to determine automatically (by pattern)
                 try {
                     previousImage = getPrevDockerImageId(imageName)
                 } catch (ex: IndexOutOfBoundsException) {
                     throw java.lang.IllegalArgumentException(
                         "Unable to determine previous image tag from given ID: $imageName \n" +
-                                "Expected image name pattern: \"<year>.<build number>-<OS>\""
+                                "Expected image name pattern: \"<year>.<month of release number>-<OS>\""
                     )
                 }
             }
