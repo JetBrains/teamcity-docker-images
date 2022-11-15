@@ -20,6 +20,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
+
 object image_validation: BuildType(
     {
         name = "Validation (post-push) of Docker images"
@@ -116,14 +117,16 @@ object image_validation: BuildType(
             }
 
         }
-        failureConditions {
-            failOnText {
-                conditionType = BuildFailureOnText.ConditionType.REGEXP
-                pattern = "*DockerImageValidationException.*"
-                // allows the steps to continue running even in case of one problem
-                reportOnlyFirstMatch = false
-            }
-        }
+
+
+//        failureConditions {
+//            failOnText {
+//                conditionType = BuildFailureOnText.ConditionType.REGEXP
+//                pattern = "*DockerImageValidationException.*"
+//                // allows the steps to continue running even in case of one problem
+//                reportOnlyFirstMatch = false
+//            }
+//        }
         triggers {
             finishBuildTrigger {
                 buildType = "${PublishHubVersion.publish_hub_version.id}"
