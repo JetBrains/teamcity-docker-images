@@ -1,8 +1,5 @@
 import java.lang.Exception
-import java.lang.NumberFormatException
 import java.lang.System
-import java.lang.Void
-import java.util.Objects
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,7 +25,7 @@ fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: 
     return runCatching {
         // -- converting command to list containing the arguments
         val args = command.split(Regex("(?<!(\"|').{0,255}) | (?!.*\\1.*)"))
-        var builder = ProcessBuilder(args)
+        val builder = ProcessBuilder(args)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .apply {
                 // -- attach stderr-redirecting if required
@@ -71,15 +68,15 @@ fun getDockerImageSize(name: String): Long? {
         }
     }
 
-    var cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
-    try {
-        // remove quotes from reult string
+    val cmdResult = this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
+    return try {
+        // remove quotes from result string
         val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
         println("Image size is $imageSizeStr")
-        return imageSizeStr.toLong()
+        imageSizeStr.toLong()
     } catch (ex: Exception) {
         System.err.println("Unable to convert size of image into an integer number: $cmdResult $ex")
-        return null
+        null
     }
 }
 
@@ -90,10 +87,8 @@ fun getDockerImageSize(name: String): Long? {
  * @return true if image exists, false otherwise
  */
 fun dockerImageExists(name: String): Boolean {
-    val cmdResult = this.executeCommand("docker images -q $name", true)
-    if (cmdResult == null) { return false }
-
-    return !cmdResult.isEmpty()
+    val cmdResult = this.executeCommand("docker images -q $name", true) ?: return false
+    return cmdResult.isNotEmpty()
 }
 
 
@@ -103,8 +98,8 @@ fun dockerImageExists(name: String): Boolean {
  * ... is "<year>.<buld number>-<OS>".
  */
 fun getPrevDockerImageId(imageId: String): String {
-    var curImageTag = imageId.split(":")[1]
-    var curImageTagElems = curImageTag.split(".")
+    val curImageTag = imageId.split(":")[1]
+    val curImageTagElems = curImageTag.split(".")
 
     if (curImageTagElems.size < 2) {
         // image is highly likely doesn't correspond to pattern
@@ -114,17 +109,17 @@ fun getPrevDockerImageId(imageId: String): String {
     // handling 2 types: 2022.04-OS and 2022.04.2-OS
     val isMinorRelease = curImageTagElems.size > 2
 
-    var imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0]
-    else curImageTagElems[1].split("-")[0]
+    val imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0]
+                                else curImageTagElems[1].split("-")[0]
 
-    var oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
+    val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
     // -- construct old image tag based on retrieved information from the current one
     // -- -- adding "0" since build number has at least 2 digits
-    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0" + oldBuildNumber)
+    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0$oldBuildNumber")
     else oldBuildNumber
 
-    // Replace current image's numberic part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
+    // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
     val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
     else (curImageTagElems[0] + "." + imageBuildNum + "-")
     val determinedOldImageTagPart = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-")
@@ -190,23 +185,22 @@ fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String
  * TODO: Think about generic 'value' type
  */
 fun reportTeamCityStatistics(key: String, value: Long) {
-    System.out.println("##teamcity[buildStatisticValue key='$key' value='$value']")
+    println("##teamcity[buildStatisticValue key='$key' value='$value']")
 }
 
 fun main(args: Array<String>) {
-    if (args.size < 1) {
+    if (args.isEmpty()) {
         throw IllegalArgumentException("Not enough CLI arguments.")
     }
     val imageName = args[0]
 
-    var prevImageName = ""
-    if (args.size >= 2) {
+    val prevImageName = if (args.size >= 2) {
         // -- take image name
-        prevImageName = args[1]
+        args[1]
     } else {
         // -- previous image name was not explicitly specified => try to determine automatically )by pattern)
         try {
-            prevImageName = this.getPrevDockerImageId(imageName)
+            this.getPrevDockerImageId(imageName)
         } catch (ex: IndexOutOfBoundsException) {
             throw IllegalArgumentException("Unable to determine previous image tag from given ID: $imageName \n" +
                     "Expected image name pattern: \"<year>.<buld number>-<OS>\"")
