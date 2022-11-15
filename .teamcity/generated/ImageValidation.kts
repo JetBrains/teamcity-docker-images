@@ -27,10 +27,6 @@ object image_validation: BuildType(
         }
 
         steps {
-            script {
-                executionMode = BuildStep.ExecutionMode.ALWAYS
-                scriptContent = "ls -lta"
-            }
 
             kotlinFile {
                 executionMode = BuildStep.ExecutionMode.ALWAYS
@@ -42,97 +38,90 @@ object image_validation: BuildType(
 
             kotlinFile {
                 executionMode = BuildStep.ExecutionMode.ALWAYS
-
-                name = "(relative path) Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-                path = "../tool/automation/ImageValidation.main.kts"
-                arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux"
             }
 
             kotlinFile {
                 executionMode = BuildStep.ExecutionMode.ALWAYS
 
-                name = "(test path) Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
-                path = "test/ImageValidation.kts"
-                arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
             }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64-sudo"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-arm64"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
-//            }
-//
-//            kotlinFile {
-//                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-//                path = "tool/automation/ImageValidation.kts"
-//                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-//            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+            }
+
+            kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
+                name = "Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+                path = "tool/automation/ImageValidation.kts"
+                arguments = "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+            }
 
         }
 
