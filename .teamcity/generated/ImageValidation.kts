@@ -23,12 +23,15 @@ object image_validation: BuildType(
         steps {
 
             kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
                 name = "Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
                 path = "tool/automation/ImageValidation.main.kts"
                 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
             }
 
             kotlinFile {
+                executionMode = BuildStep.ExecutionMode.ALWAYS
+
                 name = "(relative path) Image Verification - %docker.deployRepository%teamcity-server:2022.10-linux"
                 path = "../tool/automation/ImageValidation.main.kts"
                 arguments = "%docker.deployRepository%teamcity-server:2022.10-linux"
