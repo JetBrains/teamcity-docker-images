@@ -10,6 +10,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailu
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
@@ -56,6 +58,25 @@ object image_validation: BuildType(
 
 
         failureConditions {
+
+            // fail in case statistics for any image changes for more than N percent
+            images.forEach {
+                failOnMetricChange {
+                    // -- target metric
+//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+                    param("metricKey", it)
+
+                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+                    // -- 5% increase
+                    threshold = 5
+                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+                    compareTo = build {
+                        buildRule = lastSuccessful()
+                    }
+                }
+            }
+
+
             failOnText {
                 conditionType = BuildFailureOnText.ConditionType.CONTAINS
                 pattern = "DockerImageValidationException"
