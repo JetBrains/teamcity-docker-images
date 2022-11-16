@@ -77,7 +77,7 @@ object image_validation: BuildType(
                 failOnMetricChange {
                     // -- target metric
 //                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-                    param("metricKey", it)
+                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
 
                     units = BuildFailureOnMetric.MetricUnit.PERCENTS
                     // -- 5% increase
