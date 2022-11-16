@@ -202,7 +202,7 @@ fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String
     }
 
     // -- report image size to TeamCity
-    this.reportTeamCityStatistics("SIZE-$currentName", curSize)
+    this.reportTeamCityStatistics("SIZE-${this.getImageStatisticsId(currentName)}", curSize)
 
     if (previousName.isNullOrBlank()) {
         return false
@@ -252,8 +252,7 @@ fun main(args: Array<String>) {
         }
     }
 
-    val imageIdForStatistics = this.getImageStatisticsId(imageName)
-    val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageIdForStatistics,
+    val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageName,
                                                                                                 prevImageName,
                                                                                                 ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
     if (imageSizeChangeSuppressesThreshold) {
