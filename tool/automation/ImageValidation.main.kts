@@ -1,9 +1,5 @@
 import java.lang.Exception
 import java.lang.System
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
 import java.util.concurrent.TimeUnit
 
 /**
@@ -103,7 +99,7 @@ fun dockerImageExists(name: String): Boolean {
  * WARNING: the function depends on the assumption that tag pattern ...
  * ... is "<year>.<buld number>-<OS>".
  */
-fun getPrevDockerImageId(imageId: String): String {
+fun getPrevDockerImageId(imageId: String): String? {
     val curImageTag = imageId.split(":")[1]
     val curImageTagElems = curImageTag.split(".")
 
@@ -115,22 +111,20 @@ fun getPrevDockerImageId(imageId: String): String {
     // handling 2 types: 2022.04-OS and 2022.04.2-OS
     val isMinorRelease = curImageTagElems.size > 2
 
-    val imageBuildNum = if (isMinorRelease) curImageTagElems[2].split("-")[0]
-                                else curImageTagElems[1].split("-")[0]
+    if (!isMinorRelease) {
+        System.err.println("Automatic determination of previous release is supported only for minor version of TeamCity.")
+        return null
+    }
 
-    val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
+    val imageBuildNum = curImageTagElems[2].split("-")[0]
 
     // -- construct old image tag based on retrieved information from the current one
     // -- -- adding "0" since build number has at least 2 digits
-    val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease) ("0$oldBuildNumber")
-    else oldBuildNumber
+    val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
     // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
-    val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
-    else (curImageTagElems[0] + "." + imageBuildNum + "-")
-    val determinedOldImageTagPart = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-")
-    else (curImageTagElems[0] + "." + oldBuildNumString + "-")
-
+    val originalImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
+    val determinedOldImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumber + "-")
     val oldImageId = imageId.replace(originalImageTagPart, determinedOldImageTagPart)
     return oldImageId
 }
@@ -179,7 +173,7 @@ fun pullDockerImageWithRetry(name: String, retryCount: Int, delayMillis: Long = 
  * @return true if image size increase suppressed given threshold; false otherwise (including situation when ...
  * ... it wasn't possible to determine any of image sizes)
  */
-fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String, threshold: Float): Boolean {
+fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
     // -- get size of current image
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
@@ -189,6 +183,10 @@ fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String
 
     // -- report image size to TeamCity
     this.reportTeamCityStatistics("SIZE-$currentName", curSize)
+
+    if (previousName.isNullOrBlank()) {
+        return false
+    }
 
     // -- get size of previous image
     val prevImagePullSucceeded = this.pullDockerImageWithRetry(previousName, 2)

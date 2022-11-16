@@ -17,7 +17,7 @@ object image_validation: BuildType(
     {
 
 
-        name = "Validation (post-push) of Docker images"
+        name = "Validation (post-push) of Docker images (Windows)"
         buildNumberPattern="test-%build.counter%"
 
         vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
@@ -27,18 +27,19 @@ object image_validation: BuildType(
             param("dockerImage.teamcity.buildNumber", "-")
         }
 
-        val images = listOf("%docker.deployRepository%teamcity-server:2022.10-linux",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-linux",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
-                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
+        val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
                                         "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809",
                                         "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809",
                                         "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
                                         "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
                                         "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
-                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004")
+                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+                                        // below are linux images
+//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux",
+//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
+//                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
+//                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
+                                        )
 
         steps {
             images.forEach {
@@ -68,10 +69,12 @@ object image_validation: BuildType(
                 buildType = "${PublishHubVersion.publish_hub_version.id}"
             }
         }
-//        requirements {
-//            // -- compatibility with Windows images
-//            contains("teamcity.agent.jvm.os.name", "Windows")
-//        }
+
+        requirements {
+            // -- compatibility with Windows images
+            contains("teamcity.agent.jvm.os.name", "Windows")
+        }
+
         features {
             dockerSupport {
                 cleanupPushedImages = true
