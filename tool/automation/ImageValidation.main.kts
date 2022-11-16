@@ -166,6 +166,26 @@ fun pullDockerImageWithRetry(name: String, retryCount: Int, delayMillis: Long = 
 }
 
 /**
+ * Returns image ID for statistics within TeamCity. ID consists of image name with removed repository and release.
+ * Example: "some-registry.example.io/teamcity-agent:2022.10-windowsservercore-1809" -> "teamcity-agent-windowsservercore-1809"
+ * Purpose: let it be possible to compare different images regardless of the release.
+ * @param image - Docker image FQDN;
+ * @return ID of an image for TeamCity statistics
+ */
+fun getImageStatisticsId(image: String): String {
+    // 1. Remove registry
+    val imageRegistryElements = image.split('/')
+    val imageNameNoRegistry = imageRegistryElements[imageRegistryElements.size - 1]
+
+    // 2. Remove release from tag
+    val imageTagElements = imageNameNoRegistry.split(':')[1].split('-')
+    // remove tag
+    return imageNameNoRegistry.replace("${imageTagElements[0]}-", "")
+
+}
+
+
+/**
  * Validates Docker image size.
  * Criteria: it shouldn't increase by more than threshold (@see ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT).
  * @param currentName - name of original Docker image
@@ -213,6 +233,7 @@ fun reportTeamCityStatistics(key: String, value: Long) {
 }
 
 fun main(args: Array<String>) {
+
     if (args.isEmpty()) {
         throw IllegalArgumentException("Not enough CLI arguments.")
     }
@@ -231,9 +252,8 @@ fun main(args: Array<String>) {
         }
     }
 
-    val imageNameNoTag = imageName.split(":")[0]
-    println("Image name is $imageNameNoTag")
-    val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageNameNoTag,
+    val imageIdForStatistics = this.getImageStatisticsId(imageName)
+    val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageIdForStatistics,
                                                                                                 prevImageName,
                                                                                                 ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
     if (imageSizeChangeSuppressesThreshold) {
