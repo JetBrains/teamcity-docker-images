@@ -59,35 +59,35 @@ object image_validation: BuildType(
 
         failureConditions {
 
-            failOnMetricChange {
-                // -- target metric
-//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-                param("metricKey", "SIZE-teamcity-agent:windowsservercore-1809")
-
-                units = BuildFailureOnMetric.MetricUnit.PERCENTS
-                // -- 5% increase
-                threshold = 5
-                comparison = BuildFailureOnMetric.MetricComparison.MORE
-                compareTo = build {
-                    buildRule = lastSuccessful()
-                }
-            }
-            // fail in case statistics for any image changes for more than N percent
-//            images.forEach {
-//                failOnMetricChange {
-//                    // -- target metric
+//            failOnMetricChange {
+//                // -- target metric
 ////                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                    param("metricKey", it)
+//                param("metricKey", "SIZE-teamcity-agent:windowsservercore-1809")
 //
-//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                    // -- 5% increase
-//                    threshold = 5
-//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                    compareTo = build {
-//                        buildRule = lastSuccessful()
-//                    }
+//                units = BuildFailureOnMetric.MetricUnit.PERCENTS
+//                // -- 5% increase
+//                threshold = 5
+//                comparison = BuildFailureOnMetric.MetricComparison.MORE
+//                compareTo = build {
+//                    buildRule = lastSuccessful()
 //                }
 //            }
+            // fail in case statistics for any image changes for more than N percent
+            images.forEach {
+                failOnMetricChange {
+                    // -- target metric
+//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+                    param("metricKey", it)
+
+                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+                    // -- 5% increase
+                    threshold = 5
+                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+                    compareTo = build {
+                        buildRule = lastSuccessful()
+                    }
+                }
+            }
 
 
             failOnText {
