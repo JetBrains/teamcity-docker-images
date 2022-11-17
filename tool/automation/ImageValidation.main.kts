@@ -203,6 +203,7 @@ fun getImageStatisticsId(image: String): String {
 fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
     // -- get size of current image
     println("Checking image size via manifest: ${debugCheckImages(currentName)}")
+    println(executeCommand("docker images ls --all"))
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
         System.err.println("Image does not exist on the agent: $currentName")
