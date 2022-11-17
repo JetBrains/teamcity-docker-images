@@ -6,6 +6,7 @@ package generated
 import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
@@ -45,6 +46,17 @@ object image_validation: BuildType(
 
         steps {
             images.forEach {
+
+                // 1. pull image
+                dockerCommand {
+                    name = "pull $it"
+                    commandType = other {
+                        subCommand = "pull"
+                        commandArgs = "$it"
+                    }
+                }
+
+                // 2. veirify image
                 kotlinFile {
                     name = "Image Verification - $it"
 
