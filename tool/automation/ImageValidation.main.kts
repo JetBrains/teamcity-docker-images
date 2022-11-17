@@ -86,6 +86,9 @@ fun getDockerImageSize(name: String): Long? {
     }
 }
 
+fun debugCheckImages(image: String) {
+    this.executeCommand("docker manifest inspect $image")
+}
 
 /**
  * Checks if Docker image exists on agent.
@@ -199,6 +202,7 @@ fun getImageStatisticsId(image: String): String {
  */
 fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
     // -- get size of current image
+    println("Checking image size via manifest: ${debugCheckImages(currentName)}")
     val curSize = this.getDockerImageSize(currentName)
     if (curSize == null) {
         System.err.println("Image does not exist on the agent: $currentName")
@@ -252,7 +256,7 @@ fun main(args: Array<String>) {
             this.getPrevDockerImageId(imageName)
         } catch (ex: IndexOutOfBoundsException) {
             throw IllegalArgumentException("Unable to determine previous image tag from given ID: $imageName \n" +
-                    "Expected image name pattern: \"<year>.<buld number>-<OS>\"")
+                    "Expected image name pattern: \"<year>.<build number>-<OS>\"")
         }
     }
 
