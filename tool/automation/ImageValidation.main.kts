@@ -39,6 +39,7 @@ fun executeCommand(command: String, redirectStderr: Boolean = true, timeoutSec: 
         builder.start().apply { waitFor(timeoutSec, TimeUnit.SECONDS) }
             .inputStream.bufferedReader().readText()
     }.onFailure {
+        println(it.message)
         it.printStackTrace()
     }.getOrNull()
 }
