@@ -92,6 +92,8 @@ object image_validation: BuildType(
         requirements {
             // -- compatibility with Windows images
             contains("teamcity.agent.jvm.os.name", "Windows")
+            noLessThanVer("docker.version", "18.05.0")
+            contains("docker.server.osType", "windows")
         }
 
         features {
