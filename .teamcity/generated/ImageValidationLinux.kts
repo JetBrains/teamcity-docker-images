@@ -41,6 +41,7 @@ object image_validation_linux: BuildType(
                         subCommand = "pull"
                         commandArgs = "$it"
                     }
+                    executionMode = BuildStep.ExecutionMode.ALWAYS
                 }
 
                 // 2. verify image

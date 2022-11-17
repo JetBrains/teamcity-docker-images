@@ -55,9 +55,11 @@ object image_validation: BuildType(
                         subCommand = "pull"
                         commandArgs = "$it"
                     }
+                    executionMode = BuildStep.ExecutionMode.ALWAYS
+
                 }
 
-                // 2. veirify image
+                // 2. verify image
                 kotlinFile {
                     name = "Image Verification - $it"
 
