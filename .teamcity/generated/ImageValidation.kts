@@ -6,6 +6,7 @@ package generated
 import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
@@ -115,6 +116,11 @@ object image_validation: BuildType(
                 loginToRegistry = on {
                     dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
                 }
+            }
+
+            freeDiskSpace {
+                failBuild = true
+                requiredSpace = "10gb"
             }
         }
 //	dependencies {
