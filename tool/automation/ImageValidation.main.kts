@@ -64,6 +64,10 @@ fun getDockerImageSize(name: String): Long? {
     // ensure image exists
     if (!this.dockerImageExists(name)) {
         val imgPullSucceeded: Boolean = this.pullDockerImageWithRetry(name, 2)
+
+        // TODO: Remove - added in debug purposes
+        println("Checking the size of image: $name ... \n ${this.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)}")
+
         if (!imgPullSucceeded) {
             throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
         }
