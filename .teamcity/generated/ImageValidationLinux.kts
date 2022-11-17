@@ -28,8 +28,7 @@ object image_validation_linux: BuildType(
 
         val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-linux",
                             "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-                            "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
-                            "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809")
+                            "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux")
 
         steps {
             images.forEach {
