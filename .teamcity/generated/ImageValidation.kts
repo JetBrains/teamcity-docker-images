@@ -56,13 +56,15 @@ object image_validation: BuildType(
 //					executionMode = BuildStep.ExecutionMode.ALWAYS
 //
 //				}
-
+//				script {
+//					workingDir = "tool/automation/framework/"
+//					scriptContent = "gradlew run --args=''"
+//				}
 				gradle {
 					name = "Image Verification Gradle - $it"
-					tasks = "clean build run --args=\"validate $it\""
+					tasks = "clean build run --args='validate $it'"
 					workingDir = "tool/automation/framework/"
 					buildFile = "build.gradle"
-//					gradleParams = ""
 					enableStacktrace = true
 				}
 
