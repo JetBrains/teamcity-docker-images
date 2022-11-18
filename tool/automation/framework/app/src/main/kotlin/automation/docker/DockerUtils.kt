@@ -13,7 +13,7 @@ class DockerUtils {
          * @return true if image had been successfully pulled, false otherwise
          */
         fun pullDockerImage(name: String): Boolean {
-            val cmdResult = this.executeCommand("docker pull $name", true) ?: ""
+            val cmdResult = OsUtils.executeCommand("docker pull $name", true) ?: ""
             println("Pulling $name ... \n $cmdResult")
             // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
             // ... captured by Kotlin's ProcessBuilder.

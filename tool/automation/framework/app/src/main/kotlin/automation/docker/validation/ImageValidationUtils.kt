@@ -41,7 +41,7 @@ class ImageValidationUtils {
             val imageBuildNum = curImageTagElems[2].split("-")[0]
             val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
             if (oldBuildNumber < 1) {
-                throw IllegalFormatException("Unable to determine previous TeamCity release automatically as it's first minor release: $imageId")
+                throw Exception("Unable to determine previous TeamCity release automatically as it's first minor release: $imageId")
             }
 
             // -- construct old image tag based on retrieved information from the current one

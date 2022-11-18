@@ -13,28 +13,29 @@ import kotlinx.cli.vararg
 import java.lang.IllegalArgumentException
 
 
-fun main(args: Array<String>) {
-    /**
-     * Subcommand for image validation. Will be consumed by ..
-     * ... argument parser.
-     */
-    class ValidateImage: Subcommand("validate", "Validate Docker Image") {
-        val imageNames by argument(ArgType.String, description = "Images").vararg()
-        var validated: Boolean = false
+/**
+ * Subcommand for image validation. Will be consumed by ..
+ * ... argument parser.
+ */
+class ValidateImage: Subcommand("validate", "Validate Docker Image") {
+    val imageNames by argument(ArgType.String, description = "Images").vararg()
+    var validated: Boolean = false
 
-        override fun execute() {
-            if (imageNames.size > 2) {
-                throw IllegalArgumentException("Too much image names")
-            }
-            val imageName = imageNames[0]
-            val previousImageName = if (imageNames.size > 1) imageNames[1] else ""
-            validated = ImageValidationUtils.validateSize(imageName, previousImageName)
-            if (!validated) {
-                throw DockerImageValidationException("Image $imageName size compared to previous ($previousImageName) " +
-                        "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
-            }
+    override fun execute() {
+        if (imageNames.size > 2) {
+            throw IllegalArgumentException("Too much image names")
+        }
+        val imageName = imageNames[0]
+        val previousImageName = if (imageNames.size > 1) imageNames[1] else ""
+        validated = ImageValidationUtils.validateSize(imageName, previousImageName)
+        if (!validated) {
+            throw DockerImageValidationException("Image $imageName size compared to previous ($previousImageName) " +
+                    "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
         }
     }
+}
+
+fun main(args: Array<String>) {
 
     val parser = ArgParser("automation")
     val imageValidation = ValidateImage()

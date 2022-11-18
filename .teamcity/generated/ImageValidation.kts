@@ -38,36 +38,40 @@ object image_validation: BuildType(
 			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
 			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
 			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-			// below are linux images
-//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux",
-//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-//                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
-//                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
 		)
 
 		steps {
 			images.forEach {
 
 				// 1. pull image
-				dockerCommand {
-					name = "pull $it"
-					commandType = other {
-						subCommand = "pull"
-						commandArgs = "$it"
-					}
-					executionMode = BuildStep.ExecutionMode.ALWAYS
+//				dockerCommand {
+//					name = "pull $it"
+//					commandType = other {
+//						subCommand = "pull"
+//						commandArgs = "$it"
+//					}
+//					executionMode = BuildStep.ExecutionMode.ALWAYS
+//
+//				}
 
+				gradle {
+					name = "Image Verification Gradle - $it"
+					tasks = "run --args=\"validate $it\""
+					workingDir = "tool/automation/framework/"
+					buildFile = "build.gradle"
+					gradleParams = "-i"
+					enableStacktrace = true
 				}
 
 				// 2. verify image
-				kotlinFile {
-					name = "Image Verification - $it"
-
-					path = "tool/automation/ImageValidation.main.kts"
-					arguments = "$it"
-					executionMode = BuildStep.ExecutionMode.ALWAYS
-
-				}
+//				kotlinFile {
+//					name = "Image Verification - $it"
+//
+//					path = "tool/automation/ImageValidation.main.kts"
+//					arguments = "$it"
+//					executionMode = BuildStep.ExecutionMode.ALWAYS
+//
+//				}
 			}
 		}
 
