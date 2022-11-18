@@ -263,8 +263,8 @@ fun main(args: Array<String>) {
     }
 
     val imageSizeChangeSuppressesThreshold = this.imageSizeChangeSuppressesThreshold(imageName,
-                                                                                                prevImageName,
-                                                                                                ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
+        prevImageName,
+        ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
     if (imageSizeChangeSuppressesThreshold) {
         throw DockerImageValidationException("Image $imageName size compared to previous ($prevImageName) " +
                 "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
