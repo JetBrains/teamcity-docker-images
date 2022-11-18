@@ -8,6 +8,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
@@ -24,7 +25,9 @@ object image_validation: BuildType(
 		name = "Validation (post-push) of Docker images (Windows)"
 		buildNumberPattern="test-%build.counter%"
 
-		vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
+		vcs {
+			root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
+		}
 
 		params {
 			// -- inherited parameter, removed in debug purposes
