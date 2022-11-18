@@ -6,10 +6,14 @@ package generated
 import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
@@ -17,7 +21,7 @@ object image_validation: BuildType(
 	{
 
 
-		name = "Validation (post-push) of Docker images"
+		name = "Validation (post-push) of Docker images (Windows)"
 		buildNumberPattern="test-%build.counter%"
 
 		vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
@@ -27,21 +31,35 @@ object image_validation: BuildType(
 			param("dockerImage.teamcity.buildNumber", "-")
 		}
 
-		val images = listOf("%docker.deployRepository%teamcity-server:2022.10-linux",
-			"%docker.deployRepository%teamcity-agent:2022.10-linux",
-			"%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
-			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
-			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
+		val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
 			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809",
 			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809",
 			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
 			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
 			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004")
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+			// below are linux images
+//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux",
+//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
+//                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
+//                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
+		)
 
 		steps {
 			images.forEach {
+
+				// 1. pull image
+				dockerCommand {
+					name = "pull $it"
+					commandType = other {
+						subCommand = "pull"
+						commandArgs = "$it"
+					}
+					executionMode = BuildStep.ExecutionMode.ALWAYS
+
+				}
+
+				// 2. verify image
 				kotlinFile {
 					name = "Image Verification - $it"
 
@@ -55,6 +73,23 @@ object image_validation: BuildType(
 
 
 		failureConditions {
+
+			// fail in case statistics for any image changes for more than N percent
+//            images.forEach {
+//                failOnMetricChange {
+//                    // -- target metric
+//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+//                    // -- 5% increase
+//                    threshold = 5
+//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+//                    compareTo = build {
+//                        buildRule = lastSuccessful()
+//                    }
+//                }
+//            }
+
+
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
 				pattern = "DockerImageValidationException"
@@ -68,16 +103,26 @@ object image_validation: BuildType(
 				buildType = "${PublishHubVersion.publish_hub_version.id}"
 			}
 		}
-//        requirements {
-//            // -- compatibility with Windows images
+
+		requirements {
+			// -- compatibility with Windows images
 //            contains("teamcity.agent.jvm.os.name", "Windows")
-//        }
+			noLessThanVer("docker.version", "18.05.0")
+			contains("docker.server.osType", "windows")
+
+		}
+
 		features {
 			dockerSupport {
 				cleanupPushedImages = true
 				loginToRegistry = on {
 					dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 				}
+			}
+
+			freeDiskSpace {
+				failBuild = true
+				requiredSpace = "10gb"
 			}
 		}
 //	dependencies {
