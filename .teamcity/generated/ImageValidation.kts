@@ -59,10 +59,10 @@ object image_validation: BuildType(
 
 				gradle {
 					name = "Image Verification Gradle - $it"
-					tasks = "clean build run"
+					tasks = "clean build run --args=\"validate $it\""
 					workingDir = "tool/automation/framework/"
 					buildFile = "build.gradle"
-					gradleParams = "--args=\"validate $it\""
+//					gradleParams = ""
 					enableStacktrace = true
 				}
 
