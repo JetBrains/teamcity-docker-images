@@ -20,14 +20,14 @@ class DockerRegistryAccessor(uri: String) {
      * Retrieves the size of Docker image
      */
     public fun getSize(image: DockerImage): String {
-        return this.getRegistryInfo(image.repo, image.tag).fullSize
+        return this.getRegistryInfo(image).fullSize
     }
 
     /**
      * Returns general information about Docker Registry.
      */
-    public fun getRegistryInfo(repo: String, tag: String = "latest"): DockerRepositoryInfo {
-        val registryResponse: String = HttpRequestUtilities.performRequest("${this.address}/repositories/${repo}/tags/${tag}") ?: ""
+    public fun getRegistryInfo(image: DockerImage): DockerRepositoryInfo {
+        val registryResponse: String = HttpRequestUtilities.performRequest("${this.address}/repositories/${image.repo}/tags/${image.tag}") ?: ""
         return jsonSerializer.decodeFromString<DockerRepositoryInfo>(registryResponse)
     }
 }

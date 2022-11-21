@@ -13,7 +13,7 @@ class MathUtils {
          * @param final - final value
          * @return percentage increase
          */
-        fun getPercentageIncrease(initial: Int, final: Int): Float {
+        fun getPercentageIncrease(initial: Long, final: Long): Float {
             return abs(((100f*(final - initial)) / initial))
         }
     }

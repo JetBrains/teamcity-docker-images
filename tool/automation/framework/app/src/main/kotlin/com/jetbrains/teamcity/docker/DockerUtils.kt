@@ -12,9 +12,9 @@ class DockerUtils {
          * @param name - docker image fully-qualified domain name
          * @return true if image had been successfully pulled, false otherwise
          */
-        fun pullDockerImage(name: String): Boolean {
-            val cmdResult = OsUtils.executeCommand("docker pull $name", true) ?: ""
-            println("Pulling $name ... \n $cmdResult")
+        fun pullDockerImage(image: DockerImage): Boolean {
+            val cmdResult = OsUtils.executeCommand("docker pull $image", true) ?: ""
+            println("Pulling $image ... \n $cmdResult")
             // using success messages since some errors from docker daemon (e.g. invalid platform type) are not ...
             // ... captured by Kotlin's ProcessBuilder.
             val successMessages = arrayOf("Pull complete", "Image is up to date", "Downloaded newer", "Download complete")
@@ -28,11 +28,11 @@ class DockerUtils {
          * @param retryCount - amount of total attempts to pull the image
          * @param delayMillis - delay between attempts
          */
-        fun pullDockerImageWithRetry(name: String, retryCount: Int, delayMillis: Long = 1000): Boolean {
+        fun pullDockerImageWithRetry(image: DockerImage, retryCount: Int, delayMillis: Long = 1000): Boolean {
             var pullSucceeded = false
             var attempts = retryCount
             while (attempts > 0) {
-                pullSucceeded = pullDockerImage(name)
+                pullSucceeded = pullDockerImage(image)
                 if (pullSucceeded) {
                     break
                 }
@@ -47,16 +47,16 @@ class DockerUtils {
          * @param name image fully-qualified domain name
          * @return image size in bytes, null in case image does not exist
          */
-        fun getDockerImageSize(name: String): Int? {
+        fun getDockerImageSize(image: DockerImage): Int? {
             // ensure image exists
-            if (!dockerImageExists(name)) {
-                val imgPullSucceeded: Boolean = pullDockerImageWithRetry(name, 2)
+            if (!dockerImageExists(image)) {
+                val imgPullSucceeded: Boolean = pullDockerImageWithRetry(image, 2)
                 if (!imgPullSucceeded) {
-                    throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
+                    throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $image")
                 }
             }
 
-            var cmdResult = OsUtils.executeCommand("docker inspect -f \"{{ .Size }}\" $name", true)
+            var cmdResult = OsUtils.executeCommand("docker inspect -f \"{{ .Size }}\" $image", true)
             try {
                 // remove quotes from result string
                 val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
@@ -72,8 +72,8 @@ class DockerUtils {
          * @param name Docker image name
          * @return true if image exists, false otherwise
          */
-        fun dockerImageExists(name: String): Boolean {
-            val cmdResult = OsUtils.executeCommand("docker images -q $name", true) ?: return false
+        fun dockerImageExists(image: DockerImage): Boolean {
+            val cmdResult = OsUtils.executeCommand("docker images -q $image", true) ?: return false
             return cmdResult.isNotEmpty()
         }
     }

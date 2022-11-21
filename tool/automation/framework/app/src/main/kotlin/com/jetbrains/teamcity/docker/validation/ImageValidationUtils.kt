@@ -2,6 +2,7 @@ package com.jetbrains.teamcity.docker.validation
 
 import com.jetbrains.teamcity.common.MathUtils
 import com.jetbrains.teamcity.common.constants.ValidationConstants
+import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.DockerUtils
 
 /**
@@ -15,13 +16,11 @@ class ImageValidationUtils {
          * WARNING: the function depends on the assumption that tag pattern ...
          * ... is "<year>.<buld number>-<OS>".
          */
-        fun getPrevDockerImageId(imageId: String): String? {
-            val curImageTag = imageId.split(":")[1]
-            val curImageTagElems = curImageTag.split(".")
-
+        fun getPrevDockerImageId(curImage: DockerImage): DockerImage? {
+            val curImageTagElems = curImage.tag.split(".")
             if (curImageTagElems.size < 2) {
                 // image is highly likely doesn't correspond to pattern
-                System.err.println("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $imageId")
+                System.err.println("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $curImage")
                 return null
             }
 
@@ -39,11 +38,11 @@ class ImageValidationUtils {
             // -- -- adding "0" since build number has at least 2 digits
             val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
-            // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
             val originalImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
             val determinedOldImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumber + "-")
-            val oldImageId = imageId.replace(originalImageTagPart, determinedOldImageTagPart)
-            return oldImageId
+
+            // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
+            return DockerImage(curImage.repo, curImage.tag.replace(originalImageTagPart, determinedOldImageTagPart))
         }
 
         /**
@@ -63,52 +62,6 @@ class ImageValidationUtils {
             // remove tag
             return imageNameNoRegistry.replace("${imageTagElements[0]}-", "")
 
-        }
-
-        /**
-         * Validates Docker image size.
-         * Criteria: it shouldn't increase by more than threshold (@see ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT).
-         * @param currentName - name of original Docker image
-         * @param previousName - name of previous Docker image
-         * @return true if image size increase suppressed given threshold; false otherwise (including situation when ...
-         * ... it wasn't possible to determine any of image sizes)
-         */
-        fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
-            // -- get size of current image
-
-            val curSize = DockerUtils.getDockerImageSize(currentName)
-            if (curSize == null) {
-                System.err.println("Image does not exist on the agent: $currentName")
-                return false
-            }
-
-            if (previousName.isNullOrBlank()) {
-                return false
-            }
-
-            // -- get size of previous image
-            val prevImagePullSucceeded = DockerUtils.pullDockerImageWithRetry(previousName, 2)
-            val prevSize = DockerUtils.getDockerImageSize(previousName)
-            if (!prevImagePullSucceeded || prevSize == null) {
-                System.err.println("Unable to get size of previous image: $previousName")
-                return false
-            }
-
-            // -- calculates image increase & notify if exceeds threshold
-            val percentageIncrease = MathUtils.getPercentageIncrease(curSize, prevSize)
-            return (percentageIncrease > threshold)
-        }
-
-        /**
-         * Validates Docker Image.
-         * @param imageName - image to be validated
-         * @param prevImageName - (optional) previous Docker image
-         * @return true if image matches each criteria
-         */
-        fun validateSize(imageName: String, prevImageName: String = ""): Boolean {
-            // -- previous image name was not explicitly specified => try to determine automatically (by pattern)
-            val previousImage = if (!prevImageName.isEmpty()) prevImageName else getPrevDockerImageId(imageName)
-            return !imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
         }
     }
 }
