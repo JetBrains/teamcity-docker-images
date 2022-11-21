@@ -5,6 +5,7 @@ package automation
 
 import DockerImageValidationException
 import automation.common.constants.ValidationConstants
+import automation.teamcity.TeamCityUtils
 import automation.docker.validation.ImageValidationUtils
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
@@ -26,6 +27,7 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
             throw IllegalArgumentException("Too much image names")
         }
         val imageName = imageNames[0]
+        // -- report image size to TeamCity
         val previousImageName = if (imageNames.size > 1) imageNames[1] else ""
         validated = ImageValidationUtils.validateSize(imageName, previousImageName)
         if (!validated) {

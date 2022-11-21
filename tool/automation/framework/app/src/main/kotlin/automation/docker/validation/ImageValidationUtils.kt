@@ -17,47 +17,56 @@ class ImageValidationUtils {
         /**
          * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
          * WARNING: the function depends on the assumption that tag pattern ...
-         * ... is "<year>.<month of release number>-<OS>".
+         * ... is "<year>.<buld number>-<OS>".
          */
-        fun getPrevDockerImageId(imageId: String): String {
+        fun getPrevDockerImageId(imageId: String): String? {
             val curImageTag = imageId.split(":")[1]
             val curImageTagElems = curImageTag.split(".")
 
             if (curImageTagElems.size < 2) {
                 // image is highly likely doesn't correspond to pattern
-                throw IllegalArgumentException("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $imageId")
+                System.err.println("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $imageId")
+                return null
             }
 
             // handling 2 types: 2022.04-OS and 2022.04.2-OS
             val isMinorRelease = curImageTagElems.size > 2
 
             if (!isMinorRelease) {
-                // TODO: Determine via REST here
-                // SET URL via parameters
-                throw IllegalArgumentException("Automatic determination is only implemented for TeamCity minor releases.")
+                System.err.println("Automatic determination of previous release is supported only for minor version of TeamCity.")
+                return null
             }
 
-            // if minor release => simply "-1", else determine please
             val imageBuildNum = curImageTagElems[2].split("-")[0]
-            val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
-            if (oldBuildNumber < 1) {
-                throw Exception("Unable to determine previous TeamCity release automatically as it's first minor release: $imageId")
-            }
 
             // -- construct old image tag based on retrieved information from the current one
             // -- -- adding "0" since build number has at least 2 digits
-            val oldBuildNumString = if (oldBuildNumber < 10 && !isMinorRelease)
-                                                                    ("0$oldBuildNumber")
-                                                                    else oldBuildNumber
+            val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
 
             // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
-            val originalImageTagPart = if (isMinorRelease) (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
-            else (curImageTagElems[0] + "." + imageBuildNum + "-")
-            val determinedOldImageTagPart = if (isMinorRelease)  (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumString + "-")
-            else (curImageTagElems[0] + "." + oldBuildNumString + "-")
-
+            val originalImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
+            val determinedOldImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumber + "-")
             val oldImageId = imageId.replace(originalImageTagPart, determinedOldImageTagPart)
             return oldImageId
+        }
+
+        /**
+         * Returns image ID for statistics within TeamCity. ID consists of image name with removed repository and release.
+         * Example: "some-registry.example.io/teamcity-agent:2022.10-windowsservercore-1809" -> "teamcity-agent-windowsservercore-1809"
+         * Purpose: let it be possible to compare different images regardless of the release.
+         * @param image - Docker image FQDN;
+         * @return ID of an image for TeamCity statistics
+         */
+        fun getImageStatisticsId(image: String): String {
+            // 1. Remove registry
+            val imageRegistryElements = image.split('/')
+            val imageNameNoRegistry = imageRegistryElements[imageRegistryElements.size - 1]
+
+            // 2. Remove release from tag
+            val imageTagElements = imageNameNoRegistry.split(':')[1].split('-')
+            // remove tag
+            return imageNameNoRegistry.replace("${imageTagElements[0]}-", "")
+
         }
 
         /**
@@ -68,17 +77,18 @@ class ImageValidationUtils {
          * @return true if image size increase suppressed given threshold; false otherwise (including situation when ...
          * ... it wasn't possible to determine any of image sizes)
          */
-        fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String, threshold: Float): Boolean {
+        fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
             // -- get size of current image
             val curSize = DockerUtils.getDockerImageSize(currentName)
+            TeamCityUtils.reportTeamCityStatistics("SIZE-${ImageValidationUtils.getImageStatisticsId(currentName)}", curSize!!)
             if (curSize == null) {
                 System.err.println("Image does not exist on the agent: $currentName")
                 return false
             }
 
-            // -- report image size to TeamCity
-            val imageNameNoTag = currentName.split(":")[0]
-            TeamCityUtils.reportTeamCityStatistics("SIZE-$imageNameNoTag", curSize)
+            if (previousName.isNullOrBlank()) {
+                return false
+            }
 
             // -- get size of previous image
             val prevImagePullSucceeded = DockerUtils.pullDockerImageWithRetry(previousName, 2)
@@ -101,19 +111,8 @@ class ImageValidationUtils {
          */
         fun validateSize(imageName: String, prevImageName: String = ""): Boolean {
 
-            var previousImage = prevImageName
-            if (previousImage.isEmpty()) {
-                // -- previous image name was not explicitly specified => try to determine automatically (by pattern)
-                try {
-                    previousImage = getPrevDockerImageId(imageName)
-                } catch (ex: IndexOutOfBoundsException) {
-                    throw java.lang.IllegalArgumentException(
-                        "Unable to determine previous image tag from given ID: $imageName \n" +
-                                "Expected image name pattern: \"<year>.<month of release number>-<OS>\""
-                    )
-                }
-            }
-
+            // -- previous image name was not explicitly specified => try to determine automatically (by pattern)
+            val previousImage = if (!prevImageName.isEmpty()) prevImageName else getPrevDockerImageId(imageName)
             return imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
         }
     }
