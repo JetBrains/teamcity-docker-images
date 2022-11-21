@@ -3,10 +3,16 @@
  */
 package automation
 
+// TODO: Optimize imports
+import kotlinx.serialization.*
+import kotlinx.serialization.json.Json
+
 import DockerImageValidationException
 import automation.common.constants.ValidationConstants
-import automation.teamcity.TeamCityUtils
+import automation.docker.hub.models.DockerRegistryAccessor
+import automation.docker.hub.models.DockerRepositoryInfo
 import automation.docker.validation.ImageValidationUtils
+import automation.teamcity.TeamCityUtils
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.Subcommand
@@ -27,6 +33,16 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
             throw IllegalArgumentException("Too much image names")
         }
         val imageName = imageNames[0]
+
+
+        // TODO: Move registry URL into config
+        val registryAccessor = DockerRegistryAccessor("https://hub.docker.com/v2")
+        // serializing objects
+        // -- use isLateient to sufficiently parse Number arguments (int would be overflown)
+        val registryInfo: DockerRepositoryInfo = Json{ignoreUnknownKeys = true; isLenient = true}.decodeFromString<DockerRepositoryInfo>(registryAccessor.getSize("jetbrains/teamcity-agent", "2022.10-windowsservercore-1809"))
+        TeamCityUtils.reportTeamCityStatistics("SIZE-${ImageValidationUtils.getImageStatisticsId(imageName)}", registryInfo.fullSize)
+        return
+
         // -- report image size to TeamCity
         val previousImageName = if (imageNames.size > 1) imageNames[1] else ""
         validated = ImageValidationUtils.validateSize(imageName, previousImageName)

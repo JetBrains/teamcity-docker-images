@@ -9,7 +9,7 @@ class TeamCityUtils {
          *
          * TODO: Think about generic 'value' type
          */
-        fun reportTeamCityStatistics(key: String, value: Int) {
+        fun reportTeamCityStatistics(key: String, value: Any) {
             println("##teamcity[buildStatisticValue key='$key' value='$value']")
         }
     }
