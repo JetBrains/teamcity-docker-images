@@ -1,7 +1,6 @@
-package automation.docker
+package com.jetbrains.teamcity.docker
 
-import DockerImageValidationException
-import automation.common.OsUtils
+import com.jetbrains.teamcity.common.OsUtils
 
 class DockerUtils {
 
@@ -32,7 +31,7 @@ class DockerUtils {
             var pullSucceeded = false
             var attempts = retryCount
             while (attempts > 0) {
-                pullSucceeded = this.pullDockerImage(name)
+                pullSucceeded = pullDockerImage(name)
                 if (pullSucceeded) {
                     break
                 }
@@ -49,8 +48,8 @@ class DockerUtils {
          */
         fun getDockerImageSize(name: String): Int? {
             // ensure image exists
-            if (!this.dockerImageExists(name)) {
-                val imgPullSucceeded: Boolean = this.pullDockerImageWithRetry(name, 2)
+            if (!dockerImageExists(name)) {
+                val imgPullSucceeded: Boolean = pullDockerImageWithRetry(name, 2)
                 if (!imgPullSucceeded) {
                     throw DockerImageValidationException("Image does not exist neither on agent, nor within registry: $name")
                 }

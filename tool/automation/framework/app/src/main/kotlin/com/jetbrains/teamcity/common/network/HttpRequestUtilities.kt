@@ -1,4 +1,4 @@
-package automation.common.network
+package com.jetbrains.teamcity.common.network
 
 import java.net.HttpURLConnection
 import java.net.URL

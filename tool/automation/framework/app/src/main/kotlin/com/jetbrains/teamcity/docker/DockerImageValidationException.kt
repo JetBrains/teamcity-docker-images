@@ -1,3 +1,5 @@
+package com.jetbrains.teamcity.docker
+
 /**
  * Mark-up exception class for failed validation of Docker images.
  */

@@ -1,12 +1,13 @@
-package automation.docker.validation
+package com.jetbrains.teamcity.docker.validation
 
-import automation.common.MathUtils
-import automation.common.constants.ValidationConstants
-import automation.docker.DockerUtils
-import automation.teamcity.TeamCityUtils
-import java.lang.Exception
-import java.lang.IllegalArgumentException
-import java.util.IllegalFormatException
+import com.jetbrains.teamcity.common.MathUtils
+import com.jetbrains.teamcity.common.constants.ValidationConstants
+import com.jetbrains.teamcity.docker.DockerUtils
+import com.jetbrains.teamcity.models.DockerRegistryAccessor
+import com.jetbrains.teamcity.models.DockerRepositoryInfo
+import com.jetbrains.teamcity.teamcity.TeamCityUtils
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 /**
  * Utilities aimed at simplification of Docker Image(-s) validation.
@@ -79,8 +80,8 @@ class ImageValidationUtils {
          */
         fun imageSizeChangeSuppressesThreshold(currentName: String, previousName: String?, threshold: Float): Boolean {
             // -- get size of current image
+
             val curSize = DockerUtils.getDockerImageSize(currentName)
-            TeamCityUtils.reportTeamCityStatistics("SIZE-${ImageValidationUtils.getImageStatisticsId(currentName)}", curSize!!)
             if (curSize == null) {
                 System.err.println("Image does not exist on the agent: $currentName")
                 return false

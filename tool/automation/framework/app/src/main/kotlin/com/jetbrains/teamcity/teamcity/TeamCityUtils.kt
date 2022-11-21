@@ -1,4 +1,4 @@
-package automation.teamcity
+package com.jetbrains.teamcity.teamcity
 
 class TeamCityUtils {
     companion object {
@@ -7,7 +7,6 @@ class TeamCityUtils {
          * @param key metric ID
          * @param value metricValue
          *
-         * TODO: Think about generic 'value' type
          */
         fun reportTeamCityStatistics(key: String, value: Any) {
             println("##teamcity[buildStatisticValue key='$key' value='$value']")

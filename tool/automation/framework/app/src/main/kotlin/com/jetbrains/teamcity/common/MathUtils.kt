@@ -1,4 +1,4 @@
-package automation.common
+package com.jetbrains.teamcity.common
 
 import kotlin.math.abs
 

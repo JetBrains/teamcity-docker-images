@@ -1,8 +1,7 @@
-package automation.docker.hub.models
+package com.jetbrains.teamcity.models
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import java.math.BigInteger
 
 
 @Serializable

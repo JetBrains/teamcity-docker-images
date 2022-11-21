@@ -1,4 +1,4 @@
-package automation.common.constants
+package com.jetbrains.teamcity.common.constants
 
 /**
  * Target values used for validation purposes.
