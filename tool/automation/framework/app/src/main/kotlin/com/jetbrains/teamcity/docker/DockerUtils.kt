@@ -1,6 +1,7 @@
 package com.jetbrains.teamcity.docker
 
 import com.jetbrains.teamcity.common.OsUtils
+import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 
 class DockerUtils {
 

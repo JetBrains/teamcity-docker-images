@@ -1,4 +1,4 @@
-package com.jetbrains.teamcity.models
+package com.jetbrains.teamcity.docker.hub.data
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable

@@ -1,6 +1,5 @@
-package com.jetbrains.teamcity.models
+package com.jetbrains.teamcity.docker.hub.data
 
-import com.jetbrains.teamcity.models.DockerImage
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,7 @@
-package com.jetbrains.teamcity.models
+package com.jetbrains.teamcity.docker.hub.data
 
 import com.jetbrains.teamcity.common.network.HttpRequestUtilities
+import com.jetbrains.teamcity.docker.DockerImage
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -18,8 +19,8 @@ class DockerRegistryAccessor(uri: String) {
     /**
      * Retrieves the size of Docker image
      */
-    public fun getSize(repo: String, tag: String): String {
-        return this.getRegistryInfo(repo, tag).fullSize
+    public fun getSize(image: DockerImage): String {
+        return this.getRegistryInfo(image.repo, image.tag).fullSize
     }
 
     /**

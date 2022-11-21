@@ -3,11 +3,6 @@ package com.jetbrains.teamcity.docker.validation
 import com.jetbrains.teamcity.common.MathUtils
 import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerUtils
-import com.jetbrains.teamcity.models.DockerRegistryAccessor
-import com.jetbrains.teamcity.models.DockerRepositoryInfo
-import com.jetbrains.teamcity.teamcity.TeamCityUtils
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 /**
  * Utilities aimed at simplification of Docker Image(-s) validation.
