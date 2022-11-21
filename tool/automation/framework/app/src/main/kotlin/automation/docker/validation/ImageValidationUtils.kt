@@ -110,10 +110,9 @@ class ImageValidationUtils {
          * @return true if image matches each criteria
          */
         fun validateSize(imageName: String, prevImageName: String = ""): Boolean {
-
             // -- previous image name was not explicitly specified => try to determine automatically (by pattern)
             val previousImage = if (!prevImageName.isEmpty()) prevImageName else getPrevDockerImageId(imageName)
-            return imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
+            return !imageSizeChangeSuppressesThreshold(imageName, previousImage, ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT)
         }
     }
 }
