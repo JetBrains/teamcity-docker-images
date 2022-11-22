@@ -62,8 +62,7 @@ object image_validation: BuildType(
 //				}
 				gradle {
 					name = "Image Verification Gradle - $it"
-					tasks = "clean build run"
-					gradleParams = "--args='validate  $it'"
+					tasks = "clean build run --args='validate  $it'"
 
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
@@ -121,7 +120,7 @@ object image_validation: BuildType(
 //            contains("teamcity.agent.jvm.os.name", "Windows")
 			noLessThanVer("docker.version", "18.05.0")
 //			contains("docker.server.osType", "windows")
-			contains("teamcity.agent.jvm.os.name", "Linux")
+//			contains("teamcity.agent.jvm.os.name", "Linux")
 			exists("env.JDK_11")
 		}
 

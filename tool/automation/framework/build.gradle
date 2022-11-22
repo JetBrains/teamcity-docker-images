@@ -32,7 +32,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
     // -- JSON parsing
     implementation('org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1')
-//    implementation('org.jetbrains.kotlinx:kotlinx-serialization-runtime-jsonparser:1.4.1')
 }
 
 application {

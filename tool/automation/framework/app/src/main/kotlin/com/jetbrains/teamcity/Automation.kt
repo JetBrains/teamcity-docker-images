@@ -63,6 +63,7 @@ fun main(args: Array<String>) {
     val parser = ArgParser("automation")
     val imageValidation = ValidateImage()
     parser.subcommands(imageValidation)
+    parser.skipExtraArguments = true
 
     parser.parse(args)
 }
