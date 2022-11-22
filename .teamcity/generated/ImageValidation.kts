@@ -57,13 +57,10 @@ object image_validation: BuildType(
 
 					executionMode = BuildStep.ExecutionMode.ALWAYS
 				}
-
 			}
 		}
 
-
 		failureConditions {
-
 //			 fail in case statistics for any image changes for more than N percent
             images.forEach {
                 failOnMetricChange {
@@ -78,7 +75,6 @@ object image_validation: BuildType(
                     }
                 }
             }
-
 
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
@@ -97,6 +93,7 @@ object image_validation: BuildType(
 		requirements {
 			noLessThanVer("docker.version", "18.05.0")
 			exists("env.JDK_11")
+			contains("teamcity.agent.jvm.os.name", "Linux")
 		}
 
 		features {
