@@ -12,7 +12,7 @@ class ImageValidationUtils {
         /**
          * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
          * WARNING: the function depends on the assumption that tag pattern ...
-         * ... is "<year>.<buld number>-<OS>".
+         * ... is "<year>.<month number>-<OS>".
          */
         fun getPrevDockerImageId(curImage: DockerImage): DockerImage? {
             val curImageTagElems = curImage.tag.split(".")

@@ -19,7 +19,7 @@ class OsUtils {
             return runCatching {
                 // -- converting command to list containing the arguments
                 val args = command.split(Regex("(?<!(\"|').{0,255}) | (?!.*\\1.*)"))
-                var builder = ProcessBuilder(args)
+                val builder = ProcessBuilder(args)
                     .redirectOutput(ProcessBuilder.Redirect.PIPE)
                     .apply {
                         // -- attach stderr-redirecting if required

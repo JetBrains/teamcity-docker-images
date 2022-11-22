@@ -21,7 +21,7 @@ class DockerImage {
     }
 
     /**
-     * Instantiates object using repository and tag excplicitly.
+     * Instantiates object using repository and tag explicitly.
      */
     constructor(repo: String, tag: String) {
         this.repo = repo
