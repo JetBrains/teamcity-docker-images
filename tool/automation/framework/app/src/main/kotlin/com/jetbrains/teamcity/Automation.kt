@@ -60,9 +60,12 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 
 fun main(args: Array<String>) {
 
+    println("[Automation] Arguments are " + args)
+    println("[Automation] Arguments size is " + args.size)
     val parser = ArgParser("automation")
     val imageValidation = ValidateImage()
     parser.subcommands(imageValidation)
+    // prevent issue with launching the task from Gradle with non-interactive terminal
     parser.skipExtraArguments = true
 
     parser.parse(args)
