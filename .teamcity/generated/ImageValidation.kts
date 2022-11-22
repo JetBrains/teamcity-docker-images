@@ -46,20 +46,6 @@ object image_validation: BuildType(
 		steps {
 			images.forEach {
 
-				// 1. pull image
-//				dockerCommand {
-//					name = "pull $it"
-//					commandType = other {
-//						subCommand = "pull"
-//						commandArgs = "$it"
-//					}
-//					executionMode = BuildStep.ExecutionMode.ALWAYS
-//
-//				}
-//				script {
-//					workingDir = "tool/automation/framework/"
-//					scriptContent = "gradlew run --args=''"
-//				}
 				gradle {
 					name = "Image Verification Gradle - $it"
 					tasks = "clean build run --args=\"validate  $it\""
@@ -68,37 +54,30 @@ object image_validation: BuildType(
 					buildFile = "build.gradle"
 					enableStacktrace = true
 					jdkHome = "%env.JDK_11_x64%"
+
+					executionMode = BuildStep.ExecutionMode.ALWAYS
 				}
 
-				// 2. verify image
-//				kotlinFile {
-//					name = "Image Verification - $it"
-//
-//					path = "tool/automation/ImageValidation.main.kts"
-//					arguments = "$it"
-//					executionMode = BuildStep.ExecutionMode.ALWAYS
-//
-//				}
 			}
 		}
 
 
 		failureConditions {
 
-			// fail in case statistics for any image changes for more than N percent
-//            images.forEach {
-//                failOnMetricChange {
-//                    // -- target metric
-//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                    // -- 5% increase
-//                    threshold = 5
-//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                    compareTo = build {
-//                        buildRule = lastSuccessful()
-//                    }
-//                }
-//            }
+//			 fail in case statistics for any image changes for more than N percent
+            images.forEach {
+                failOnMetricChange {
+                    // -- target metric
+                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+                    // -- 5% increase
+                    threshold = 5
+                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+                    compareTo = build {
+                        buildRule = lastSuccessful()
+                    }
+                }
+            }
 
 
 			failOnText {
