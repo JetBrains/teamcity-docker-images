@@ -30,7 +30,7 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
      */
     override fun execute() {
         if (imageNames.size > 2) {
-            throw IllegalArgumentException("Too much image names")
+            throw IllegalArgumentException("Too many image names")
         }
 
         // 1. Capture current image size
@@ -41,7 +41,6 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 
 
         // 2. Get size of previous image
-
         val previousImage = if (imageNames.size > 1) DockerImage(imageNames[1]) else ImageValidationUtils.getPrevDockerImageId(currentImage)
         if (previousImage == null) {
             println("Unable to determine previous instance of image $currentImage")
