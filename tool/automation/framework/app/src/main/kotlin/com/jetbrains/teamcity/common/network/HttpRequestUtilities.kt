@@ -14,7 +14,7 @@ class HttpRequestUtilities {
 
         /**
          * Performs HTTP GET request.
-         * @param uri target URI
+         * @param url target URI
          */
         fun performGetRequest(url: String): String? {
             val targetUrl = URL(url)
@@ -25,8 +25,8 @@ class HttpRequestUtilities {
             http.connectTimeout = DEFAULT_CONN_TIMEOUT_MILLIS
             http.readTimeout = DEFAULT_READ_TIMEOUT_MILLIS
 
-            val body = String(http.inputStream.readAllBytes())
-            return body
+            val responseBody = String(http.inputStream.readAllBytes())
+            return responseBody
         }
     }
 }

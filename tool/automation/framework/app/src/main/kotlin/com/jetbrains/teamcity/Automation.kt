@@ -4,10 +4,6 @@
 package com.jetbrains.teamcity
 
 import com.jetbrains.teamcity.common.MathUtils
-import kotlinx.cli.ArgParser
-import kotlinx.cli.ArgType
-import kotlinx.cli.Subcommand
-import kotlinx.cli.vararg
 import java.lang.IllegalArgumentException
 import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerImage
@@ -15,13 +11,14 @@ import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 import com.jetbrains.teamcity.docker.validation.ImageValidationUtils
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryAccessor
 import com.jetbrains.teamcity.teamcity.TeamCityUtils
-
+import kotlinx.cli.*
 
 
 /**
  * Subcommand for image validation. Will be consumed by ..
  * ... argument parser.
  */
+@OptIn(ExperimentalCli::class)
 class ValidateImage: Subcommand("validate", "Validate Docker Image") {
     private val imageNames by argument(ArgType.String, description = "Images").vararg()
 
@@ -43,7 +40,7 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         // 2. Get size of previous image
         val previousImage = if (imageNames.size > 1) DockerImage(imageNames[1]) else ImageValidationUtils.getPrevDockerImageId(currentImage)
         if (previousImage == null) {
-            println("Unable to determine previous instance of image $currentImage")
+            println("Unable to determine previous release of an image automatically: $currentImage")
             return
         }
 
@@ -58,18 +55,16 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
     }
 }
 
+@OptIn(ExperimentalCli::class)
 fun main(args: Array<String>) {
 
     val parser = ArgParser("automation")
     val imageValidation = ValidateImage()
     parser.subcommands(imageValidation)
-    // prevent issue with launching the task from Gradle with non-interactive terminal
-//    parser.skipExtraArguments = true
 
-    // TODO: Add explanation of the purpose
+    // Splitting arguments into a list as the "--args" options might be treated as a ...
+    // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...
+    // ... "\\s" is used to also cover non-unicode whitespaces.
     val argsList: Array<String> = if (args.size > 1) args else args[0].split("\\s+".toRegex()).toTypedArray()
-    argsList.forEach {
-        println("argsList: $it")
-    }
     parser.parse(argsList)
 }

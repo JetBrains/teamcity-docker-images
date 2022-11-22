@@ -3,13 +3,16 @@ package com.jetbrains.teamcity.docker
 import com.jetbrains.teamcity.common.OsUtils
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 
-class DockerUtils {
+/**
+ * Utilities for working with Docker images using its CLI.
+ */
+class DockerCliUtilities {
 
     companion object {
 
         /**
          * Tries to pull Docker image from registry.
-         * @param name - docker image fully-qualified domain name
+         * @param image - Docker image to be pulled
          * @return true if image had been successfully pulled, false otherwise
          */
         fun pullDockerImage(image: DockerImage): Boolean {
@@ -24,7 +27,7 @@ class DockerUtils {
         /**
          * Pulls Docker image with certain amount of retries. Purpose: handle potential communication issues with ...
          * ... Docker agent.
-         * @param name - Docker Image fully-qualified domain name
+         * @param image - Docker Image to be pulled
          * @param retryCount - amount of total attempts to pull the image
          * @param delayMillis - delay between attempts
          */
@@ -43,8 +46,8 @@ class DockerUtils {
         }
 
         /**
-         * Retrieves docker image size.
-         * @param name image fully-qualified domain name
+         * Retrieves Docker Image size using Docker CLI.
+         * @param image - docker image whose size shall be inspected
          * @return image size in bytes, null in case image does not exist
          */
         fun getDockerImageSize(image: DockerImage): Int? {
@@ -56,23 +59,23 @@ class DockerUtils {
                 }
             }
 
-            var cmdResult = OsUtils.executeCommand("docker inspect -f \"{{ .Size }}\" $image", true)
-            try {
+            val cmdResult = OsUtils.executeCommand("docker inspect -f \"{{ .Size }}\" $image", true)
+            return try {
                 // remove quotes from result string
                 val imageSizeStr = cmdResult.toString().trim().replace("^\"|\"$".toRegex(), "")
-                return Integer.parseInt(imageSizeStr)
+                Integer.parseInt(imageSizeStr)
             } catch (ex: Exception) {
                 System.err.println("Unable to convert size of image into an integer number: $cmdResult $ex")
-                return null
+                null
             }
         }
 
         /**
          * Checks if Docker image exists on agent.
-         * @param name Docker image name
+         * @param image Docker image whose existence will be checked
          * @return true if image exists, false otherwise
          */
-        fun dockerImageExists(image: DockerImage): Boolean {
+        private fun dockerImageExists(image: DockerImage): Boolean {
             val cmdResult = OsUtils.executeCommand("docker images -q $image", true) ?: return false
             return cmdResult.isNotEmpty()
         }
