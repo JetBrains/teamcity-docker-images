@@ -7,26 +7,27 @@ import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
-object image_validation: BuildType(
-	{
-
-
-		name = "Validation (post-push) of Docker images (Windows)"
+object image_validation: BuildType({
+		name = "Validation (post-push) of Docker images (Windows / Linux)"
 		buildNumberPattern="test-%build.counter%"
 
 		vcs {
 			root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
+		}
+
+		triggers {
+			// Execute the build once the images are available within %deployRepository%
+			finishBuildTrigger {
+				buildType = "${PublishHubVersion.publish_hub_version.id}"
+			}
 		}
 
 		params {
@@ -40,55 +41,44 @@ object image_validation: BuildType(
 			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
 			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
 			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004",
+			// -- linux images
+			"%docker.deployRepository%teamcity-agent:2022.10-linux",
+			"%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
+			"%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
 		)
 
 		steps {
-			images.forEach {
-
+			images.forEach { imageFqdn ->
+				// Generate validation for each image fully-qualified domain name (FQDN)
 				gradle {
-					name = "Image Verification Gradle - $it"
-					tasks = "clean build run --args=\"validate  $it\""
-
+					name = "Image Verification Gradle - $imageFqdn"
+					tasks = "clean build run --args=\"validate  $imageFqdn\""
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
 					enableStacktrace = true
 					jdkHome = "%env.JDK_11_x64%"
-
 					executionMode = BuildStep.ExecutionMode.ALWAYS
 				}
 			}
 		}
 
-
 		failureConditions {
-////			 fail in case statistics for any image changes for more than N percent
-//            images.forEach {
-//                failOnMetricChange {
-//                    // -- target metric
-//                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                    // -- 5% increase
-//                    threshold = 5
-//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                    compareTo = build {
-//                        buildRule = lastSuccessful()
-//                    }
-//                }
-//            }
+			//	Build is considered to be failed if the size of any image had changed by more than 5%
+            images.forEach {
+                failOnMetricChange {
+                    // -- target metric
+                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+                    threshold = 5
+                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+                    compareTo = build {
+                        buildRule = lastSuccessful()
+                    }
+                }
+            }
 
-			failOnMetricChange {
-				// -- target metric
-				param("metricKey", "SIZE-teamcity-agent:windowsservercore-1809")
-				units = BuildFailureOnMetric.MetricUnit.PERCENTS
-				// -- 5% increase
-				threshold = 5
-				comparison = BuildFailureOnMetric.MetricComparison.MORE
-				compareTo = build {
-					buildRule = lastSuccessful()
-				}
-			}
-
+			// Failed in case the validation via framework didn't succeed
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
 				pattern = "DockerImageValidationException"
@@ -97,15 +87,13 @@ object image_validation: BuildType(
 				reportOnlyFirstMatch = false
 			}
 		}
-		triggers {
-			finishBuildTrigger {
-				buildType = "${PublishHubVersion.publish_hub_version.id}"
-			}
-		}
 
 		requirements {
 			noLessThanVer("docker.version", "18.05.0")
 			exists("env.JDK_11")
+			// Images are validated mostly via DockerHub REST API. In case ...
+			// ... Docker agent will be used, platform-compatibility must be addressed, ...
+			// ... especially in case of Windows images.
 			contains("teamcity.agent.jvm.os.name", "Linux")
 		}
 
@@ -116,26 +104,14 @@ object image_validation: BuildType(
 					dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 				}
 			}
-
-			freeDiskSpace {
-				failBuild = true
-				requiredSpace = "10gb"
-			}
 		}
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
 
-		// -- build number dependency
-//        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-//            snapshot {
-//                reuseBuilds = ReuseBuilds.ANY
-//                onDependencyFailure = FailureAction.IGNORE
-//            }
-//        }
-//	}
-	})
+	dependencies {
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+	}
+})

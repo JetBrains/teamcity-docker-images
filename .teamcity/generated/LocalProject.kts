@@ -21,5 +21,4 @@ object LocalProject : Project({
     buildType(PushLocalWindows2004.push_local_windows_2004)
     buildType(PublishLocal.publish_local)
     buildType(ImageValidation.image_validation)
-    buildType(ImageValidationLinux.image_validation_linux)
 })
