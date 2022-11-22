@@ -68,7 +68,7 @@ object image_validation: BuildType(
             images.forEach {
                 failOnMetricChange {
                     // -- target metric
-                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
                     units = BuildFailureOnMetric.MetricUnit.PERCENTS
                     // -- 5% increase
                     threshold = 5
@@ -95,11 +95,7 @@ object image_validation: BuildType(
 		}
 
 		requirements {
-			// -- compatibility with Windows images
-//            contains("teamcity.agent.jvm.os.name", "Windows")
 			noLessThanVer("docker.version", "18.05.0")
-//			contains("docker.server.osType", "windows")
-//			contains("teamcity.agent.jvm.os.name", "Linux")
 			exists("env.JDK_11")
 		}
 
