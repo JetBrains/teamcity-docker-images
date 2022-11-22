@@ -1,5 +1,6 @@
 package com.jetbrains.teamcity.common.network
 
+import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -15,17 +16,31 @@ class HttpRequestUtilities {
         /**
          * Performs HTTP GET request.
          * @param url target URI
+         * @return requests' body, null if the request did not succeed
          */
         fun performGetRequest(url: String): String? {
-            val targetUrl = URL(url)
-            val http: HttpURLConnection = targetUrl.openConnection() as HttpURLConnection
-            http.requestMethod = "GET"
-            http.doOutput = true
+            var responseBody: String? = null
+            var httpURLConnection: HttpURLConnection? = null
 
-            http.connectTimeout = DEFAULT_CONN_TIMEOUT_MILLIS
-            http.readTimeout = DEFAULT_READ_TIMEOUT_MILLIS
+            try {
+                val targetUrl = URL(url)
+                httpURLConnection = targetUrl.openConnection() as HttpURLConnection
+                httpURLConnection.requestMethod = "GET"
+                httpURLConnection.doOutput = true
 
-            val responseBody = String(http.inputStream.readAllBytes())
+                httpURLConnection.connectTimeout = DEFAULT_CONN_TIMEOUT_MILLIS
+                httpURLConnection.readTimeout = DEFAULT_READ_TIMEOUT_MILLIS
+
+                httpURLConnection.inputStream.use { httpInputStream ->
+                    responseBody = String(httpInputStream.readAllBytes())
+                }
+            } catch (err: Exception) {
+                System.err.println("An error had occurred while executing HTTP GET request: $err \n URL: $url")
+                responseBody = null
+            } finally {
+                httpURLConnection?.disconnect()
+            }
+
             return responseBody
         }
     }
