@@ -66,6 +66,7 @@ object image_validation: BuildType(
 					workingDir = "tool/automation/framework/"
 					buildFile = "build.gradle"
 					enableStacktrace = true
+					jdkHome = "%env.JDK_11_x64%"
 				}
 
 				// 2. verify image
@@ -118,7 +119,7 @@ object image_validation: BuildType(
 //            contains("teamcity.agent.jvm.os.name", "Windows")
 			noLessThanVer("docker.version", "18.05.0")
 			contains("docker.server.osType", "windows")
-
+			exists("env.JDK_11")
 		}
 
 		features {
