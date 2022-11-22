@@ -60,6 +60,10 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 
 fun main(args: Array<String>) {
 
+    args.forEach {
+        println("Argument: $it")
+    }
+
     println("[Automation] Arguments are " + args)
     println("[Automation] Arguments size is " + args.size)
     val parser = ArgParser("automation")

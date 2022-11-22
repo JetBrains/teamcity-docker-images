@@ -1,6 +1,7 @@
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+    // -- application plugin is required for convenient CLI arguments parsing
     id 'application'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.21'
 }
@@ -11,7 +12,6 @@ applicationDefaultJvmArgs = ["-Xms1024m", "-Xmx2048m"]
 
 repositories {
     mavenCentral()
-//    url "https://kotlin.bintray.com/kotlinx"
 }
 
 sourceSets {
