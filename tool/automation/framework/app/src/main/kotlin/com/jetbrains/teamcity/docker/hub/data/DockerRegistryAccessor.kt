@@ -35,7 +35,7 @@ class DockerRegistryAccessor {
      * Returns general information about Docker Registry.
      */
     public fun getRegistryInfo(image: DockerImage): DockerRepositoryInfo {
-        val registryResponse: String = HttpRequestUtilities.performRequest("${this.uri}/repositories/${image.repo}/tags/${image.tag}") ?: ""
+        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags/${image.tag}") ?: ""
         return jsonSerializer.decodeFromString<DockerRepositoryInfo>(registryResponse)
     }
 }

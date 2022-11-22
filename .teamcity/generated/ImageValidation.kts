@@ -62,8 +62,8 @@ object image_validation: BuildType(
 //				}
 				gradle {
 					name = "Image Verification Gradle - $it"
-					tasks = "clean build run --args='validate $it'"
-					workingDir = "tool/automation/framework/"
+					tasks = "clean build run --args='validate  $it'"
+					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
 					enableStacktrace = true
 					jdkHome = "%env.JDK_11_x64%"
