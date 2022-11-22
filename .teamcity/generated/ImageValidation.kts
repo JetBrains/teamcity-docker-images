@@ -60,21 +60,34 @@ object image_validation: BuildType(
 			}
 		}
 
+
 		failureConditions {
-//			 fail in case statistics for any image changes for more than N percent
-            images.forEach {
-                failOnMetricChange {
-                    // -- target metric
-                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-                    // -- 5% increase
-                    threshold = 5
-                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-                    compareTo = build {
-                        buildRule = lastSuccessful()
-                    }
-                }
-            }
+////			 fail in case statistics for any image changes for more than N percent
+//            images.forEach {
+//                failOnMetricChange {
+//                    // -- target metric
+//                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+//                    // -- 5% increase
+//                    threshold = 5
+//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+//                    compareTo = build {
+//                        buildRule = lastSuccessful()
+//                    }
+//                }
+//            }
+
+			failOnMetricChange {
+				// -- target metric
+				param("metricKey", "SIZE-teamcity-agent:windowsservercore-1809")
+				units = BuildFailureOnMetric.MetricUnit.PERCENTS
+				// -- 5% increase
+				threshold = 5
+				comparison = BuildFailureOnMetric.MetricComparison.MORE
+				compareTo = build {
+					buildRule = lastSuccessful()
+				}
+			}
 
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
