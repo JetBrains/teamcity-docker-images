@@ -1,12 +1,9 @@
-
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     // -- application plugin is required for convenient CLI arguments parsing
     id 'application'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.21'
 }
-
-
 
 applicationDefaultJvmArgs = ["-Xms1024m", "-Xmx2048m"]
 
@@ -24,6 +21,7 @@ sourceSets {
         }
     }
 }
+
 dependencies {
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
     implementation 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'

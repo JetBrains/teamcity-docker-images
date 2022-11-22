@@ -67,7 +67,9 @@ fun main(args: Array<String>) {
 //    parser.skipExtraArguments = true
 
     // TODO: Add explanation of the purpose
-    val argsList: Array<String> = if (args.size > 1) args else args[0].split(" ").toTypedArray()
-
+    val argsList: Array<String> = if (args.size > 1) args else args[0].split("\\s+".toRegex()).toTypedArray()
+    argsList.forEach {
+        println("argsList: $it")
+    }
     parser.parse(argsList)
 }
