@@ -3,7 +3,6 @@
  */
 package com.jetbrains.teamcity
 
-// TODO: Optimize imports
 import com.jetbrains.teamcity.common.MathUtils
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
@@ -12,7 +11,6 @@ import kotlinx.cli.vararg
 import java.lang.IllegalArgumentException
 import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerImage
-import com.jetbrains.teamcity.docker.DockerUtils
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 import com.jetbrains.teamcity.docker.validation.ImageValidationUtils
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryAccessor
@@ -25,8 +23,7 @@ import com.jetbrains.teamcity.teamcity.TeamCityUtils
  * ... argument parser.
  */
 class ValidateImage: Subcommand("validate", "Validate Docker Image") {
-    val imageNames by argument(ArgType.String, description = "Images").vararg()
-    var validated: Boolean = false
+    private val imageNames by argument(ArgType.String, description = "Images").vararg()
 
     /**
      * Execute image validation option specified via CLI.
@@ -39,7 +36,6 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         // 1. Capture current image size
         val registryAccessor = DockerRegistryAccessor("https://hub.docker.com/v2")
         val currentImage = DockerImage(imageNames[0])
-//        val currentImageInfo = registryAccessor.getRegistryInfo(currentImage)
         val size = registryAccessor.getSize(currentImage)
         TeamCityUtils.reportTeamCityStatistics("SIZE-${ImageValidationUtils.getImageStatisticsId(currentImage.toString())}", size)
 

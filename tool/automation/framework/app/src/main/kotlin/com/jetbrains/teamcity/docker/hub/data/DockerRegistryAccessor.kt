@@ -9,12 +9,20 @@ import kotlinx.serialization.json.Json
  * Provides access to Docker registry.
  * @param uri - Docker registry URI
  */
-class DockerRegistryAccessor(uri: String) {
+class DockerRegistryAccessor {
 
-    private val address: String = "https://hub.docker.com/v2"
+    private val uri: String
+    private val jsonSerializer: Json
 
-    // -- use isLateient to sufficiently parse Number arguments (int would be overflown)
-    private val jsonSerializer = Json { ignoreUnknownKeys = true; isLenient = true }
+    constructor(uri: String) {
+        this.uri = uri
+        this.jsonSerializer = Json {
+            // -- remove the neccessity to include parsing of unused fields
+            ignoreUnknownKeys = true;
+            // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
+            isLenient = true
+        }
+    }
 
     /**
      * Retrieves the size of Docker image
@@ -27,7 +35,7 @@ class DockerRegistryAccessor(uri: String) {
      * Returns general information about Docker Registry.
      */
     public fun getRegistryInfo(image: DockerImage): DockerRepositoryInfo {
-        val registryResponse: String = HttpRequestUtilities.performRequest("${this.address}/repositories/${image.repo}/tags/${image.tag}") ?: ""
+        val registryResponse: String = HttpRequestUtilities.performRequest("${this.uri}/repositories/${image.repo}/tags/${image.tag}") ?: ""
         return jsonSerializer.decodeFromString<DockerRepositoryInfo>(registryResponse)
     }
 }

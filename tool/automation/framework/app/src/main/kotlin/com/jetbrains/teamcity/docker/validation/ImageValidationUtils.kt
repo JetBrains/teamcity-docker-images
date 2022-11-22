@@ -1,9 +1,7 @@
 package com.jetbrains.teamcity.docker.validation
 
-import com.jetbrains.teamcity.common.MathUtils
-import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerImage
-import com.jetbrains.teamcity.docker.DockerUtils
+
 
 /**
  * Utilities aimed at simplification of Docker Image(-s) validation.
