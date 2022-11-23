@@ -1,12 +1,11 @@
 package com.jetbrains.teamcity.docker.validation
 
 import com.jetbrains.teamcity.common.MathUtils
-import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.DockerRegistryAccessor
+import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
 import com.jetbrains.teamcity.teamcity.TeamCityUtils
-import java.lang.IllegalStateException
 
 
 /**
@@ -39,17 +38,26 @@ class DockerImageValidationUtilities {
                 TeamCityUtils.reportTeamCityStatistics("SIZE-${DockerImageValidationUtilities.getImageStatisticsId(currentImage.toString())}", assosiatedImage.size)
 
                 // -- compare image
-                val imagesMatchingPrevious: List<DockerhubImage> = registryAccessor.getPreviousImages(currentImage,
+                val dockerHubInfoOfPreviousRelease: DockerRepositoryInfo? = registryAccessor.getPreviousImages(currentImage,
                                                                                                         assosiatedImage.os,
-                                                                                                        assosiatedImage.osVersion) ?: emptyList()
-                if (imagesMatchingPrevious.size != 1) {
-                    throw IllegalStateException("Unable to determine previous image for $originalImageFqdn-${assosiatedImage.os}")
+                                                                                                        assosiatedImage.osVersion) ?: null
+                if (dockerHubInfoOfPreviousRelease == null || dockerHubInfoOfPreviousRelease.images.size != 1) {
+//                    throw IllegalStateException("Unable to determine previous image for $originalImageFqdn-${assosiatedImage.os}")
+                    println("Unable to determine previous image for $originalImageFqdn-${assosiatedImage.os}")
+                    return@forEach
                 }
 
                 // -- we will always have only 1 corresponding image, due to extensive criteria
-                val previousImage = imagesMatchingPrevious.first()
-                if (MathUtils.getPercentageIncrease(assosiatedImage.size.toLong(), previousImage.size.toLong()) > threshold) {
+                val previousImage = dockerHubInfoOfPreviousRelease.images.first()
+                val percentageChange = MathUtils.getPercentageIncrease(assosiatedImage.size.toLong(), previousImage.size.toLong())
+                println("$originalImageFqdn-${assosiatedImage.os}-${assosiatedImage.osVersion}-${assosiatedImage.architecture}: "
+                        + "\n\t - Original size: ${assosiatedImage.size} ($originalImageFqdn)"
+                        + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
+                        + "\n\t - Percentage change: ${percentageChange}\n")
+                if (percentageChange > threshold) {
                     imagesFailedValidation.add(assosiatedImage)
+                } else {
+                    print("Validation succeeded for $originalImageFqdn-${assosiatedImage.os}")
                 }
             }
             return imagesFailedValidation

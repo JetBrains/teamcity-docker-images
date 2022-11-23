@@ -54,36 +54,36 @@ class DockerRegistryAccessor {
      * ... repository and tags, but different target OS. The size will be different as well.
      * @param osVersion - version of operating system. Used mostly for Windows images.
      */
-    public fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): List<DockerhubImage>? {
-        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${currentImage.repo}/tags/") ?: ""
+    public fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
+        // TODO: Make page size configurable
+        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${currentImage.repo}/tags?page_size=50") ?: ""
         if (registryResponse.isEmpty()) {
             return null
         }
         val registryInfo: DockerRegistryImagesInfo = jsonSerializer.decodeFromString(registryResponse)
 
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
-        val previousImageRepository = registryInfo.results
+        var previousImageRepository = registryInfo.results
                                                                 .filter { it -> (it.name != currentImage.tag) }
-                                                                .minByOrNull { result -> Instant.parse(result.tagLastPushed) }
+                                                                // Remove year from tag, making it comparable
+                                                                // TODO: Handle cases when split would fail
+                                                                .filter { it.name.contains(currentImage.tag.split("-", limit=2)[1]) }
+                                                                .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
         if (previousImageRepository == null) {
             return null
         }
 
         // filter by target OS
-        var foundImageWithEqualOs = previousImageRepository.images.filter { it.os.equals(targetOs) }
-        if (osVersion != null && !osVersion.isEmpty()) {
-            foundImageWithEqualOs = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
+        previousImageRepository.images = previousImageRepository.images.filter { it.os.equals(targetOs) }
+        if (!previousImageRepository.images.isEmpty() && osVersion != null && !osVersion.isEmpty()) {
+            val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
+            if (imagesFilteredByTarget.isEmpty()) {
+                // Logging such event as it's hard to investigate such differentes
+                println("$currentImage - found previous image - ${previousImageRepository.name}, but OS version is different - $osVersion and ${previousImageRepository.images.first().osVersion}")
+            }
+            previousImageRepository.images = imagesFilteredByTarget
         }
 
-        return foundImageWithEqualOs
-    }
-
-    public fun getSizeOfPreviousImage(currentImage: DockerImage, targetOs: String = "linux", osVersion: String = ""): Long? {
-        val dockerhubImage: List<DockerhubImage>? = this.getPreviousImages(currentImage, targetOs, osVersion)
-        if (dockerhubImage == null || dockerhubImage.isEmpty()) {
-            return null
-        }
-        return dockerhubImage.size.toLong()
-
+        return previousImageRepository
     }
 }

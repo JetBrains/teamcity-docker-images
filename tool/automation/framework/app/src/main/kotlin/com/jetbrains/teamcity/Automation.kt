@@ -34,10 +34,11 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 
         // 1. Capture current image size
         val originalImageName = imageNames[0]
+
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         var imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
-                                                                                        "https://hub.docker.com/v2",
-                                                                                        percentageChangeThreshold)
+            "https://hub.docker.com/v2",
+            percentageChangeThreshold)
 
         if (!imagesFailedValidation.isEmpty()) {
             imagesFailedValidation.forEach {
@@ -46,6 +47,8 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
             // throw exception in order to handle it within upstream DSL
             throw DockerImageValidationException("Validation had failed for ${originalImageName}")
         }
+
+
     }
 }
 

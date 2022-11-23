@@ -9,7 +9,7 @@ class TeamCityUtils {
          *
          */
         fun reportTeamCityStatistics(key: String, value: Any) {
-            println("##teamcity[buildStatisticValue key='$key' value='$value']")
+            println("\n##teamcity[buildStatisticValue key='$key' value='$value']")
         }
     }
 }
