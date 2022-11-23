@@ -11,13 +11,11 @@ The application could be built using Gradle Wrapper.
 
 
 ## 3. Execution
-
 ```
 ./gradlew <option> --args="<parameters>"
 ```
 
 ### 3.1 Available Options
-
 | Action     | Parameter                                                                                  | Description                                       |
 |------------|--------------------------------------------------------------------------------------------|---------------------------------------------------|
 | `validate` | - [`String`] `original Docker image` <br/> - [`String`] `(optional) previous Docker image` | Performs the actions of validating Docker images. |
@@ -33,7 +31,6 @@ The compressed size of an image (non OS-/drive-dependant) is being reported to T
 Therefore, in case the pattern of such message is changed, make sure to include the appropriate changes into the DSL's failure condition as well.
 
 ### 3.3 A note on automation's dependencies / assumptions
-
 * **Version pattern**. TeamCity Releases following the name pattern: `<year>.<month number>-<platform / OS>`. If previous image
 wasn't explicitly specified, the application would try to determine it automatically. Please, note that automatic determination works
 with minor releases only, e.g. `2022.04.2` -> `2022.04.1`.

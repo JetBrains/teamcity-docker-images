@@ -31,6 +31,8 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         }
 
         // 1. Capture current image size
+        // TODO: Implement configuration via property file and add default registry (DockerHub) address ...
+        // ... to it.
         val registryAccessor = DockerRegistryAccessor("https://hub.docker.com/v2")
         val currentImage = DockerImage(imageNames[0])
         val size = registryAccessor.getSize(currentImage)

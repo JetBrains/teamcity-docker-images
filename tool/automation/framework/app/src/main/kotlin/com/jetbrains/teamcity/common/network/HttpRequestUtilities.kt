@@ -12,7 +12,6 @@ class HttpRequestUtilities {
         private const val DEFAULT_CONN_TIMEOUT_MILLIS = 10*1000
         private const val DEFAULT_READ_TIMEOUT_MILLIS = 30*1000
 
-
         /**
          * Performs HTTP GET request.
          * @param url target URI
