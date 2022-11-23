@@ -7,9 +7,10 @@ import com.jetbrains.teamcity.common.MathUtils
 import java.lang.IllegalArgumentException
 import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.DockerImage
+import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 import com.jetbrains.teamcity.docker.hub.DockerRegistryAccessor
 import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
-import com.jetbrains.teamcity.docker.validation.ImageValidationUtils
+import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
 import com.jetbrains.teamcity.teamcity.TeamCityUtils
 import kotlinx.cli.*
 import java.lang.IllegalStateException
@@ -32,49 +33,19 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         }
 
         // 1. Capture current image size
-        val registryAccessor = DockerRegistryAccessor("https://hub.docker.com/v2")
-        val currentImage = DockerImage(imageNames[0])
+        val originalImageName = imageNames[0]
+        val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
+        var imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
+                                                                                        "https://hub.docker.com/v2",
+                                                                                        percentageChangeThreshold)
 
-        var imagesFailedValidation = ArrayList<DockerhubImage>()
-
-        // -- all images associated with registry-tag pair
-        val originalImageRegistryInfo = registryAccessor.getRegistryInfo(currentImage)
-        originalImageRegistryInfo.images.forEach { image ->
-            // -- report size for each image
-            // TODO: update documentation with "OS" reference
-            TeamCityUtils.reportTeamCityStatistics("SIZE-${ImageValidationUtils.getImageStatisticsId(currentImage.toString())}-${image.os}", image.size)
-
-            // -- compare image
-            // TODO: Change "!!" operators to proper comparison
-            val imagesMatchingPrevious: List<DockerhubImage> = registryAccessor.getPreviousImages(currentImage, image.os, image.osVersion) ?: return@forEach
-            if (imagesMatchingPrevious.size != 1) {
-                throw IllegalStateException("Unable to determine the image matching previosu one.")
+        if (!imagesFailedValidation.isEmpty()) {
+            imagesFailedValidation.forEach {
+                println("Validation failed for ${originalImageName}, OS: ${it.os}, OS version: ${it.osVersion}, architecture: ${it.architecture}")
             }
-
-            val previousImage = imagesMatchingPrevious.first()
-            if (MathUtils.getPercentageIncrease(image.size.toLong(), previousImage.size.toLong()) > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT) {
-                imagesFailedValidation.add(image)
-            }
+            // throw exception in order to handle it within upstream DSL
+            throw DockerImageValidationException("Validation had failed for ${originalImageName}")
         }
-
-        // TODO: Print out non-qualified images here
-        imagesFailedValidation.forEach {
-            println("Validation failed for ${it.os}")
-        }
-
-        // TODO: Ensure target OS and OS Version are equal
-//        val previousImageSize = registryAccessor.getSizeOfPreviousImage(currentImage, "linux")
-//        if (previousImageSize == null) {
-//            println("Unable to find previous version of image within registry: $currentImage")
-//            return
-//        }
-//
-//
-//        // 3. Compare the sizes
-//        if (percentageIncrease > ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT) {
-//            throw DockerImageValidationException("Image $currentImage size compared to previous ($previousImageSize) " +
-//                    "suppresses ${ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT}% threshold.")
-//        }
     }
 }
 
