@@ -36,7 +36,7 @@ class DockerImageValidationUtilities {
             originalImageRegistryInfo.images.forEach { assosiatedImage ->
                 // -- report size for each image
                 // TODO: update documentation with "OS" reference
-                TeamCityUtils.reportTeamCityStatistics("SIZE-${DockerImageValidationUtilities.getImageStatisticsId(currentImage.toString())}-${assosiatedImage.os}", assosiatedImage.size)
+                TeamCityUtils.reportTeamCityStatistics("SIZE-${DockerImageValidationUtilities.getImageStatisticsId(currentImage.toString())}", assosiatedImage.size)
 
                 // -- compare image
                 val imagesMatchingPrevious: List<DockerhubImage> = registryAccessor.getPreviousImages(currentImage,

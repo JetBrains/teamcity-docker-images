@@ -25,6 +25,11 @@ The application could be built using Gradle Wrapper.
 
 ### 2.1 TeamCity statistics
 Image size is reported into TeamCity via Service Message using the following pattern: `"SIZE-$currentName"`.
+Please, note that each repository-tag pair might have multiple assosiated images, whose differences may include:
+* Operating System;
+* Version of Operating System;
+* Architecture;
+Each assosiated image is being validated within the framework.
 
 ### 2.2 A note on automation's dependencies / assumptions
 
