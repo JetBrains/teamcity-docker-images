@@ -24,7 +24,7 @@ class DockerImageValidationUtilities {
          * 4. Compare the size of each corresponding image.
          * @param originalImageFqdn fully-qualified domain name of the original image
          * @param registryUri URI of Docker Registry where image is placed
-         * @returns list of images assosiated with the original one.
+         * @returns list of assosiated images that didn't pass the validation.
          */
         fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float): ArrayList<DockerhubImage> {
             val registryAccessor = DockerRegistryAccessor(registryUri)
