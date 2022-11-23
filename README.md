@@ -50,7 +50,11 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 - Clone this repository.
 - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2021.2.tar.gz -O - | tar -xz -C context```
 - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
-- Generate an image using a coresponding _.cmd_ or _.sh_ script file in [context/generated](context/generated) directory.
+- Generate an image using a corresponding _.cmd_ or _.sh_ script file in [context/generated](context/generated) directory.
+
+### Utilities
+- [TeamCity Docker Images - tools](tool) - tools used within the release process of Docker Images.
+- [Automation Framework](tool/automation/framework) - framework for simplification of Docker Images release process.
 
 ### Bugs/issues/problems
 

@@ -1,11 +1,11 @@
 # TeamCity Docker Images - tools
-Tools that are used within TeamCity Docker images release process.
-
+Tools dedicated to simplification and enhancements of [TeamCity](https://www.jetbrains.com/teamcity/) Docker Images release process.
 
 
 # 1. Dockerfiles & Build Configurations generator
 [TeamCity.Docker](TeamCity.Docker) is a utility application (C#) that generates Dockerfiles along with Kotlin DSL for build 
 configurations aimed at creating and publishing TeamCity Docker Images for different platforms.
+
 ## 1.1 Configuration options
 
 The program accepts verbs (main options), as well as their configuration (sub-options).
@@ -47,19 +47,4 @@ generate -s configs -f "configs/common.config;configs/local.config;configs/windo
 
 # 2. Automation utilities
 
-[Automation utilities](automation) contains utilities that simplify release process.
-
-## 2.1 Docker Image Validation
-
-[ImageValidation.kts](automation/ImageValidation.kts) validates the state of Docker image.
-```
-kotlinc -script ImageValidation.kts <image name>
-```
-
-### 2.1.1 TeamCity statistics
-
-Image size is reported via `"SIZE-$currentName"`
-
-### 2.1.2 Dependencies
-* TeamCity Kotlin DSL script with file name
-* Pattern (Todo: add link to code where the pattern for image name is determined)
+[Automation utilities](automation/framework) contains utilities that simplify release process. Please, follow the link for the detailed documentation.
