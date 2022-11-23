@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Build and push windows 2004</name>
+  <description>teamcity-server:EAP-nanoserver-2004,EAP teamcity-minimal-agent:EAP-nanoserver-2004,EAP teamcity-agent:EAP-windowsservercore-2004,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-2004,EAP</description>
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="system.teamcity.agent.ensure.free.space" value="43gb" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="pull mcr.microsoft.com/powershell:nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="mcr.microsoft.com/powershell:nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="pull mcr.microsoft.com/windows/nanoserver:2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="mcr.microsoft.com/windows/nanoserver:2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="context teamcity-server:EAP-nanoserver-2004" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo 2> context/.dockerignore
+echo TeamCity/buildAgent >> context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="build teamcity-server:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="--no-cache" />
+          <param name="docker.command.type" value="build" />
+          <param name="docker.image.namesAndTags" value="teamcity-server:EAP-nanoserver-2004" />
+          <param name="dockerImage.platform" value="windows" />
+          <param name="dockerfile.contextDir" value="context" />
+          <param name="dockerfile.path" value="context/generated/windows/Server/nanoserver/2004/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="context teamcity-minimal-agent:EAP-nanoserver-2004" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="build teamcity-minimal-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="--no-cache" />
+          <param name="docker.command.type" value="build" />
+          <param name="docker.image.namesAndTags" value="teamcity-minimal-agent:EAP-nanoserver-2004" />
+          <param name="dockerImage.platform" value="windows" />
+          <param name="dockerfile.contextDir" value="context" />
+          <param name="dockerfile.path" value="context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="context teamcity-agent:EAP-windowsservercore-2004" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="build teamcity-agent:EAP-windowsservercore-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="--no-cache" />
+          <param name="docker.command.type" value="build" />
+          <param name="docker.image.namesAndTags" value="teamcity-agent:EAP-windowsservercore-2004" />
+          <param name="dockerImage.platform" value="windows" />
+          <param name="dockerfile.contextDir" value="context" />
+          <param name="dockerfile.path" value="context/generated/windows/Agent/windowsservercore/2004/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="context teamcity-agent:EAP-nanoserver-2004" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo 2> context/.dockerignore
+echo TeamCity/webapps >> context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="build teamcity-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="--no-cache" />
+          <param name="docker.command.type" value="build" />
+          <param name="docker.image.namesAndTags" value="teamcity-agent:EAP-nanoserver-2004" />
+          <param name="dockerImage.platform" value="windows" />
+          <param name="dockerfile.contextDir" value="context" />
+          <param name="dockerfile.path" value="context/generated/windows/Agent/nanoserver/2004/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="tag teamcity-server:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="teamcity-server:EAP-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="tag teamcity-minimal-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="teamcity-minimal-agent:EAP-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="tag teamcity-agent:EAP-windowsservercore-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="teamcity-agent:EAP-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="tag teamcity-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="teamcity-agent:EAP-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="push teamcity-server:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_17" name="push teamcity-minimal-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_18" name="push teamcity-agent:EAP-windowsservercore-2004" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_19" name="push teamcity-agent:EAP-nanoserver-2004" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="RootProjectId_TeamCityDockerImagesRepo" />
+    </vcs-settings>
+    <requirements>
+      <contains id="RQ_1" name="system.agent.name" value="docker" />
+      <contains id="RQ_2" name="system.agent.name" value="windows10" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="43gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <artifact-dependencies>
+      <dependency id="ARTIFACT_DEPENDENCY_1" sourceBuildTypeId="TC_Trunk_BuildDistDocker" cleanDestination="false">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="TeamCity.zip!/**=&gt;context/TeamCity" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC_Trunk_BuildDistDocker">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

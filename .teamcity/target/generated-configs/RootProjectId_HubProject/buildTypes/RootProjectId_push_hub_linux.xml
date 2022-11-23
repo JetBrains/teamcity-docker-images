@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Push linux</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="system.teamcity.agent.ensure.free.space" value="6gb" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="pull teamcity-server%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="tag teamcity-server%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="push teamcity-server%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-server:EAP-linux" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux-arm64" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:EAP-linux-arm64" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="pull teamcity-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="tag teamcity-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-agent:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="push teamcity-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:EAP-linux" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="push teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:EAP-linux-sudo" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_17" name="tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_18" name="push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-minimal-agent:EAP-linux" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements>
+      <contains id="RQ_1" name="docker.server.osType" value="linux" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="6gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="RootProjectId_publish_local">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+
