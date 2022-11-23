@@ -40,7 +40,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
   - Download the required TeamCity [_.tar.gz_ file](https://www.jetbrains.com/teamcity/download/#section=section-get). For instance ```wget -c https://download.jetbrains.com/teamcity/TeamCity-2021.2.tar.gz -O - | tar -xz -C context```
   - Unpack this file into the directory [context/TeamCity](context/TeamCity) within the cloned repository.
   - To add plugins to TeamCity agents run the _context.sh_ or _context.cmd_ script. This is optional as otherwise the TeamCity agents will load plugins by themselves on first launch.
-  - Build docker images using a coresponding _.cmd_ or _.sh_ script file in [context/generated](context/generated) directory.
+  - Build docker images using a corresponding _.cmd_ or _.sh_ script file in [context/generated](context/generated) directory.
   - Check the docker images by running ```docker-compose up``` in the directories like [checks/windows-local](checks/windows-local) or [checks/linux-local](checks/linux-local).
 - Push all repo changes.
 
