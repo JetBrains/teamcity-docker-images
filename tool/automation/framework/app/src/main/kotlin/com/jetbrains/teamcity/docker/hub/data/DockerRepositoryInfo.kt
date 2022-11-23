@@ -9,9 +9,13 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 class DockerRepositoryInfo {
-    lateinit var images: List<DockerImage>
+    lateinit var images: List<DockerhubImage>
     lateinit var name: String
 
     @SerialName("full_size")
     lateinit var fullSize: String
+
+    // Format: "2022-10-27T18:54:14.359296Z"
+    @SerialName("tag_last_pushed")
+    lateinit var tagLastPushed: String
 }
