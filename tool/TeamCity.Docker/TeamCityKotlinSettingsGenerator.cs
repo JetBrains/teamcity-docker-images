@@ -9,7 +9,6 @@ namespace TeamCity.Docker
     using Generic;
     using IoC;
     using Model;
-    using Constants;
 
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
@@ -40,14 +39,6 @@ namespace TeamCity.Docker
             _nodesDescriptionsFactory = nodesDescriptionFactory ?? throw new ArgumentNullException(nameof(nodesDescriptionFactory));
         }
 
-        /// <summary>
-        /// Generates the following TeamCity Build Configurations (KotlinDSL) responsible for:
-        /// - 1. Build and push to local registry. Name pattern: "PushLocal*.kts".
-        /// - 2. Publishing docker manifests into registry. Name pattern: "PublishHub*.kts".
-        /// - 3. Pushing into Dockerhub. Name pattern: "PushHub*.kts"
-        /// </summary>
-        /// <param> <c>graph</c> - RDF graph containing description of target TeamCity build chain. <param>
-        /// 
         public void Generate(IGraph<IArtifact, Dependency> graph)
         {
             if (graph == null) throw new ArgumentNullException(nameof(graph));
@@ -144,23 +135,14 @@ namespace TeamCity.Docker
                     group image by tag
                 group grp by grp.Key.ToLowerInvariant() == "latest" ? "latest" : "version";
 
-
             foreach (var group in publishOnHubGroups)
             {
-                string publishToDockerhubBuildId = $"publish_hub_{NormalizeName(group.Key)}";
-                publishOnHubBuildTypes.Add(publishToDockerhubBuildId);
-                graph.TryAddNode(AddFile(publishToDockerhubBuildId,CreateManifestBuildConfiguration(publishToDockerhubBuildId, 
-                                                                        DeployRepositoryName, $"Publish as {group.Key}",
-                                                                        group.ToList(), string.Empty, false, 
-                                                                        pushOnHubBuildTypes.ToArray())), out _);
+                var buildTypeId = $"publish_hub_{NormalizeName(group.Key)}";
+                publishOnHubBuildTypes.Add(buildTypeId);
+                graph.TryAddNode(AddFile(buildTypeId, CreateManifestBuildConfiguration(buildTypeId, DeployRepositoryName, $"Publish as {group.Key}", group.ToList(), string.Empty, false, pushOnHubBuildTypes.ToArray())), out _);
             }
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
-
-            // -- post-push docker image validation
-            const string validationBuildTypeId = "image_validation";
-            graph.TryAddNode(AddFile(validationBuildTypeId, CreateImageValidationConfig(validationBuildTypeId, allImages)), out _);
-
 
             // Local project
             // ReSharper disable once UseObjectOrCollectionInitializer
@@ -190,19 +172,10 @@ namespace TeamCity.Docker
             lines.Clear();
         }
 
-        /// <summary>
-        /// Adds imports on top of the Build Configuration (Kotlin DSL) file.
-        /// </summary>
-        /// <param name="fileName"> target KotlinDSL file </param>
-        /// <param name="lines"> import lines to be added. Please, check method's body to see pre-defined importing packages. </param>
-        /// <returns></returns>
         private FileArtifact AddFile(string fileName, IEnumerable<string> lines)
         {
             var curLines = new List<string>
             {
-                "// NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...",
-                "// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... ",
-                "// ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.",
                 "package generated",
                 string.Empty,
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.*",
@@ -215,17 +188,6 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
                 "import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo",
-                // Failure Conditions
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText",
-                // -- Validation is done via Kotlin Script located within file on agent
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile",
-                // -- please, import all triggers
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
-
                 string.Empty
             };
             // ReSharper disable once StringLiteralTypo
@@ -260,14 +222,6 @@ namespace TeamCity.Docker
             }
         }
 
-        /// <summary>
-        /// Creates KotlinDSL's TeamCity build configuration for the creation and uploading of TeamCity's Docker images.
-        /// </summary>
-        /// <param name="buildTypeId">ID of build configuration within TeamCity</param>
-        /// <param name="platform">target platform for the images (e.g. specific distributive of Linux, Windows)</param>
-        /// <param name="allImages">list of Docker images</param>
-        /// <param name="buildBuildTypes">types of TeamCity builds (e.g. publish_local - the naming is up to user)</param>
-        /// <returns></returns>
         private IEnumerable<string> CreatePushBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
         {
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
@@ -285,19 +239,19 @@ namespace TeamCity.Docker
                 var repoTag = $"{BuildRepositoryName}{repo}";
                 foreach (var pullCommand in CreatePullCommand(repoTag, repo))
                 {
-                    yield return $"\t{pullCommand}";
+                    yield return pullCommand;
                 }
 
                 var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
                 foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, repo))
                 {
-                    yield return $"\t{tagCommand}";
+                    yield return tagCommand;
                 }
 
                 foreach (var pushCommand in CreatePushCommand($"{newRepo}", repo, tag))
                 {
-                    yield return $"\t{pushCommand}";
+                    yield return pushCommand;
                 }
             }
 
@@ -310,26 +264,26 @@ namespace TeamCity.Docker
             {
                 foreach (var feature in CreateFreeDiskSpaceFeature(weight))
                 {
-                    yield return $"\t{feature}";
+                    yield return feature;
                 }
             }
 
             foreach (var feature in CreateDockerFeature())
             {
-                yield return $"\t{feature}";
+                yield return feature;
             }
 
             // ReSharper disable once StringLiteralTypo
             foreach (var feature in CreateSwabraFeature())
             {
-                yield return $"\t{feature}";
+                yield return feature;
             }
 
             yield return "}";
 
             foreach (var param in CreateSpaceParams(weight))
             {
-                yield return $"\t{param}";
+                yield return param;
             }
 
             var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
@@ -340,76 +294,13 @@ namespace TeamCity.Docker
 
             foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, null))
             {
-                yield return $"\t{dependencies}";
+                yield return dependencies;
             }
 
             yield return "})";
             yield return string.Empty;
         }
 
-
-        /// <summary>
-        /// Generates Kotlin DSL file with build configuration for post-push Docker image check.
-        /// A post-push validation build had been done for the purpose of lower cost for failure within build chain.
-        /// </summary>
-        /// <param name="buildTypeId">Identifier the the creating build configuration.</param>
-        /// <param name="allImages">Images that will be checked in context of build configuration.</param>
-        private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages) {
-            
-
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
-            yield return "\t name = \"Validation (post-push) of Docker images\"";
-            yield return $"\t {_buildNumberPattern}";
-
-
-            yield return "steps {";
-            foreach (var image in allImages)
-            {
-                // docker pull
-                // -- we use "new repo" since the original value is not distinguishable (e.g. linux-EAP)
-                var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
-                var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
-                
-                foreach (var verificationScriptCallStep in CreateImageVerificationStep(newRepoTag))
-                {
-                    // generate verification call for each of the images
-                    yield return $"\t{verificationScriptCallStep}";
-                }
-            }
-            yield return "}";
-
-            foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
-                yield return $"\t{failureCondition}";
-            }
-
-            foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.publish_hub_version.id", true)) {
-                yield return $"\t{trigger}";
-            }
-
-            // -- depends on Docker image build.
-
-            string[] imageValidationDependencyIds = { "TC_Trunk_DockerImages_push_hub_windows", "TC_Trunk_DockerImages_push_hub_linux"};
-            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(imageValidationDependencyIds))
-            {
-                yield return $"\t{dependencies}";
-            }
-
-
-            yield return "})";
-            yield return string.Empty;
-        }
-
-        /// <summary>
-        /// Generates TeamCity build configuration (Kotlin DSL) for publishing of Docker image manifests.
-        /// </summary>
-        /// <param name="buildTypeId">creating build ID</param>
-        /// <param name="repositoryName">target repository for image publishing</param>
-        /// <param name="name">build name</param>
-        /// <param name="images">list of Docker images</param>
-        /// <param name="imagePostfix">postfix that should be appended to the tags of all images</param>
-        /// <param name="onStaging">indicates if the build is being created for staging purposes</param>
-        /// <param name="dependencies">dependencies of the build (other TeamCity build configuration, if any)</param>
         private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
             yield return $"object {buildTypeId}: BuildType(";
@@ -423,7 +314,7 @@ namespace TeamCity.Docker
             yield return "steps {";
             foreach (var line in AddScript("remove manifests", RemoveManifestsScript))
             {
-                yield return $"\t{line}";
+                yield return line;
             }
 
             foreach (var group in images.OrderBy(i => i.Key))
@@ -578,49 +469,37 @@ namespace TeamCity.Docker
             }
 
             var pauseStr = onPause ? "ON PAUSE " : "";
-            yield return $"\t object {buildTypeId} : BuildType({{";
-            yield return $"\t name = \"{pauseStr}Build and push {name}\"";
-            yield return $"\t {_buildNumberPattern}";
-            yield return $"\t description  = \"{description}\"";
+            yield return $"object {buildTypeId} : BuildType({{";
+            yield return $"name = \"{pauseStr}Build and push {name}\"";
+            yield return _buildNumberPattern;
+            yield return $"description  = \"{description}\"";
 
             if (!onPause)
             {
-                yield return "\t vcs {";
-                yield return "\t\t root(TeamCityDockerImagesRepo)";
-                yield return "\t }";
-
-
-                yield return "\n steps {";
+                yield return "vcs {root(TeamCityDockerImagesRepo)}";
+                yield return "steps {";
 
                 // docker pull
                 foreach (var command in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
                 {
-                    yield return $"\t{command}";
+                    yield return command;
                 }
 
                 // docker build
                 foreach (var command in images.SelectMany(image => CreatePrepareContextCommand(image).Concat(CreateBuildCommand(image))))
                 {
-                    yield return $"\t{command}";
+                    yield return command;
                 }
 
-                // docker image tag & verification
+                // docker image tag
                 foreach (var image in images)
                 {
                     if (image.File.Tags.Any())
                     {
                         var tag = image.File.Tags.First();
-
-                        // 1. "tag" command
                         foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}", $"{image.File.ImageId}:{tag}"))
                         {
-                            yield return $"\t{tagCommand}";
-                        }
-
-                        // 2. verification. It's done after re-tag to make the image easily distinguishable
-                        foreach (var tagCommand in CreateImageVerificationStep($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}"))
-                        {
-                            yield return $"\t{tagCommand}";
+                            yield return tagCommand;
                         }
                     }
                 }
@@ -631,7 +510,7 @@ namespace TeamCity.Docker
                     var tag = image.File.Tags.First();
                     foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}", $"{image.File.ImageId}:{tag}", tag))
                     {
-                        yield return $"\t{pushCommand}";
+                        yield return pushCommand;
                     }
                 }
 
@@ -643,37 +522,37 @@ namespace TeamCity.Docker
                 {
                     foreach (var feature in CreateFreeDiskSpaceFeature(weight))
                     {
-                        yield return $"\t{feature}";
+                        yield return feature;
                     }
                 }
 
                 foreach (var feature in CreateDockerFeature())
                 {
-                    yield return $"\t{feature}";
+                    yield return feature;
                 }
 
                 // ReSharper disable once StringLiteralTypo
                 foreach (var feature in CreateSwabraFeature())
                 {
-                    yield return $"\t{feature}";
+                    yield return feature;
                 }
 
                 yield return "}";
 
                 foreach (var dependencies in CreateArtifactsDependencies())
                 {
-                    yield return $"\t{dependencies}";
+                    yield return dependencies;
                 }
 
                 foreach (var param in CreateSpaceParams(weight))
                 {
-                    yield return $"\t{param}";
+                    yield return param;
                 }
                 
                 var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
                 foreach (var lines in CreateDockerRequirements(requirements))
                 {
-                    yield return $"\t{lines}";
+                    yield return lines;
                 }
             }
 
@@ -686,7 +565,7 @@ namespace TeamCity.Docker
             if (weight > 0)
             {
                 yield return "params {";
-                yield return $"\t param(\"system.teamcity.agent.ensure.free.space\", \"{weight}gb\")";
+                yield return $"param(\"system.teamcity.agent.ensure.free.space\", \"{weight}gb\")";
                 yield return "}";
             }
         }
@@ -696,30 +575,26 @@ namespace TeamCity.Docker
             yield return "dependencies {";
             if (onStaging != null)
             {
-                yield return $"\t snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
+                yield return $"snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
                 if (onStaging == true)
                 {
-                    yield return "{\n \t onDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
+                    yield return "{\nonDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
                 }
                 else
                 {
-                    yield return "{\n \t reuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
+                    yield return "{\nreuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
                 }
             }
 
             foreach (var buildTypeId in dependencies.OrderBy(i => i))
             {
-                yield return $"\t snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
-                yield return "{\n \t onDependencyFailure =  FailureAction.FAIL_TO_START\n}";
+                yield return $"snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
+                yield return "{\nonDependencyFailure =  FailureAction.FAIL_TO_START\n}";
             }
 
             yield return "}";
         }
 
-        /// <summary>
-        /// Generates dependencies {...} block of Kotlin DSL pipeline. Within this scope, ...
-        /// ... it includes dependencies from builds responsible for the creation of Docker images.
-        /// <returns></returns>
         private IEnumerable<string> CreateArtifactsDependencies()
         {
             if(string.IsNullOrWhiteSpace(_options.TeamCityBuildConfigurationId))
@@ -728,95 +603,12 @@ namespace TeamCity.Docker
             }
 
             yield return "dependencies {";
-            yield return $"\t dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
-            
-            yield return "\t\t snapshot {";
-            yield return "\t\t\t onDependencyFailure = FailureAction.IGNORE";
-            yield return "\t\t\t reuseBuilds = ReuseBuilds.ANY";
-            yield return "\t\t }";
-
-            yield return "\t\t artifacts {";
-            yield return $"\t\t\t artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
-            yield return "\t\t }";
-            yield return "\t }";
+            yield return $"dependency(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\")) {{";
+            yield return "snapshot { onDependencyFailure = FailureAction.IGNORE\nreuseBuilds = ReuseBuilds.ANY }";
+            yield return "artifacts {";
+            yield return $"artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
             yield return "}";
-        }
-
-        /// <summary>
-        /// Creates dependencies {...} block for build configuration responsible for post-push ...
-        /// ... validation of Docker images.
-        /// <param name="dependencyIds">IDs of dependant build configuration</param> 
-        /// <returns>none</returns>
-        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string[] dependencyIds) {
-            
-            if (dependencyIds == null || dependencyIds.Length == 0) {
-                // dependency IDs must be specified, otherwise the block wouldn't be useful
-                yield break;
-            }
-
-           yield return "dependencies {";
-
-            foreach (string dependantBuildId in dependencyIds)
-            {
-                yield return $"\t dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
-                // -- build problem is reported, but not termeinated, as some of the dependencies might successfully ...
-                // -- ... create images.
-                yield return "\t\t snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }";
-                // dependency {...}
-                yield return "\t }";
-            }
-            
-            // dependencies {...}
             yield return "}";
-        }
-
-        /// <summary>
-        /// Creates failure conditions that terminated the build if an error message with given pattern had occurred.
-        /// </summary>
-        /// <param name="pattern">Error pattern.</param>
-        /// <param name="reportOnlyFirstMatch">Indicates if the steps must continue execution even if after failure.</param> 
-        /// <returns></returns>
-        private IEnumerable<string> CreateFailureConditionRegExpPattern(string pattern, bool reportOnlyFirstMatch = false) {
-            if (pattern == null) {
-                yield break;
-            }
-
-            yield return "failureConditions {";
-
-            yield return "\t failOnText {";
-            yield return $"\t\t conditionType = {TeamCityConstants.Conditions.REGEXP}";
-            yield return $"\t\t pattern = \"{pattern}\"";
-            yield return "\t\t // allows the steps to continue running even in case of one problem";
-            yield return $"\t\t reportOnlyFirstMatch = {reportOnlyFirstMatch.ToString().ToLower()}";
-            // end of "failOnText{...}
-            yield return "\t }";
-
-            // end of failureConditions {...}
-            yield return "}";
-        }
-
-        /// <summary>
-        /// Create build configuration trigger dependant on finished build. 
-        /// </summary>
-        /// <param name="id">target build ID</param>
-        /// <param name="useEnclosureForId">indicates if enclosure (${...}) should be used for build ID</param>
-        /// <returns></returns>
-        private IEnumerable<string> CreateFinishBuildTrigger(string id, Boolean useEnclosureForId = false) {
-            if (id == null || id.Length == 0) {
-                yield break;
-            }
-
-            yield return "triggers {";
-
-            yield return "\t finishBuildTrigger {";
-            // -- not setting "ID" - that'd be auto-generated
-            var buildId = useEnclosureForId ? ("${" + $"{id}" + "}") : id;
-            yield return $"\t\t buildType = \"{buildId}\"";
-
-            // closing 'finishBuildTrigger {...}' 
-            yield return "\t }";
-
-            // closing triggers {...}
             yield return "}";
         }
 
@@ -825,7 +617,7 @@ namespace TeamCity.Docker
         {
             // ReSharper disable once StringLiteralTypo
             yield return "swabra {";
-            yield return "\t forceCleanCheckout = true";
+            yield return "forceCleanCheckout = true";
             yield return "}";
         }
 
@@ -837,34 +629,28 @@ namespace TeamCity.Docker
             }
 
             yield return "dockerSupport {";
-            yield return "\t cleanupPushedImages = true";
-            yield return "\t loginToRegistry = on {";
-            yield return $"\t\t dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
-            yield return "\t }";
+            yield return "cleanupPushedImages = true";
+            yield return "loginToRegistry = on {";
+            yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
+            yield return "}";
             yield return "}";
         }
 
         private static IEnumerable<string> CreateFreeDiskSpaceFeature(int weight)
         {
             yield return "freeDiskSpace {";
-            yield return $"\t requiredSpace = \"{weight}gb\"";
-            yield return "\t failBuild = true";
+            yield return $"requiredSpace = \"{weight}gb\"";
+            yield return "failBuild = true";
             yield return "}";
         }
 
-        /// <summary>
-        /// Constructs Kotlin DSL's dockerCommand {...} for image push.
-        /// </summary>
-        /// <param name="imageId">Docker image ID</param>
-        /// <param name="name">step name</param>
-        /// <param name="tags">target Docker image tags</param>
         private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
-            yield return $"\t name = \"push {name}\"";
-            yield return "\t commandType = push {";
+            yield return $"name = \"push {name}\"";
+            yield return "commandType = push {";
 
-            yield return "\t\t namesAndTags = \"\"\"";
+            yield return "namesAndTags = \"\"\"";
             foreach (var tag in tags)
             {
                 yield return $"{imageId}:{tag}";
@@ -872,28 +658,22 @@ namespace TeamCity.Docker
 
             yield return "\"\"\".trimIndent()";
             
-            yield return "\t removeImageAfterPush = false";
+            yield return "removeImageAfterPush = false";
 
-            yield return "\t }";
+            yield return "}";
             yield return "}";
 
             yield return string.Empty;
         }
 
-        /// <summary>
-        /// Constructs Kotlin DSL's dockerCommand {...} for image re-tag.
-        /// </summary>
-        /// <param name="repoTag">original Docker image tag</param>
-        /// <param name="newRepoTag"> target Docker image tag</param>
-        /// <param name="name">step name</param>
         private IEnumerable<string> CreateTagCommand(string repoTag, string newRepoTag, string name)
         {
             yield return "dockerCommand {";
-            yield return $"\t name = \"tag {name}\"";
-            yield return "\t commandType = other {";
+            yield return $"name = \"tag {name}\"";
+            yield return "commandType = other {";
 
-            yield return "\t subCommand = \"tag\"";
-            yield return $"\t commandArgs = \"{repoTag} {newRepoTag}\"";
+            yield return "subCommand = \"tag\"";
+            yield return $"commandArgs = \"{repoTag} {newRepoTag}\"";
 
             yield return "}";
             yield return "}";
@@ -901,17 +681,12 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        /// <summary>
-        /// Constructs Kotlin DSL's step for preparation to dockerCommand {...}, such as ...
-        /// ... the creation of .dockerignore, append of the entries into it.
-        /// </summary>
-        /// <param name="image">info about Docker image</param>
         private IEnumerable<string> CreatePrepareContextCommand(Image image)
         {
             var tag = image.File.Tags.First();
             yield return "script {";
-            yield return $"\t name = \"context {image.File.ImageId}:{tag}\"";
-            yield return "\t scriptContent = \"\"\"";
+            yield return $"name = \"context {image.File.ImageId}:{tag}\"";
+            yield return "scriptContent = \"\"\"";
 
             // ReSharper disable once IdentifierTypo
             // ReSharper disable once StringLiteralTypo
@@ -928,25 +703,21 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        /// <summary>
-        /// Constructs Kotlin DSL's dockerCommand {...} for image build.
-        /// </summary>
-        /// <param name="image">info about Docker image</param>
         private IEnumerable<string> CreateBuildCommand(Image image)
         {
             var tag = image.File.Tags.First();
             yield return "dockerCommand {";
-            yield return $"\t name = \"build {image.File.ImageId}:{tag}\"";
-            yield return "\t commandType = build {";
+            yield return $"name = \"build {image.File.ImageId}:{tag}\"";
+            yield return "commandType = build {";
             
-            yield return "\t\t source = file {";
-            yield return $"\t\t path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
-            yield return "\t\t }";
+            yield return "source = file {";
+            yield return $"path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
+            yield return "}";
 
-            yield return $"\t contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
-            yield return "\t commandArgs = \"--no-cache\"";
+            yield return $"contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
+            yield return "commandArgs = \"--no-cache\"";
             
-            yield return "\t namesAndTags = \"\"\"";
+            yield return "namesAndTags = \"\"\"";
             yield return $"{image.File.ImageId}:{tag}";
             yield return "\"\"\".trimIndent()";
 
@@ -957,33 +728,16 @@ namespace TeamCity.Docker
             yield return string.Empty;
         }
 
-        /// <summary>
-        /// Constructs Kotlin DSL's Docker image verification step.
-        /// <param name="imageFqdn">Docker mage< fully-qualified domain name/param>
-        private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
-            yield return "kotlinFile {";
-            yield return $"\t name = \"Image Verification - {imageFqdn}\"";
-            yield return "\t path = \"tool/automation/ImageValidation.kts\"";
-            yield return $"\t arguments = \"{imageFqdn}\"";
-            yield return "}";
-            yield return string.Empty;
-        }
-
-        /// <summary>
-        /// Constructs Kotlin DSL's dockerCommand {...} for Docker Image pull.
-        /// </summary>
-        /// <param name="repoTag"> image's registry </param>
-        /// <param name="name">image's tag</param>
         private static IEnumerable<string> CreatePullCommand(string repoTag, string name)
         {
             yield return "dockerCommand {";
-            yield return $"\t name = \"pull {name}\"";
-            yield return "\t commandType = other {";
+            yield return $"name = \"pull {name}\"";
+            yield return "commandType = other {";
 
-            yield return $"\t\t subCommand = \"pull\"";
-            yield return $"\t\t commandArgs = \"{repoTag}\"";
+            yield return "subCommand = \"pull\"";
+            yield return $"commandArgs = \"{repoTag}\"";
 
-            yield return "\t }";
+            yield return "}";
             yield return "}";
 
             yield return string.Empty;
@@ -992,11 +746,11 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateDockerCommand(string name, string command, IEnumerable<string> args)
         {
             yield return "dockerCommand {";
-            yield return $"\t name = \"{name}\"";
-            yield return "\t commandType = other {";
-            yield return $"\t subCommand = \"{command}\"";
-            yield return $"\t\t commandArgs = \"{string.Join(" ", args)}\"";
-            yield return "\t }";
+            yield return $"name = \"{name}\"";
+            yield return "commandType = other {";
+            yield return $"subCommand = \"{command}\"";
+            yield return $"commandArgs = \"{string.Join(" ", args)}\"";
+            yield return "}";
             yield return "}";
         }
 
@@ -1010,8 +764,8 @@ namespace TeamCity.Docker
         private static IEnumerable<string> AddScript(string name, string script)
         {
             yield return "script {";
-            yield return $"\t name = \"{name}\"";
-            yield return $"\t scriptContent = \"{script}\"";
+            yield return $"name = \"{name}\"";
+            yield return $"scriptContent = \"{script}\"";
             yield return "}";
         }
     }
