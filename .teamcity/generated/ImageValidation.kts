@@ -56,7 +56,6 @@ object image_validation: BuildType({
 					tasks = "clean build run --args=\"validate  $imageFqdn\""
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
-					enableStacktrace = true
 					jdkHome = "%env.JDK_11_x64%"
 					executionMode = BuildStep.ExecutionMode.ALWAYS
 				}
@@ -65,18 +64,18 @@ object image_validation: BuildType({
 
 		failureConditions {
 			//	Build is considered to be failed if the size of any image had changed by more than 5%
-            images.forEach {
-                failOnMetricChange {
-                    // -- target metric
-                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-                    threshold = 5
-                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-                    compareTo = build {
-                        buildRule = lastSuccessful()
-                    }
-                }
-            }
+//            images.forEach {
+//                failOnMetricChange {
+//                    // -- target metric
+//                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
+//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
+//                    threshold = 5
+//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
+//                    compareTo = build {
+//                        buildRule = lastSuccessful()
+//                    }
+//                }
+//            }
 
 			// Failed in case the validation via framework didn't succeed
 			failOnText {
