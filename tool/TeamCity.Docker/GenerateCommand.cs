@@ -1,4 +1,4 @@
-// ReSharper disable ClassNeverInstantiated.Global
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
     using System;
@@ -38,10 +38,6 @@ namespace TeamCity.Docker
             _generators = generators ?? throw new ArgumentNullException(nameof(generators));
         }
 
-        /// <summary>
-        /// Generates Dockerfiles.
-        /// </summary>
-        /// <returns>Completed task in case succeeded.</returns>
         public Task<Result> Run()
         {
             var templates = _configurationExplorer.Explore(_options.SourcePath, _options.ConfigurationFiles);
@@ -50,7 +46,6 @@ namespace TeamCity.Docker
                 return Task.FromResult(Result.Error);
             }
 
-            // convert configuration parameters into graph for further processing
             var graph = _buildGraphFactory.Create(templates.Value);
             if (graph.State == Result.Error)
             {
