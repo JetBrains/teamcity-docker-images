@@ -15,16 +15,19 @@ import java.time.Instant
 class DockerImageValidationUtilities {
     companion object {
 
-        fun printImageSizes(imageFqdn: String, registryUri: String) {
+        /**
+         * Retrieves available images from Dockerhub, sorts them by time and print out the trend.
+         * @param imageFqdn domain name of the image
+         * @param registryUri URI of Docker registry
+         */
+        fun printImageSizeTrend(imageFqdn: String, registryUri: String) {
             val registryAccessor = DockerRegistryAccessor(registryUri)
             val image = DockerImage(imageFqdn)
-            // -- get last 100 images
             val repositoryInfo = registryAccessor.getRepositoryInfo(image, 400)
             if (repositoryInfo == null) {
                 print("Unable to find images for $imageFqdn")
                 return
             }
-
             val sortedImages = repositoryInfo.results.sortedBy { Instant.parse(it.tagLastPushed) }
             sortedImages.forEach {
                 println("${image.repo},${it.name},${it.tagLastPushed},${it.fullSize}")

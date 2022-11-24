@@ -3,17 +3,10 @@
  */
 package com.jetbrains.teamcity
 
-import com.jetbrains.teamcity.common.MathUtils
-import java.lang.IllegalArgumentException
 import com.jetbrains.teamcity.common.constants.ValidationConstants
-import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
-import com.jetbrains.teamcity.docker.hub.DockerRegistryAccessor
-import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
 import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
-import com.jetbrains.teamcity.teamcity.TeamCityUtils
 import kotlinx.cli.*
-import java.lang.IllegalStateException
 
 
 /**
@@ -47,18 +40,19 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
             // throw exception in order to handle it within upstream DSL
             throw DockerImageValidationException("Validation had failed for ${originalImageName}")
         }
-
-
     }
 }
 
-class PrintImageSize: Subcommand("get-size-trend", "Print out sizes of given image.") {
+/**
+ * Print out the trend for image sizes.
+ */
+class PrimtImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
     private val imageName by argument(ArgType.String, description = "Image").vararg()
 
     override fun execute() {
         val image = imageName[0]
         val registryUri = "https://hub.docker.com/v2"
-        DockerImageValidationUtilities.printImageSizes(image, registryUri)
+        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri)
     }
 }
 
@@ -68,7 +62,7 @@ fun main(args: Array<String>) {
     val parser = ArgParser("automation")
     // -- add subcommands
     parser.subcommands(ValidateImage())
-    parser.subcommands(PrintImageSize())
+    parser.subcommands(PrimtImageSizeTrend())
 
     // Splitting arguments into a list as the "--args" options might be treated as a ...
     // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...
