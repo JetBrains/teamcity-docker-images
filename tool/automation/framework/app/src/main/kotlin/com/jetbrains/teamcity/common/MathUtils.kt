@@ -21,11 +21,13 @@ class MathUtils {
 
         /**
          * Rounds decimal number down to 2 digits after floating point.
+         * @param number original number
+         * @return rounded number
          */
         fun roundOffDecimal(number: Float): Double? {
-            val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
-            return df.format(number).toDouble()
+            val digitalFormat = DecimalFormat("#.##")
+            digitalFormat.roundingMode = RoundingMode.FLOOR
+            return digitalFormat.format(number).toDouble()
         }
     }
 }
