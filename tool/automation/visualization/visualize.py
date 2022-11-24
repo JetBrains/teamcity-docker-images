@@ -18,10 +18,9 @@ class ImageStatistics:
         except:
             print(f"Date doesn't match the expected ISO pattern - yyyy-MM-dd'T'HH:mm:ss.SSSXXX. Assinging the provided one.")
             self.date = date
-        # PEP 237: Essentially, long renamed to int. That is, there is only one built-in integral type, named int; but it behaves mostly like the old long type.
-        # Convert bytes to MBs
-        try:
 
+        try:
+            # As specified in PEP 237, "long" had been "renamed" to "int", thus overflow is not expected.
             self.size = int(size) / 1000000
         except ValueError:
             raise ValueError(f"Incorrect, non-numeric value had been specified as Docker image size: {self.size}")
@@ -80,7 +79,7 @@ def get_image_statistics_file_file(file_path: str) -> dict:
     :param file_path: CSV file used as a datasource
     :returns: dictionary <image version> - [ImageStatistics]
     """
-    data = defaultdict(list)
+    data = defaultdict(defaultdict)
     with open(file_path) as file:
         reader_obj = csv.reader(file)
         for line in reader_obj:
@@ -88,37 +87,48 @@ def get_image_statistics_file_file(file_path: str) -> dict:
             if not image_statistics:
                 continue
             # <tag> - [statistic1, statistic2, ... , statistic N]
-            data[image_statistics.get_target_release_platform()].append(image_statistics)
+            retrieved_data = data.get(image_statistics.repo, defaultdict())
+            retrieved_data_list = retrieved_data.get(image_statistics.get_target_release_platform(), [])
+            retrieved_data_list.append(image_statistics)
+            data[image_statistics.repo][image_statistics.get_target_release_platform()] = retrieved_data_list
     return data
 
 
-def plot_image_statistics_from_data(repo: str, image_size_data: dict) -> None:
-    fig, ax = plt.subplots()
-    ax.ticklabel_format(useOffset=False)
-
-    for image_tag, image_statistics in image_size_data.items():
-        if image_tag == 'latest':
-            continue
-        x_values = []
-        y_values = []
-        for stat in image_statistics:
-            if not stat or stat.is_latest():
+def plot_image_statistics_from_data(image_size_data: dict) -> None:
+    """
+    Plots charts of image statistics for each TeamCity repository.
+    :param image_size_data: data encapsulating information about statistics of TeamCity Docker ...
+    ... images located at different repositories: <repository-<tag, [statistics]>
+    """
+    # Plot chart for each repotisory (server, agent, etc.)
+    for repo, repo_info in image_size_data.items():
+        # Plot the chart for specific repository, e.g. "jetbrains/teamcity-server"
+        fig, ax = plt.subplots()
+        ax.ticklabel_format(useOffset=False)
+        print(f"repo info: {repo_info}")
+        for image_tag, image_statistics in repo_info.items():
+            if image_tag == 'latest':
                 continue
-            # we remove year from tag so mltiple images are displayed on the same chart 
-            x_values.append(stat.get_release_version())
-            y_values.append(stat.size)
-        ax.plot(x_values, y_values, marker='o', label=image_tag)
+            x_values = []
+            y_values = []
+            for stat in image_statistics:
+                print(stat)
+                if not stat or stat.is_latest():
+                    continue
+                # we remove year from tag so mltiple images are displayed on the same chart 
+                x_values.append(stat.get_release_version())
+                y_values.append(stat.size)
+            ax.plot(x_values, y_values, marker='o', label=image_tag)
+            fig.autofmt_xdate(bottom=0.2, rotation=10, ha='right')
 
-    fig.autofmt_xdate(bottom=0.2, rotation=10, ha='right')
-
-    plt.title(f"Image Size Trend \n {repo}")
-    plt.xlabel('Image Version')
-    plt.xticks(rotation=50)
-    ax.grid(True)
-    plt.ylabel('Size, MBs')
-    plt.legend(loc='upper left') 
-    fig.tight_layout()
-    plt.show()
+        plt.title(f"Image Size Trend \n {repo}")
+        plt.xlabel('Image Version')
+        plt.xticks(rotation=50)
+        ax.grid(True)
+        plt.ylabel('Size, MBs')
+        plt.legend(loc='upper left') 
+        fig.tight_layout()
+        plt.show()
 
 
 def main(argv):
@@ -148,7 +158,8 @@ def main(argv):
         filepath = f"{source_directory}/{filename_decoded}"
 
         image_statistics_from_file_dict = get_image_statistics_file_file(filepath)
-        plot_image_statistics_from_data('jetbrains/teamcity', image_statistics_from_file_dict)
+        plot_image_statistics_from_data(image_statistics_from_file_dict)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
+
