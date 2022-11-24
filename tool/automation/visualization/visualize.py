@@ -1,27 +1,36 @@
 import os, sys, getopt
 from argparse import ArgumentError
 from collections import defaultdict
-from matplotlib.collections import PolyCollection
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 import csv
 
 
 class ImageStatistics:
     """
-    Represents statistics for Docker Image.
+    Represents statistics of particular Docker Image reported by ...
+    ... automation framework.
     """
     def __init__(self, repo: str, tag: str, date: str, size: str):
         self.repo = repo
         self.tag = tag
-        self.date = date.split('T')[0]
+        try:
+            self.date = date.split('T')[0]
+        except:
+            print(f"Date doesn't match the expected ISO pattern - yyyy-MM-dd'T'HH:mm:ss.SSSXXX. Assinging the provided one.")
+            self.date = date
         # PEP 237: Essentially, long renamed to int. That is, there is only one built-in integral type, named int; but it behaves mostly like the old long type.
         # Convert bytes to MBs
-        self.size = int(size) / 1000000
+        try:
 
-    def get_tag_no_year(self) -> str:
+            self.size = int(size) / 1000000
+        except ValueError:
+            raise ValueError(f"Incorrect, non-numeric value had been specified as Docker image size: {self.size}")
+
+    
+    def get_target_release_platform(self) -> str:
         """
-        Returns TeamCity version within the year.
+        Returns target platform for TeamCity Docker image, without the specified prefix - ...
+        ... usually the year of release. E.g.: "2022.04.1-linux" -> "linux"
         """
         try:
             return self.tag.split('-', 1)[1]
@@ -30,17 +39,22 @@ class ImageStatistics:
             return f"release-without-tag"
 
         
-    def get_release_year(self) -> str:
+    def get_release_version(self) -> str:
         """
-        Returns TeamCity version within the year.
+        Returns version of TeamCity release.
+        E.g.: "2022.04.1-linux" -> "2022.04.1"
         """
         try:
             return self.tag.split('-', 1)[0]
         except:
             print(f"Unable to parse {self.tag}")
+            return self.tag
     
     
     def is_latest(self) -> bool:
+        """
+        Determines if release matches "latest" image within Dockerhub.
+        """
         return self.tag.__contains__('latest')
 
             
@@ -48,9 +62,11 @@ class ImageStatistics:
         return f"{self.date}-{self.repo}-{self.tag}-{self.size}"
 
 
-def __get_statistics_from_line(csv_line_elements: list) -> ImageStatistics:
+def get_image_statistics_from_csv_line(csv_line_elements: list) -> ImageStatistics:
     """
-    Parses a specific line of log output into ImageStatistics instance.
+    Constructs Docker Image statistics out of provided CSV line.
+    :param csv_line_elements: - CSV line values split by chosen separator
+    :returns: ImageStatistics instance if succeed, otherwise None
     """
     # 4 - minimal amount of elements within valuable payload
     if len(csv_line_elements) < 4:
@@ -58,58 +74,51 @@ def __get_statistics_from_line(csv_line_elements: list) -> ImageStatistics:
     return ImageStatistics(repo=csv_line_elements[0],tag=csv_line_elements[1], date=csv_line_elements[2], size=csv_line_elements[3])
 
 
-# Return file path
-def __get_image_statistics(file_path: str) -> dict:
+def get_image_statistics_file_file(file_path: str) -> dict:
     """
     Returns collection of ImageStatistics instances parsed from given file path.
+    :param file_path: CSV file used as a datasource
+    :returns: dictionary <image version> - [ImageStatistics]
     """
     data = defaultdict(list)
     with open(file_path) as file:
         reader_obj = csv.reader(file)
         for line in reader_obj:
-            image_statistics = __get_statistics_from_line(line)
+            image_statistics = get_image_statistics_from_csv_line(line)
             if not image_statistics:
                 continue
             # <tag> - [statistic1, statistic2, ... , statistic N]
-            data[image_statistics.get_tag_no_year()].append(image_statistics)
-            # data.append(__get_statistics_from_line(line)) 
+            data[image_statistics.get_target_release_platform()].append(image_statistics)
     return data
 
 
-def plot_image_sizes(image_size_data: dict) -> None:
- 
+def plot_image_statistics_from_data(repo: str, image_size_data: dict) -> None:
     fig, ax = plt.subplots()
     ax.ticklabel_format(useOffset=False)
-    fig, ax = plt.subplots()
 
-
-    # TODO: Prevent situation when multiple repos are used
-    image_repo = ''
     for image_tag, image_statistics in image_size_data.items():
         if image_tag == 'latest':
             continue
-        image_repo = image_statistics[0].repo
         x_values = []
         y_values = []
         for stat in image_statistics:
             if not stat or stat.is_latest():
                 continue
             # we remove year from tag so mltiple images are displayed on the same chart 
-            x_values.append(stat.get_release_year())
+            x_values.append(stat.get_release_version())
             y_values.append(stat.size)
         ax.plot(x_values, y_values, marker='o', label=image_tag)
 
     fig.autofmt_xdate(bottom=0.2, rotation=10, ha='right')
 
-    plt.title(f"Image Size Trend \n {image_repo}")
-    plt.xlabel('Tag')
+    plt.title(f"Image Size Trend \n {repo}")
+    plt.xlabel('Image Version')
     plt.xticks(rotation=50)
     ax.grid(True)
     plt.ylabel('Size, MBs')
     plt.legend(loc='upper left') 
     fig.tight_layout()
     plt.show()
-
 
 
 def main(argv):
@@ -138,8 +147,8 @@ def main(argv):
         filename_decoded = file.decode('utf-8')
         filepath = f"{source_directory}/{filename_decoded}"
 
-        image_statistics_from_file_dict = __get_image_statistics(filepath)
-        plot_image_sizes(image_statistics_from_file_dict)
+        image_statistics_from_file_dict = get_image_statistics_file_file(filepath)
+        plot_image_statistics_from_data('jetbrains/teamcity', image_statistics_from_file_dict)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
