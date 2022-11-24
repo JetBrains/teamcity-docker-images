@@ -18,10 +18,10 @@ The application could be built using Gradle Wrapper.
 
 ### 3.1 Available Options
 
-| Action     | Parameter                                                                                  | Description                                       |
-|------------|--------------------------------------------------------------------------------------------|---------------------------------------------------|
-| `validate` | - [`String`] `original Docker image` <br/> - [`String`] `(optional) previous Docker image` | Performs the actions of validating Docker images. |
-
+| Action           | Parameter                                                                                  | Description                                                                           |
+|------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `validate`       | - [`String`] `original Docker image` <br/> - [`String`] `(optional) previous Docker image` | Performs the actions of validating Docker images.                                     |
+| `get-size-trend` | - [`String`] `Docker image`                                                                | Print out the trend (CSV) for the size of specified Docker Image using Dockerhub API. |
 
 ### 2.1 TeamCity statistics
 Image size is reported into TeamCity via Service Message using the following pattern: `"SIZE-$currentName"`.
@@ -29,7 +29,7 @@ Please, note that each repository-tag pair might have multiple assosiated images
 * Operating System;
 * Version of Operating System;
 * Architecture;
-Each assosiated image is being validated within the framework.
+Each associated image is being validated within the framework.
 
 ### 2.2 A note on automation's dependencies / assumptions
 
