@@ -16,10 +16,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
 object image_validation: BuildType({
-	// TODO: Change comparison to "-staging"
-	// TODO: THINK ABOUT TOKEN for access to Private Dockerhub repo
-	// TODO: Move autoamtion framework into different repository (Git / Space)
-	// TODO: Fix C# code PR
+
 		name = "Validation of Size Regression - Docker Image (Windows / Linux)"
 		buildNumberPattern="test-%build.counter%"
 
@@ -67,20 +64,6 @@ object image_validation: BuildType({
 		}
 
 		failureConditions {
-			//	Build is considered to be failed if the size of any image had changed by more than 5%
-//            images.forEach {
-//                failOnMetricChange {
-//                    // -- target metric
-//                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                    threshold = 5
-//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                    compareTo = build {
-//                        buildRule = lastSuccessful()
-//                    }
-//                }
-//            }
-
 			// Failed in case the validation via framework didn't succeed
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
@@ -108,12 +91,12 @@ object image_validation: BuildType({
 			}
 		}
 
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//	}
+	dependencies {
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+	}
 })
