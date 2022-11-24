@@ -29,16 +29,16 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         val originalImageName = imageNames[0]
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
-        var imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
+        val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
             "https://hub.docker.com/v2",
             percentageChangeThreshold)
 
-        if (!imagesFailedValidation.isEmpty()) {
+        if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
                 println("Validation failed for ${originalImageName}, OS: ${it.os}, OS version: ${it.osVersion}, architecture: ${it.architecture}")
             }
             // throw exception in order to handle it within upstream DSL
-            throw DockerImageValidationException("Validation had failed for ${originalImageName}")
+            throw DockerImageValidationException("Validation had failed for $originalImageName")
         }
     }
 }
@@ -46,7 +46,7 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 /**
  * Print out the trend for image sizes.
  */
-class PrimtImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
+class PrintImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
     private val imageName by argument(ArgType.String, description = "Image").vararg()
 
     override fun execute() {
@@ -62,7 +62,7 @@ fun main(args: Array<String>) {
     val parser = ArgParser("automation")
     // -- add subcommands
     parser.subcommands(ValidateImage())
-    parser.subcommands(PrimtImageSizeTrend())
+    parser.subcommands(PrintImageSizeTrend())
 
     // Splitting arguments into a list as the "--args" options might be treated as a ...
     // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...
