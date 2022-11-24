@@ -6,6 +6,7 @@ import com.jetbrains.teamcity.docker.hub.data.DockerRegistryImagesInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.lang.Exception
 import java.time.Instant
 
 /**
@@ -75,8 +76,14 @@ class DockerRegistryAccessor {
         var previousImageRepository = registryInfo.results
                                                                 .filter { it -> (it.name != currentImage.tag) }
                                                                 // Remove year from tag, making it comparable
-                                                                // TODO: Handle cases when split would fail
-                                                                .filter { it.name.contains(currentImage.tag.split("-", limit=2)[1]) }
+                                                                .filter {
+                                                                    try {
+                                                                        return@filter it.name.contains(currentImage.tag.split("-", limit=2)[1])
+                                                                    } catch (e: Exception) {
+                                                                        print("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
+                                                                        return@filter false
+                                                                    }
+                                                                }
                                                                 .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
         if (previousImageRepository == null) {
             return null
