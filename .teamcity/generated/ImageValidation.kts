@@ -16,7 +16,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
 object image_validation: BuildType({
-	// TODO: Change name to "Image size validation"
 	// TODO: Change comparison to "-staging"
 	// TODO: THINK ABOUT TOKEN for access to Private Dockerhub repo
 	// TODO: Move autoamtion framework into different repository (Git / Space)

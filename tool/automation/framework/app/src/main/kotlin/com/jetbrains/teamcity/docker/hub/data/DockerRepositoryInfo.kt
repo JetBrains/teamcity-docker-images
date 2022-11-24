@@ -15,8 +15,6 @@ class DockerRepositoryInfo {
     @SerialName("full_size")
     lateinit var fullSize: String
 
-    // TODO: Try to determine if "tag_created" could be fetched
-
     // Format: "2022-10-27T18:54:14.359296Z"
     @SerialName("tag_last_pushed")
     lateinit var tagLastPushed: String

@@ -26,10 +26,9 @@ class DockerImageValidationUtilities {
             }
 
             val sortedImages = repositoryInfo.results.sortedBy { Instant.parse(it.tagLastPushed) }
-            sortedImages
-                    // TODO: Sort by tags
-//                .filter { it.name.contains(image.tag.split("-", limit=2)[1]) }
-                .forEach {  println("${image.repo},${it.name},${it.tagLastPushed},${it.fullSize}") }
+            sortedImages.forEach {
+                println("${image.repo},${it.name},${it.tagLastPushed},${it.fullSize}")
+            }
         }
 
         /**
@@ -69,8 +68,7 @@ class DockerImageValidationUtilities {
                 println("$originalImageFqdn-${assosiatedImage.os}-${assosiatedImage.osVersion}-${assosiatedImage.architecture}: "
                         + "\n\t - Original size: ${assosiatedImage.size} ($originalImageFqdn)"
                         + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
-                        // TODO: Add threshold, reduce zeroes
-                        + "\n\t - Percentage change: ${percentageChange}%\n")
+                        + "\n\t - Percentage change: ${MathUtils.roundOffDecimal(percentageChange)}% (max allowable - $threshold%)\n")
                 if (percentageChange > threshold) {
                     imagesFailedValidation.add(assosiatedImage)
                 } else {
