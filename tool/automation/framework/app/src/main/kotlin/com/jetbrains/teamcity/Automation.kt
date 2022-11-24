@@ -52,12 +52,23 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
     }
 }
 
+class PrintImageSize: Subcommand("get-size-trend", "Print out sizes of given image.") {
+    private val imageName by argument(ArgType.String, description = "Image").vararg()
+
+    override fun execute() {
+        val image = imageName[0]
+        val registryUri = "https://hub.docker.com/v2"
+        DockerImageValidationUtilities.printImageSizes(image, registryUri)
+    }
+}
+
 @OptIn(ExperimentalCli::class)
 fun main(args: Array<String>) {
 
     val parser = ArgParser("automation")
-    val imageValidation = ValidateImage()
-    parser.subcommands(imageValidation)
+    // -- add subcommands
+    parser.subcommands(ValidateImage())
+    parser.subcommands(PrintImageSize())
 
     // Splitting arguments into a list as the "--args" options might be treated as a ...
     // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...

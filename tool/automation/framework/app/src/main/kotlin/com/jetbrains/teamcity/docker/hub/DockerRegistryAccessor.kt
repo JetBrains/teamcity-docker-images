@@ -4,10 +4,8 @@ import com.jetbrains.teamcity.common.network.HttpRequestUtilities
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryImagesInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
-import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import java.lang.IllegalStateException
 import java.time.Instant
 
 /**
@@ -36,14 +34,25 @@ class DockerRegistryAccessor {
      * Retrieves the size of Docker image
      */
     public fun getSize(image: DockerImage): Long {
-        return this.getRegistryInfo(image).fullSize.toLong()
+        return this.getRepositoryInfo(image).fullSize.toLong()
     }
 
     /**
      * Returns general information about Docker Registry.
      */
-    public fun getRegistryInfo(image: DockerImage): DockerRepositoryInfo {
+    public fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
         val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags/${image.tag}") ?: ""
+        return jsonSerializer.decodeFromString(registryResponse)
+    }
+
+    /**
+     * Returns information about images within given registry.
+     */
+    public fun getRepositoryInfo(image: DockerImage, pageSize: Int): DockerRegistryImagesInfo? {
+        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags?page_size=$pageSize") ?: ""
+        if (registryResponse.isEmpty()) {
+            return null
+        }
         return jsonSerializer.decodeFromString(registryResponse)
     }
 
@@ -55,12 +64,12 @@ class DockerRegistryAccessor {
      * @param osVersion - version of operating system. Used mostly for Windows images.
      */
     public fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
-        // TODO: Make page size configurable
-        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${currentImage.repo}/tags?page_size=50") ?: ""
-        if (registryResponse.isEmpty()) {
+
+        val registryInfo: DockerRegistryImagesInfo? = this.getRepositoryInfo(currentImage, 50)
+        if (registryInfo == null) {
+            print("Registry information for given image was not found: $currentImage")
             return null
         }
-        val registryInfo: DockerRegistryImagesInfo = jsonSerializer.decodeFromString(registryResponse)
 
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
         var previousImageRepository = registryInfo.results

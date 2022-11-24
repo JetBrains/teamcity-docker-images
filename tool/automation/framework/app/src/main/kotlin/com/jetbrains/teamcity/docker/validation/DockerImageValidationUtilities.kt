@@ -6,6 +6,7 @@ import com.jetbrains.teamcity.docker.hub.DockerRegistryAccessor
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
 import com.jetbrains.teamcity.teamcity.TeamCityUtils
+import java.time.Instant
 
 
 /**
@@ -13,6 +14,22 @@ import com.jetbrains.teamcity.teamcity.TeamCityUtils
  */
 class DockerImageValidationUtilities {
     companion object {
+
+        fun printImageSizes(imageFqdn: String, registryUri: String) {
+            val registryAccessor = DockerRegistryAccessor(registryUri)
+            val image = DockerImage(imageFqdn)
+            // -- get last 100 images
+            val repositoryInfo = registryAccessor.getRepositoryInfo(image, 100)
+            if (repositoryInfo == null) {
+                print("Unable to find images for $imageFqdn")
+                return
+            }
+
+            val sortedImages = repositoryInfo.results.sortedBy { Instant.parse(it.tagLastPushed) }
+            sortedImages
+                .filter { it.name.contains(image.tag.split("-", limit=2)[1]) }
+                .forEach {  println("${image.repo},${it.name},${it.tagLastPushed},${it.fullSize}") }
+        }
 
         /**
          * Validates the size of Docker Image.
@@ -31,10 +48,9 @@ class DockerImageValidationUtilities {
             val imagesFailedValidation = ArrayList<DockerhubImage>()
 
             // -- all images associated with registry-tag pair
-            val originalImageRegistryInfo = registryAccessor.getRegistryInfo(currentImage)
+            val originalImageRegistryInfo = registryAccessor.getRepositoryInfo(currentImage)
             originalImageRegistryInfo.images.forEach { assosiatedImage ->
                 // -- report size for each image
-                // TODO: update documentation with "OS" reference
                 TeamCityUtils.reportTeamCityStatistics("SIZE-${DockerImageValidationUtilities.getImageStatisticsId(currentImage.toString())}", assosiatedImage.size)
 
                 // -- compare image
@@ -42,7 +58,6 @@ class DockerImageValidationUtilities {
                                                                                                         assosiatedImage.os,
                                                                                                         assosiatedImage.osVersion) ?: null
                 if (dockerHubInfoOfPreviousRelease == null || dockerHubInfoOfPreviousRelease.images.size != 1) {
-//                    throw IllegalStateException("Unable to determine previous image for $originalImageFqdn-${assosiatedImage.os}")
                     println("Unable to determine previous image for $originalImageFqdn-${assosiatedImage.os}")
                     return@forEach
                 }
