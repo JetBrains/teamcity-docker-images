@@ -19,7 +19,7 @@ class DockerImageValidationUtilities {
             val registryAccessor = DockerRegistryAccessor(registryUri)
             val image = DockerImage(imageFqdn)
             // -- get last 100 images
-            val repositoryInfo = registryAccessor.getRepositoryInfo(image, 100)
+            val repositoryInfo = registryAccessor.getRepositoryInfo(image, 400)
             if (repositoryInfo == null) {
                 print("Unable to find images for $imageFqdn")
                 return
@@ -27,7 +27,8 @@ class DockerImageValidationUtilities {
 
             val sortedImages = repositoryInfo.results.sortedBy { Instant.parse(it.tagLastPushed) }
             sortedImages
-                .filter { it.name.contains(image.tag.split("-", limit=2)[1]) }
+                    // TODO: Sort by tags
+//                .filter { it.name.contains(image.tag.split("-", limit=2)[1]) }
                 .forEach {  println("${image.repo},${it.name},${it.tagLastPushed},${it.fullSize}") }
         }
 
@@ -51,7 +52,7 @@ class DockerImageValidationUtilities {
             val originalImageRegistryInfo = registryAccessor.getRepositoryInfo(currentImage)
             originalImageRegistryInfo.images.forEach { assosiatedImage ->
                 // -- report size for each image
-                TeamCityUtils.reportTeamCityStatistics("SIZE-${DockerImageValidationUtilities.getImageStatisticsId(currentImage.toString())}", assosiatedImage.size)
+                TeamCityUtils.reportTeamCityStatistics("SIZE-${getImageStatisticsId(currentImage.toString())}", assosiatedImage.size)
 
                 // -- compare image
                 val dockerHubInfoOfPreviousRelease: DockerRepositoryInfo? = registryAccessor.getPreviousImages(currentImage,
@@ -68,7 +69,8 @@ class DockerImageValidationUtilities {
                 println("$originalImageFqdn-${assosiatedImage.os}-${assosiatedImage.osVersion}-${assosiatedImage.architecture}: "
                         + "\n\t - Original size: ${assosiatedImage.size} ($originalImageFqdn)"
                         + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
-                        + "\n\t - Percentage change: ${percentageChange}\n")
+                        // TODO: Add threshold, reduce zeroes
+                        + "\n\t - Percentage change: ${percentageChange}%\n")
                 if (percentageChange > threshold) {
                     imagesFailedValidation.add(assosiatedImage)
                 } else {

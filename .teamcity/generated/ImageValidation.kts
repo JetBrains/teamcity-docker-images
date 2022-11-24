@@ -16,7 +16,12 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
 object image_validation: BuildType({
-		name = "Validation (post-push) of Docker images (Windows / Linux)"
+	// TODO: Change name to "Image size validation"
+	// TODO: Change comparison to "-staging"
+	// TODO: THINK ABOUT TOKEN for access to Private Dockerhub repo
+	// TODO: Move autoamtion framework into different repository (Git / Space)
+	// TODO: Fix C# code PR
+		name = "Validation of Size Regression - Docker Image (Windows / Linux)"
 		buildNumberPattern="test-%build.counter%"
 
 		vcs {
@@ -53,7 +58,7 @@ object image_validation: BuildType({
 				// Generate validation for each image fully-qualified domain name (FQDN)
 				gradle {
 					name = "Image Verification Gradle - $imageFqdn"
-					tasks = "clean build run --args=\"validate  $imageFqdn\""
+					tasks = "clean build run --args=\"validate  $imageFqdn\" token %param.token%"
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
 					jdkHome = "%env.JDK_11_x64%"
@@ -88,7 +93,6 @@ object image_validation: BuildType({
 		}
 
 		requirements {
-			noLessThanVer("docker.version", "18.05.0")
 			exists("env.JDK_11")
 			// Images are validated mostly via DockerHub REST API. In case ...
 			// ... Docker agent will be used, platform-compatibility must be addressed, ...
