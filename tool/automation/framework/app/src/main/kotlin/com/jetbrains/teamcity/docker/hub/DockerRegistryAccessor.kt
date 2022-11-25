@@ -1,12 +1,14 @@
 package com.jetbrains.teamcity.docker.hub
 
-import com.jetbrains.teamcity.common.network.HttpRequestUtilities
+import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryImagesInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.lang.Exception
+import java.lang.IllegalStateException
+import java.net.http.HttpResponse
 import java.time.Instant
 
 /**
@@ -15,6 +17,8 @@ import java.time.Instant
 class DockerRegistryAccessor {
 
     private val uri: String
+    private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
+    private val token: String?
     private val jsonSerializer: Json
 
     /**
@@ -22,6 +26,7 @@ class DockerRegistryAccessor {
      * @param uri - Docker Registry URI
      */
     constructor(uri: String) {
+        this.token = "dckr_pat_6ukrb9zuOdpcgZpxhGecJGMBDck"
         this.uri = uri
         this.jsonSerializer = Json {
             // -- remove the necessity to include parsing of unused fields
@@ -39,18 +44,26 @@ class DockerRegistryAccessor {
     }
 
     /**
-     * Returns general information about Docker Registry.
+     * Returns general information about Docker Repository.
+     * @param image image for which the "repository" (all associated images: OS, OS Version, arch.) would be ...
+     * ... retrieved.
+     * @return information about the repository; null in case inaccessible
      */
     public fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
-        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags/${image.tag}") ?: ""
-        return jsonSerializer.decodeFromString(registryResponse)
+        val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories/${image.repo}/tags/${image.tag}")
+        val result = registryResponse.body() ?: ""
+
+        if (!this.httpRequestsUtilities.isResponseSuccessful(registryResponse) || result.isEmpty()) {
+            throw IllegalStateException("Unable to get information about the repository from Docker registry: $registryResponse")
+        }
+        return jsonSerializer.decodeFromString(result)
     }
 
     /**
      * Returns information about images within given registry.
      */
     public fun getRepositoryInfo(image: DockerImage, pageSize: Int): DockerRegistryImagesInfo? {
-        val registryResponse: String = HttpRequestUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags?page_size=$pageSize") ?: ""
+        val registryResponse: String = httpRequestsUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags?page_size=$pageSize") ?: ""
         if (registryResponse.isEmpty()) {
             return null
         }
