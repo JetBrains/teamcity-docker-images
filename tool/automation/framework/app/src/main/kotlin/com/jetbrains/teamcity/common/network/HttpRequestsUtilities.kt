@@ -14,52 +14,17 @@ import java.net.http.HttpResponse
  */
 class HttpRequestsUtilities {
 
-    val client: HttpClient = HttpClient.newHttpClient()
-
-    companion object {
-        private const val DEFAULT_CONN_TIMEOUT_MILLIS = 10*1000
-        private const val DEFAULT_READ_TIMEOUT_MILLIS = 30*1000
-    }
-
-    /**
-     * Performs HTTP GET request.
-     * @param url target URI
-     * @return requests' body, null if the request did not succeed
-     */
-    fun performGetRequest(url: String): String? {
-        var responseBody: String? = null
-        var httpURLConnection: HttpURLConnection? = null
-
-        try {
-            val targetUrl = URL(url)
-            httpURLConnection = targetUrl.openConnection() as HttpURLConnection
-            httpURLConnection.requestMethod = "GET"
-            httpURLConnection.doOutput = true
-
-            httpURLConnection.connectTimeout = DEFAULT_CONN_TIMEOUT_MILLIS
-            httpURLConnection.readTimeout = Companion.DEFAULT_READ_TIMEOUT_MILLIS
-
-            httpURLConnection.inputStream.use { httpInputStream ->
-                responseBody = String(httpInputStream.readAllBytes())
-            }
-        } catch (err: Exception) {
-            System.err.println("An error had occurred while executing HTTP GET request: $err \n URL: $url")
-            responseBody = null
-        } finally {
-            httpURLConnection?.disconnect()
-        }
-
-        return responseBody
-    }
+    private val client: HttpClient = HttpClient.newHttpClient()
 
     /**
      * Checks if an HTTP response had succeeded (has any of 200 codes)
+     * @param response HTTP response to be checked
+     * @return true if status is in range of [200; 299]
      */
     fun isResponseSuccessful(response: HttpResponse<String?>): Boolean {
         // '200' codes
         return ((response.statusCode() % 200) < 100)
     }
-
 
     /**
      * Send HTTP GET request and receive JSON response as a result.
@@ -73,13 +38,13 @@ class HttpRequestsUtilities {
         uri: String?,
         token: String? = null
     ): HttpResponse<String?> {
-        val request = HttpRequest.newBuilder()
-            .uri(URI.create(uri))
-            .header("Accept", "application/json")
-            // token is nullable
-            .header("Authorization", "Bearer $token")
-            .GET()
-            .build()
+        val requestConfig = HttpRequest.newBuilder()
+                                                            .uri(URI.create(uri))
+                                                            .header("Accept", "application/json")
+        if (token != null) {
+            requestConfig.header("Authorization", "Bearer $token")
+        }
+        val request = requestConfig.GET().build()
         return performHttpRequest(request)
     }
 

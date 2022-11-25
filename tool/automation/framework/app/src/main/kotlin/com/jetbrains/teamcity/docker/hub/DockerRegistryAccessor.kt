@@ -2,7 +2,7 @@ package com.jetbrains.teamcity.docker.hub
 
 import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.DockerImage
-import com.jetbrains.teamcity.docker.hub.data.DockerRegistryImagesInfo
+import com.jetbrains.teamcity.docker.hub.data.DockerRegistryInfoAboutImages
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -25,22 +25,15 @@ class DockerRegistryAccessor {
      * Creates DockerRegistryAccessor instance.
      * @param uri - Docker Registry URI
      */
-    constructor(uri: String) {
-        this.token = "dckr_pat_6ukrb9zuOdpcgZpxhGecJGMBDck"
+    constructor(uri: String, token: String? = "") {
+        this.token = token
         this.uri = uri
         this.jsonSerializer = Json {
             // -- remove the necessity to include parsing of unused fields
-            ignoreUnknownKeys = true;
+            ignoreUnknownKeys = true
             // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
             isLenient = true
         }
-    }
-
-    /**
-     * Retrieves the size of Docker image
-     */
-    public fun getSize(image: DockerImage): Long {
-        return this.getRepositoryInfo(image).fullSize.toLong()
     }
 
     /**
@@ -61,13 +54,18 @@ class DockerRegistryAccessor {
 
     /**
      * Returns information about images within given registry.
+     * @param image image from given registry
+     * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
-    public fun getRepositoryInfo(image: DockerImage, pageSize: Int): DockerRegistryImagesInfo? {
-        val registryResponse: String = httpRequestsUtilities.performGetRequest("${this.uri}/repositories/${image.repo}/tags?page_size=$pageSize") ?: ""
-        if (registryResponse.isEmpty()) {
-            return null
+    public fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
+        val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories"
+                                                                                                + "/${image.repo}/tags?page_size=$pageSize", this.token)
+        val result = registryResponse.body() ?: ""
+
+        if (!this.httpRequestsUtilities.isResponseSuccessful(registryResponse) || result.isEmpty()) {
+            throw IllegalStateException("Unable to get information about the repository from Docker registry: $registryResponse")
         }
-        return jsonSerializer.decodeFromString(registryResponse)
+        return jsonSerializer.decodeFromString(result)
     }
 
     /**
@@ -79,15 +77,15 @@ class DockerRegistryAccessor {
      */
     public fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
 
-        val registryInfo: DockerRegistryImagesInfo? = this.getRepositoryInfo(currentImage, 50)
+        val registryInfo = this.getInfoAboutImagesInRegistry(currentImage, 50)
         if (registryInfo == null) {
             print("Registry information for given image was not found: $currentImage")
             return null
         }
 
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
-        var previousImageRepository = registryInfo.results
-                                                                .filter { it -> (it.name != currentImage.tag) }
+        val previousImageRepository = registryInfo.results
+                                                                .filter { (it.name != currentImage.tag) }
                                                                 // Remove year from tag, making it comparable
                                                                 .filter {
                                                                     try {
@@ -104,10 +102,10 @@ class DockerRegistryAccessor {
 
         // filter by target OS
         previousImageRepository.images = previousImageRepository.images.filter { it.os.equals(targetOs) }
-        if (!previousImageRepository.images.isEmpty() && osVersion != null && !osVersion.isEmpty()) {
+        if (previousImageRepository.images.isNotEmpty() && !osVersion.isNullOrEmpty()) {
             val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
             if (imagesFilteredByTarget.isEmpty()) {
-                // Logging such event as it's hard to investigate such differentes
+                // Logging such event as it's hard to investigate such differences
                 println("$currentImage - found previous image - ${previousImageRepository.name}, but OS version is different - $osVersion and ${previousImageRepository.images.first().osVersion}")
             }
             previousImageRepository.images = imagesFilteredByTarget

@@ -4,6 +4,7 @@
 package com.jetbrains.teamcity
 
 import com.jetbrains.teamcity.common.constants.ValidationConstants
+import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
 import kotlinx.cli.*
@@ -24,6 +25,19 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         if (imageNames.size > 2) {
             throw IllegalArgumentException("Too many image names")
         }
+
+        val images = listOf("jetbrains/teamcity-agent:2022.10-windowsservercore-1809",
+            "jetbrains/teamcity-agent:2022.10-nanoserver-1809",
+            "jetbrains/teamcity-minimal-agent:2022.10-nanoserver-1809",
+            "jetbrains/teamcity-server:2022.10-nanoserver-2004",
+            "jetbrains/teamcity-agent:2022.10-windowsservercore-2004",
+            "jetbrains/teamcity-agent:2022.10-nanoserver-2004",
+            "jetbrains/teamcity-minimal-agent:2022.10-nanoserver-2004",
+            // -- linux images
+            "jetbrains/teamcity-agent:2022.10-linux",
+            "jetbrains/teamcity-agent:2022.10-linux-sudo",
+            "jetbrains/teamcity-minimal-agent:2022.10-linux"
+        )
 
         // 1. Capture current image size
         val originalImageName = imageNames[0]

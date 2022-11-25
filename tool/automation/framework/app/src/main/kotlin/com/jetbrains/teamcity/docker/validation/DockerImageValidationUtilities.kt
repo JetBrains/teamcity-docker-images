@@ -23,7 +23,7 @@ class DockerImageValidationUtilities {
         fun printImageSizeTrend(imageFqdn: String, registryUri: String) {
             val registryAccessor = DockerRegistryAccessor(registryUri)
             val image = DockerImage(imageFqdn)
-            val repositoryInfo = registryAccessor.getRepositoryInfo(image, 400)
+            val repositoryInfo = registryAccessor.getInfoAboutImagesInRegistry(image, 400)
             if (repositoryInfo == null) {
                 print("Unable to find images for $imageFqdn")
                 return
