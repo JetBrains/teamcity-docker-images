@@ -368,23 +368,29 @@ namespace TeamCity.Docker
             yield return $"\t {_buildNumberPattern}";
 
             // VCS Root Is needed in order to launch automaiton framework
-            yield return "\t vcs {";
-			yield return "\t\t root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)";
-		    yield return "\t }";
+            yield return String.Join('\n',
+                "\t vcs {",
+                "\t\t root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)",
+                "\t }" 
+            );
 
             // Trigger is needed to execute the image once they've been published into Dockerhub
-            yield return "\t triggers {";
-            yield return "\t\t // Execute the build once the images are available within %deployRepository%";
-            yield return "\t\t finishBuildTrigger {";
-            yield return "\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"";
-            yield return "\t\t }";
-            yield return "\t }";
+            yield return String.Join('\n',
+                "\n\t triggers {",
+                "\t\t // Execute the build once the images are available within %deployRepository%",
+                "\t\t finishBuildTrigger {",
+                "\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"",
+                "\t\t }",
+                "\t }"
+            );
 
             // Parameters are needed in order to prevent unnecessarry dependency from an inherited parameter
-            yield return "\t params {";
-            yield return "\t\t // -- inherited parameter, removed in debug purposes";
-            yield return "\t\t param(\"dockerImage.teamcity.buildNumber\", \"-\")";
-            yield return "\t}";
+            yield return String.Join('\n',
+                "\t params {",
+                "\t\t // -- inherited parameter, removed in debug purposes",
+                "\t\t param(\"dockerImage.teamcity.buildNumber\", \"-\")",
+                "\t }"
+            );
 
 
             // -- Declare a set of images that we'd need to iterate over
@@ -429,7 +435,7 @@ namespace TeamCity.Docker
 
             // Generate failure conditions
             yield return String.Join('\n',
-                "\t failureConditions {",
+                "\n\t failureConditions {",
                 "\t\t   // Failed in case the validation via framework didn't succeed",
                 "\t\t   failOnText {",
                 "\t\t\t     conditionType = BuildFailureOnText.ConditionType.CONTAINS",
