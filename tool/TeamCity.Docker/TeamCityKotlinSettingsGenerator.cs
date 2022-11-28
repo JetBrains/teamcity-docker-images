@@ -417,8 +417,7 @@ namespace TeamCity.Docker
                 "\t\t     // Generate validation for each image fully-qualified domain name (FQDN)",
                 "\t\t     gradle {",
                 "\t\t\t       name = \"Image Verification Gradle - $imageFqdn\"",
-                // TODO: handle escaping of "/" within args
-                "\t\t\t       tasks = \"clean build run --args=\"validate  $imageFqdn\" token %param.token%\"",
+                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn\\\"\"",
                 "\t\t\t       workingDir = \"tool/automation/framework\"",
                 "\t\t\t       buildFile = \"build.gradle\"",
                 "\t\t\t       jdkHome = \"%env.JDK_11_x64%\"",
