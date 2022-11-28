@@ -157,10 +157,10 @@ namespace TeamCity.Docker
 
             hubBuildTypes.AddRange(publishOnHubBuildTypes);
 
-            // -- post-push docker image validation
+            // Validation of Docker Image Size
             const string validationBuildTypeId = "image_validation";
             graph.TryAddNode(AddFile(validationBuildTypeId, CreateImageValidationConfig(validationBuildTypeId, allImages)), out _);
-
+            localBuildTypes.Add(validationBuildTypeId);
 
             // Local project
             // ReSharper disable once UseObjectOrCollectionInitializer
@@ -470,42 +470,6 @@ namespace TeamCity.Docker
                 "\t }"
             );
 
-
-
-
-            // yield return "steps {";
-            // foreach (var image in allImages)
-            // {
-            //     // docker pull
-            //     // -- we use "new repo" since the original value is not distinguishable (e.g. linux-EAP)
-            //     var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
-            //     var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
-                
-            //     foreach (var verificationScriptCallStep in CreateImageVerificationStep(newRepoTag))
-            //     {
-            //         // generate verification call for each of the images
-            //         yield return $"\t{verificationScriptCallStep}";
-            //     }
-            // }
-            // yield return "}";
-
-            // foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
-            //     yield return $"\t{failureCondition}";
-            // }
-
-            // foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.publish_hub_version.id", true)) {
-            //     yield return $"\t{trigger}";
-            // }
-
-            // // -- depends on Docker image build.
-
-            // string[] imageValidationDependencyIds = { "TC_Trunk_DockerImages_push_hub_windows", "TC_Trunk_DockerImages_push_hub_linux"};
-            // foreach (var dependencies in CreateDockerImageValidationSnapDependencies(imageValidationDependencyIds))
-            // {
-            //     yield return $"\t{dependencies}";
-            // }
-
-
             yield return "})";
             yield return string.Empty;
         }
@@ -721,14 +685,8 @@ namespace TeamCity.Docker
                     {
                         var tag = image.File.Tags.First();
 
-                        // 1. "tag" command
+                        // "tag" command
                         foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}", $"{image.File.ImageId}:{tag}"))
-                        {
-                            yield return $"\t{tagCommand}";
-                        }
-
-                        // 2. verification. It's done after re-tag to make the image easily distinguishable
-                        foreach (var tagCommand in CreateImageVerificationStep($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}"))
                         {
                             yield return $"\t{tagCommand}";
                         }
@@ -1064,18 +1022,6 @@ namespace TeamCity.Docker
             yield return $"param(\"dockerImage.platform\", \"{image.File.Platform}\")";
             yield return "}";
 
-            yield return string.Empty;
-        }
-
-        /// <summary>
-        /// Constructs Kotlin DSL's Docker image verification step.
-        /// <param name="imageFqdn">Docker mage< fully-qualified domain name/param>
-        private IEnumerable<string> CreateImageVerificationStep(string imageFqdn) {
-            yield return "kotlinFile {";
-            yield return $"\t name = \"Image Verification - {imageFqdn}\"";
-            yield return "\t path = \"tool/automation/ImageValidation.kts\"";
-            yield return $"\t arguments = \"{imageFqdn}\"";
-            yield return "}";
             yield return string.Empty;
         }
 
