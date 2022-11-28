@@ -207,20 +207,24 @@ namespace TeamCity.Docker
                 string.Empty,
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.*",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace",
                 // ReSharper disable once StringLiteralTypo
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra",
-                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
                 "import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo",
-                // Failure Conditions
+                // -- build features
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace",
+                // -- Failure Conditions
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText",
-                // -- Validation is done via Kotlin Script located within file on agent
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange",
+                // -- Build Steps
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile",
-                // -- please, import all triggers
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script",
+                "import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand",
+                // -- All Triggers
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
@@ -359,41 +363,142 @@ namespace TeamCity.Docker
 
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
-            yield return "\t name = \"Validation (post-push) of Docker images\"";
+            yield return "\t name = \"Validation of Size Regression - Docker Image (Windows / Linux)\"";
+            // TODO: Change Build Name pattern
             yield return $"\t {_buildNumberPattern}";
 
+            // VCS Root Is needed in order to launch automaiton framework
+            yield return "\t vcs {";
+			yield return "\t\t root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)";
+		    yield return "\t }";
 
-            yield return "steps {";
-            foreach (var image in allImages)
-            {
-                // docker pull
-                // -- we use "new repo" since the original value is not distinguishable (e.g. linux-EAP)
+            // Trigger is needed to execute the image once they've been published into Dockerhub
+            yield return "\t triggers {";
+            yield return "\t\t // Execute the build once the images are available within %deployRepository%";
+            yield return "\t\t finishBuildTrigger {";
+            yield return "\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"";
+            yield return "\t\t }";
+            yield return "\t }";
+
+            // Parameters are needed in order to prevent unnecessarry dependency from an inherited parameter
+            yield return "\t params {";
+            yield return "\t\t // -- inherited parameter, removed in debug purposes";
+            yield return "\t\t param(\"dockerImage.teamcity.buildNumber\", \"-\")";
+            yield return "\t}";
+
+
+            // -- Declare a set of images that we'd need to iterate over
+
+            List<string> imagesForValidationReferences = new List<string>();
+
+            foreach (var image in allImages) {
                 var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
+                // Add as as Kotlin DSL list element
+                imagesForValidationReferences.Add($"\"{newRepoTag}\"");
+            }
+
+            var imageStr = String.Join(", \n\t\t", imagesForValidationReferences);
+
+            // -- Create a list of images to be validated inside of Kotlin DSL in order to reduce ...
+            // -- .. the code.
+            yield return String.Join('\n',
+                "\n",
+                "\t val images = listOf(",
+                imageStr,
+                "\t  )"
+            );
+        
+
+            // Generate steps in order to validate the images within the list above
+            yield return String.Join('\n',
+                "\n\t steps {",
+                "\t\t   images.forEach { imageFqdn ->",
+                "\t\t     // Generate validation for each image fully-qualified domain name (FQDN)",
+                "\t\t     gradle {",
+                "\t\t\t       name = \"Image Verification Gradle - $imageFqdn\"",
+                // TODO: handle escaping of "/" within args
+                "\t\t\t       tasks = \"clean build run --args=\"validate  $imageFqdn\" token %param.token%\"",
+                "\t\t\t       workingDir = \"tool/automation/framework\"",
+                "\t\t\t       buildFile = \"build.gradle\"",
+                "\t\t\t       jdkHome = \"%env.JDK_11_x64%\"",
+                "\t\t\t       executionMode = BuildStep.ExecutionMode.ALWAYS",
+                "\t\t\t     }",
+                "\t\t   }",
+                "\t }"
+            );
+
+            // Generate failure conditions
+            yield return String.Join('\n',
+                "\t failureConditions {",
+                "\t\t   // Failed in case the validation via framework didn't succeed",
+                "\t\t   failOnText {",
+                "\t\t\t     conditionType = BuildFailureOnText.ConditionType.CONTAINS",
+                "\t\t\t     pattern = \"DockerImageValidationException\"",
+                "\t\t\t     failureMessage = \"Docker Image validation have failed\"",
+                "\t\t\t     // allows the steps to continue running even in case of one problem",
+                "\t\t\t     reportOnlyFirstMatch = false",
+                "\t\t   }",
+                "\t }"
+            );
+
+            // Generate requirements
+            yield return String.Join('\n',
+                "\n\t requirements {",
+                "\t\t  exists(\"env.JDK_11\")",
+                "\t\t  // Images are validated mostly via DockerHub REST API. In case ...",
+                "\t\t  // ... Docker agent will be used, platform-compatibility must be addressed, ...",
+                "\t\t  // ... especially in case of Windows images.",
+                "\t\t  contains(\"teamcity.agent.jvm.os.name\", \"Linux\")",
+                "\t }"
+            );
+
+            // Generate build features
+            yield return String.Join('\n',
+                "\n\t features {",
+                "\t\t   dockerSupport {",
+                "\t\t\t     cleanupPushedImages = true",
+                "\t\t\t     loginToRegistry = on {",
+                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774,PROJECT_EXT_315\"",
+                "\t\t\t     }",
+                "\t\t   }",
+                "\t }"
+            );
+
+
+
+
+            // yield return "steps {";
+            // foreach (var image in allImages)
+            // {
+            //     // docker pull
+            //     // -- we use "new repo" since the original value is not distinguishable (e.g. linux-EAP)
+            //     var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
+            //     var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
                 
-                foreach (var verificationScriptCallStep in CreateImageVerificationStep(newRepoTag))
-                {
-                    // generate verification call for each of the images
-                    yield return $"\t{verificationScriptCallStep}";
-                }
-            }
-            yield return "}";
+            //     foreach (var verificationScriptCallStep in CreateImageVerificationStep(newRepoTag))
+            //     {
+            //         // generate verification call for each of the images
+            //         yield return $"\t{verificationScriptCallStep}";
+            //     }
+            // }
+            // yield return "}";
 
-            foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
-                yield return $"\t{failureCondition}";
-            }
+            // foreach (var failureCondition in CreateFailureConditionRegExpPattern("*DockerImageValidationException.*")) {
+            //     yield return $"\t{failureCondition}";
+            // }
 
-            foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.publish_hub_version.id", true)) {
-                yield return $"\t{trigger}";
-            }
+            // foreach (var trigger in CreateFinishBuildTrigger("PublishHubVersion.publish_hub_version.id", true)) {
+            //     yield return $"\t{trigger}";
+            // }
 
-            // -- depends on Docker image build.
+            // // -- depends on Docker image build.
 
-            string[] imageValidationDependencyIds = { "TC_Trunk_DockerImages_push_hub_windows", "TC_Trunk_DockerImages_push_hub_linux"};
-            foreach (var dependencies in CreateDockerImageValidationSnapDependencies(imageValidationDependencyIds))
-            {
-                yield return $"\t{dependencies}";
-            }
+            // string[] imageValidationDependencyIds = { "TC_Trunk_DockerImages_push_hub_windows", "TC_Trunk_DockerImages_push_hub_linux"};
+            // foreach (var dependencies in CreateDockerImageValidationSnapDependencies(imageValidationDependencyIds))
+            // {
+            //     yield return $"\t{dependencies}";
+            // }
 
 
             yield return "})";
