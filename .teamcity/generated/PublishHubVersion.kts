@@ -23,94 +23,94 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:2022.10"
+name = "manifest create teamcity-server:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2022.10 %docker.deployRepository%teamcity-server:2022.10-linux %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-server:2022.10.1 %docker.deployRepository%teamcity-server:2022.10.1-linux %docker.deployRepository%teamcity-server:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-server:2022.10"
+name = "manifest push teamcity-server:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-server:2022.10"
+commandArgs = "push %docker.deployRepository%teamcity-server:2022.10.1"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-server:2022.10"
+name = "manifest inspect teamcity-server:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-server:2022.10 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-server:2022.10.1 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2022.10"
+name = "manifest create teamcity-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2022.10 %docker.deployRepository%teamcity-agent:2022.10-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10-linux %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2022.10.1 %docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10.1-linux %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2022.10"
+name = "manifest push teamcity-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:2022.10"
+commandArgs = "push %docker.deployRepository%teamcity-agent:2022.10.1"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2022.10"
+name = "manifest inspect teamcity-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:2022.10 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:2022.10.1 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-minimal-agent:2022.10"
+name = "manifest create teamcity-minimal-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2022.10 %docker.deployRepository%teamcity-minimal-agent:2022.10-linux %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:2022.10.1 %docker.deployRepository%teamcity-minimal-agent:2022.10.1-linux %docker.deployRepository%teamcity-minimal-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-minimal-agent:2022.10"
+name = "manifest push teamcity-minimal-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:2022.10"
+commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:2022.10.1"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-minimal-agent:2022.10"
+name = "manifest inspect teamcity-minimal-agent:2022.10.1"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2022.10 --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:2022.10.1 --verbose"
 }
 }
 dockerCommand {
-name = "manifest create teamcity-agent:2022.10-windowsservercore"
+name = "manifest create teamcity-agent:2022.10.1-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:2022.10-windowsservercore %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore-2004"
 }
 }
 dockerCommand {
-name = "manifest push teamcity-agent:2022.10-windowsservercore"
+name = "manifest push teamcity-agent:2022.10.1-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "push %docker.deployRepository%teamcity-agent:2022.10-windowsservercore"
+commandArgs = "push %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore"
 }
 }
 dockerCommand {
-name = "manifest inspect teamcity-agent:2022.10-windowsservercore"
+name = "manifest inspect teamcity-agent:2022.10.1-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "inspect %docker.deployRepository%teamcity-agent:2022.10-windowsservercore --verbose"
+commandArgs = "inspect %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore --verbose"
 }
 }
 dockerCommand {
 name = "manifest create teamcity-agent:latest-windowsservercore"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.10.1-windowsservercore-2004"
 }
 }
 dockerCommand {

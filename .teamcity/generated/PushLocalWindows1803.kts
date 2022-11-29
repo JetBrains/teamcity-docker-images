@@ -13,6 +13,6 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_windows_1803 : BuildType({
 name = "ON PAUSE Build and push windows 1803"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2022.10-nanoserver-1803,latest,2022.10 teamcity-minimal-agent:2022.10-nanoserver-1803,latest,2022.10 teamcity-agent:2022.10-windowsservercore-1803,2022.10-windowsservercore,latest-windowsservercore:2022.10-nanoserver-1803,latest,2022.10"
+description  = "teamcity-server:2022.10.1-nanoserver-1803,latest,2022.10.1 teamcity-minimal-agent:2022.10.1-nanoserver-1803,latest,2022.10.1 teamcity-agent:2022.10.1-windowsservercore-1803,2022.10.1-windowsservercore,latest-windowsservercore:2022.10.1-nanoserver-1803,latest,2022.10.1"
 })
 

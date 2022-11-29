@@ -13,7 +13,7 @@ ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.38.1-0ppa1~ubuntu18.04.1'
 ARG p4Version='2021.2-2338640'
 ARG repo=''
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.10-linux-18.04'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.10.1-linux-18.04'
 
 # The list of required arguments
 # ARG dotnetLinuxComponent

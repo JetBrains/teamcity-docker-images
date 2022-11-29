@@ -26,7 +26,7 @@ dockerCommand {
 name = "manifest create teamcity-server:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2022.10-linux %docker.deployRepository%teamcity-server:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2022.10.1-linux %docker.deployRepository%teamcity-server:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10-linux %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10.1-linux %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
@@ -68,7 +68,7 @@ dockerCommand {
 name = "manifest create teamcity-minimal-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2022.10-linux %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2022.10.1-linux %docker.deployRepository%teamcity-minimal-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {

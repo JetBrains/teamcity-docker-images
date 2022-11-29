@@ -13,6 +13,6 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_18_04 : BuildType({
 name = "ON PAUSE Build and push linux 18.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2022.10-linux-arm64-18.04,latest,2022.10:2022.10-linux-18.04,latest,2022.10 teamcity-minimal-agent:2022.10-linux-arm64-18.04,latest,2022.10:2022.10-linux-18.04,latest,2022.10 teamcity-agent:2022.10-linux-arm64-18.04,latest,2022.10:2022.10-linux-arm64-18.04-sudo:2022.10-linux-18.04,latest,2022.10:2022.10-linux-18.04-sudo"
+description  = "teamcity-server:2022.10.1-linux-arm64-18.04,latest,2022.10.1:2022.10.1-linux-18.04,latest,2022.10.1 teamcity-minimal-agent:2022.10.1-linux-arm64-18.04,latest,2022.10.1:2022.10.1-linux-18.04,latest,2022.10.1 teamcity-agent:2022.10.1-linux-arm64-18.04,latest,2022.10.1:2022.10.1-linux-arm64-18.04-sudo:2022.10.1-linux-18.04,latest,2022.10.1:2022.10.1-linux-18.04-sudo"
 })
 
