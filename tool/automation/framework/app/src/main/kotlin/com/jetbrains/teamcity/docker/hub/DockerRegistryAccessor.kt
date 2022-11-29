@@ -1,5 +1,6 @@
 package com.jetbrains.teamcity.docker.hub
 
+import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.auth.DockerhubCredentials
@@ -91,7 +92,11 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
 
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
         val previousImageRepository = registryInfo.results
-                                                                .filter { (it.name != currentImage.tag) }
+                                                                // Remove current & EAP (non-production) tags
+                                                                .filter {
+                                                                    return@filter ((it.name != currentImage.tag)
+                                                                            || (it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
+                                                                }
                                                                 // Remove year from tag, making it comparable
                                                                 .filter {
                                                                     try {
