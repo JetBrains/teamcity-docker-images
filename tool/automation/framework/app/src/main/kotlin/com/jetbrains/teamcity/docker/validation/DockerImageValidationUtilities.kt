@@ -3,6 +3,7 @@ package com.jetbrains.teamcity.docker.validation
 import com.jetbrains.teamcity.common.MathUtils
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.DockerRegistryAccessor
+import com.jetbrains.teamcity.docker.hub.auth.DockerhubCredentials
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerhubImage
 import com.jetbrains.teamcity.teamcity.TeamCityUtils
@@ -20,8 +21,8 @@ class DockerImageValidationUtilities {
          * @param imageFqdn domain name of the image
          * @param registryUri URI of Docker registry
          */
-        fun printImageSizeTrend(imageFqdn: String, registryUri: String, username: String? = "", token: String? = "") {
-            val registryAccessor = DockerRegistryAccessor(registryUri, username, token)
+        fun printImageSizeTrend(imageFqdn: String, registryUri: String, credentials: DockerhubCredentials? = null) {
+            val registryAccessor = DockerRegistryAccessor(registryUri, credentials)
             val image = DockerImage(imageFqdn)
             val repositoryInfo = registryAccessor.getInfoAboutImagesInRegistry(image, 400)
             if (repositoryInfo == null) {
@@ -45,8 +46,8 @@ class DockerImageValidationUtilities {
          * @param registryUri URI of Docker Registry where image is placed
          * @returns list of associated images that didn't pass the validation.
          */
-        fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, username: String? = "", token: String? = ""): ArrayList<DockerhubImage> {
-            val registryAccessor = DockerRegistryAccessor(registryUri, username, token)
+        fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, credentials: DockerhubCredentials?): ArrayList<DockerhubImage> {
+            val registryAccessor = DockerRegistryAccessor(registryUri, credentials)
 
             val currentImage = DockerImage(originalImageFqdn)
             val imagesFailedValidation = ArrayList<DockerhubImage>()

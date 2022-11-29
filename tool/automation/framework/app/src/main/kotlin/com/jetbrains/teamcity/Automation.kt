@@ -5,6 +5,7 @@ package com.jetbrains.teamcity
 
 import com.jetbrains.teamcity.common.constants.ValidationConstants
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
+import com.jetbrains.teamcity.docker.hub.auth.DockerhubCredentials
 import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
 import kotlinx.cli.*
 
@@ -22,20 +23,19 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image with (optiona
      */
     override fun execute() {
 
-
         // 1. Capture current image size
         val originalImageName = validationArgs[0]
+
         val username = if (validationArgs.size > 1) validationArgs[1] else null
         val token = if (validationArgs.size > 2) validationArgs[2] else null
-        if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
-            // we could tolerate when credentials were not provided at all, but not vise-versa
-            throw IllegalArgumentException("If credentials should be used, both username and token must be provided. \n ${super.helpMessage}")
-        }
+        val credentials: DockerhubCredentials = getDockerhubCredentials(username, token)
+
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
             "https://hub.docker.com/v2",
-            percentageChangeThreshold, username, token)
+            percentageChangeThreshold,
+            credentials)
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
@@ -59,13 +59,21 @@ class PrintImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for
 
         val username = if (imageName.size > 1) imageName[1] else null
         val token = if (imageName.size > 2) imageName[2] else null
-        if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
-            // we could tolerate when credentials were not provided at all, but not vise-versa
-            throw IllegalArgumentException("If credentials should be used, both username and token must be provided. \n ${super.helpMessage}")
-        }
-
-        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri, username, token)
+        val credentials: DockerhubCredentials = getDockerhubCredentials(username, token)
+        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri, credentials)
     }
+}
+
+/**
+ * Constructs provided arguments into DockerhubCredentials instance.
+ * Purpose: unify null-handling within arguments parsing.
+ */
+fun getDockerhubCredentials(username: String?, token: String?): DockerhubCredentials {
+    if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
+        // we could tolerate when credentials were not provided at all, but not vise-versa
+        throw IllegalArgumentException("If credentials should be used, both username and token must be provided.")
+    }
+    return DockerhubCredentials(username, token)
 }
 
 @OptIn(ExperimentalCli::class)

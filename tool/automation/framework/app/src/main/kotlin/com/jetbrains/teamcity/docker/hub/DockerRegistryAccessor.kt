@@ -2,6 +2,7 @@ package com.jetbrains.teamcity.docker.hub
 
 import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.DockerImage
+import com.jetbrains.teamcity.docker.hub.auth.DockerhubCredentials
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryInfoAboutImages
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
 import com.jetbrains.teamcity.docker.hub.data.DockerhubPersonalAccessToken
@@ -18,28 +19,27 @@ import java.time.Instant
 /**
  * Provides access to Docker registry.
  */
-class DockerRegistryAccessor {
+class DockerRegistryAccessor// -- remove the necessity to include parsing of unused fields
+// -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
 
-    private val uri: String
+// Generate session-based PAT. Access to private repos won't work with general token
+/**
+ * Creates DockerRegistryAccessor instance.
+ * @param uri - Docker Registry URI
+ */(private val uri: String, credentials: DockerhubCredentials?) {
+
     private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
     private val token: String?
     private val jsonSerializer: Json
 
-    /**
-     * Creates DockerRegistryAccessor instance.
-     * @param uri - Docker Registry URI
-     */
-    constructor(uri: String, username: String? = "", token: String? = "") {
-        this.uri = uri
+    init {
         this.jsonSerializer = Json {
             // -- remove the necessity to include parsing of unused fields
             ignoreUnknownKeys = true
             // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
             isLenient = true
         }
-
-        // Generate session-based PAT. Access to private repos won't work with general token
-        this.token = if (!token.isNullOrEmpty() && !username.isNullOrEmpty()) this.getPersonalAccessToken(username, token) else ""
+        this.token = if (credentials != null) this.getPersonalAccessToken(credentials) else ""
     }
 
     /**
@@ -48,7 +48,7 @@ class DockerRegistryAccessor {
      * ... retrieved.
      * @return information about the repository; null in case inaccessible
      */
-    public fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
+    fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
         val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories/${image.repo}/tags/${image.tag}", this.token)
         val result = registryResponse.body() ?: ""
 
@@ -63,7 +63,7 @@ class DockerRegistryAccessor {
      * @param image image from given registry
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
-    public fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
+    fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
         val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories"
                                                                                                 + "/${image.repo}/tags?page_size=$pageSize", this.token)
         val result = registryResponse.body() ?: ""
@@ -81,7 +81,7 @@ class DockerRegistryAccessor {
      * ... repository and tags, but different target OS. The size will be different as well.
      * @param osVersion - version of operating system. Used mostly for Windows images.
      */
-    public fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
+    fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
 
         val registryInfo = this.getInfoAboutImagesInRegistry(currentImage, 50)
         if (registryInfo == null) {
@@ -123,15 +123,14 @@ class DockerRegistryAccessor {
     /**
      * Creates a session-based Personal Access Token (PAT) for DockerHub REST API access to private repositories.
      * See: https://docs.docker.com/docker-hub/api/latest/#tag/authentication/operation/PostUsersLogin
-     * @param username - Dockerhub Username
-     * @param token - access token generated on Dockerhub; alternatively - passport
-     * @return token
+     * @param credentials - objects containing username and access token
+     * @return session-based personal-access token (PAT)
      */
-    private fun getPersonalAccessToken(username: String, token: String): String {
+    private fun getPersonalAccessToken(credentials: DockerhubCredentials): String {
         val requestBody = JsonObject(
             mapOf(
-                "username" to JsonPrimitive(username),
-                "password" to JsonPrimitive(token)
+                "username" to JsonPrimitive(credentials.username),
+                "password" to JsonPrimitive(credentials.token)
             )
         )
         val response =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login",
