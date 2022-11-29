@@ -16,7 +16,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 
 object image_validation: BuildType({
-		name = "Validation (post-push) of Docker images (Windows / Linux)"
+
+		name = "Validation of Size Regression - Docker Image (Windows / Linux)"
 		buildNumberPattern="test-%build.counter%"
 
 		vcs {
@@ -54,6 +55,7 @@ object image_validation: BuildType({
 				gradle {
 					name = "Image Verification Gradle - $imageFqdn"
 					tasks = "clean build run --args=\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\""
+
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
 					jdkHome = "%env.JDK_11_x64%"
@@ -63,20 +65,6 @@ object image_validation: BuildType({
 		}
 
 		failureConditions {
-			//	Build is considered to be failed if the size of any image had changed by more than 5%
-//            images.forEach {
-//                failOnMetricChange {
-//                    // -- target metric
-//                    param("metricKey", "SIZE-$it".replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                    threshold = 5
-//                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                    compareTo = build {
-//                        buildRule = lastSuccessful()
-//                    }
-//                }
-//            }
-
 			// Failed in case the validation via framework didn't succeed
 			failOnText {
 				conditionType = BuildFailureOnText.ConditionType.CONTAINS
@@ -88,7 +76,6 @@ object image_validation: BuildType({
 		}
 
 		requirements {
-			noLessThanVer("docker.version", "18.05.0")
 			exists("env.JDK_11")
 			// Images are validated mostly via DockerHub REST API. In case ...
 			// ... Docker agent will be used, platform-compatibility must be addressed, ...
@@ -105,12 +92,12 @@ object image_validation: BuildType({
 			}
 		}
 
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//	}
+	dependencies {
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
+			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
+		 }
+	}
 })
