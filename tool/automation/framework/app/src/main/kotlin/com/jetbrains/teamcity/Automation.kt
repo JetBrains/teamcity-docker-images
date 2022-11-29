@@ -96,9 +96,5 @@ fun main(args: Array<String>) {
     // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...
     // ... "\\s" is used to also cover non-unicode whitespaces.
     val argsList: Array<String> = if (args.size > 1) args else args[0].split("\\s+".toRegex()).toTypedArray()
-    try {
-        parser.parse(argsList)
-    } catch (e: Exception) {
-        println(e.message)
-    }
+    parser.parse(argsList)
 }
