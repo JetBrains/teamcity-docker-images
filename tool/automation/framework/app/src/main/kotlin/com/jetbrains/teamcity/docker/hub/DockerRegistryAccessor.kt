@@ -43,7 +43,7 @@ class DockerRegistryAccessor {
      * @return information about the repository; null in case inaccessible
      */
     public fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
-        val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories/${image.repo}/tags/${image.tag}")
+        val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories/${image.repo}/tags/${image.tag}", this.token)
         val result = registryResponse.body() ?: ""
 
         if (!this.httpRequestsUtilities.isResponseSuccessful(registryResponse) || result.isEmpty()) {

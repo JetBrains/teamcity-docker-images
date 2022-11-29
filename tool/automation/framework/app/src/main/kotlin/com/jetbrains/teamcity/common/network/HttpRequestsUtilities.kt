@@ -27,6 +27,23 @@ class HttpRequestsUtilities {
     }
 
     /**
+     * Checks if response status code matches "Unauthorized" behavior.
+     * @param response HTTP response to be checked
+     * @return true if unauthorized
+     */
+    private fun isUnauthorized(response: HttpResponse<String?>): Boolean {
+        return response.statusCode() == 401
+    }
+
+    /**
+     * Returns true in case response had been received from unreachable URL.
+     * @param response HTTP response to be checked
+     */
+    private fun isUrlUnreachable(response: HttpResponse<String?>): Boolean {
+        return response.statusCode() == 404
+    }
+
+    /**
      * Send HTTP GET request and receive JSON response as a result.
      * Purpose: in context of automation, the operation is frequent.
      * @param uri - target URI
@@ -41,11 +58,21 @@ class HttpRequestsUtilities {
         val requestConfig = HttpRequest.newBuilder()
                                                             .uri(URI.create(uri))
                                                             .header("Accept", "application/json")
-        if (token != null) {
+        if (!token.isNullOrBlank()) {
             requestConfig.header("Authorization", "Bearer $token")
         }
         val request = requestConfig.GET().build()
-        return performHttpRequest(request)
+        val response = performHttpRequest(request)
+
+        // -- handle errors that will make JSON unprocessable
+        if (isUnauthorized(response)) {
+            throw RuntimeException("Unable to get JSON - unauthorized access found during an attempt to reach $uri \n" +
+                    " ${response.body()} \n Perhaps token is incorrect?")
+        } else if (isUrlUnreachable(response)) {
+            throw IllegalAccessError("Unable to get JSON - URL is unreachable: $$uri \n ${response.body()}")
+        }
+
+        return response
     }
 
     /**
@@ -53,7 +80,7 @@ class HttpRequestsUtilities {
      * The logic had been moved into a separate method in order to enclose the logic related to exception handling, etc.
      * Purpose: encapsulate logic of creation handles, logging, etc.
      * @param request - intended HTTP request
-     * @return object representing HTTP resounce
+     * @return object representing HTTP resource
      * @throws InterruptedException - timeout of HTTP request;
      */
     @Throws(InterruptedException::class)

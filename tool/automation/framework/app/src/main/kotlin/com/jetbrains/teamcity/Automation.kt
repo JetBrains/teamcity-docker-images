@@ -4,7 +4,6 @@
 package com.jetbrains.teamcity
 
 import com.jetbrains.teamcity.common.constants.ValidationConstants
-import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
 import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
 import kotlinx.cli.*
@@ -16,24 +15,25 @@ import kotlinx.cli.*
  */
 @OptIn(ExperimentalCli::class)
 class ValidateImage: Subcommand("validate", "Validate Docker Image") {
-    private val imageNames by argument(ArgType.String, description = "Images").vararg()
+    private val validationArgs by argument(ArgType.String).vararg()
 
     /**
      * Execute image validation option specified via CLI.
      */
     override fun execute() {
-        if (imageNames.size > 2) {
-            throw IllegalArgumentException("Too many image names")
+        if (validationArgs.size > 2) {
+            throw IllegalArgumentException("Too many arguments")
         }
 
 
         // 1. Capture current image size
-        val originalImageName = imageNames[0]
+        val originalImageName = validationArgs[0]
+        val token = if (validationArgs.size > 1) validationArgs[1] else null
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
             "https://hub.docker.com/v2",
-            percentageChangeThreshold)
+            percentageChangeThreshold, token)
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
