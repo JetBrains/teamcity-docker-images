@@ -32,7 +32,8 @@ object image_validation: BuildType({
 	}
 
 	params {
-		// -- inherited parameter, removed in debug purposes
+		// Inherited parameter, not used within build configuration, thus removed in order to ...
+		// ... prevent unnecessary dependency.
 		param("dockerImage.teamcity.buildNumber", "-")
 	}
 
@@ -54,7 +55,7 @@ object image_validation: BuildType({
 			// Generate validation for each image fully-qualified domain name (FQDN)
 			gradle {
 				name = "Image Verification Gradle - $imageFqdn"
-				tasks = "clean build run --args=\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\""
+				tasks = "clean build run --args=\"validate  $imageFqdn %docker.stagingRepository.login% %docker.stagingRepository.token%\""
 
 				workingDir = "tool/automation/framework"
 				buildFile = "build.gradle"
@@ -91,13 +92,4 @@ object image_validation: BuildType({
 			}
 		}
 	}
-
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//	}
 })
