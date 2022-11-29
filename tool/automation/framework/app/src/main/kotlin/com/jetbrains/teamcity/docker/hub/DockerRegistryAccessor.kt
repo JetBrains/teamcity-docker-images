@@ -153,6 +153,8 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
         }
         if (response.statusCode() == 401) {
             throw IllegalArgumentException("Unable to generate Dockerhub JSON Web Token - provided credentials are incorrect \n ${response.body()}")
+        } else if (response.statusCode() == 429) {
+            throw IllegalStateException("Unable to generate Dockerhub JSON Web Token - credentials are incorrect with too many failed attempts.")
         }
 
         // Retrieve web token in JSON format as string
