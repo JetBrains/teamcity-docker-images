@@ -16,7 +16,6 @@ class HttpRequestsUtilities {
 
     private val client: HttpClient = HttpClient.newHttpClient()
 
-
     /**
      * Checks if an HTTP response had succeeded (has any of 200 codes)
      * @param response HTTP response to be checked
@@ -53,12 +52,9 @@ class HttpRequestsUtilities {
      */
     @Throws(InterruptedException::class)
     fun getJsonWithAuth(
-        uri: String?,
-        token: String? = null
+        uri: String, token: String? = null
     ): HttpResponse<String?> {
-        val requestConfig = HttpRequest.newBuilder()
-                                                            .uri(URI.create(uri))
-                                                            .header("Accept", "application/json")
+        val requestConfig = HttpRequest.newBuilder().uri(URI.create(uri)).header("Accept", "application/json")
         if (!token.isNullOrBlank()) {
             requestConfig.header("Authorization", "Bearer $token")
             requestConfig.header("Content-Type", "application/json")
@@ -69,8 +65,9 @@ class HttpRequestsUtilities {
 
         // -- handle errors that will make JSON unprocessable
         if (isUnauthorized(response)) {
-            throw RuntimeException("Unable to get JSON - unauthorized access found during an attempt to reach $uri \n" +
-                    " ${response.body()} \n Perhaps token is incorrect?")
+            throw RuntimeException(
+                "Unable to get JSON - unauthorized access found during an attempt to reach $uri \n" + " ${response.body()} \n Perhaps token is incorrect?"
+            )
         } else if (isUrlUnreachable(response)) {
             throw IllegalAccessError("Unable to get JSON - URL is unreachable: $uri \n ${response.body()}")
         }
@@ -78,17 +75,18 @@ class HttpRequestsUtilities {
         return response
     }
 
+    /**
+     * Perform HTTP POST request with JSON.
+     * @param uri - target URI
+     * @param json - payload with POST request
+     * @return response from target endpoint
+     */
     @Throws(InterruptedException::class)
     fun putJsonWithAuth(
-        uri: String?,
-        json: String?
+        uri: String, json: String?
     ): HttpResponse<String?> {
-        val request = HttpRequest.newBuilder()
-            .uri(URI.create(uri))
-            .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            .PUT(HttpRequest.BodyPublishers.ofString(json))
-            .build()
+        val request = HttpRequest.newBuilder().uri(URI.create(uri)).header("Content-Type", "application/json")
+            .header("Accept", "application/json").PUT(HttpRequest.BodyPublishers.ofString(json)).build()
         return performHttpRequest(request)
     }
 

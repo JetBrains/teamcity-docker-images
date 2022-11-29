@@ -15,8 +15,11 @@ import kotlinx.cli.*
  * ... argument parser.
  */
 @OptIn(ExperimentalCli::class)
-class ValidateImage: Subcommand("validate", "Validate Docker Image with (optionally) provided credentials.") {
-    private val validationArgs by argument(ArgType.String, description = "Image, (optional) Username, (optional) Token").vararg()
+class ValidateImage : Subcommand("validate", "Validate Docker Image with (optionally) provided credentials.") {
+    private val validationArgs by argument(
+        ArgType.String,
+        description = "Image, (optional) Username, (optional) Token"
+    ).vararg()
 
     /**
      * Execute image validation option specified via CLI.
@@ -32,10 +35,12 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image with (optiona
 
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
-        val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
+        val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(
+            originalImageName,
             "https://hub.docker.com/v2",
             percentageChangeThreshold,
-            credentials)
+            credentials
+        )
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
@@ -50,8 +55,11 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image with (optiona
 /**
  * Print out the trend for image sizes.
  */
-class PrintImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
-    private val imageName by argument(ArgType.String, description = "Image, (optional) logic, (optional) access token").vararg()
+class PrintImageSizeTrend : Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
+    private val imageName by argument(
+        ArgType.String,
+        description = "Image, (optional) logic, (optional) access token"
+    ).vararg()
 
     override fun execute() {
         val image = imageName[0]

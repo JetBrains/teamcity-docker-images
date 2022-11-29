@@ -31,7 +31,7 @@ the session.
 
 ### 3.3 TeamCity statistics
 Image size is reported into TeamCity via Service Message using the following pattern: `"SIZE-$currentName"`.
-Please, note that each repository-tag pair might have multiple assosiated images, whose differences may include:
+Please, note that each repository-tag pair might have multiple associated images, whose differences may include:
 * Operating System;
 * Version of Operating System;
 * Architecture;
