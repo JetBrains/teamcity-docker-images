@@ -37,7 +37,7 @@ object image_validation: BuildType({
 		param("dockerImage.teamcity.buildNumber", "-")
 	}
 
-	val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
+	val images = listOf("%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-1809",
 		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809",
 		"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809",
 		"%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-2004",
