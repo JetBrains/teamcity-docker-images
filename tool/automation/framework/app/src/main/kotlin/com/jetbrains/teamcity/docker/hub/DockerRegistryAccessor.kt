@@ -99,7 +99,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             // Remove current & EAP (non-production) tags
             .filter {
                 return@filter ((it.name != currentImage.tag)
-                        || (it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
+                        || (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
             }
             // Remove year from tag, making it comparable
             .filter {
