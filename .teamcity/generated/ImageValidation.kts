@@ -36,16 +36,16 @@ object image_validation: BuildType({
 		}
 
 		val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
-			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809",
-			"%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
-			"%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
-			"%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004",
+			"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809",
+			"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809",
+			"%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-2004",
+			"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-2004",
+			"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004",
+			"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004",
 			// -- linux images
-			"%docker.deployRepository%teamcity-agent:2022.10-linux",
-			"%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-			"%docker.deployRepository%teamcity-minimal-agent:2022.10-linux"
+			"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux",
+			"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-sudo",
+			"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-linux"
 		)
 
 		steps {
@@ -53,7 +53,7 @@ object image_validation: BuildType({
 				// Generate validation for each image fully-qualified domain name (FQDN)
 				gradle {
 					name = "Image Verification Gradle - $imageFqdn"
-					tasks = "clean build run --args=\"validate  $imageFqdn\""
+					tasks = "clean build run --args=\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\""
 					workingDir = "tool/automation/framework"
 					buildFile = "build.gradle"
 					jdkHome = "%env.JDK_11_x64%"
