@@ -136,24 +136,32 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * @return session-based personal-access token (PAT)
      */
     private fun getPersonalAccessToken(credentials: DockerhubCredentials): String {
-        val requestBody = JsonObject(
+        val webTokenRequestBody = JsonObject(
             mapOf(
                 "username" to JsonPrimitive(credentials.username),
+                // instead of "password", we could supply persistent personal-access token ...
+                // ... to generate JSON Web Token (JWT)
                 "password" to JsonPrimitive(credentials.token)
             )
         )
         val response = httpRequestsUtilities.putJsonWithAuth(
             "${this.uri}/users/login",
-            requestBody.toString()
+            webTokenRequestBody.toString()
         )
         if (response.body().isNullOrEmpty()) {
-            throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${response.statusCode()}")
+            throw RuntimeException("Unable to obtain Dockerhub JSON Web Token, status: ${response.statusCode()}")
         }
         if (response.statusCode() == 401) {
-            throw IllegalArgumentException("Unable to generate session-based token - provided credentials are incorrect \n ${response.body()}")
+            throw IllegalArgumentException("Unable to generate Dockerhub JSON Web Token - provided credentials are incorrect \n ${response.body()}")
         }
-        val tokenPayload = response.body() ?: ""
-        val authResponseJson = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(tokenPayload)
+
+        // Retrieve web token in JSON format as string
+        val webTokenJsonString = response.body() ?: ""
+        if (webTokenJsonString.isEmpty()) {
+            throw RuntimeException("Failed to obtain JSON Web Token - response body is empty. \n $response \n ${this.uri}")
+        }
+
+        val authResponseJson= jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(webTokenJsonString)
         return authResponseJson.token
     }
 }
