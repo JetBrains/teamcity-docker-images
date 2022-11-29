@@ -83,12 +83,11 @@ class HttpRequestsUtilities {
         uri: String?,
         json: String?
     ): HttpResponse<String?> {
-        val payload = getJsonAsString(json!!)
         val request = HttpRequest.newBuilder()
             .uri(URI.create(uri))
             .header("Content-Type", "application/json")
             .header("Accept", "application/json")
-            .PUT(HttpRequest.BodyPublishers.ofString(payload))
+            .PUT(HttpRequest.BodyPublishers.ofString(json))
             .build()
         return performHttpRequest(request)
     }
@@ -113,20 +112,4 @@ class HttpRequestsUtilities {
             throw RuntimeException("Unable to perform HTTP request for URI " + request.uri())
         }
     }
-
-    /**
-     * Converts given JSON object to string.
-     * @param json target object
-     * @return JSON object in string format
-     */
-    private fun getJsonAsString(json: Any): String {
-        val body = JsonObject(
-            mapOf(
-                "username" to JsonPrimitive("andreykoltsov"),
-                "password" to JsonPrimitive("dckr_pat_vjfA7oIZrKboH9adRDcoIA0jiUA")
-            )
-        )
-        return body.toString()
-    }
-
 }
