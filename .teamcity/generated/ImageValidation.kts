@@ -17,7 +17,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 
 object image_validation: BuildType({
 
-		name = "Validation of Size Regression - Docker Image (Windows / Linux)"
+		name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
 		buildNumberPattern="test-%build.counter%"
 
 		vcs {
