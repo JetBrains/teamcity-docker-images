@@ -30,6 +30,7 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
         val originalImageName = validationArgs[0]
         val token = if (validationArgs.size > 1) validationArgs[1] else null
 
+
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
             "https://hub.docker.com/v2",

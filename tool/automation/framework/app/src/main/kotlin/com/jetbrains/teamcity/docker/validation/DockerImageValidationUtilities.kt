@@ -47,6 +47,8 @@ class DockerImageValidationUtilities {
          */
         fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, token: String? = ""): ArrayList<DockerhubImage> {
             val registryAccessor = DockerRegistryAccessor(registryUri, token)
+
+
             val currentImage = DockerImage(originalImageFqdn)
             val imagesFailedValidation = ArrayList<DockerhubImage>()
 

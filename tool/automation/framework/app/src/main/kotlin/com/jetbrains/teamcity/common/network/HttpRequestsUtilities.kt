@@ -1,10 +1,10 @@
 package com.jetbrains.teamcity.common.network
 
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import java.io.IOException
 import java.net.ConnectException
-import java.net.HttpURLConnection
 import java.net.URI
-import java.net.URL
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
@@ -15,6 +15,7 @@ import java.net.http.HttpResponse
 class HttpRequestsUtilities {
 
     private val client: HttpClient = HttpClient.newHttpClient()
+
 
     /**
      * Checks if an HTTP response had succeeded (has any of 200 codes)
@@ -60,7 +61,9 @@ class HttpRequestsUtilities {
                                                             .header("Accept", "application/json")
         if (!token.isNullOrBlank()) {
             requestConfig.header("Authorization", "Bearer $token")
+            requestConfig.header("Content-Type", "application/json")
         }
+
         val request = requestConfig.GET().build()
         val response = performHttpRequest(request)
 
@@ -69,10 +72,25 @@ class HttpRequestsUtilities {
             throw RuntimeException("Unable to get JSON - unauthorized access found during an attempt to reach $uri \n" +
                     " ${response.body()} \n Perhaps token is incorrect?")
         } else if (isUrlUnreachable(response)) {
-            throw IllegalAccessError("Unable to get JSON - URL is unreachable: $$uri \n ${response.body()}")
+            throw IllegalAccessError("Unable to get JSON - URL is unreachable: $uri \n ${response.body()}")
         }
 
         return response
+    }
+
+    @Throws(InterruptedException::class)
+    fun putJsonWithAuth(
+        uri: String?,
+        json: String?
+    ): HttpResponse<String?> {
+        val payload = getJsonAsString(json!!)
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create(uri))
+            .header("Content-Type", "application/json")
+            .header("Accept", "application/json")
+            .PUT(HttpRequest.BodyPublishers.ofString(payload))
+            .build()
+        return performHttpRequest(request)
     }
 
     /**
@@ -94,6 +112,21 @@ class HttpRequestsUtilities {
         } catch (e: IOException) {
             throw RuntimeException("Unable to perform HTTP request for URI " + request.uri())
         }
+    }
+
+    /**
+     * Converts given JSON object to string.
+     * @param json target object
+     * @return JSON object in string format
+     */
+    private fun getJsonAsString(json: Any): String {
+        val body = JsonObject(
+            mapOf(
+                "username" to JsonPrimitive("andreykoltsov"),
+                "password" to JsonPrimitive("dckr_pat_vjfA7oIZrKboH9adRDcoIA0jiUA")
+            )
+        )
+        return body.toString()
     }
 
 }

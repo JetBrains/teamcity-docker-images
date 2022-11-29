@@ -4,8 +4,11 @@ import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.DockerImage
 import com.jetbrains.teamcity.docker.hub.data.DockerRegistryInfoAboutImages
 import com.jetbrains.teamcity.docker.hub.data.DockerRepositoryInfo
+import com.jetbrains.teamcity.docker.hub.data.DockerhubPersonalAccessToken
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import java.lang.Exception
 import java.lang.IllegalStateException
 import java.net.http.HttpResponse
@@ -26,7 +29,6 @@ class DockerRegistryAccessor {
      * @param uri - Docker Registry URI
      */
     constructor(uri: String, token: String? = "") {
-        this.token = token
         this.uri = uri
         this.jsonSerializer = Json {
             // -- remove the necessity to include parsing of unused fields
@@ -34,6 +36,10 @@ class DockerRegistryAccessor {
             // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
             isLenient = true
         }
+
+        // TODO: Move username to parameters
+        // Generate session-based PAT. Access to private repos won't work with general token
+        this.token = if (token.isNullOrEmpty()) "" else this.getPersonalAccessToken("andreykoltsov", token)
     }
 
     /**
@@ -101,7 +107,7 @@ class DockerRegistryAccessor {
         }
 
         // filter by target OS
-        previousImageRepository.images = previousImageRepository.images.filter { it.os.equals(targetOs) }
+        previousImageRepository.images = previousImageRepository.images.filter { it.os == targetOs }
         if (previousImageRepository.images.isNotEmpty() && !osVersion.isNullOrEmpty()) {
             val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
             if (imagesFilteredByTarget.isEmpty()) {
@@ -112,5 +118,27 @@ class DockerRegistryAccessor {
         }
 
         return previousImageRepository
+    }
+
+    /**
+     * Creates a session-based Personal Access Token (PAT) for DockerHub REST API access to private repositories.
+     * @param username - Dockerhub Username
+     * @param token - access token generated on Dockerhub; alternatively - passport
+     * @return token
+     */
+    fun getPersonalAccessToken(username: String, token: String): String {
+        val body = JsonObject(
+            mapOf(
+                "username" to JsonPrimitive(username),
+                "password" to JsonPrimitive(token)
+            )
+        )
+        val result =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login", body.toString())
+        if (result.body().isNullOrEmpty()) {
+            throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${result.statusCode()}")
+        }
+        val tokenPayload = result.body() ?: ""
+        val authResponseJson  = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(tokenPayload)
+        return authResponseJson.token
     }
 }
