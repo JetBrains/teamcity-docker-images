@@ -19,15 +19,10 @@ import java.time.Instant
 
 /**
  * Provides access to Docker registry.
- */
-class DockerRegistryAccessor// -- remove the necessity to include parsing of unused fields
-// -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
-
-// Generate session-based PAT. Access to private repos won't work with general token
-/**
- * Creates DockerRegistryAccessor instance.
  * @param uri - Docker Registry URI
- */(private val uri: String, credentials: DockerhubCredentials?) {
+ * @param credentials - (optional) - credentials for the access of Dockerhub REST API
+ */
+class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCredentials?) {
 
     private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
     private val token: String?
@@ -50,7 +45,10 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
      * @return information about the repository; null in case inaccessible
      */
     fun getRepositoryInfo(image: DockerImage): DockerRepositoryInfo {
-        val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories/${image.repo}/tags/${image.tag}", this.token)
+        val registryResponse: HttpResponse<String?> = this.httpRequestsUtilities.getJsonWithAuth(
+            "${this.uri}/repositories/${image.repo}/tags/${image.tag}",
+            this.token
+        )
         val result = registryResponse.body() ?: ""
 
         if (!this.httpRequestsUtilities.isResponseSuccessful(registryResponse) || result.isEmpty()) {
@@ -65,8 +63,10 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
     fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
-        val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth("${this.uri}/repositories"
-                                                                                                + "/${image.repo}/tags?page_size=$pageSize", this.token)
+        val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth(
+            "${this.uri}/repositories"
+                    + "/${image.repo}/tags?page_size=$pageSize", this.token
+        )
         val result = registryResponse.body() ?: ""
 
         if (!this.httpRequestsUtilities.isResponseSuccessful(registryResponse) || result.isEmpty()) {
@@ -82,7 +82,11 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
      * ... repository and tags, but different target OS. The size will be different as well.
      * @param osVersion - version of operating system. Used mostly for Windows images.
      */
-    fun getPreviousImages(currentImage: DockerImage, targetOs: String = "linux", osVersion: String? = ""): DockerRepositoryInfo? {
+    fun getPreviousImages(
+        currentImage: DockerImage,
+        targetOs: String = "linux",
+        osVersion: String? = ""
+    ): DockerRepositoryInfo? {
 
         val registryInfo = this.getInfoAboutImagesInRegistry(currentImage, 50)
         if (registryInfo == null) {
@@ -92,21 +96,21 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
 
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
         val previousImageRepository = registryInfo.results
-                                                                // Remove current & EAP (non-production) tags
-                                                                .filter {
-                                                                    return@filter ((it.name != currentImage.tag)
-                                                                            || (it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
-                                                                }
-                                                                // Remove year from tag, making it comparable
-                                                                .filter {
-                                                                    try {
-                                                                        return@filter it.name.contains(currentImage.tag.split("-", limit=2)[1])
-                                                                    } catch (e: Exception) {
-                                                                        print("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
-                                                                        return@filter false
-                                                                    }
-                                                                }
-                                                                .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
+            // Remove current & EAP (non-production) tags
+            .filter {
+                return@filter ((it.name != currentImage.tag)
+                        || (it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
+            }
+            // Remove year from tag, making it comparable
+            .filter {
+                try {
+                    return@filter it.name.contains(currentImage.tag.split("-", limit = 2)[1])
+                } catch (e: Exception) {
+                    print("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
+                    return@filter false
+                }
+            }
+            .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
         if (previousImageRepository == null) {
             return null
         }
@@ -138,8 +142,10 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
                 "password" to JsonPrimitive(credentials.token)
             )
         )
-        val response =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login",
-                                                                                    requestBody.toString())
+        val response = httpRequestsUtilities.putJsonWithAuth(
+            "${this.uri}/users/login",
+            requestBody.toString()
+        )
         if (response.body().isNullOrEmpty()) {
             throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${response.statusCode()}")
         }
@@ -147,7 +153,7 @@ class DockerRegistryAccessor// -- remove the necessity to include parsing of unu
             throw IllegalArgumentException("Unable to generate session-based token - provided credentials are incorrect \n ${response.body()}")
         }
         val tokenPayload = response.body() ?: ""
-        val authResponseJson  = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(tokenPayload)
+        val authResponseJson = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(tokenPayload)
         return authResponseJson.token
     }
 }
