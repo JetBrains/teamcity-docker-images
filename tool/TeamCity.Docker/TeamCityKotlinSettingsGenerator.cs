@@ -159,7 +159,7 @@ namespace TeamCity.Docker
 
             // Validation of Docker Image Size
             const string validationBuildTypeId = "image_validation";
-            graph.TryAddNode(AddFile(validationBuildTypeId, CreateImageValidationConfig(validationBuildTypeId, allImages)), out _);
+            graph.TryAddNode(AddFile(validationBuildTypeId, CreateImageValidationConfig(validationBuildTypeId, allImages, BuildImagePostfix)), out _);
             localBuildTypes.Add(validationBuildTypeId);
 
             // Local project
@@ -358,7 +358,8 @@ namespace TeamCity.Docker
         /// </summary>
         /// <param name="buildTypeId">Identifier the the creating build configuration.</param>
         /// <param name="allImages">Images that will be checked in context of build configuration.</param>
-        private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages) {
+        /// <param name="imagePostfix">(might be empty) postfix to image repository name, e.g.: "-staging"</param> 
+        private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages, string imagePostfix) {
             
 
             yield return $"object {buildTypeId}: BuildType(";
@@ -379,14 +380,14 @@ namespace TeamCity.Docker
                 "\n\t triggers {",
                 "\t\t // Execute the build once the images are available within %deployRepository%",
                 "\t\t finishBuildTrigger {",
-                "\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"",
+                "\t\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"",
                 "\t\t }",
                 "\t }"
             );
 
             // Parameters are needed in order to prevent unnecessarry dependency from an inherited parameter
             yield return String.Join('\n',
-                "\t params {",
+                "\n\t params {",
                 "\t\t // -- inherited parameter, removed in debug purposes",
                 "\t\t param(\"dockerImage.teamcity.buildNumber\", \"-\")",
                 "\t }"
@@ -398,7 +399,7 @@ namespace TeamCity.Docker
             List<string> imagesForValidationReferences = new List<string>();
 
             foreach (var image in allImages) {
-                var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
+                var newRepo = $"{DeployRepositoryName}{image.File.ImageId}{imagePostfix}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
                 // Add as as Kotlin DSL list element
                 imagesForValidationReferences.Add($"\"{newRepoTag}\"");
@@ -409,8 +410,7 @@ namespace TeamCity.Docker
             // -- Create a list of images to be validated inside of Kotlin DSL in order to reduce ...
             // -- .. the code.
             yield return String.Join('\n',
-                "\n",
-                "\t val images = listOf(",
+                "\n\t val images = listOf(",
                 imageStr,
                 "\t  )"
             );
@@ -423,7 +423,8 @@ namespace TeamCity.Docker
                 "\t\t     // Generate validation for each image fully-qualified domain name (FQDN)",
                 "\t\t     gradle {",
                 "\t\t\t       name = \"Image Verification Gradle - $imageFqdn\"",
-                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn\\\"\"",
+                // "%docker.buildRepository.login% %docker.buildRepository.token%" are defined within TeamCity server
+                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\\\"\"",
                 "\t\t\t       workingDir = \"tool/automation/framework\"",
                 "\t\t\t       buildFile = \"build.gradle\"",
                 "\t\t\t       jdkHome = \"%env.JDK_11_x64%\"",
