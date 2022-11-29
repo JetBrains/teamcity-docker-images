@@ -29,7 +29,7 @@ class DockerRegistryAccessor {
      * Creates DockerRegistryAccessor instance.
      * @param uri - Docker Registry URI
      */
-    constructor(uri: String, token: String? = "") {
+    constructor(uri: String, username: String? = "", token: String? = "") {
         this.uri = uri
         this.jsonSerializer = Json {
             // -- remove the necessity to include parsing of unused fields
@@ -38,9 +38,8 @@ class DockerRegistryAccessor {
             isLenient = true
         }
 
-        // TODO: Move username to parameters
         // Generate session-based PAT. Access to private repos won't work with general token
-        this.token = if (token.isNullOrEmpty()) "" else this.getPersonalAccessToken("andreykoltsov", token)
+        this.token = if (!token.isNullOrEmpty() && !username.isNullOrEmpty()) this.getPersonalAccessToken(username, token) else ""
     }
 
     /**
@@ -128,14 +127,15 @@ class DockerRegistryAccessor {
      * @param token - access token generated on Dockerhub; alternatively - passport
      * @return token
      */
-    fun getPersonalAccessToken(username: String, token: String): String {
+    private fun getPersonalAccessToken(username: String, token: String): String {
         val requestBody = JsonObject(
             mapOf(
                 "username" to JsonPrimitive(username),
                 "password" to JsonPrimitive(token)
             )
         )
-        val response =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login", requestBody.toString())
+        val response =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login",
+                                                                                    requestBody.toString())
         if (response.body().isNullOrEmpty()) {
             throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${response.statusCode()}")
         }

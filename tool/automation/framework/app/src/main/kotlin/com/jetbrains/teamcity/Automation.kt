@@ -14,27 +14,28 @@ import kotlinx.cli.*
  * ... argument parser.
  */
 @OptIn(ExperimentalCli::class)
-class ValidateImage: Subcommand("validate", "Validate Docker Image") {
-    private val validationArgs by argument(ArgType.String).vararg()
+class ValidateImage: Subcommand("validate", "Validate Docker Image with (optionally) provided credentials.") {
+    private val validationArgs by argument(ArgType.String, description = "Image, (optional) Username, (optional) Token").vararg()
 
     /**
      * Execute image validation option specified via CLI.
      */
     override fun execute() {
-        if (validationArgs.size > 2) {
-            throw IllegalArgumentException("Too many arguments")
-        }
 
 
         // 1. Capture current image size
         val originalImageName = validationArgs[0]
-        val token = if (validationArgs.size > 1) validationArgs[1] else null
-
+        val username = if (validationArgs.size > 1) validationArgs[1] else null
+        val token = if (validationArgs.size > 2) validationArgs[2] else null
+        if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
+            // we could tolerate when credentials were not provided at all, but not vise-versa
+            throw IllegalArgumentException("If credentials should be used, both username and token must be provided. \n ${super.helpMessage}")
+        }
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
             "https://hub.docker.com/v2",
-            percentageChangeThreshold, token)
+            percentageChangeThreshold, username, token)
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
@@ -50,12 +51,20 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
  * Print out the trend for image sizes.
  */
 class PrintImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
-    private val imageName by argument(ArgType.String, description = "Image").vararg()
+    private val imageName by argument(ArgType.String, description = "Image, (optional) logic, (optional) access token").vararg()
 
     override fun execute() {
         val image = imageName[0]
         val registryUri = "https://hub.docker.com/v2"
-        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri)
+
+        val username = if (imageName.size > 1) imageName[1] else null
+        val token = if (imageName.size > 2) imageName[2] else null
+        if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
+            // we could tolerate when credentials were not provided at all, but not vise-versa
+            throw IllegalArgumentException("If credentials should be used, both username and token must be provided. \n ${super.helpMessage}")
+        }
+
+        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri, username, token)
     }
 }
 
@@ -71,5 +80,9 @@ fun main(args: Array<String>) {
     // ... single string in non-interactive terminals, thus the parsing could be done incorrectly. ...
     // ... "\\s" is used to also cover non-unicode whitespaces.
     val argsList: Array<String> = if (args.size > 1) args else args[0].split("\\s+".toRegex()).toTypedArray()
-    parser.parse(argsList)
+    try {
+        parser.parse(argsList)
+    } catch (e: Exception) {
+        println(e.message)
+    }
 }

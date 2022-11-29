@@ -20,8 +20,8 @@ class DockerImageValidationUtilities {
          * @param imageFqdn domain name of the image
          * @param registryUri URI of Docker registry
          */
-        fun printImageSizeTrend(imageFqdn: String, registryUri: String) {
-            val registryAccessor = DockerRegistryAccessor(registryUri)
+        fun printImageSizeTrend(imageFqdn: String, registryUri: String, username: String? = "", token: String? = "") {
+            val registryAccessor = DockerRegistryAccessor(registryUri, username, token)
             val image = DockerImage(imageFqdn)
             val repositoryInfo = registryAccessor.getInfoAboutImagesInRegistry(image, 400)
             if (repositoryInfo == null) {
@@ -45,9 +45,8 @@ class DockerImageValidationUtilities {
          * @param registryUri URI of Docker Registry where image is placed
          * @returns list of associated images that didn't pass the validation.
          */
-        fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, token: String? = ""): ArrayList<DockerhubImage> {
-            val registryAccessor = DockerRegistryAccessor(registryUri, token)
-
+        fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, username: String? = "", token: String? = ""): ArrayList<DockerhubImage> {
+            val registryAccessor = DockerRegistryAccessor(registryUri, username, token)
 
             val currentImage = DockerImage(originalImageFqdn)
             val imagesFailedValidation = ArrayList<DockerhubImage>()
