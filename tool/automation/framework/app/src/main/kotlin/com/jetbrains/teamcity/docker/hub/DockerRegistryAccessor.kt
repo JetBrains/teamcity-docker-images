@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.net.http.HttpResponse
 import java.time.Instant
@@ -122,22 +123,26 @@ class DockerRegistryAccessor {
 
     /**
      * Creates a session-based Personal Access Token (PAT) for DockerHub REST API access to private repositories.
+     * See: https://docs.docker.com/docker-hub/api/latest/#tag/authentication/operation/PostUsersLogin
      * @param username - Dockerhub Username
      * @param token - access token generated on Dockerhub; alternatively - passport
      * @return token
      */
     fun getPersonalAccessToken(username: String, token: String): String {
-        val body = JsonObject(
+        val requestBody = JsonObject(
             mapOf(
                 "username" to JsonPrimitive(username),
                 "password" to JsonPrimitive(token)
             )
         )
-        val result =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login", body.toString())
-        if (result.body().isNullOrEmpty()) {
-            throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${result.statusCode()}")
+        val response =  httpRequestsUtilities.putJsonWithAuth("${this.uri}/users/login", requestBody.toString())
+        if (response.body().isNullOrEmpty()) {
+            throw RuntimeException("Unable to obtain Dockerhub session-based personal-access token, status: ${response.statusCode()}")
         }
-        val tokenPayload = result.body() ?: ""
+        if (response.statusCode() == 401) {
+            throw IllegalArgumentException("Unable to generate session-based token - provided credentials are incorrect \n ${response.body()}")
+        }
+        val tokenPayload = response.body() ?: ""
         val authResponseJson  = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(tokenPayload)
         return authResponseJson.token
     }
