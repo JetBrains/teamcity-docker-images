@@ -55,7 +55,7 @@ object image_validation: BuildType({
 			// Generate validation for each image fully-qualified domain name (FQDN)
 			gradle {
 				name = "Image Verification Gradle - $imageFqdn"
-				tasks = "clean build run --args=\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\""
+				tasks = "clean build run --args=\"validate  $imageFqdn %docker.stagingRepository.login% %docker.stagingRepository.token%\""
 
 				workingDir = "tool/automation/framework"
 				buildFile = "build.gradle"

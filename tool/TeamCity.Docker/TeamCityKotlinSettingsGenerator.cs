@@ -424,7 +424,7 @@ namespace TeamCity.Docker
                 "\t\t     gradle {",
                 "\t\t\t       name = \"Image Verification Gradle - $imageFqdn\"",
                 // "%docker.buildRepository.login% %docker.buildRepository.token%" are defined within TeamCity server
-                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn %docker.buildRepository.login% %docker.buildRepository.token%\\\"\"",
+                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn %docker.stagingRepository.login% %docker.stagingRepository.token%\\\"\"",
                 "\t\t\t       workingDir = \"tool/automation/framework\"",
                 "\t\t\t       buildFile = \"build.gradle\"",
                 "\t\t\t       jdkHome = \"%env.JDK_11_x64%\"",
