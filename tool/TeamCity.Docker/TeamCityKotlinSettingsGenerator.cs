@@ -364,7 +364,7 @@ namespace TeamCity.Docker
 
             yield return $"object {buildTypeId}: BuildType(";
             yield return "{";
-            yield return "\t name = \"Validation of Size Regression - Docker Image (Windows / Linux)\"";
+            yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             // TODO: Change Build Name pattern
             yield return $"\t {_buildNumberPattern}";
 
