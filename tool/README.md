@@ -44,3 +44,17 @@ generate -s configs -f "configs/common.config;configs/local.config;configs/windo
 
 # 2. Automation utilities
 [Automation utilities](automation/framework) contains utilities that simplify release process. Please, follow the link for the detailed documentation.
+
+# 3. TeamCity Parameters
+
+Due to the necessity to keep multiple parameters masked, in order to run the configurations located within current repository, 
+it's mandatory to configure (persist) some of them within TeamCity Server. Please, note that the scope of their accessibility 
+must correspond to build configurations created based on DSL stored within this repository.
+
+| Parameter                        | Description                                                                               |
+|----------------------------------|-------------------------------------------------------------------------------------------|
+| `docker.stagingRepository.login` | Login for Docker staging registry. Must be stored as TeamCity password (masked).          |
+| `docker.stagingRepository.token` | Password for Docker staging registry. Must be stored as TeamCity password (masked).       |
+| `docker.buildRepository`         | Staging repository link. Please, note that it should not contain image name or tag.       |
+| `docker.buildImagePostfix`       | Postfix for staging Docker Images. It will be added to the name of the image, not tag.    |
+| `docker.deployRepository`        | "Production" repository which will contain final images within `docker.buildImagePostfix` |
