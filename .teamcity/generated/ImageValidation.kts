@@ -27,7 +27,7 @@ object image_validation: BuildType({
 	triggers {
 		// Execute the build once the images are available within %deployRepository%
 		finishBuildTrigger {
-			buildType = "${PublishHubVersion.publish_hub_version.id}"
+			buildType = "${PublishLocal.publish_local.id}"
 		}
 	}
 
