@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_linux_20_04 : BuildType({
 name = "Build and push linux 20.04"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2022.10.1-linux,latest,2022.10.1 teamcity-minimal-agent:2022.10.1-linux,latest,2022.10.1 teamcity-agent:2022.10.1-linux,latest,2022.10.1:2022.10.1-linux-sudo:2022.10.1-linux-arm64,latest,2022.10.1:2022.10.1-linux-arm64-sudo"
+description  = "teamcity-server:2022.10.1-linux,latest,2022.10.1 teamcity-minimal-agent:2022.10.1-linux,latest,2022.10.1 teamcity-agent:2022.10.1-linux,latest,latest"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {
@@ -119,52 +119,6 @@ teamcity-agent:2022.10.1-linux-sudo
 param("dockerImage.platform", "linux")
 }
 
-script {
-name = "context teamcity-agent:2022.10.1-linux-arm64"
-scriptContent = """
-echo 2> context/.dockerignore
-echo TeamCity >> context/.dockerignore
-""".trimIndent()
-}
-
-dockerCommand {
-name = "build teamcity-agent:2022.10.1-linux-arm64"
-commandType = build {
-source = file {
-path = """context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"""
-}
-contextDir = "context"
-commandArgs = "--no-cache"
-namesAndTags = """
-teamcity-agent:2022.10.1-linux-arm64
-""".trimIndent()
-}
-param("dockerImage.platform", "linux")
-}
-
-script {
-name = "context teamcity-agent:2022.10.1-linux-arm64-sudo"
-scriptContent = """
-echo 2> context/.dockerignore
-echo TeamCity >> context/.dockerignore
-""".trimIndent()
-}
-
-dockerCommand {
-name = "build teamcity-agent:2022.10.1-linux-arm64-sudo"
-commandType = build {
-source = file {
-path = """context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile"""
-}
-contextDir = "context"
-commandArgs = "--no-cache"
-namesAndTags = """
-teamcity-agent:2022.10.1-linux-arm64-sudo
-""".trimIndent()
-}
-param("dockerImage.platform", "linux")
-}
-
 dockerCommand {
 name = "tag teamcity-server:2022.10.1-linux"
 commandType = other {
@@ -194,22 +148,6 @@ name = "tag teamcity-agent:2022.10.1-linux-sudo"
 commandType = other {
 subCommand = "tag"
 commandArgs = "teamcity-agent:2022.10.1-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-sudo"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2022.10.1-linux-arm64"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-agent:2022.10.1-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent:2022.10.1-linux-arm64-sudo"
-commandType = other {
-subCommand = "tag"
-commandArgs = "teamcity-agent:2022.10.1-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo"
 }
 }
 
@@ -248,26 +186,6 @@ name = "push teamcity-agent:2022.10.1-linux-sudo"
 commandType = push {
 namesAndTags = """
 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-sudo
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2022.10.1-linux-arm64"
-commandType = push {
-namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent:2022.10.1-linux-arm64-sudo"
-commandType = push {
-namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo
 """.trimIndent()
 removeImageAfterPush = false
 }

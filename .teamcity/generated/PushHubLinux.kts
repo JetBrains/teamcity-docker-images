@@ -42,58 +42,6 @@ removeImageAfterPush = false
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo %docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64-sudo"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64-sudo"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64-sudo
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
-dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64"
-commandType = other {
-subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64"
-}
-}
-
-dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64"
-commandType = other {
-subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64"
-}
-}
-
-dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux-arm64"
-commandType = push {
-namesAndTags = """
-%docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64
-""".trimIndent()
-removeImageAfterPush = false
-}
-}
-
-dockerCommand {
 name = "pull teamcity-agent%docker.buildImagePostfix%:2022.10.1-linux"
 commandType = other {
 subCommand = "pull"

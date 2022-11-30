@@ -47,7 +47,7 @@ dockerCommand {
 name = "manifest create teamcity-agent:latest"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10.1-linux-arm64 %docker.deployRepository%teamcity-agent:2022.10.1-linux %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2022.10.1-linux %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.10.1-nanoserver-2004"
 }
 }
 dockerCommand {
