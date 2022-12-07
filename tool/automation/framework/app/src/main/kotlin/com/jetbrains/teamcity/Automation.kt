@@ -4,8 +4,8 @@
 package com.jetbrains.teamcity
 
 import com.jetbrains.teamcity.common.constants.ValidationConstants
-import com.jetbrains.teamcity.common.network.HttpRequestsUtilities
 import com.jetbrains.teamcity.docker.exceptions.DockerImageValidationException
+import com.jetbrains.teamcity.docker.hub.auth.DockerhubCredentials
 import com.jetbrains.teamcity.docker.validation.DockerImageValidationUtilities
 import kotlinx.cli.*
 
@@ -15,37 +15,32 @@ import kotlinx.cli.*
  * ... argument parser.
  */
 @OptIn(ExperimentalCli::class)
-class ValidateImage: Subcommand("validate", "Validate Docker Image") {
-    private val imageNames by argument(ArgType.String, description = "Images").vararg()
+class ValidateImage : Subcommand("validate", "Validate Docker Image with (optionally) provided credentials.") {
+    private val validationArgs by argument(
+        ArgType.String,
+        description = "Image, (optional) Username, (optional) Token"
+    ).vararg()
 
     /**
      * Execute image validation option specified via CLI.
      */
     override fun execute() {
-        if (imageNames.size > 2) {
-            throw IllegalArgumentException("Too many image names")
-        }
-
-        val images = listOf("jetbrains/teamcity-agent:2022.10-windowsservercore-1809",
-            "jetbrains/teamcity-agent:2022.10-nanoserver-1809",
-            "jetbrains/teamcity-minimal-agent:2022.10-nanoserver-1809",
-            "jetbrains/teamcity-server:2022.10-nanoserver-2004",
-            "jetbrains/teamcity-agent:2022.10-windowsservercore-2004",
-            "jetbrains/teamcity-agent:2022.10-nanoserver-2004",
-            "jetbrains/teamcity-minimal-agent:2022.10-nanoserver-2004",
-            // -- linux images
-            "jetbrains/teamcity-agent:2022.10-linux",
-            "jetbrains/teamcity-agent:2022.10-linux-sudo",
-            "jetbrains/teamcity-minimal-agent:2022.10-linux"
-        )
 
         // 1. Capture current image size
-        val originalImageName = imageNames[0]
+        val originalImageName = validationArgs[0]
+
+        val username = if (validationArgs.size > 1) validationArgs[1] else null
+        val token = if (validationArgs.size > 2) validationArgs[2] else null
+        val credentials: DockerhubCredentials = getDockerhubCredentials(username, token)
+
 
         val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
-        val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(originalImageName,
+        val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(
+            originalImageName,
             "https://hub.docker.com/v2",
-            percentageChangeThreshold)
+            percentageChangeThreshold,
+            credentials
+        )
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
@@ -60,14 +55,33 @@ class ValidateImage: Subcommand("validate", "Validate Docker Image") {
 /**
  * Print out the trend for image sizes.
  */
-class PrintImageSizeTrend: Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
-    private val imageName by argument(ArgType.String, description = "Image").vararg()
+class PrintImageSizeTrend : Subcommand("get-size-trend", "Print out the trend for the size of given Docker image.") {
+    private val imageName by argument(
+        ArgType.String,
+        description = "Image, (optional) logic, (optional) access token"
+    ).vararg()
 
     override fun execute() {
         val image = imageName[0]
         val registryUri = "https://hub.docker.com/v2"
-        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri)
+
+        val username = if (imageName.size > 1) imageName[1] else null
+        val token = if (imageName.size > 2) imageName[2] else null
+        val credentials: DockerhubCredentials = getDockerhubCredentials(username, token)
+        DockerImageValidationUtilities.printImageSizeTrend(image, registryUri, credentials)
     }
+}
+
+/**
+ * Constructs provided arguments into DockerhubCredentials instance.
+ * Purpose: unify null-handling within arguments parsing.
+ */
+fun getDockerhubCredentials(username: String?, token: String?): DockerhubCredentials {
+    if (username.isNullOrEmpty() != token.isNullOrEmpty()) {
+        // we could tolerate when credentials were not provided at all, but not vise-versa
+        throw IllegalArgumentException("If credentials should be used, both username and token must be provided.")
+    }
+    return DockerhubCredentials(username, token)
 }
 
 @OptIn(ExperimentalCli::class)
