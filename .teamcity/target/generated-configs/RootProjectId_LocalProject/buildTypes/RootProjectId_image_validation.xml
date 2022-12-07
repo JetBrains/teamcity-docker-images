@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Validation (post-push) of Docker images (Windows)</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="test-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="dockerImage.teamcity.buildNumber" value="-" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="Image Verification Gradle - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Image Verification Gradle - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="Image Verification Gradle - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Image Verification Gradle - %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-server:2022.10-nanoserver-2004'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="Image Verification Gradle - %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="Image Verification Gradle - %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="Image Verification Gradle - %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.additional.gradle.cmd.params" value="--args='validate  %docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004'" />
+          <param name="ui.gradleRunner.gradle.stacktrace.enabled" value="true" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="RootProjectId_TeamCityDockerImagesRepo" />
+    </vcs-settings>
+    <requirements>
+      <ver-no-less-than id="RQ_1" name="docker.version" value="18.05.0" />
+      <contains id="RQ_2" name="teamcity.agent.jvm.os.name" value="Linux" />
+      <exists id="RQ_3" name="env.JDK_11" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="buildDependencyTrigger">
+        <parameters>
+          <param name="dependsOn" value="RootProjectId_publish_hub_version" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774,PROJECT_EXT_315" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="10gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="DockerImageValidationException" />
+          <param name="buildFailureOnMessage.outputText" value="Docker Image validation have failed" />
+          <param name="buildFailureOnMessage.reportOnlyFirstMatch" value="false" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+

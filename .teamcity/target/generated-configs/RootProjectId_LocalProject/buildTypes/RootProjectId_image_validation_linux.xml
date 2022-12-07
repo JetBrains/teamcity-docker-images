@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Validation (post-push) of Docker images (Linux)</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="test-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="dockerImage.teamcity.buildNumber" value="-" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="pull %docker.deployRepository%teamcity-agent:2022.10-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.deployRepository%teamcity-agent:2022.10-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux" type="kotlinScript">
+        <parameters>
+          <param name="kotlinArgs" value="%docker.deployRepository%teamcity-agent:2022.10-linux" />
+          <param name="scriptFile" value="tool/automation/ImageValidation.main.kts" />
+          <param name="scriptType" value="file" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="pull %docker.deployRepository%teamcity-agent:2022.10-linux-sudo" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.deployRepository%teamcity-agent:2022.10-linux-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Image Verification - %docker.deployRepository%teamcity-agent:2022.10-linux-sudo" type="kotlinScript">
+        <parameters>
+          <param name="kotlinArgs" value="%docker.deployRepository%teamcity-agent:2022.10-linux-sudo" />
+          <param name="scriptFile" value="tool/automation/ImageValidation.main.kts" />
+          <param name="scriptType" value="file" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="pull %docker.deployRepository%teamcity-minimal-agent:2022.10-linux" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.deployRepository%teamcity-minimal-agent:2022.10-linux" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="Image Verification - %docker.deployRepository%teamcity-minimal-agent:2022.10-linux" type="kotlinScript">
+        <parameters>
+          <param name="kotlinArgs" value="%docker.deployRepository%teamcity-minimal-agent:2022.10-linux" />
+          <param name="scriptFile" value="tool/automation/ImageValidation.main.kts" />
+          <param name="scriptType" value="file" />
+          <param name="teamcity.step.mode" value="execute_always" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="RootProjectId_TeamCityDockerImagesRepo" />
+    </vcs-settings>
+    <requirements>
+      <contains id="RQ_1" name="teamcity.agent.jvm.os.name" value="Linux" />
+      <ver-no-less-than id="RQ_2" name="docker.version" value="18.05.0" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="buildDependencyTrigger">
+        <parameters>
+          <param name="dependsOn" value="RootProjectId_publish_hub_version" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="true" />
+          <param name="login2registry" value="PROJECT_EXT_774,PROJECT_EXT_315" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="10gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="DockerImageValidationException" />
+          <param name="buildFailureOnMessage.outputText" value="Docker Image validation have failed" />
+          <param name="buildFailureOnMessage.reportOnlyFirstMatch" value="false" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+
