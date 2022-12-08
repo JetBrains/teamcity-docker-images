@@ -23,8 +23,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
-object image_validation: BuildType(
-{
+object image_validation: BuildType({
 	 name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 vcs {

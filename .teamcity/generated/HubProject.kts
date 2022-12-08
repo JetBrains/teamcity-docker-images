@@ -24,8 +24,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 object HubProject : Project({
-name = "Docker hub"
-buildType(PushHubLinux.push_hub_linux)
-buildType(PushHubWindows.push_hub_windows)
-buildType(PublishHubVersion.publish_hub_version)
+	 name = "Docker hub"
+	 buildType(PushHubLinux.push_hub_linux)
+	 buildType(PushHubWindows.push_hub_windows)
+	 buildType(PublishHubVersion.publish_hub_version)
 })

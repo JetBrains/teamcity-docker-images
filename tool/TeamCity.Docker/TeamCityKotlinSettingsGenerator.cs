@@ -1,4 +1,4 @@
-﻿// ReSharper disable ClassNeverInstantiated.Global
+﻿requirements// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
     using System;
@@ -166,10 +166,10 @@ namespace TeamCity.Docker
             // ReSharper disable once UseObjectOrCollectionInitializer
             var lines = new List<string>();
             lines.Add("object LocalProject : Project({");
-            lines.Add("name = \"Staging registry\"");
+            lines.Add("\t name = \"Staging registry\"");
             foreach (var buildType in localBuildTypes.Distinct())
             {
-                lines.Add($"buildType({NormalizeFileName(buildType)}.{buildType})");
+                lines.Add($"\t buildType({NormalizeFileName(buildType)}.{buildType})");
             }
             lines.Add("})");
 
@@ -178,10 +178,10 @@ namespace TeamCity.Docker
 
             // Hub project
             lines.Add("object HubProject : Project({");
-            lines.Add("name = \"Docker hub\"");
+            lines.Add("\t name = \"Docker hub\"");
             foreach (var buildType in hubBuildTypes.Distinct())
             {
-                lines.Add($"buildType({NormalizeFileName(buildType)}.{buildType})");
+                lines.Add($"\t buildType({NormalizeFileName(buildType)}.{buildType})");
             }
 
             lines.Add("})");
@@ -275,12 +275,11 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreatePushBuildConfiguration(string buildTypeId, string platform, IEnumerable<Image> allImages, params string[] buildBuildTypes)
         {
             var images = allImages.Where(i => i.File.Platform == platform).ToList();
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
-            yield return $"name = \"Push {platform}\"";
-            yield return _buildNumberPattern;
+            yield return $"object {buildTypeId}: BuildType(" + "{";
+             yield return $"\t name = \"Push {platform}\"";
+            yield return $"\t{_buildNumberPattern}";
 
-            yield return "steps {";
+            yield return "\t steps {";
             foreach (var image in images)
             {
                 // docker pull
@@ -289,47 +288,47 @@ namespace TeamCity.Docker
                 var repoTag = $"{BuildRepositoryName}{repo}";
                 foreach (var pullCommand in CreatePullCommand(repoTag, repo))
                 {
-                    yield return $"\t{pullCommand}";
+                    yield return $"\t\t{pullCommand}";
                 }
 
                 var newRepo = $"{DeployRepositoryName}{image.File.ImageId}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
                 foreach (var tagCommand in CreateTagCommand(repoTag, newRepoTag, repo))
                 {
-                    yield return $"\t{tagCommand}";
+                    yield return $"\t\t{tagCommand}";
                 }
 
                 foreach (var pushCommand in CreatePushCommand($"{newRepo}", repo, tag))
                 {
-                    yield return $"\t{pushCommand}";
+                    yield return $"\t\t{pushCommand}";
                 }
             }
 
-            yield return "}";
+            yield return "\t }";
 
-            yield return "features {";
+            yield return "\t features {";
 
             var weight = images.Sum(i => i.File.Weight.Value);
             if (weight > 0)
             {
                 foreach (var feature in CreateFreeDiskSpaceFeature(weight))
                 {
-                    yield return $"\t{feature}";
+                    yield return $"\t\t {feature}";
                 }
             }
 
             foreach (var feature in CreateDockerFeature())
             {
-                yield return $"\t{feature}";
+                yield return $"\t\t {feature}";
             }
 
             // ReSharper disable once StringLiteralTypo
             foreach (var feature in CreateSwabraFeature())
             {
-                yield return $"\t{feature}";
+                yield return $"\t\t {feature}";
             }
 
-            yield return "}";
+            yield return "\t }";
 
             foreach (var param in CreateSpaceParams(weight))
             {
@@ -339,7 +338,7 @@ namespace TeamCity.Docker
             var requirements = images.SelectMany(i => i.File.Requirements).Distinct().ToList();
             foreach (var lines in CreateDockerRequirements(requirements, platform))
             {
-                yield return lines;
+                yield return $"\t {lines}";
             }
 
             foreach (var dependencies in CreateSnapshotDependencies(buildBuildTypes, null))
@@ -362,8 +361,7 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateImageValidationConfig(string buildTypeId, IEnumerable<Image> allImages, string imagePostfix) {
             
 
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
+            yield return $"object {buildTypeId}: BuildType(" + "{";
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             // TODO: Change Build Name pattern
             yield return $"\t {_buildNumberPattern}";
@@ -487,18 +485,17 @@ namespace TeamCity.Docker
         /// <param name="dependencies">dependencies of the build (other TeamCity build configuration, if any)</param>
         private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
         {
-            yield return $"object {buildTypeId}: BuildType(";
-            yield return "{";
-            yield return $"name = \"{name}\"";
-            yield return _buildNumberPattern;
-            yield return "enablePersonalBuilds = false";
-            yield return "type = BuildTypeSettings.Type.DEPLOYMENT";
-            yield return "maxRunningBuilds = 1";
+            yield return $"object {buildTypeId}: BuildType(" + "{";
+            yield return $"\t name = \"{name}\"";
+            yield return $"\t{_buildNumberPattern}";
+            yield return "\t enablePersonalBuilds = false";
+            yield return "\t type = BuildTypeSettings.Type.DEPLOYMENT";
+            yield return "\t maxRunningBuilds = 1";
 
-            yield return "steps {";
+            yield return "\t steps {";
             foreach (var line in AddScript("remove manifests", RemoveManifestsScript))
             {
-                yield return $"\t{line}";
+                yield return $"\t\t {line}";
             }
 
             foreach (var group in images.OrderBy(i => i.Key))
@@ -508,30 +505,30 @@ namespace TeamCity.Docker
                 {
                     foreach (var line in CreateManifestCommands(repositoryName, group.Key, groupByImageId.Key, imagePostfix, groupByImageId))
                     {
-                        yield return line;
+                        yield return $"\t{line}";
                     }
                 }
             }
 
-            yield return "}";
+            yield return "\t }";
 
             foreach (var line in CreateSnapshotDependencies(dependencies, onStaging))
             {
-                yield return line;
+                yield return $"\t{line}";
             }
 
             var requirements = images.SelectMany(i => i).SelectMany(i => i.File.Requirements).Distinct().ToList();
             foreach (var lines in CreateDockerRequirements(requirements, "windows", MinDockerVersion))
             {
-                yield return lines;
+                yield return $"\t{lines}";
             }
 
-            yield return "features {";
+            yield return "\t features {";
             foreach (var line in CreateDockerFeature())
             {
-                yield return line;
+                yield return $"\t\t {line}";
             }
-            yield return "}";
+            yield return "\t}";
 
             yield return "})";
             yield return string.Empty;
@@ -542,23 +539,23 @@ namespace TeamCity.Docker
             yield return "requirements {";
             if (!string.IsNullOrWhiteSpace(minDockerVersion))
             {
-                yield return $"noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
+                yield return $"\t noLessThanVer(\"docker.version\", \"{minDockerVersion}\")";
             }
 
             if (!string.IsNullOrWhiteSpace(platform))
             {
-                yield return $"contains(\"docker.server.osType\", \"{platform}\")";
+                yield return $"\t contains(\"docker.server.osType\", \"{platform}\")";
             }
 
             foreach (var requirement in requirements)
             {
                 if (string.IsNullOrWhiteSpace(requirement.Value))
                 {
-                    yield return $"{requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\")";
+                    yield return $"\t {requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\")";
                 }
                 else
                 {
-                    yield return $"{requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\", \"{requirement.Value}\")";   
+                    yield return $"\t {requirement.Type.ToString().ToLowerInvariant()}(\"{requirement.Property}\", \"{requirement.Value}\")";   
                 }
             }
             yield return "}";
@@ -653,7 +650,7 @@ namespace TeamCity.Docker
             }
 
             var pauseStr = onPause ? "ON PAUSE " : "";
-            yield return $"\t object {buildTypeId} : BuildType({{";
+            yield return $"object {buildTypeId} : BuildType({{";
             yield return $"\t name = \"{pauseStr}Build and push {name}\"";
             yield return $"\t {_buildNumberPattern}";
             yield return $"\t description  = \"{description}\"";
@@ -665,21 +662,21 @@ namespace TeamCity.Docker
                 yield return "\t }";
 
 
-                yield return "\n steps {";
+                yield return "\n \t steps {";
 
-                // docker pull
+                // "docker pull" command types @ steps { ... } block
                 foreach (var command in references.SelectMany(refer => CreatePullCommand(refer.RepoTag, refer.RepoTag)))
                 {
-                    yield return $"\t{command}";
+                    yield return $"\t\t{command}";
                 }
 
-                // docker build
+                // "docker build" command types @ steps { ... } block
                 foreach (var command in images.SelectMany(image => CreatePrepareContextCommand(image).Concat(CreateBuildCommand(image))))
                 {
-                    yield return $"\t{command}";
+                    yield return $"\t\t{command}";
                 }
 
-                // docker image tag & verification
+                // "docker image tag" command types @ steps { ... } block
                 foreach (var image in images)
                 {
                     if (image.File.Tags.Any())
@@ -689,45 +686,47 @@ namespace TeamCity.Docker
                         // "tag" command
                         foreach (var tagCommand in CreateTagCommand($"{image.File.ImageId}:{tag}", $"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}:{tag}", $"{image.File.ImageId}:{tag}"))
                         {
-                            yield return $"\t{tagCommand}";
+                            yield return $"\t\t{tagCommand}";
                         }
                     }
                 }
 
-                // docker push
+                // "docker push" command types @ steps { ... } block
                 foreach (var image in images)
                 {
                     var tag = image.File.Tags.First();
                     foreach (var pushCommand in CreatePushCommand($"{BuildRepositoryName}{image.File.ImageId}{BuildImagePostfix}", $"{image.File.ImageId}:{tag}", tag))
                     {
-                        yield return $"\t{pushCommand}";
+                        yield return $"\t\t{pushCommand}";
                     }
                 }
 
-                yield return "}";
+                // end of steps {...} block
+                yield return "\t}";
 
-                yield return "features {";
+                yield return "\tfeatures {";
 
                 if (weight > 0)
                 {
                     foreach (var feature in CreateFreeDiskSpaceFeature(weight))
                     {
-                        yield return $"\t{feature}";
+                        yield return $"\t\t{feature}";
                     }
                 }
 
                 foreach (var feature in CreateDockerFeature())
                 {
-                    yield return $"\t{feature}";
+                    yield return $"\t\t{feature}";
                 }
 
                 // ReSharper disable once StringLiteralTypo
                 foreach (var feature in CreateSwabraFeature())
                 {
-                    yield return $"\t{feature}";
+                    yield return $"\t\t{feature}";
                 }
 
-                yield return "}";
+                // end of features { ... } block
+                yield return "\t}";
 
                 foreach (var dependencies in CreateArtifactsDependencies())
                 {
@@ -762,27 +761,27 @@ namespace TeamCity.Docker
 
         private IEnumerable<string> CreateSnapshotDependencies(IEnumerable<string> dependencies, bool? onStaging)
         {
-            yield return "dependencies {";
+            yield return "\t dependencies {";
             if (onStaging != null)
             {
-                yield return $"\t snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))";
+                yield return $"\t\t snapshot(AbsoluteId(\"{_options.TeamCityBuildConfigurationId}\"))" + " {\n";
                 if (onStaging == true)
                 {
-                    yield return "{\n \t onDependencyFailure = FailureAction.FAIL_TO_START\nreuseBuilds = ReuseBuilds.ANY\nsynchronizeRevisions = false\n}";
+                    yield return "\t\t\t onDependencyFailure = FailureAction.FAIL_TO_START \n \t\t\t reuseBuilds = ReuseBuilds.ANY \n \t\t\t synchronizeRevisions = false \n \t\t }";
                 }
                 else
                 {
-                    yield return "{\n \t reuseBuilds = ReuseBuilds.ANY\nonDependencyFailure = FailureAction.IGNORE\n}";
+                    yield return "\t\t\t reuseBuilds = ReuseBuilds.ANY \n \t\t\t onDependencyFailure = FailureAction.IGNORE \n\t }";
                 }
             }
 
             foreach (var buildTypeId in dependencies.OrderBy(i => i))
             {
-                yield return $"\t snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})";
-                yield return "{\n \t onDependencyFailure =  FailureAction.FAIL_TO_START\n}";
+                yield return $"\t\t snapshot({NormalizeFileName(buildTypeId)}.{buildTypeId})" + " {\n";
+                yield return "\t\t\t onDependencyFailure =  FailureAction.FAIL_TO_START \n \t\t }";
             }
 
-            yield return "}";
+            yield return "\t }";
         }
 
         /// <summary>
@@ -1009,7 +1008,7 @@ namespace TeamCity.Docker
             yield return "\t commandType = build {";
             
             yield return "\t\t source = file {";
-            yield return $"\t\t path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
+            yield return $"\t\t\t path = \"\"\"{_pathService.Normalize(Path.Combine(_options.TargetPath, image.File.Path, "Dockerfile"))}\"\"\"";
             yield return "\t\t }";
 
             yield return $"\t contextDir = \"{_pathService.Normalize(_options.ContextPath)}\"";
