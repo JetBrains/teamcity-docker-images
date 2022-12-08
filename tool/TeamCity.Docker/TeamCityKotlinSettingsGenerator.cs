@@ -941,7 +941,7 @@ namespace TeamCity.Docker
 
             yield return "\"\"\".trimIndent()";
             
-            yield return "\t removeImageAfterPush = false";
+            yield return "\t\t removeImageAfterPush = false";
 
             yield return "\t }";
             yield return "}";
@@ -961,10 +961,10 @@ namespace TeamCity.Docker
             yield return $"\t name = \"tag {name}\"";
             yield return "\t commandType = other {";
 
-            yield return "\t subCommand = \"tag\"";
-            yield return $"\t commandArgs = \"{repoTag} {newRepoTag}\"";
+            yield return "\t\t subCommand = \"tag\"";
+            yield return $"\t\t commandArgs = \"{repoTag} {newRepoTag}\"";
 
-            yield return "}";
+            yield return "\t}";
             yield return "}";
 
             yield return string.Empty;
@@ -1051,7 +1051,7 @@ namespace TeamCity.Docker
             yield return "dockerCommand {";
             yield return $"\t name = \"{name}\"";
             yield return "\t commandType = other {";
-            yield return $"\t subCommand = \"{command}\"";
+            yield return $"\t\t subCommand = \"{command}\"";
             yield return $"\t\t commandArgs = \"{string.Join(" ", args)}\"";
             yield return "\t }";
             yield return "}";

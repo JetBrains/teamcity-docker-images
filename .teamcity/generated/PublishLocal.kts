@@ -38,84 +38,84 @@ steps {
 dockerCommand {
 	 name = "manifest create teamcity-server:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 	 }
 }
 dockerCommand {
 	 name = "manifest push teamcity-server:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP"
 	 }
 }
 dockerCommand {
 	 name = "manifest inspect teamcity-server:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP --verbose"
 	 }
 }
 dockerCommand {
 	 name = "manifest create teamcity-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 	 }
 }
 dockerCommand {
 	 name = "manifest push teamcity-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP"
 	 }
 }
 dockerCommand {
 	 name = "manifest inspect teamcity-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP --verbose"
 	 }
 }
 dockerCommand {
 	 name = "manifest create teamcity-minimal-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 	 }
 }
 dockerCommand {
 	 name = "manifest push teamcity-minimal-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP"
 	 }
 }
 dockerCommand {
 	 name = "manifest inspect teamcity-minimal-agent:EAP"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP --verbose"
 	 }
 }
 dockerCommand {
 	 name = "manifest create teamcity-agent:EAP-windowsservercore"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 	 }
 }
 dockerCommand {
 	 name = "manifest push teamcity-agent:EAP-windowsservercore"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore"
 	 }
 }
 dockerCommand {
 	 name = "manifest inspect teamcity-agent:EAP-windowsservercore"
 	 commandType = other {
-	 subCommand = "manifest"
+		 subCommand = "manifest"
 		 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore --verbose"
 	 }
 }

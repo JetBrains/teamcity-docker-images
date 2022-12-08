@@ -39,9 +39,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-server:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
@@ -50,7 +50,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-server:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -65,9 +65,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809"
+		}
 	}
 	
 	dockerCommand {
@@ -76,7 +76,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-windowsservercore-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -91,9 +91,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
@@ -102,7 +102,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -117,9 +117,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
@@ -128,7 +128,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -143,9 +143,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-server:EAP-nanoserver-2004"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-server:EAP-nanoserver-2004"
+		}
 	}
 	
 	dockerCommand {
@@ -154,7 +154,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-server:EAP-nanoserver-2004
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -169,9 +169,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-2004"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004 %docker.deployRepository%teamcity-agent:EAP-windowsservercore-2004"
+		}
 	}
 	
 	dockerCommand {
@@ -180,7 +180,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-windowsservercore-2004
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -195,9 +195,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-agent:EAP-nanoserver-2004"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-agent:EAP-nanoserver-2004"
+		}
 	}
 	
 	dockerCommand {
@@ -206,7 +206,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-nanoserver-2004
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -221,9 +221,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-2004"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 %docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-2004"
+		}
 	}
 	
 	dockerCommand {
@@ -232,7 +232,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-minimal-agent:EAP-nanoserver-2004
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	

@@ -39,9 +39,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
+		}
 	}
 	
 	dockerCommand {
@@ -50,7 +50,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-server:EAP-linux
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -65,9 +65,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo"
+		}
 	}
 	
 	dockerCommand {
@@ -76,7 +76,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -91,9 +91,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux-arm64"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux-arm64"
+		}
 	}
 	
 	dockerCommand {
@@ -102,7 +102,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-linux-arm64
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -117,9 +117,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-agent:EAP-linux"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-agent:EAP-linux"
+		}
 	}
 	
 	dockerCommand {
@@ -128,7 +128,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-linux
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -143,9 +143,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
+		}
 	}
 	
 	dockerCommand {
@@ -154,7 +154,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-agent:EAP-linux-sudo
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -169,9 +169,9 @@ steps {
 	dockerCommand {
 		 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-linux"
-	}
+			 subCommand = "tag"
+			 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-linux"
+		}
 	}
 	
 	dockerCommand {
@@ -180,7 +180,7 @@ steps {
 			 namesAndTags = """
 	%docker.deployRepository%teamcity-minimal-agent:EAP-linux
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	

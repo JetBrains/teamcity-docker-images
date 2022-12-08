@@ -158,33 +158,33 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 	dockerCommand {
 		 name = "tag teamcity-server:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
 		 name = "tag teamcity-minimal-agent:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
 		 name = "tag teamcity-agent:EAP-windowsservercore-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
+		}
 	}
 	
 	dockerCommand {
 		 name = "tag teamcity-agent:EAP-nanoserver-1809"
 		 commandType = other {
-		 subCommand = "tag"
-		 commandArgs = "teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
-	}
+			 subCommand = "tag"
+			 commandArgs = "teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+		}
 	}
 	
 	dockerCommand {
@@ -193,7 +193,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 			 namesAndTags = """
 	%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -203,7 +203,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 			 namesAndTags = """
 	%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -213,7 +213,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 			 namesAndTags = """
 	%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
@@ -223,7 +223,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 			 namesAndTags = """
 	%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809
 	""".trimIndent()
-		 removeImageAfterPush = false
+			 removeImageAfterPush = false
 		 }
 	}
 	
