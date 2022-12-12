@@ -363,7 +363,6 @@ namespace TeamCity.Docker
 
             yield return $"object {buildTypeId}: BuildType(" + "{";
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
-            // TODO: Change Build Name pattern
             yield return $"\t buildNumberPattern=\"validate-%dockerImage.teamcity.buildNumber%-%build.counter%\"";
 
             // VCS Root Is needed in order to launch automaiton framework
