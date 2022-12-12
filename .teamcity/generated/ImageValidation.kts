@@ -25,7 +25,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 object image_validation: BuildType({
 	 name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
-	 buildNumberPattern="validate-%dockerImage.teamcity.buildNumber%-%build.counter%"
+	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
@@ -43,20 +43,20 @@ object image_validation: BuildType({
 	 }
 
 	 val targetImages: HashMap<String, String> = hashMapOf(
-"teamcity-server-2022.10-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.10-linux", 
-		"teamcity-agent-2022.10-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-arm64-sudo", 
-		"teamcity-agent-2022.10-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-arm64", 
-		"teamcity-agent-2022.10-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux", 
-		"teamcity-agent-2022.10-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-linux-sudo", 
-		"teamcity-minimal-agent-2022.10-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-linux", 
-		"teamcity-server-2022.10-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-1809", 
-		"teamcity-agent-2022.10-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-1809", 
-		"teamcity-agent-2022.10-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809", 
-		"teamcity-minimal-agent-2022.10-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-1809", 
-		"teamcity-server-2022.10-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.10-nanoserver-2004", 
-		"teamcity-agent-2022.10-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-windowsservercore-2004", 
-		"teamcity-agent-2022.10-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004", 
-		"teamcity-minimal-agent-2022.10-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10-nanoserver-2004"
+"teamcity-server-EAP-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo", 
+		"teamcity-agent-EAP-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64", 
+		"teamcity-agent-EAP-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
+		"teamcity-minimal-agent-EAP-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-server-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-agent-EAP-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809", 
+		"teamcity-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-minimal-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-server-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-agent-EAP-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004", 
+		"teamcity-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-minimal-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 	  )
 
 	 steps {
@@ -96,7 +96,7 @@ object image_validation: BuildType({
 		   dockerSupport {
 			     cleanupPushedImages = true
 			     loginToRegistry = on {
-			       dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+			       dockerRegistryId = "PROJECT_EXT_774"
 			     }
 		   }
 	 }
