@@ -1,4 +1,4 @@
-﻿requirements// ReSharper disable ClassNeverInstantiated.Global
+﻿// ReSharper disable ClassNeverInstantiated.Global
 namespace TeamCity.Docker
 {
     using System;
@@ -364,7 +364,7 @@ namespace TeamCity.Docker
             yield return $"object {buildTypeId}: BuildType(" + "{";
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             // TODO: Change Build Name pattern
-            yield return $"\t {_buildNumberPattern}";
+            yield return $"\t buildNumberPattern=\"validate-%dockerImage.teamcity.buildNumber%-%build.counter%\"";
 
             // VCS Root Is needed in order to launch automaiton framework
             yield return String.Join('\n',
@@ -393,36 +393,35 @@ namespace TeamCity.Docker
 
 
             // -- Declare a set of images that we'd need to iterate over
-
-            List<string> imagesForValidationReferences = new List<string>();
+            // -- containing elements for Kotlin hashmap declaration: ...
+            // -- ... <Image Static Name> - <Image Name with Parameter References>
+            List<string> validationHashmapEntries = new List<string>();
 
             foreach (var image in allImages) {
                 var newRepo = $"{DeployRepositoryName}{image.File.ImageId}{imagePostfix}";
                 var newRepoTag = $"{newRepo}:{image.File.Tags.First()}";
                 // Add as as Kotlin DSL list element
-                imagesForValidationReferences.Add($"\"{newRepoTag}\"");
+                // -- hashmap: <name>, <parameter reference domain name>
+                validationHashmapEntries.Add($"\"{image.File.ImageId}-{image.File.Tags.First()}\" to \"{newRepoTag}\"");
             }
 
-            var imageStr = String.Join(", \n\t\t", imagesForValidationReferences);
-
-            // -- Create a list of images to be validated inside of Kotlin DSL in order to reduce ...
-            // -- .. the code.
+            // -- Create declaration of HashMap within DSL which will be used for generation of step "{ ... }" blocks
             yield return String.Join('\n',
-                "\n\t val images = listOf(",
-                imageStr,
+                "\n\t val targetImages: HashMap<String, String> = hashMapOf(",
+                // concatenate previously created hashmap entries for the declaration within DSL
+                String.Join(", \n\t\t", validationHashmapEntries),
                 "\t  )"
             );
-        
 
             // Generate steps in order to validate the images within the list above
             yield return String.Join('\n',
                 "\n\t steps {",
-                "\t\t   images.forEach { imageFqdn ->",
+                "\t\t   targetImages.forEach { (imageVerificationStepId, imageDomainName) ->",
                 "\t\t     // Generate validation for each image fully-qualified domain name (FQDN)",
                 "\t\t     gradle {",
-                "\t\t\t       name = \"Image Verification Gradle - $imageFqdn\"",
+                "\t\t\t       name = \"Image Verification - $imageVerificationStepId\"",
                 // "%docker.buildRepository.login% %docker.stagingRepository.token%" are defined within TeamCity server
-                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageFqdn %docker.stagingRepository.login% %docker.stagingRepository.token%\\\"\"",
+                "\t\t\t       tasks = \"clean build run --args=\\\"validate  $imageDomainName %docker.stagingRepository.login% %docker.stagingRepository.token%\\\"\"",
                 "\t\t\t       workingDir = \"tool/automation/framework\"",
                 "\t\t\t       buildFile = \"build.gradle\"",
                 "\t\t\t       jdkHome = \"%env.JDK_11_x64%\"",
@@ -484,7 +483,7 @@ namespace TeamCity.Docker
         /// <param name="onStaging">indicates if the build is being created for staging purposes</param>
         /// <param name="dependencies">dependencies of the build (other TeamCity build configuration, if any)</param>
         private IEnumerable<string> CreateManifestBuildConfiguration(string buildTypeId, string repositoryName, string name, IReadOnlyCollection<IGrouping<string, Image>> images, string imagePostfix, bool? onStaging, params string[] dependencies)
-        {
+        {   
             yield return $"object {buildTypeId}: BuildType(" + "{";
             yield return $"\t name = \"{name}\"";
             yield return $"\t{_buildNumberPattern}";

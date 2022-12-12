@@ -25,7 +25,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 object image_validation: BuildType({
 	 name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
-	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+	 buildNumberPattern="validate-%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 vcs {
 		 root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
 	 }
@@ -42,29 +42,29 @@ object image_validation: BuildType({
 		 param("dockerImage.teamcity.buildNumber", "-")
 	 }
 
-	 val images = listOf(
-"%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
-		"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 
-		"%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004", 
-		"%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004", 
-		"%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
+	 val targetImages: HashMap<String, String> = hashMapOf(
+"teamcity-server-EAP-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo", 
+		"teamcity-agent-EAP-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64", 
+		"teamcity-agent-EAP-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
+		"teamcity-minimal-agent-EAP-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-server-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-agent-EAP-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809", 
+		"teamcity-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-minimal-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-server-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-agent-EAP-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004", 
+		"teamcity-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-minimal-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 	  )
 
 	 steps {
-		   images.forEach { imageFqdn ->
+		   targetImages.forEach { (imageVerificationStepId, imageDomainName) ->
 		     // Generate validation for each image fully-qualified domain name (FQDN)
 		     gradle {
-			       name = "Image Verification Gradle - $imageFqdn"
-			       tasks = "clean build run --args=\"validate  $imageFqdn %docker.stagingRepository.login% %docker.stagingRepository.token%\""
+			       name = "Image Verification - $imageVerificationStepId"
+			       tasks = "clean build run --args=\"validate  $imageDomainName %docker.stagingRepository.login% %docker.stagingRepository.token%\""
 			       workingDir = "tool/automation/framework"
 			       buildFile = "build.gradle"
 			       jdkHome = "%env.JDK_11_x64%"
