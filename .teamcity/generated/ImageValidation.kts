@@ -27,7 +27,7 @@ object image_validation: BuildType({
 	 name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
 	 buildNumberPattern="validate-%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 vcs {
-		 root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
+		 root(TeamCityDockerImagesRepo)
 	 }
 
 	 triggers {

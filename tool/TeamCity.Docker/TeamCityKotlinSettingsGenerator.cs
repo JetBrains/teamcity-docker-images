@@ -368,7 +368,7 @@ namespace TeamCity.Docker
             // VCS Root Is needed in order to launch automaiton framework
             yield return String.Join('\n',
                 "\t vcs {",
-                "\t\t root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)",
+                "\t\t root(TeamCityDockerImagesRepo)",
                 "\t }" 
             );
 
