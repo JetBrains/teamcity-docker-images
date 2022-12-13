@@ -14,8 +14,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 3
-# Requires system.agent.name contains docker
-# Requires system.agent.name contains windows10
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
 ## ${serverCommentHeader}
 

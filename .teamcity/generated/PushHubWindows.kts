@@ -259,11 +259,10 @@ object push_hub_windows: BuildType({
 	 	 contains("system.agent.name", "docker")
 	 	 contains("system.agent.name", "windows10")
 	 }
-		 dependencies {
-			 snapshot(PublishLocal.publish_local) {
-
-				 onDependencyFailure =  FailureAction.FAIL_TO_START 
- 		 }
-		 }
+	dependencies {
+		snapshot(PublishLocal.publish_local) {
+			onDependencyFailure =  FailureAction.FAIL_TO_START 
+		}
+	}
 })
 

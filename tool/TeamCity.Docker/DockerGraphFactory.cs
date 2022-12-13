@@ -94,7 +94,22 @@ namespace TeamCity.Docker
                                     var values = expression.Split(" ");
                                     if (values.Length >= 2 && Enum.TryParse<RequirementType>(values[1], true, out var requirementType))
                                     {
-                                        requirements.Add(new Requirement(values[0], requirementType, values.Length > 2 ? values[2] : string.Empty));
+                                        // todo: simplify/improve this code, my C#-fu is poor
+                                        if (values.Length > 2)
+                                        {
+                                            if (values.Length > 3)
+                                            {
+                                                requirements.Add(new Requirement(values[0], requirementType, values[2] + " " + values[3]));
+                                            }
+                                            else
+                                            {
+                                                requirements.Add(new Requirement(values[0], requirementType, values[2]));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            requirements.Add(new Requirement(values[0], requirementType, string.Empty));
+                                        }
                                     }
                                 });
                         }
