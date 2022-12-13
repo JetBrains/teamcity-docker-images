@@ -1,136 +1,104 @@
 // NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...
-// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ...
+// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... 
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
 package generated
 
-import common.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
+import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
+import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
+import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
+import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
+object image_validation: BuildType({
+	 name = "Validation of Size Regression - Staging Docker Images (Windows / Linux)"
+	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+	 vcs {
+		 root(TeamCityDockerImagesRepo)
+	 }
 
-object image_validation: BuildType(
-    {
+	 triggers {
+		 // Execute the build once the images are available within %deployRepository%
+		 finishBuildTrigger {
+			 buildType = "${PublishHubVersion.publish_hub_version.id}"
+		 }
+	 }
 
+	 params {
+		 // -- inherited parameter, removed in debug purposes
+		 param("dockerImage.teamcity.buildNumber", "-")
+	 }
 
-        name = "Validation (post-push) of Docker images (Windows)"
-        buildNumberPattern="test-%build.counter%"
+	 val targetImages: HashMap<String, String> = hashMapOf(
+"teamcity-server-EAP-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo", 
+		"teamcity-agent-EAP-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64", 
+		"teamcity-agent-EAP-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-agent-EAP-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
+		"teamcity-minimal-agent-EAP-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 
+		"teamcity-server-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-agent-EAP-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809", 
+		"teamcity-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-minimal-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
+		"teamcity-server-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-agent-EAP-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004", 
+		"teamcity-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004", 
+		"teamcity-minimal-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
+	  )
 
-        vcs {root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)}
+	 steps {
+		   targetImages.forEach { (imageVerificationStepId, imageDomainName) ->
+		     // Generate validation for each image fully-qualified domain name (FQDN)
+		     gradle {
+			       name = "Image Verification - $imageVerificationStepId"
+			       tasks = "clean build run --args=\"validate  $imageDomainName %docker.stagingRepository.login% %docker.stagingRepository.token%\""
+			       workingDir = "tool/automation/framework"
+			       buildFile = "build.gradle"
+			       jdkHome = "%env.JDK_11_x64%"
+			       executionMode = BuildStep.ExecutionMode.ALWAYS
+			     }
+		   }
+	 }
 
-        params {
-            // -- inherited parameter, removed in debug purposes
-            param("dockerImage.teamcity.buildNumber", "-")
-        }
+	 failureConditions {
+		   // Failed in case the validation via framework didn't succeed
+		   failOnText {
+			     conditionType = BuildFailureOnText.ConditionType.CONTAINS
+			     pattern = "DockerImageValidationException"
+			     failureMessage = "Docker Image validation have failed"
+			     // allows the steps to continue running even in case of one problem
+			     reportOnlyFirstMatch = false
+		   }
+	 }
 
-        val images = listOf("%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-1809",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-1809",
-                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-1809",
-                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-2004",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-windowsservercore-2004",
-                                        "%docker.deployRepository%teamcity-agent:2022.10-nanoserver-2004",
-                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-nanoserver-2004"
-                                        // below are linux images
-//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux",
-//                                        "%docker.deployRepository%teamcity-agent:2022.10-linux-sudo",
-//                                        "%docker.deployRepository%teamcity-minimal-agent:2022.10-linux",
-//                                        "%docker.deployRepository%teamcity-server:2022.10-nanoserver-1809",
-                                        )
+	 requirements {
+		  exists("env.JDK_11")
+		  // Images are validated mostly via DockerHub REST API. In case ...
+		  // ... Docker agent will be used, platform-compatibility must be addressed, ...
+		  // ... especially in case of Windows images.
+		  contains("teamcity.agent.jvm.os.name", "Linux")
+	 }
 
-        steps {
-            images.forEach {
-                kotlinFile {
-                    name = "Image Verification - $it"
+	 features {
+		   dockerSupport {
+			     cleanupPushedImages = true
+			     loginToRegistry = on {
+			       dockerRegistryId = "PROJECT_EXT_774"
+			     }
+		   }
+	 }
+})
 
-                    path = "tool/automation/ImageValidation.main.kts"
-                    arguments = "$it"
-                    executionMode = BuildStep.ExecutionMode.ALWAYS
-
-                }
-            }
-        }
-
-
-        failureConditions {
-
-//            failOnMetricChange {
-//                // -- target metric
-////                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-//                param("metricKey", "SIZE-teamcity-agent:windowsservercore-1809")
-//
-//                units = BuildFailureOnMetric.MetricUnit.PERCENTS
-//                // -- 5% increase
-//                threshold = 5
-//                comparison = BuildFailureOnMetric.MetricComparison.MORE
-//                compareTo = build {
-//                    buildRule = lastSuccessful()
-//                }
-//            }
-            // fail in case statistics for any image changes for more than N percent
-            images.forEach {
-                failOnMetricChange {
-                    // -- target metric
-//                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-                    param("metricKey", it.replace("%docker.deployRepository%", "").replace("2022.10-", ""))
-
-                    units = BuildFailureOnMetric.MetricUnit.PERCENTS
-                    // -- 5% increase
-                    threshold = 5
-                    comparison = BuildFailureOnMetric.MetricComparison.MORE
-                    compareTo = build {
-                        buildRule = lastSuccessful()
-                    }
-                }
-            }
-
-
-            failOnText {
-                conditionType = BuildFailureOnText.ConditionType.CONTAINS
-                pattern = "DockerImageValidationException"
-                failureMessage = "Docker Image validation have failed"
-                // allows the steps to continue running even in case of one problem
-                reportOnlyFirstMatch = false
-            }
-        }
-        triggers {
-            finishBuildTrigger {
-                buildType = "${PublishHubVersion.publish_hub_version.id}"
-            }
-        }
-
-        requirements {
-            // -- compatibility with Windows images
-            contains("teamcity.agent.jvm.os.name", "Windows")
-        }
-
-        features {
-            dockerSupport {
-                cleanupPushedImages = true
-                loginToRegistry = on {
-                    dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
-                }
-            }
-        }
-//	dependencies {
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_windows")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-//		 dependency(AbsoluteId("TC_Trunk_DockerImages_push_hub_linux")) {
-//			 snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }
-//		 }
-
-        // -- build number dependency
-//        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-//            snapshot {
-//                reuseBuilds = ReuseBuilds.ANY
-//                onDependencyFailure = FailureAction.IGNORE
-//            }
-//        }
-//	}
-    })
