@@ -22,6 +22,8 @@ When running an image with multi-architecture support, docker will automatically
 
 #### windows
 
+- ltsc2022
+  - [EAP-nanoserver-ltsc2022](#EAP-nanoserver-ltsc2022)
 - 2004
   - [EAP-nanoserver-2004](#EAP-nanoserver-2004)
 - 1909
@@ -36,13 +38,14 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 20.04, windows 1809, windows 2004
+Supported platforms: linux 20.04, windows 1809, windows 2004, windows ltsc2022
 
 #### Content
 
 - [EAP-linux](#EAP-linux)
 - [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-2004](#EAP-nanoserver-2004)
+- [EAP-nanoserver-ltsc2022](#EAP-nanoserver-ltsc2022)
 
 
 ### EAP-linux
@@ -129,6 +132,35 @@ docker pull mcr.microsoft.com/powershell:nanoserver-2004
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "context/generated/windows/Server/nanoserver/2004/Dockerfile" -t teamcity-server:EAP-nanoserver-2004 "context"
+```
+
+_The required free space to generate image(s) is about **6 GB**._
+
+### EAP-nanoserver-ltsc2022
+
+[Dockerfile](windows/Server/nanoserver/ltsc2022/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
+
+Installed components:
+
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
+- [Git x64 v.2.33.0 Checksum (SHA256) e28968ddd1c928eec233e0c692a90d6ac41eb7b53a9d7a408c13cb5b613afa95](https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/MinGit-2.33.0.2-64-bit.zip)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/powershell:nanoserver-ltsc2022
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/windows/Server/nanoserver/ltsc2022/Dockerfile" -t teamcity-server:EAP-nanoserver-ltsc2022 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
