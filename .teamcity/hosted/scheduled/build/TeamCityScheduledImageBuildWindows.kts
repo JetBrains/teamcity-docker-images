@@ -1,13 +1,14 @@
-package hosted.nightly
+package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
 /**
- * Nightly build of TeamCity Docker Images for Windows.
+ * Scheduled build of TeamCity Docker Images for Windows.
  */
-object TeamCityNightlyImageBuildWindows : BuildType({
+object TeamCityScheduledImageBuildWindows : BuildType({
     name = "TeamCity Docker Images - Nightly Build - Windows"
 
     vcs {
@@ -37,10 +38,10 @@ object TeamCityNightlyImageBuildWindows : BuildType({
                     source = file {
                         path = dockerfilePath
                     }
+                    platform = DockerCommandStep.ImagePlatform.Windows;
                     contextDir = "context"
                     namesAndTags = "${imageName}:%dockerImage.teamcity.buildNumber%"
                 }
-                param("dockerImage.platform", "windows")
             }
         }
     }

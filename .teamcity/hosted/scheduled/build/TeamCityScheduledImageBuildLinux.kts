@@ -1,14 +1,15 @@
-package hosted.nightly
+package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
 
 /**
- * Nightly build of TeamCity Docker Images for Linux.
+ * Scheduled build of TeamCity Docker Images for Linux.
  */
-object TeamCityNightlyImageBuildLinux : BuildType({
+object TeamCityScheduledImageBuildLinux : BuildType({
     name = "TeamCity Docker Images - Nightly Build - Linux"
 
     vcs {
@@ -35,10 +36,10 @@ object TeamCityNightlyImageBuildLinux : BuildType({
                     source = file {
                         path = dockerfilePath
                     }
+                    platform = DockerCommandStep.ImagePlatform.Linux
                     contextDir = "context"
                     namesAndTags = "${imageName}:%dockerImage.teamcity.buildNumber%"
                 }
-                param("dockerImage.platform", "linux")
             }
         }
     }

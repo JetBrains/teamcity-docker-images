@@ -1,14 +1,13 @@
-package hosted.nightly
+package hosted.scheduled.build
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.schedule
-import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 
 /**
- * Nightly Composite Build of TeamCity Docker Images for all platforms.
+ * Scheduled Composite Build of TeamCity Docker Images for each of supported platforms.
  * Purpose: ensure that all dependencies within Docker Images are up-to-date.
  */
-object TeamCityDockerImagesNightly : BuildType({
+object TeamCityDockerImagesScheduledBuild : BuildType({
     name = "TeamCity Docker Images - Nightly Build"
     description = "Nightly Build of TeamCity Images"
 
@@ -32,8 +31,8 @@ object TeamCityDockerImagesNightly : BuildType({
 
     dependencies {
         arrayOf(
-            TeamCityNightlyImageBuildWindows.TeamCityNightlyImageBuildWindows,
-            TeamCityNightlyImageBuildLinux.TeamCityNightlyImageBuildLinux
+            TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows,
+            TeamCityScheduledImageBuildLinux.TeamCityScheduledImageBuildLinux
         ).forEach {
             snapshot(it) {
                 onDependencyFailure = FailureAction.ADD_PROBLEM
