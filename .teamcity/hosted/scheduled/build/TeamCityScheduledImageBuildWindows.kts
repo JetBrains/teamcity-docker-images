@@ -9,7 +9,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
  * Scheduled build of TeamCity Docker Images for Windows.
  */
 object TeamCityScheduledImageBuildWindows : BuildType({
-    name = "TeamCity Docker Images - Nightly Build - Windows"
+    name = "TeamCity Docker Images - Automated Scheduled Build - Windows"
 
     vcs {
         root(TeamCityDockerImagesRepo)

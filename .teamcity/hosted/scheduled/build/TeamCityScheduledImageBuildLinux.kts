@@ -10,7 +10,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
  * Scheduled build of TeamCity Docker Images for Linux.
  */
 object TeamCityScheduledImageBuildLinux : BuildType({
-    name = "TeamCity Docker Images - Nightly Build - Linux"
+    name = "TeamCity Docker Images - Automated Scheduled Build - Linux"
 
     vcs {
         root(TeamCityDockerImagesRepo)

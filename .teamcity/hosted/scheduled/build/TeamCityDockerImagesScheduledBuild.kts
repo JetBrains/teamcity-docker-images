@@ -8,8 +8,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.schedule
  * Purpose: ensure that all dependencies within Docker Images are up-to-date.
  */
 object TeamCityDockerImagesScheduledBuild : BuildType({
-    name = "TeamCity Docker Images - Nightly Build"
-    description = "Nightly Build of TeamCity Images"
+    name = "TeamCity Docker Images - Scheduled Build"
+    description = "Automated build of TeamCity Docker Images"
 
     type = Type.COMPOSITE
 
