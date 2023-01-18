@@ -38,16 +38,11 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                     source = file {
                         path = dockerfilePath
                     }
-                    platform = DockerCommandStep.ImagePlatform.Windows;
+                    platform = DockerCommandStep.ImagePlatform.Windows
                     contextDir = "context"
                     namesAndTags = "${imageName}:%dockerImage.teamcity.buildNumber%"
                 }
             }
         }
-    }
-
-    requirements {
-        contains("docker.server.osType", "windows")
-        contains("system.agent.name", "docker")
     }
 })

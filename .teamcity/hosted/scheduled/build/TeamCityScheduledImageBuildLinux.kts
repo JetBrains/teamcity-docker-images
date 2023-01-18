@@ -43,9 +43,4 @@ object TeamCityScheduledImageBuildLinux : BuildType({
             }
         }
     }
-
-    requirements {
-        contains("docker.server.osType", "linux")
-        contains("system.agent.name", "docker")
-    }
 })
