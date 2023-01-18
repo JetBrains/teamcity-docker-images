@@ -5,6 +5,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
 import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
@@ -57,6 +58,15 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             }
             artifacts {
                 artifactRules = "TeamCity.zip!/**=>context/TeamCity"
+            }
+        }
+    }
+
+    features {
+        dockerSupport {
+            cleanupPushedImages = true
+            loginToRegistry = on {
+                dockerRegistryId = "PROJECT_EXT_774"
             }
         }
     }
