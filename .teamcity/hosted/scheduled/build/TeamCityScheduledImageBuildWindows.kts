@@ -1,7 +1,10 @@
 package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
+import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
@@ -42,6 +45,18 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                     contextDir = "context"
                     namesAndTags = "${imageName}:%dockerImage.teamcity.buildNumber%"
                 }
+            }
+        }
+    }
+
+    dependencies {
+        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+            snapshot {
+                onDependencyFailure = FailureAction.IGNORE
+                reuseBuilds = ReuseBuilds.ANY
+            }
+            artifacts {
+                artifactRules = "TeamCity.zip!/**=>context/TeamCity"
             }
         }
     }
