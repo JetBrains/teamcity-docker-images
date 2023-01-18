@@ -3,7 +3,7 @@ ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.39.0-0ppa1~ubuntu18.04.1'
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='6ff46b39cbaec4218fd49c6c64077c43'
-ARG p4Version='2021.2-2338640'
+ARG p4Version='2022.2-2369846'
 ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 
