@@ -313,7 +313,7 @@ object push_local_linux_20_04 : BuildType({
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774"
+                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
             }
         }
         swabra {
