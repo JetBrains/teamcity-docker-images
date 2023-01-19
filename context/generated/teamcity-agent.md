@@ -79,7 +79,7 @@ The docker image is available on:
 
 Installed components:
 
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.9.2
 - Mercurial
 - Perforce Helix Core client (p4) [2022.2-2369846](https://www.perforce.com/products/helix-core)
@@ -118,7 +118,7 @@ The docker image is available on:
 
 Installed components:
 
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.9.2
 - Mercurial
 - [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12), [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
