@@ -51,7 +51,7 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     dependencies {
         dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
             snapshot {
-                onDependencyFailure = FailureAction.IGNORE
+                onDependencyFailure = FailureAction.FAIL_TO_START
                 reuseBuilds = ReuseBuilds.ANY
             }
             artifacts {
