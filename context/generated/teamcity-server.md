@@ -69,7 +69,7 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) 6ff46b39cbaec4218fd49c6c64077c43](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-x64.tar.gz)
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.9.2
 - Perforce Helix Core client (p4) [2021.2-2338640](https://www.perforce.com/products/helix-core)
 
@@ -154,7 +154,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) 6ff46b39cbaec4218fd49c6c64077c43](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-x64.tar.gz)
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.3.4
 - Perforce Helix Core client (p4) [2021.2-2338640](https://www.perforce.com/products/helix-core)
 
@@ -181,7 +181,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.16.9.1 Checksum (MD5) fd96ceb7be9522eaf545b36a88a3e96a](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-aarch64.tar.gz)
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.9.2
 
 Container platform: linux
@@ -207,7 +207,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.11.0.16.9.1 Checksum (MD5) fd96ceb7be9522eaf545b36a88a3e96a](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-aarch64.tar.gz)
-- Git v.2.39.0
+- Git v.2.39.1
 - Git LFS v.2.3.4
 
 Container platform: linux
