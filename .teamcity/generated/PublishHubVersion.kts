@@ -59,7 +59,7 @@ object publish_hub_version: BuildType({
 		 name = "manifest create teamcity-agent:EAP"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.deployRepository%teamcity-agent:EAP %docker.deployRepository%teamcity-agent:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-2004"
+			 commandArgs = "create %docker.deployRepository%teamcity-agent:EAP %docker.deployRepository%teamcity-agent:EAP-linux %docker.deployRepository%teamcity-agent:EAP-nanoserver-1809 %docker.deployRepository%teamcity-agent:EAP-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
@@ -137,8 +137,7 @@ object publish_hub_version: BuildType({
 	requirements {
 		 noLessThanVer("docker.version", "18.05.0")
 		 contains("docker.server.osType", "windows")
-		 contains("system.agent.name", "docker")
-		 contains("system.agent.name", "windows10")
+		 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	}
 	 features {
 		 dockerSupport {

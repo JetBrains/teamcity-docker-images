@@ -28,6 +28,7 @@ object push_hub_linux: BuildType({
 	buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 steps {
 		dockerCommand {
+			 
 			 name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
@@ -36,6 +37,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
@@ -44,6 +46,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
@@ -54,58 +57,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
-			 }
-		}
-		
-		dockerCommand {
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo %docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo"
-			}
-		}
-		
-		dockerCommand {
-			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:EAP-linux-arm64-sudo
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-			 }
-		}
-		
-		dockerCommand {
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64 %docker.deployRepository%teamcity-agent:EAP-linux-arm64"
-			}
-		}
-		
-		dockerCommand {
-			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:EAP-linux-arm64
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
@@ -114,6 +66,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
@@ -122,6 +75,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
@@ -132,6 +86,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = other {
 				 subCommand = "pull"
@@ -140,6 +95,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = other {
 				 subCommand = "tag"
@@ -148,6 +104,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = push {
 				 namesAndTags = """
@@ -158,6 +115,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
@@ -166,6 +124,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
@@ -174,6 +133,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
@@ -186,7 +146,7 @@ object push_hub_linux: BuildType({
 	 }
 	 features {
 		 freeDiskSpace {
-		 	 requiredSpace = "6gb"
+		 	 requiredSpace = "4gb"
 		 	 failBuild = true
 		 }
 		 dockerSupport {
@@ -200,7 +160,7 @@ object push_hub_linux: BuildType({
 		 }
 	 }
 	params {
-		 param("system.teamcity.agent.ensure.free.space", "6gb")
+		 param("system.teamcity.agent.ensure.free.space", "4gb")
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "linux")

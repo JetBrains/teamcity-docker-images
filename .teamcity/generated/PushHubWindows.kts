@@ -28,6 +28,7 @@ object push_hub_windows: BuildType({
 	buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 	 steps {
 		dockerCommand {
+			 
 			 name = "pull teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "pull"
@@ -36,6 +37,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
@@ -44,6 +46,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
@@ -54,6 +57,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
 			 commandType = other {
 				 subCommand = "pull"
@@ -62,6 +66,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
 			 commandType = other {
 				 subCommand = "tag"
@@ -70,6 +75,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
 			 commandType = push {
 				 namesAndTags = """
@@ -80,6 +86,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "pull"
@@ -88,6 +95,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
@@ -96,6 +104,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
@@ -106,6 +115,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "pull"
@@ -114,6 +124,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
@@ -122,6 +133,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
@@ -132,6 +144,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -140,6 +153,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -148,6 +162,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -158,6 +173,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -166,6 +182,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -174,6 +191,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -184,6 +202,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -192,6 +211,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -200,6 +220,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -210,6 +231,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -218,6 +240,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -226,6 +249,7 @@ object push_hub_windows: BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -256,13 +280,13 @@ object push_hub_windows: BuildType({
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "windows")
-	 	 contains("system.agent.name", "docker")
-	 	 contains("system.agent.name", "windows10")
+	 	 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	 }
-	dependencies {
-		snapshot(PublishLocal.publish_local) {
-			onDependencyFailure =  FailureAction.FAIL_TO_START 
-		}
-	}
+		 dependencies {
+			 snapshot(PublishLocal.publish_local) {
+
+				 onDependencyFailure =  FailureAction.FAIL_TO_START 
+ 		 }
+		 }
 })
 

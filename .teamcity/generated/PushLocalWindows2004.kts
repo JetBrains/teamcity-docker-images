@@ -33,6 +33,7 @@ object push_local_windows_2004 : BuildType({
 
  	 steps {
 		dockerCommand {
+			 
 			 name = "pull mcr.microsoft.com/powershell:nanoserver-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -41,6 +42,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull mcr.microsoft.com/windows/nanoserver:2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -49,6 +51,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -57,6 +60,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
+			
 			 name = "context teamcity-server:EAP-nanoserver-2004"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -66,10 +70,11 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+		
 			 name = "build teamcity-server:EAP-nanoserver-2004"
 			 commandType = build {
 				 source = file {
-				 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
+					 path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
 				 }
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
@@ -81,6 +86,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
+			
 			 name = "context teamcity-minimal-agent:EAP-nanoserver-2004"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -91,10 +97,11 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+		
 			 name = "build teamcity-minimal-agent:EAP-nanoserver-2004"
 			 commandType = build {
 				 source = file {
-				 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
+					 path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
 				 }
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
@@ -106,6 +113,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
+			
 			 name = "context teamcity-agent:EAP-windowsservercore-2004"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -116,10 +124,11 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+		
 			 name = "build teamcity-agent:EAP-windowsservercore-2004"
 			 commandType = build {
 				 source = file {
-				 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
+					 path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
 				 }
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
@@ -131,6 +140,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
+			
 			 name = "context teamcity-agent:EAP-nanoserver-2004"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -141,10 +151,11 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+		
 			 name = "build teamcity-agent:EAP-nanoserver-2004"
 			 commandType = build {
 				 source = file {
-				 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
+					 path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
 				 }
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
@@ -156,6 +167,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-server:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -164,6 +176,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-minimal-agent:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -172,6 +185,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent:EAP-windowsservercore-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -180,6 +194,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			
 			 name = "tag teamcity-agent:EAP-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -188,6 +203,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-server:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -198,6 +214,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-minimal-agent:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -208,6 +225,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent:EAP-windowsservercore-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -218,6 +236,7 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
+			 
 			 name = "push teamcity-agent:EAP-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -258,8 +277,7 @@ object push_local_windows_2004 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "43gb")
 	}
 	requirements {
-		 contains("system.agent.name", "docker")
-		 contains("system.agent.name", "windows10")
+		 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	}
 })
 
