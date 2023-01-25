@@ -44,8 +44,6 @@ object image_validation: BuildType({
 
 	 val targetImages: HashMap<String, String> = hashMapOf(
 "teamcity-server-EAP-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
-		"teamcity-agent-EAP-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo", 
-		"teamcity-agent-EAP-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64", 
 		"teamcity-agent-EAP-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
 		"teamcity-agent-EAP-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
 		"teamcity-minimal-agent-EAP-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 

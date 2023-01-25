@@ -17,6 +17,10 @@ namespace TeamCity.Docker
         private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
         private readonly string _buildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
         private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
+        
+        // Apart from other conditions, the optional flag for ARM-based Docker Image allows to enable them for investigation / development purposes.
+        private const bool IsArmBasedImageBuildEnabled = false;
+
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string BuildImagePostfix = "%docker.buildImagePostfix%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
@@ -81,6 +85,8 @@ namespace TeamCity.Docker
             var allImages = buildGraphs
                 .SelectMany(i => i.graph.Nodes.Select(j => j.Value).OfType<Image>())
                 .Where(i => i.File.Repositories.Any())
+                // ARM-based Docker Images Are not currently supported by TeamCity.
+                .Where(i => IsArmBasedImageBuildEnabled || i.File.Tags.First().IndexOf("arm", StringComparison.OrdinalIgnoreCase) < 0)
                 .ToList();
 
             // Build and push on local registry
@@ -927,6 +933,8 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreatePushCommand(string imageId, string name, params string[] tags)
         {
             yield return "dockerCommand {";
+            yield return $"\t {GetDockerStepStatusDsl(name)}";
+
             yield return $"\t name = \"push {name}\"";
             yield return "\t commandType = push {";
 
@@ -955,6 +963,8 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateTagCommand(string repoTag, string newRepoTag, string name)
         {
             yield return "dockerCommand {";
+            yield return $"\t{GetDockerStepStatusDsl(repoTag)}";
+
             yield return $"\t name = \"tag {name}\"";
             yield return "\t commandType = other {";
 
@@ -976,6 +986,8 @@ namespace TeamCity.Docker
         {
             var tag = image.File.Tags.First();
             yield return "script {";
+            yield return $"\t{GetDockerStepStatusDsl(tag)}";
+
             yield return $"\t name = \"context {image.File.ImageId}:{tag}\"";
             yield return "\t scriptContent = \"\"\"";
 
@@ -1001,7 +1013,10 @@ namespace TeamCity.Docker
         private IEnumerable<string> CreateBuildCommand(Image image)
         {
             var tag = image.File.Tags.First();
+
             yield return "dockerCommand {";
+            yield return $"{GetDockerStepStatusDsl(tag)}";
+
             yield return $"\t name = \"build {image.File.ImageId}:{tag}\"";
             yield return "\t commandType = build {";
             
@@ -1031,6 +1046,8 @@ namespace TeamCity.Docker
         private static IEnumerable<string> CreatePullCommand(string repoTag, string name)
         {
             yield return "dockerCommand {";
+            yield return $"\t {GetDockerStepStatusDsl(repoTag)}";
+
             yield return $"\t name = \"pull {name}\"";
             yield return "\t commandType = other {";
 
@@ -1067,6 +1084,22 @@ namespace TeamCity.Docker
             yield return $"\t name = \"{name}\"";
             yield return $"\t scriptContent = \"{script}\"";
             yield return "}";
+        }
+
+        /// <summary>
+        /// Constructs Kotlin DSL instructions responsible for the determination of status for ...
+        /// ... dockerCommand { ... } build configuration step.
+        /// </summary>
+        /// <param name="imageId">Docker Image ID</param>
+        private static string GetDockerStepStatusDsl(string imageId) {
+            // -- ARM images are currently not supported
+            bool isArmImage = imageId.IndexOf("arm", StringComparison.OrdinalIgnoreCase) >= 0;
+                        Console.WriteLine(imageId);
+
+            return (!isArmImage || IsArmBasedImageBuildEnabled)
+                    ? string.Empty
+                    : "// ARM-based images are currently not supported by TeamCity \n"
+                        + "\t\t\tenabled = false";
         }
     }
 }

@@ -35,6 +35,8 @@ namespace TeamCity.Docker
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _configurationExplorer = configurationExplorer ?? throw new ArgumentNullException(nameof(configurationExplorer));
             _buildGraphFactory = buildGraphFactory ?? throw new ArgumentNullException(nameof(buildGraphFactory));
+            
+            // -- Kotlin DSL generators, Script Generators, README files generators
             _generators = generators ?? throw new ArgumentNullException(nameof(generators));
         }
 
