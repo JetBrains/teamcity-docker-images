@@ -29,28 +29,28 @@ object push_hub_linux: BuildType({
 	 steps {
 		dockerCommand {
 			 
-			 name = "pull teamcity-server%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "pull teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-server%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "tag teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-linux %docker.deployRepository%teamcity-server:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-server:EAP-linux"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "push teamcity-server%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-server:2022.04.5-linux
+		%docker.deployRepository%teamcity-server:EAP-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -58,28 +58,28 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux %docker.deployRepository%teamcity-agent:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-agent:EAP-linux"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2022.04.5-linux
+		%docker.deployRepository%teamcity-agent:EAP-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -87,28 +87,28 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo"
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo"
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo %docker.deployRepository%teamcity-agent:2022.04.5-linux-sudo"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo %docker.deployRepository%teamcity-agent:EAP-linux-sudo"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo"
+			 name = "push teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2022.04.5-linux-sudo
+		%docker.deployRepository%teamcity-agent:EAP-linux-sudo
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -116,28 +116,28 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux %docker.deployRepository%teamcity-minimal-agent:2022.04.5-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.deployRepository%teamcity-minimal-agent:EAP-linux"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux"
+			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-minimal-agent:2022.04.5-linux
+		%docker.deployRepository%teamcity-minimal-agent:EAP-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
