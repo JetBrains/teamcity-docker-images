@@ -1,3 +1,4 @@
+import Settings.RootProject.buildTypes
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.*
@@ -10,6 +11,8 @@ object RootProject : Project({
     subProject(LocalProject.LocalProject)
     subProject(HubProject.HubProject)
     buildType(BuildAndPushHosted.BuildAndPushHosted)
+
+
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC2022_10_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")

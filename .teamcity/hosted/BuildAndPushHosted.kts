@@ -32,7 +32,7 @@ echo TeamCity/buildAgent >> context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 """.trimIndent()
         }
-        
+
         dockerCommand {
             name = "build teamcity-server-staging"
             commandType = build {

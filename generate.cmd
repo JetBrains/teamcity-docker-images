@@ -1,4 +1,5 @@
 call tool\build-tool.cmd
+rmdir "generated" /s /q
 rmdir "context/generated" /s /q
 rmdir "generated" /s /q
 bin\TeamCity.Docker generate -s configs -f "configs/common.config;configs/local.config;configs/windows.config;configs/linux.config;configs/linuxARM.config" -c context -t generated

@@ -70,7 +70,7 @@ See the **\<path-to-data-directory>** and **\<path-to-logs-directory>** descript
 We also suggest allocating a sufficient amount of resources to the Docker process, like in this example:
 
 ```
-docker run --memory="6g" --cpus=4 -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m" --name teamcity-server-instance
+docker run --memory="6g" --cpus=4 -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=640m" --name teamcity-server-instance
     -v <path-to-data-directory>:C:/ProgramData/JetBrains/TeamCity
     -v <path-to-logs-directory>:C:/TeamCity/logs
     -v <path-to-temp-directory>:C:/TeamCity/temp
@@ -99,7 +99,7 @@ When you need to pass additional environment variables to the server process, us
 
 ```
 docker run --name teamcity-server-instance   \
-       -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
+       -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=640m" \
        -v <path-to-data-directory>:/data/teamcity_server/datadir  \
        -v <path-to-log-directory>:/opt/teamcity/logs   \
        -p <port-on-host>:8111 \
