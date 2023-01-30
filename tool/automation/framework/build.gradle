@@ -1,0 +1,37 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+    // -- application plugin is required for convenient CLI arguments parsing
+    id 'application'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.21'
+}
+
+applicationDefaultJvmArgs = ["-Xms1024m", "-Xmx2048m"]
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        kotlin {
+            srcDirs 'app/src/main/kotlin'
+        }
+        resources {
+            rootProject.files('app/src/main/resources')
+        }
+    }
+}
+
+dependencies {
+    implementation platform('org.jetbrains.kotlin:kotlin-bom')
+    implementation 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    // -- CLI arguments
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+    // -- JSON parsing
+    implementation('org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1')
+}
+
+application {
+    mainClass = 'com.jetbrains.teamcity.AutomationKt'
+}

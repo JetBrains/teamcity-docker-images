@@ -14,8 +14,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 3
-# Requires system.agent.name contains docker
-# Requires system.agent.name contains windows10
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
 ## ${serverCommentHeader}
 
@@ -92,7 +91,7 @@ ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
     CATALINA_TMPDIR="C:\TeamCity\temp" \
     TEAMCITY_LOGS="C:\TeamCity\logs" \
     TEAMCITY_DATA_PATH="C:\ProgramData\JetBrains\TeamCity" \
-    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m"
+    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=640m"
 
 EXPOSE 8111
 

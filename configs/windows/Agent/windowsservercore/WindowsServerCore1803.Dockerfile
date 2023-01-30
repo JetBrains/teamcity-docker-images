@@ -20,7 +20,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 16
-# Requires system.agent.name contains windows10
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
 ## ${agentCommentHeader}
 
