@@ -82,7 +82,6 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                     source = file {
                         path = imageInfo.dockerfilePath
                     }
-                    platform = DockerCommandStep.ImagePlatform.Linux
                     contextDir = "context"
                     namesAndTags = "${imageInfo.repository}:${imageInfo.tag}"
                 }
@@ -105,9 +104,5 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                 dockerRegistryId = "PROJECT_EXT_774"
             }
         }
-    }
-
-    requirements {
-        contains("teamcity.agent.jvm.os.name", "Windows")
     }
 })
