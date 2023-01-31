@@ -23,15 +23,9 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
-    /**
-     * We must handle the following situations:
-     * ...
-     *
-     * FROM teamcity-minimal-agent:EAP-linux
-     * ...
-     */
+
     // -- order matters as teamcity-agent used teamcity-minimal-agent as base image
-    val images = LinkedList<DockerImageInfo>(listOf(
+    val images = LinkedList(listOf(
         // Ubuntu 20.04
         DockerImageInfo("teamcity-server", "EAP-linux", "context/generated/linux/Server/Ubuntu/20.04/Dockerfile"),
         DockerImageInfo("teamcity-minimal-agent", "EAP-linux", "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"),
@@ -40,7 +34,6 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         // -- ARM images are commented out since TeamCity, currently, does not support it
         // DockerImageInfo("teamcity-agent", "EAP-linux-arm64", "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"),
         // DockerImageInfo("teamcity-agent", "EAP-linux-arm64-sudo", "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile")
-
     ))
 
     steps {
