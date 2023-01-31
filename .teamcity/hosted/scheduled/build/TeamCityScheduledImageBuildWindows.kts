@@ -78,6 +78,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             dockerCommand {
                 name = "build ${imageInfo.repository}-${imageInfo.tag}"
                 commandType = build {
+                    platform = DockerCommandStep.ImagePlatform.Windows
                     source = file {
                         path = imageInfo.dockerfilePath
                     }
