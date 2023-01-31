@@ -1,6 +1,7 @@
 package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import hosted.scheduled.build.model.DockerImageInfo
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -8,6 +9,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
+import java.util.*
+import kotlin.collections.HashMap
 
 
 /**
@@ -20,29 +23,38 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
-    // <image name> - <dockerfile path>
-    val targetImages: HashMap<String, String> = hashMapOf(
+    /**
+     * We must handle the following situations:
+     * ...
+     *
+     * FROM teamcity-minimal-agent:EAP-linux
+     * ...
+     */
+    // -- order matters as teamcity-agent used teamcity-minimal-agent as base image
+    val images = LinkedList<DockerImageInfo>(listOf(
         // Ubuntu 20.04
-        "teamcity-server-linux-20-04" to "context/generated/linux/Server/Ubuntu/20.04/Dockerfile",
-        "teamcity-minimal-agent-linux-20-04" to "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile",
-        "teamcity-agent-linux-20-04" to "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile",
-        "teamcity-agent-linux-sudo-20-04" to "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile",
+        DockerImageInfo("teamcity-server", "EAP-linux", "context/generated/linux/Server/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-minimal-agent", "EAP-linux", "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-agent", "EAP-linux", "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-agent", "EAP-linux-sudo", "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"),
         // -- ARM images are commented out since TeamCity, currently, does not support it
-        // "teamcity-agent-linux-arm64-20-04" to "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
-        // "teamcity-agent-linux-arm64-sudo-20-04" to "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
-    )
+        // DockerImageInfo("teamcity-agent", "EAP-linux-arm64", "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"),
+        // DockerImageInfo("teamcity-agent", "EAP-linux-arm64-sudo", "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile")
+
+    ))
 
     steps {
-        targetImages.forEach { (imageName, dockerfilePath) ->
+
+        images.forEach { imageInfo ->
             dockerCommand {
-                name = "build $imageName"
+                name = "build ${imageInfo.repository}-${imageInfo.tag}"
                 commandType = build {
                     source = file {
-                        path = dockerfilePath
+                        path = imageInfo.dockerfilePath
                     }
                     platform = DockerCommandStep.ImagePlatform.Linux
                     contextDir = "context"
-                    namesAndTags = "${imageName}:%dockerImage.teamcity.buildNumber%"
+                    namesAndTags = "${imageInfo.repository}:${imageInfo.tag}"
                 }
             }
         }
