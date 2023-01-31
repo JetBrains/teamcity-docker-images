@@ -106,4 +106,8 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             }
         }
     }
+
+    requirements {
+        contains("teamcity.agent.jvm.os.name", "Windows")
+    }
 })
