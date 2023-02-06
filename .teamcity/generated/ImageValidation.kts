@@ -34,6 +34,11 @@ object image_validation: BuildType({
 		 // Execute the build once the images are available within %deployRepository%
 		 finishBuildTrigger {
 			 buildType = "${PublishHubVersion.publish_hub_version.id}"
+			 // if filter won't be specified, only <default> branch would be included
+			  branchFilter = """
+				 +:development/*
+				 +:release/*
+			 """.trimIndent()
 		 }
 	 }
 
