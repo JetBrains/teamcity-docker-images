@@ -384,6 +384,11 @@ namespace TeamCity.Docker
                 "\t\t // Execute the build once the images are available within %deployRepository%",
                 "\t\t finishBuildTrigger {",
                 "\t\t\t buildType = \"${PublishHubVersion.publish_hub_version.id}\"",
+                "\t\t\t // if filter won't be specified, only <default> branch would be included",
+			    "\t\t\t  branchFilter = \"\"\"",
+				"\t\t\t\t +:development/*",
+				"\t\t\t\t +:release/*",
+			    "\t\t\t \"\"\".trimIndent()",
                 "\t\t }",
                 "\t }"
             );
@@ -864,31 +869,6 @@ namespace TeamCity.Docker
             yield return "\t }";
 
             // end of failureConditions {...}
-            yield return "}";
-        }
-
-        /// <summary>
-        /// Create build configuration trigger dependant on finished build. 
-        /// </summary>
-        /// <param name="id">target build ID</param>
-        /// <param name="useEnclosureForId">indicates if enclosure (${...}) should be used for build ID</param>
-        /// <returns></returns>
-        private IEnumerable<string> CreateFinishBuildTrigger(string id, Boolean useEnclosureForId = false) {
-            if (id == null || id.Length == 0) {
-                yield break;
-            }
-
-            yield return "triggers {";
-
-            yield return "\t finishBuildTrigger {";
-            // -- not setting "ID" - that'd be auto-generated
-            var buildId = useEnclosureForId ? ("${" + $"{id}" + "}") : id;
-            yield return $"\t\t buildType = \"{buildId}\"";
-
-            // closing 'finishBuildTrigger {...}' 
-            yield return "\t }";
-
-            // closing triggers {...}
             yield return "}";
         }
 
