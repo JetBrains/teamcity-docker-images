@@ -106,7 +106,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
                 try {
                     return@filter it.name.contains(currentImage.tag.split("-", limit = 2)[1])
                 } catch (e: Exception) {
-                    print("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
+                    println("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
                     return@filter false
                 }
             }
@@ -115,14 +115,24 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             return null
         }
 
-        // filter by target OS
+        // Apply filtering to the found Docker images.
+
+        // -- 1. Filter by OS type
         previousImageRepository.images = previousImageRepository.images.filter { it.os == targetOs }
         if (previousImageRepository.images.isNotEmpty() && !osVersion.isNullOrEmpty()) {
+
+            // --- 2. Filter by OS version (e.g. specific version of Windows, Linux)
             val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
             if (imagesFilteredByTarget.isEmpty()) {
-                // Logging such event as it's hard to investigate such differences
-                println("$currentImage - found previous image - ${previousImageRepository.name}, but OS version is different - $osVersion and ${previousImageRepository.images.first().osVersion}")
+                // Found images that matches OS type, but doesn't match OS version, e.g. ...
+                // ... - Previous: teamcity-agent:2022.10.1--windowsservercore-2004 (Windows 10.0.17763.3650)
+                // ... - Current : teamcity-agent:2022.10.2-windowsservercore-2004 (Windows 10.0.17763.3887)
+                println("$currentImage - found previous image - ${previousImageRepository.name}, but OS version is "
+                        + "different - $osVersion and ${previousImageRepository.images.first().osVersion} \n"
+                        + "Images with mismatching OS versions, but matching tags will be compared.")
+                return previousImageRepository
             }
+
             previousImageRepository.images = imagesFilteredByTarget
         }
 
