@@ -15,6 +15,16 @@ The application could be built using Gradle Wrapper.
 ```
 ./gradlew <option> --args="<parameters>"
 ```
+Example:
+```
+./gradlew clean build run --args="validate jetbrains/teamcity-agent:2022.10.2-windowsservercore-2004"
+...
+##teamcity[buildStatisticValue key='SIZE-teamcity-agent:windowsservercore-2004' value='5066342155']
+jetbrains/teamcity-agent:2022.10.2-windowsservercore-2004-windows-10.0.19041.1415-amd64: 
+	 - Original size: 5066342155 (jetbrains/teamcity-agent:2022.10.2-windowsservercore-2004)
+	 - Previous size: 5067986140 (2022.10.1-windowsservercore-2004)
+	 - Percentage change: 0.03% (max allowable - 5.0%)
+```
 
 ### 3.1 Available Options
 
