@@ -60,3 +60,7 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 Please use [these channels](https://www.jetbrains.com/help/teamcity/feedback.html) to give feedback on these images, thanks!
 
+A few handy links to some of the communication channels mentioned:
+* Technical question or idea — [community forum](http://jb.gg/teamcity-forum), "New Post" action (public)
+* Bug or feature request — [issue tracker](https://youtrack.jetbrains.com/issues/TW) (public, with an option of private comments/attachments). Please, make sure to also check our [Best Practices When Reporting Issues](https://www.jetbrains.com/help/teamcity/reporting-issues.html#Best+Practices+When+Reporting+Issues)
+* Documentation — [Common Problems](https://www.jetbrains.com/help/teamcity/common-problems.html), [Known Issues](https://www.jetbrains.com/help/teamcity/known-issues.html), [Licensing Policy](https://www.jetbrains.com/help/teamcity/licensing-policy.html)
