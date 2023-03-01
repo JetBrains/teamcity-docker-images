@@ -255,7 +255,7 @@ object push_local_windows_2004 : BuildType({
 		dockerSupport {
 			 cleanupPushedImages = true
 			 loginToRegistry = on {
-				 dockerRegistryId = "PROJECT_EXT_774"
+				 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 			 }
 		}
 		swabra {
