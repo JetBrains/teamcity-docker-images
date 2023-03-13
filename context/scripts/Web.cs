@@ -184,33 +184,40 @@ namespace Scripts
 
             using (WebClient client = new WebClient())
             {
-                long lastPercent = -1;
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
-                client.DownloadProgressChanged += (sender, args) =>
-                {
-                    long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
-                    if (percent % 5 == 0 && percent > lastPercent)
-                    {
-                        double speed = args.TotalBytesToReceive / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
-                        if (lastPercent == -1)
+                // TODO: Remove try-catch block added to investigation purposes.
+                try {
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+                    client.DownloadProgressChanged += (sender, args) =>
                         {
-                            speed = 0;
-                        }
+                            long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
+                            if (percent % 5 == 0 && percent > lastPercent)
+                            {
+                                double speed = args.TotalBytesToReceive / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
+                                if (lastPercent == -1)
+                                {
+                                    speed = 0;
+                                }
 
-                        lastPercent = percent;
-                        WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
+                                lastPercent = percent;
+                                WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
+                            }
+                    };
+
+                    bool completed = false;
+                    client.DownloadFileCompleted += (sender, args) =>
+                    {
+                        completed = true;
+                    };
+
+                    await client.DownloadFileTaskAsync(source, destinationFile);
+                    return completed;
+                } catch (Exception ex) {
+                    while (ex != null) {
+                        Console.WriteLine(ex.Message);
+                        ex = ex.InnerException;
                     }
-                };
-
-                bool completed = false;
-                client.DownloadFileCompleted += (sender, args) =>
-                {
-                    completed = true;
-                };
-
-                await client.DownloadFileTaskAsync(source, destinationFile);
-                return completed;
+                }
             }
         }
 
