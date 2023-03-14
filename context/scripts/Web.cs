@@ -15,6 +15,7 @@ namespace Scripts
     public class Web
     {
         private static readonly object LockObject = new object();
+        private static readonly int FILE_DOWNLOAD_ATTEMPTS = 50;
 
         public static int DownloadFiles(params string[] args)
         {
@@ -35,20 +36,26 @@ namespace Scripts
                 {
                     WriteLine("\t\tDNS address {0}", dnsAddress);
                 }
-
-
             }
 
             List<Task<bool>> tasks = new List<Task<bool>>();
             for (int i = 0; i < args.Length / 2; i++)
             {
-                tasks.Add(DownloadFile(args[i * 2], args[i * 2 + 1], 300, TimeSpan.FromSeconds(10)));
+                tasks.Add(DownloadFile(args[i * 2], args[i * 2 + 1], FILE_DOWNLOAD_ATTEMPTS, TimeSpan.FromSeconds(10)));
             }
 
             Task.WhenAll(tasks).Wait();
             return tasks.All(i => i.Result) ? 0: 1;
         }
 
+        /// <summary>
+        /// Downloads file with an afterward confirmation of its hash, based on hashing algorithm encapsulated within URL.
+        /// </summary>
+        /// <param name="sourceUrl">URL for the fle to be downloaded</param>
+        /// <param name="destinationFile">destination path to which the file should be downloaded</param>
+        /// <param name="attempts">amount of attempts to download the file</param>
+        /// <param name="delay">delay between the attempts</param>
+        /// <returns>asynchronous download task</returns>
         private static async Task<bool> DownloadFile(string sourceUrl, string destinationFile, int attempts, TimeSpan delay)
         {
             string name = Path.GetFileName(destinationFile);
@@ -166,6 +173,13 @@ namespace Scripts
             return success;
         }
 
+        /// <summary>
+        /// Downloads file using DotNet's WebClient.
+        /// </summary>
+        /// <param name="name">file name (used for logging purposes)</param>
+        /// <param name="sourceUrl">URL of the file to be downloaded</param>
+        /// <param name="destinationFile">destination path to which the file should be downloaded</param>
+        /// <returns>the result of async task's execution</returns>
         private static async Task<bool> DownloadFile(string name, string sourceUrl, string destinationFile)
         {
             Uri source = new Uri(sourceUrl);
@@ -184,39 +198,42 @@ namespace Scripts
 
             using (WebClient client = new WebClient())
             {
-                // TODO: Remove try-catch block added to investigation purposes.
-                try {
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    client.DownloadProgressChanged += (sender, args) =>
-                        {
-                            long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
-                            if (percent % 5 == 0 && percent > lastPercent)
-                            {
-                                double speed = args.TotalBytesToReceive / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
-                                if (lastPercent == -1)
-                                {
-                                    speed = 0;
-                                }
-
-                                lastPercent = percent;
-                                WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
-                            }
-                    };
-
-                    bool completed = false;
-                    client.DownloadFileCompleted += (sender, args) =>
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                client.DownloadProgressChanged += (sender, args) =>
                     {
-                        completed = true;
-                    };
+                        long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
+                        if (percent % 5 == 0 && percent > lastPercent)
+                        {
+                            double speed = args.TotalBytesToReceive / 1024.0 / 1024.0 / stopwatch.Elapsed.TotalSeconds;
+                            if (lastPercent == -1)
+                            {
+                                speed = 0;
+                            }
 
+                            lastPercent = percent;
+                            WriteLine("\t{0}%\t{1}\t{2:0.0} MB/s", percent, name, speed);
+                        }
+                };
+
+                bool completed = false;
+                client.DownloadFileCompleted += (sender, args) =>
+                {
+                    completed = true;
+                };
+
+                try {
                     await client.DownloadFileTaskAsync(source, destinationFile);
                     return completed;
-                } catch (Exception ex) {
-                    while (ex != null) {
-                        Console.WriteLine(ex.Message);
-                        ex = ex.InnerException;
+                } catch (Exception fileDownloadException) {
+                    // Please, note that "AccessDenied"-related exception might occur in case of ...
+                    // ... (1) FileSystem limitation - destination file couldn't be created / sub-folder does not exist;
+                    // ... (2) Network limitation - host's network settings (proxy, local DNS) are blocking the file download;
+                    while (fileDownloadException != null) {
+                        WriteErrorLine(fileDownloadException.Message);
+                        fileDownloadException = fileDownloadException.InnerException;
                     }
+                    throw fileDownloadException;
                 }
             }
         }
