@@ -105,4 +105,9 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             }
         }
     }
+
+    // An implicit Windoiws 10 requirement has been added in order to prevent DotNet's WebClient internal exception.
+    requirements {
+        contains("teamcity.agent.jvm.os.name", "Windows 10")
+    }
 })
