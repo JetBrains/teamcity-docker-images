@@ -200,6 +200,7 @@ namespace Scripts
             {
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
+                long lastPercent = -1;
                 client.DownloadProgressChanged += (sender, args) =>
                     {
                         long percent = 100 * args.BytesReceived / args.TotalBytesToReceive;
