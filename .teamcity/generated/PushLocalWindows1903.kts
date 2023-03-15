@@ -26,6 +26,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_windows_1903 : BuildType({
 	 name = "ON PAUSE Build and push windows 1903"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2022.10.2-nanoserver-1903,latest,2022.10.2 teamcity-minimal-agent:2022.10.2-nanoserver-1903,latest,2022.10.2 teamcity-agent:2022.10.2-windowsservercore-1903,2022.10.2-windowsservercore,latest-windowsservercore:2022.10.2-nanoserver-1903,latest,2022.10.2"
+	 description  = "teamcity-server:2022.10.3-nanoserver-1903,latest,2022.10.3 teamcity-minimal-agent:2022.10.3-nanoserver-1903,latest,2022.10.3 teamcity-agent:2022.10.3-windowsservercore-1903,2022.10.3-windowsservercore,latest-windowsservercore:2022.10.3-nanoserver-1903,latest,2022.10.3"
 })
 
