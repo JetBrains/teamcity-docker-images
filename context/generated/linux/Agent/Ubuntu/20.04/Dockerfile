@@ -118,6 +118,8 @@ RUN apt-get update && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
+# Redirect logs into stdout \
+    ln -sf /dev/stdout /opt/buildagent/logs/teamcity-agent.log \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
