@@ -119,7 +119,7 @@ RUN apt-get update && \
     dotnet help && \
     dotnet --info && \
 # Redirect logs into stdout \
-    ln -sf /dev/stdout /opt/buildagent/logs/teamcity-agent.log \
+    ln -sf /dev/stdout /opt/buildagent/logs/teamcity-agent.log && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
