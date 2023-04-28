@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euxE
+set -o pipefail
+
+
 if [ "$DOCKER_IN_DOCKER" = "start" ] ; then
 
  # Do cover the case when the container is restarted:

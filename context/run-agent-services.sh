@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euxE
+set -o pipefail
+
 echo '/run-services.sh'
 
 for entry in /services/*.sh
