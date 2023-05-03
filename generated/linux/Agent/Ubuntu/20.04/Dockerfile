@@ -3,25 +3,24 @@ ARG containerdIoLinuxComponentVersion='1.4.12-1'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
-ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-linux-x64.tar.gz'
-ARG dotnetLinuxComponent_31='https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-linux-x64.tar.gz'
-ARG dotnetLinuxComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-linux-x64.tar.gz'
-ARG dotnetLinuxComponentSHA512='cb0d174a79d6294c302261b645dba6a479da8f7cf6c1fe15ae6998bc09c5e0baec810822f9e0104e84b0efd51fdc0333306cb2a0a6fcdbaf515a8ad8cf1af25b'
-ARG dotnetLinuxComponentSHA512_31='cc4b2fef46e94df88bf0fc11cb15439e79bd48da524561dffde80d3cd6db218133468ad2f6785803cf0c13f000d95ff71eb258cec76dd8eb809676ec1cb38fac'
-ARG dotnetLinuxComponentSHA512_50='32b5f86db3b1d4c21e3cf616d22f0e4a7374385dac0cf03cdebf3520dcf846460d9677ec1829a180920740a0237d64f6eaa2421d036a67f4fe9fb15d4f6b1db9'
+ARG dotnetLinuxARM64Component='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-linux-arm64.tar.gz'
+ARG dotnetLinuxARM64Component_31='https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.21/dotnet-runtime-3.1.21-linux-arm64.tar.gz'
+ARG dotnetLinuxARM64Component_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-linux-arm64.tar.gz'
+ARG dotnetLinuxARM64ComponentSHA512='e5983c1c599d6dc7c3c7496b9698e47c68247f04a5d0d1e3162969d071471297bce1c2fd3a1f9fb88645006c327ae79f880dcbdd8eefc9166fd717331f2716e7'
+ARG dotnetLinuxARM64ComponentSHA512_31='80971125650a2fa0163e39a2de98bc2e871c295b723559e6081a3ab59d99195aa5b794450f8182c5eb4e7e472ca1c13340ef1cc8a5588114c494bbb5981f19c4'
+ARG dotnetLinuxARM64ComponentSHA512_50='a8089fad8d21a4b582aa6c3d7162d56a21fee697fd400f050a772f67c2ace5e4196d1c4261d3e861d6dc2e5439666f112c406104d6271e5ab60cda80ef2ffc64'
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
-ARG gitLinuxComponentVersion='1:2.38.1-0ppa1~ubuntu20.04.1'
-ARG p4Version='2021.2-2338640'
+ARG gitLinuxComponentVersion='1:2.40.1-0ppa1~ubuntu20.04.1'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:local-linux'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 
 # The list of required arguments
-# ARG dotnetLinuxComponent
-# ARG dotnetLinuxComponentSHA512
-# ARG dotnetLinuxComponent_31
-# ARG dotnetLinuxComponentSHA512_31
-# ARG dotnetLinuxComponent_50
-# ARG dotnetLinuxComponentSHA512_50
+# ARG dotnetLinuxARM64Component
+# ARG dotnetLinuxARM64ComponentSHA512
+# ARG dotnetLinuxARM64Component_31
+# ARG dotnetLinuxARM64ComponentSHA512_31
+# ARG dotnetLinuxARM64Component_50
+# ARG dotnetLinuxARM64ComponentSHA512_50
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -54,19 +53,18 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
     GIT_SSH_VARIANT=ssh \
     DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
 
-ARG dotnetLinuxComponent
-ARG dotnetLinuxComponentSHA512
-ARG dotnetLinuxComponent_31
-ARG dotnetLinuxComponentSHA512_31
-ARG dotnetLinuxComponent_50
-ARG dotnetLinuxComponentSHA512_50
+ARG dotnetLinuxARM64Component
+ARG dotnetLinuxARM64ComponentSHA512
+ARG dotnetLinuxARM64Component_31
+ARG dotnetLinuxARM64ComponentSHA512_31
+ARG dotnetLinuxARM64Component_50
+ARG dotnetLinuxARM64ComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
-ARG p4Version
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
@@ -75,22 +73,14 @@ RUN apt-get update && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
-    (. /etc/os-release && \
-      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
-      /etc/apt/sources.list.d/perforce.list ) && \
-    apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
-    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+    add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
     apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io:amd64=${containerdIoLinuxComponentVersion} \
-                        systemd && \
+    docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
+    containerd.io:arm64=${containerdIoLinuxComponentVersion} \
+    systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
@@ -99,18 +89,18 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-    curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    curl -SL ${dotnetLinuxARM64Component_31} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxARM64ComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    curl -SL ${dotnetLinuxARM64Component_50} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxARM64ComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \

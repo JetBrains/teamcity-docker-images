@@ -1,8 +1,8 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
-ARG gitLinuxComponentVersion='1:2.38.1-0ppa1~ubuntu18.04.1'
-ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz'
-ARG jdkServerLinuxARM64ComponentMD5SUM='b0b989af7b8635d0dd0724707206b67c'
+ARG gitLinuxComponentVersion='1:2.40.1-0ppa1~ubuntu18.04.1'
+ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-aarch64.tar.gz'
+ARG jdkServerLinuxARM64ComponentMD5SUM='fd96ceb7be9522eaf545b36a88a3e96a'
 ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 
@@ -53,7 +53,7 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     TEAMCITY_DIST=/opt/teamcity \
     TEAMCITY_LOGS=/opt/teamcity/logs \
     CATALINA_TMPDIR=/opt/teamcity/temp \
-    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m" \
+    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=640m" \
     LANG=C.UTF-8
 
 EXPOSE 8111
