@@ -26,6 +26,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_linux_18_04 : BuildType({
 	 name = "ON PAUSE Build and push linux 18.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:EAP-linux-arm64-18.04,EAP:EAP-linux-18.04,EAP teamcity-minimal-agent:EAP-linux-arm64-18.04,EAP:EAP-linux-18.04,EAP teamcity-agent:EAP-linux-arm64-18.04,EAP:EAP-linux-arm64-18.04-sudo:EAP-linux-18.04,EAP:EAP-linux-18.04-sudo"
+	 description  = "teamcity-server:2023.05.1-linux-arm64-18.04,2023.05.1:2023.05.1-linux-18.04,2023.05.1 teamcity-minimal-agent:2023.05.1-linux-arm64-18.04,2023.05.1:2023.05.1-linux-18.04,2023.05.1 teamcity-agent:2023.05.1-linux-arm64-18.04,2023.05.1:2023.05.1-linux-arm64-18.04-sudo:2023.05.1-linux-18.04,2023.05.1:2023.05.1-linux-18.04-sudo"
 })
 

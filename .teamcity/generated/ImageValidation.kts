@@ -48,18 +48,18 @@ object image_validation: BuildType({
 	 }
 
 	 val targetImages: HashMap<String, String> = hashMapOf(
-"teamcity-server-EAP-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux", 
-		"teamcity-agent-EAP-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux", 
-		"teamcity-agent-EAP-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo", 
-		"teamcity-minimal-agent-EAP-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux", 
-		"teamcity-server-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"teamcity-agent-EAP-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809", 
-		"teamcity-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"teamcity-minimal-agent-EAP-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809", 
-		"teamcity-server-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004", 
-		"teamcity-agent-EAP-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004", 
-		"teamcity-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004", 
-		"teamcity-minimal-agent-EAP-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
+"teamcity-server-2023.05.1-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-linux", 
+		"teamcity-agent-2023.05.1-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux", 
+		"teamcity-agent-2023.05.1-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo", 
+		"teamcity-minimal-agent-2023.05.1-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux", 
+		"teamcity-server-2023.05.1-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-1809", 
+		"teamcity-agent-2023.05.1-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-1809", 
+		"teamcity-agent-2023.05.1-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809", 
+		"teamcity-minimal-agent-2023.05.1-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809", 
+		"teamcity-server-2023.05.1-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-2004", 
+		"teamcity-agent-2023.05.1-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-2004", 
+		"teamcity-agent-2023.05.1-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004", 
+		"teamcity-minimal-agent-2023.05.1-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
 	  )
 
 	 steps {
