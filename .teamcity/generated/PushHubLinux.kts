@@ -152,7 +152,7 @@ object push_hub_linux: BuildType({
 		 dockerSupport {
 		 	 cleanupPushedImages = true
 		 	 loginToRegistry = on {
-		 		 dockerRegistryId = "PROJECT_EXT_774"
+		 		 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 		 	 }
 		 }
 		 swabra {
