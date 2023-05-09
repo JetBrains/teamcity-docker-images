@@ -8,6 +8,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import hosted.BuildAndPushHosted
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
@@ -103,5 +104,15 @@ object image_validation: BuildType({
 			     }
 		   }
 	 }
+
+	dependencies {
+		// Dependency on the build of the Docker image
+		dependency(BuildAndPushHosted.BuildAndPushHosted) {
+			snapshot {
+				onDependencyFailure = FailureAction.FAIL_TO_START
+				reuseBuilds = ReuseBuilds.SUCCESSFUL
+			}
+		}
+	}
 })
 
