@@ -235,6 +235,8 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
+                // -- Build Configurations
+                "import hosted.BuildAndPushHosted",
 
                 string.Empty
             };
@@ -472,10 +474,22 @@ namespace TeamCity.Docker
                 "\t\t   dockerSupport {",
                 "\t\t\t     cleanupPushedImages = true",
                 "\t\t\t     loginToRegistry = on {",
-                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774\"",
+                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774,PROJECT_EXT_315\"",
                 "\t\t\t     }",
                 "\t\t   }",
                 "\t }"
+            );
+
+            yield return String.Join('\n',
+               	"\n\t dependencies {",
+               	"\t // Dependency on the build of the Docker image",
+               	"\t\t dependency(BuildAndPushHosted.BuildAndPushHosted) {",
+               	"\t\t\t snapshot {",
+               	"\t\t\t\t onDependencyFailure = FailureAction.FAIL_TO_START",
+               	"\t\t\t\t reuseBuilds = ReuseBuilds.SUCCESSFUL",
+               	"\t\t\t }",
+               	"\t\t }",
+               	"\t}"
             );
 
             yield return "})";
