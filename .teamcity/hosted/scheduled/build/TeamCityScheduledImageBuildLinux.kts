@@ -27,13 +27,13 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     // -- order matters as teamcity-agent used teamcity-minimal-agent as base image
     val images = LinkedList(listOf(
         // Ubuntu 20.04
-        DockerImageInfo("teamcity-server", "EAP-linux", "context/generated/linux/Server/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-minimal-agent", "EAP-linux", "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-agent", "EAP-linux", "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-agent", "EAP-linux-sudo", "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"),
+        DockerImageInfo("teamcity-server", "2023.05.1-linux", "context/generated/linux/Server/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-minimal-agent", "2023.05.1-linux", "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-agent", "2023.05.1-linux", "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"),
+        DockerImageInfo("teamcity-agent", "2023.05.1-linux-sudo", "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"),
         // -- ARM images are commented out since TeamCity, currently, does not support it
-        // DockerImageInfo("teamcity-agent", "EAP-linux-arm64", "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"),
-        // DockerImageInfo("teamcity-agent", "EAP-linux-arm64-sudo", "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile")
+        // DockerImageInfo("teamcity-agent", "2023.05.1-linux-arm64", "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"),
+        // DockerImageInfo("teamcity-agent", "2023.05.1-linux-arm64-sudo", "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile")
     ))
 
     steps {
