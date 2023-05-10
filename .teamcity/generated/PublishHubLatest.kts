@@ -87,7 +87,7 @@ commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --
 }
 }
 dependencies {
-snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+snapshot(AbsoluteId("TC2023_05_BuildDistDocker"))
 {
 onDependencyFailure = FailureAction.IGNORE
 }

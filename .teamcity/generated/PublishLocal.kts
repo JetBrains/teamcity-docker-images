@@ -120,7 +120,7 @@ object publish_local: BuildType({
 	}
 	 }
 		 dependencies {
-			 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+			 snapshot(AbsoluteId("TC2023_05_BuildDistDocker")) {
 
 				 onDependencyFailure = FailureAction.FAIL_TO_START 
  			 reuseBuilds = ReuseBuilds.ANY 

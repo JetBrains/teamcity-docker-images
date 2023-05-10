@@ -120,7 +120,7 @@ object publish_hub_version: BuildType({
 	}
 	 }
 		 dependencies {
-			 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+			 snapshot(AbsoluteId("TC2023_05_BuildDistDocker")) {
 
 				 reuseBuilds = ReuseBuilds.ANY 
  			 onDependencyFailure = FailureAction.IGNORE 

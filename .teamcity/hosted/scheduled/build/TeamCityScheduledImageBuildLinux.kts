@@ -54,7 +54,7 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+        dependency(AbsoluteId("TC2023_05_BuildDistDocker")) {
             artifacts {
                 artifactRules = "TeamCity.zip!/**=>context/TeamCity"
                 cleanDestination = true

@@ -20,7 +20,7 @@ object RootProject : Project({
     buildType(TeamCityScheduledImageBuildLinux.TeamCityScheduledImageBuildLinux)
 
     params {
-        param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
+        param("dockerImage.teamcity.buildNumber", "%dep.TC2023_05_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
 
         // Used by build for teamcity.jetbrains.com

@@ -16,7 +16,7 @@ namespace TeamCity.Docker.Constants
         /// Build Configurations inside of TeamCIty that're referenced within the code 
         /// </summary>
         public static class TrunkConfigurations {
-            public const string BUILD_DIST_DOCKER = "TC_Trunk_BuildDistDocker";
+            public const string BUILD_DIST_DOCKER = "TC2023_05_BuildDistDocker";
         }
     }
 }
