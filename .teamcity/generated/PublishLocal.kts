@@ -35,92 +35,92 @@ object publish_local: BuildType({
 		 	 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 		 }
 	dockerCommand {
-		 name = "manifest create teamcity-server:2023.05.1"
+		 name = "manifest create teamcity-server:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest push teamcity-server:2023.05.1"
+		 name = "manifest push teamcity-server:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1"
+			 commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest inspect teamcity-server:2023.05.1"
+		 name = "manifest inspect teamcity-server:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1 --verbose"
+			 commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05 --verbose"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest create teamcity-agent:2023.05.1"
+		 name = "manifest create teamcity-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest push teamcity-agent:2023.05.1"
+		 name = "manifest push teamcity-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1"
+			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest inspect teamcity-agent:2023.05.1"
+		 name = "manifest inspect teamcity-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1 --verbose"
+			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05 --verbose"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest create teamcity-minimal-agent:2023.05.1"
+		 name = "manifest create teamcity-minimal-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest push teamcity-minimal-agent:2023.05.1"
+		 name = "manifest push teamcity-minimal-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1"
+			 commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest inspect teamcity-minimal-agent:2023.05.1"
+		 name = "manifest inspect teamcity-minimal-agent:2023.05"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1 --verbose"
+			 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05 --verbose"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest create teamcity-agent:2023.05.1-windowsservercore"
+		 name = "manifest create teamcity-agent:2023.05-windowsservercore"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-windowsservercore-2004"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest push teamcity-agent:2023.05.1-windowsservercore"
+		 name = "manifest push teamcity-agent:2023.05-windowsservercore"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore"
+			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-windowsservercore"
 		 }
 	}
 	dockerCommand {
-		 name = "manifest inspect teamcity-agent:2023.05.1-windowsservercore"
+		 name = "manifest inspect teamcity-agent:2023.05-windowsservercore"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore --verbose"
+			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05-windowsservercore --verbose"
 		 }
 	}
 	 }
 		 dependencies {
-			 snapshot(AbsoluteId("TC2023_05_BuildDistDocker")) {
+			 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
 
 				 onDependencyFailure = FailureAction.FAIL_TO_START 
  			 reuseBuilds = ReuseBuilds.ANY 
