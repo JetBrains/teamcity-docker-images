@@ -339,7 +339,7 @@ object push_local_linux_20_04 : BuildType({
 		}
 	}
 	dependencies {
-		 dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+		 dependency(AbsoluteId("TC2023_05_BuildDistDocker")) {
 			 snapshot {
 				 onDependencyFailure = FailureAction.IGNORE
 				 reuseBuilds = ReuseBuilds.ANY
