@@ -53,6 +53,7 @@ RUN update-alternatives --install /usr/bin/java java ${JAVA_HOME}/bin/java 1 && 
 ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     TEAMCITY_DIST=/opt/teamcity \
     TEAMCITY_LOGS=/opt/teamcity/logs \
+    TEAMCITY_ENV=container \
     CATALINA_TMPDIR=/opt/teamcity/temp \
     TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=640m" \
     LANG=C.UTF-8
