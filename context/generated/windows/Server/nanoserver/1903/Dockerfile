@@ -84,6 +84,7 @@ COPY --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
 
 ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
     TEAMCITY_DIST="C:\TeamCity" \
+    TEAMCITY_ENV=container \
     CATALINA_TMPDIR="C:\TeamCity\temp" \
     TEAMCITY_LOGS="C:\TeamCity\logs" \
     TEAMCITY_DATA_PATH="C:\ProgramData\JetBrains\TeamCity" \
