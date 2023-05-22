@@ -55,11 +55,11 @@ Alternatively, you can use a custom Tomcat configuration (see below).
 If a TeamCity Server uses the [HTTPS connection](https://www.jetbrains.com/help/teamcity/using-https-to-access-teamcity-server.html), it transmits encrypted traffic through port `443` by default. 
 
 For security reasons, some operating systems impose restrictions
-on binding "privileged" ports (typically, ports below 1024) for non-root users, such as user 1000. As a result, port `443` can be unavailable for TeamCity Containers launched under _user 1000_.
+on using "privileged" ports (typically, ports below 1024) for non-root users, such as user 1000. As a result, port `443` can be unavailable for processes running inside TeamCity Containers that are launched under _user 1000_.
 
 To avoid this issue, do one of the following:
 
-1. **(recommended) Map a non-privileged port on a host machine to the default HTTPS port inside the container**. This solution allows TeamCity to be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
+1. **(recommended) Map the default HTTPS port inside the container to a non-privileged port on a host machine**. This solution allows TeamCity to be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
 ```
 docker run --name teamcity-server-instance  \
     ...
