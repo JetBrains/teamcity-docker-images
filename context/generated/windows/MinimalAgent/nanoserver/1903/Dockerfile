@@ -1,6 +1,6 @@
 # Default arguments
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='e46d240031e3a58f6bfbd1f67044da61'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
 
