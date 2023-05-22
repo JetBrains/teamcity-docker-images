@@ -52,13 +52,14 @@ Alternatively, you can use a custom Tomcat configuration (see below).
 
 #### Configuring HTTPS Access to TeamCity Server
 
-TeamCity Server could be configured to use HTTPS connection, thus port `443` would be used for encrypted traffic. 
+If a TeamCity Server uses the [HTTPS connection](https://www.jetbrains.com/help/teamcity/using-https-to-access-teamcity-server.html), it transmits encrypted traffic through port `443` by default. 
 
 For security reasons, some operating systems impose restrictions
-on binding "privileged" ports (typically, ports below 1024) for non-root users, such as user 1000.
+on binding "privileged" ports (typically, ports below 1024) for non-root users, such as user 1000. As a result, port `443` can be unavailable for TeamCity Containers launched under _user 1000_.
 
-Given that TeamCity Containers, by default, are launched under _user 1000_, in order to configure HTTPS connection, there are 2 options:
-1. **(recommended) Map non-privileged port on host machine to default HTTPS port inside the container**. As a result, TeamCity will be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
+To avoid this issue, do one of the following:
+
+1. **(recommended) Map a non-privileged port on a host machine to the default HTTPS port inside the container**. This solution allows TeamCity to be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
 ```
 docker run --name teamcity-server-instance  \
     ...
@@ -66,7 +67,7 @@ docker run --name teamcity-server-instance  \
     ...
     jetbrains/teamcity-server
 ```
-2. **Launch TeamCity Container under a _root_ user**. Please, note that it's not considered a good practice, thus significant security assessment must be done within target environment.
+2. **Launch TeamCity Container under a _root_ user**. This approach is less secure and is generally avoided. Before running the server under the root user, perform a thorough security risk assessment.
 ```
 docker run --name teamcity-server-instance  \
     ...
