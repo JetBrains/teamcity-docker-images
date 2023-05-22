@@ -31,8 +31,12 @@ where
  - **\<path-to-data-directory>** is the host machine directory to serve as the [TeamCity Data Directory](https://www.jetbrains.com/help/teamcity/teamcity-data-directory.html) where TeamCity stores project settings and build results. Pass an empty directory for the brand new start. If the mapping is not set, you will lose all the TeamCity settings on the container shutdown.
  - **\<path-to-logs-directory>** is the host machine directory to store the TeamCity server logs. The mapping can be omitted, but then the logs will be lost on container shutdown which will make issues investigation impossible.
 
+Due to security reasons, by default, the container is launched under `user 1000`.
+If you need root permissions (`user 0`), a corresponding configuration key could be passed to Docker - `docker run ... --user 0 ... jetbrains/teamcity-server`.
 
-If you need to run a Linux-based container with non-root permissions (for example, when using some open source container application platforms), set the server's internal user identifier explicitly by passing an additional `-u 1000:1000` parameter. Note that after switching to a non-root user you might not be able to perform writing operations on files created under the root user. In this case, run `chown -R 1000:1000 <directory>` to change the ownership of the directory containing these files.
+Please, note that the running of Docker Containers under `root` user impose potential security vulnerabilities, including privilege escalation, thus a strong security assessment of the environment 
+is recommended prior to the start-up.
+
 
 #### TeamCity behind HTTPS reverse proxy
 
@@ -44,7 +48,34 @@ To achieve that, you can pass an additional
 started with an alternative `server-https-proxy.xml` configuration file which enables HTTPS options.
 
 Alternatively, you can use a custom Tomcat configuration (see below).
-                       
+
+
+#### Configuring HTTPS Access to TeamCity Server
+
+TeamCity Server could be configured to use HTTPS connection, thus port `443` would be used for encrypted traffic. 
+
+For security reasons, some operating systems impose restrictions
+on binding "privileged" ports (typically, ports below 1024) for non-root users, such as user 1000.
+
+Given that TeamCity Containers, by default, are launched under _user 1000_, in order to configure HTTPS connection, there are 2 options:
+1. **(recommended) Map non-privileged port on host machine to default HTTPS port inside the container**. As a result, TeamCity will be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
+```
+docker run --name teamcity-server-instance  \
+    ...
+    -p 443:8443
+    ...
+    jetbrains/teamcity-server
+```
+2. **Launch TeamCity Container under a _root_ user**. Please, note that it's not considered a good practice, thus significant security assessment must be done within target environment.
+```
+docker run --name teamcity-server-instance  \
+    ...
+    --user 0
+    ...
+    jetbrains/teamcity-server
+```
+
+
 #### Alternative Tomcat configuration
 
 TeamCity has Tomcat J2EE server under the hood, and if you need to provide an alternative configuration for the TomCat, you can use extra parameter
