@@ -59,7 +59,7 @@ on using "privileged" ports (typically, ports below 1024) for non-root users, su
 
 To avoid this issue, do one of the following:
 
-1. **(recommended) Map the default HTTPS port inside the container to a non-privileged port on a host machine**. This solution allows TeamCity to be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
+1. **(recommended) Map a non-privileged `8443` port inside the container to the default HTTPS port `443` on a host machine**. This solution allows TeamCity to be accessible via HTTPS without running the server under the root user (which is otherwise required for accessing the privileged port `443`).
 ```
 docker run --name teamcity-server-instance  \
     ...
