@@ -26,10 +26,10 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 ARG jdkServerWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
-    Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jre.zip; \
-    Expand-Archive jre.zip -DestinationPath $Env:ProgramFiles\Java ; \
+    Invoke-WebRequest $Env:jdkServerWindowsComponent -OutFile jdk.zip; \
+    Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jre.zip ; \
+    Remove-Item -Force jdk.zip ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force
 
 # Install [${gitWindowsComponentName}](${gitWindowsComponent})
@@ -54,7 +54,7 @@ FROM ${powershellImage}
 COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 COPY --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
 
-ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
+ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     TEAMCITY_DIST="C:\TeamCity" \
     TEAMCITY_ENV=container \
     CATALINA_TMPDIR="C:\TeamCity\temp" \
@@ -75,5 +75,5 @@ CMD pwsh C:/TeamCity/run-server.ps1
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
 USER ContainerUser

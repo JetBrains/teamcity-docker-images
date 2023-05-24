@@ -65,7 +65,7 @@ RUN pwsh -NoLogo -NoProfile -Command " \
 
 COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 
-ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
+ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
