@@ -86,7 +86,7 @@ RUN pwsh -NoLogo -NoProfile -Command " \
 COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 COPY --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
 
-ENV JRE_HOME="C:\Program Files\Java\OpenJDK" \
+ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     TEAMCITY_DIST="C:\TeamCity" \
     TEAMCITY_ENV=container \
     CATALINA_TMPDIR="C:\TeamCity\temp" \
@@ -106,5 +106,5 @@ CMD pwsh C:/TeamCity/run-server.ps1
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JRE_HOME%\bin;C:\Program Files\Git\cmd"
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
 USER ContainerUser
