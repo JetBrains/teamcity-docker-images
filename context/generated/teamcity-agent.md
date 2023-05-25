@@ -9,7 +9,9 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
+- [latest](#latest)
 - [2023.05](#202305)
+- [latest-windowsservercore](#latest-windowsservercore)
 - [2023.05-windowsservercore](#202305-windowsservercore)
 
 #### linux
@@ -46,6 +48,17 @@ When running an image with multi-architecture support, docker will automatically
   - [2023.05-windowsservercore-1803](#202305-windowsservercore-1803)
 
 
+### latest
+
+Supported platforms: linux 20.04, windows 1809, windows 2004
+
+#### Content
+
+- [2023.05-linux](#202305-linux)
+- [2023.05-linux-arm64](#202305-linux-arm64)
+- [2023.05-nanoserver-1809](#202305-nanoserver-1809)
+- [2023.05-nanoserver-2004](#202305-nanoserver-2004)
+
 ### 2023.05
 
 Supported platforms: linux 20.04, windows 1809, windows 2004
@@ -56,6 +69,15 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 - [2023.05-linux-arm64](#202305-linux-arm64)
 - [2023.05-nanoserver-1809](#202305-nanoserver-1809)
 - [2023.05-nanoserver-2004](#202305-nanoserver-2004)
+
+### latest-windowsservercore
+
+Supported platforms: windows 1809, windows 2004
+
+#### Content
+
+- [2023.05-windowsservercore-1809](#202305-windowsservercore-1809)
+- [2023.05-windowsservercore-2004](#202305-windowsservercore-2004)
 
 ### 2023.05-windowsservercore
 
