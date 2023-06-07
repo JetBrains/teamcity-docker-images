@@ -9,7 +9,6 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [latest](#latest)
 - [2022.04.5](#2022045)
 
 #### linux
@@ -34,16 +33,6 @@ When running an image with multi-architecture support, docker will automatically
 - 1803
   - [2022.04.5-nanoserver-1803](#2022045-nanoserver-1803)
 
-
-### latest
-
-Supported platforms: linux 20.04, windows 1809, windows 2004
-
-#### Content
-
-- [2022.04.5-linux](#2022045-linux)
-- [2022.04.5-nanoserver-1809](#2022045-nanoserver-1809)
-- [2022.04.5-nanoserver-2004](#2022045-nanoserver-2004)
 
 ### 2022.04.5
 

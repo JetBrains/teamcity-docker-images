@@ -26,7 +26,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_linux_20_04 : BuildType({
 	 name = "Build and push linux 20.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2022.04.5-linux,latest,2022.04.5 teamcity-minimal-agent:2022.04.5-linux,latest,2022.04.5 teamcity-agent:2022.04.5-linux,latest,2022.04.5:2022.04.5-linux-sudo"
+	 description  = "teamcity-server:2022.04.5-linux,${latestTag},2022.04.5 teamcity-minimal-agent:2022.04.5-linux,${latestTag},2022.04.5 teamcity-agent:2022.04.5-linux,${latestTag},2022.04.5:2022.04.5-linux-sudo"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }

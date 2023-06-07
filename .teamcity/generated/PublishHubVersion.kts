@@ -118,27 +118,6 @@ object publish_hub_version: BuildType({
 			 commandArgs = "inspect %docker.deployRepository%teamcity-agent:2022.04.5-windowsservercore --verbose"
 		 }
 	}
-	dockerCommand {
-		 name = "manifest create teamcity-agent:latest-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "create %docker.deployRepository%teamcity-agent:latest-windowsservercore %docker.deployRepository%teamcity-agent:2022.04.5-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.04.5-windowsservercore-2004"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest push teamcity-agent:latest-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "push %docker.deployRepository%teamcity-agent:latest-windowsservercore"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest inspect teamcity-agent:latest-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest-windowsservercore --verbose"
-		 }
-	}
 	 }
 		 dependencies {
 			 snapshot(AbsoluteId("TC2022_04_BuildDistDocker")) {
