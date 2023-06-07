@@ -54,7 +54,7 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     TEAMCITY_DIST=/opt/teamcity \
     TEAMCITY_LOGS=/opt/teamcity/logs \
     CATALINA_TMPDIR=/opt/teamcity/temp \
-    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=640m" \
+    TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=350m" \
     LANG=C.UTF-8
 
 EXPOSE 8111
