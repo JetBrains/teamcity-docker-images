@@ -281,7 +281,7 @@ object push_hub_windows: BuildType({
 	 requirements {
 	 	 contains("docker.server.osType", "windows")
 	 	 contains("system.agent.name", "docker")
-	 	 contains("system.agent.name", "windows10")
+		 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	 }
 		 dependencies {
 			 snapshot(PublishLocal.publish_local) {

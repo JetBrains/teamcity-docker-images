@@ -278,7 +278,7 @@ object push_local_windows_1809 : BuildType({
 	}
 	requirements {
 		 contains("system.agent.name", "docker")
-		 contains("system.agent.name", "windows10")
+		 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	}
 })
 
