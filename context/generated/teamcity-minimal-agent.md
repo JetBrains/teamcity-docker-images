@@ -9,54 +9,43 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [latest](#latest)
-- [2022.10.3](#2022103)
+- [2022.10.4](#2022104)
 
 #### linux
 
 - 20.04
-  - [2022.10.3-linux](#2022103-linux)
-  - [2022.10.3-linux-arm64](#2022103-linux-arm64)
+  - [2022.10.4-linux](#2022104-linux)
+  - [2022.10.4-linux-arm64](#2022104-linux-arm64)
 - 18.04
-  - [2022.10.3-linux-18.04](#2022103-linux-1804)
-  - [2022.10.3-linux-arm64-18.04](#2022103-linux-arm64-1804)
+  - [2022.10.4-linux-18.04](#2022104-linux-1804)
+  - [2022.10.4-linux-arm64-18.04](#2022104-linux-arm64-1804)
 
 #### windows
 
 - 2004
-  - [2022.10.3-nanoserver-2004](#2022103-nanoserver-2004)
+  - [2022.10.4-nanoserver-2004](#2022104-nanoserver-2004)
 - 1909
-  - [2022.10.3-nanoserver-1909](#2022103-nanoserver-1909)
+  - [2022.10.4-nanoserver-1909](#2022104-nanoserver-1909)
 - 1903
-  - [2022.10.3-nanoserver-1903](#2022103-nanoserver-1903)
+  - [2022.10.4-nanoserver-1903](#2022104-nanoserver-1903)
 - 1809
-  - [2022.10.3-nanoserver-1809](#2022103-nanoserver-1809)
+  - [2022.10.4-nanoserver-1809](#2022104-nanoserver-1809)
 - 1803
-  - [2022.10.3-nanoserver-1803](#2022103-nanoserver-1803)
+  - [2022.10.4-nanoserver-1803](#2022104-nanoserver-1803)
 
 
-### latest
-
-Supported platforms: linux 20.04, windows 1809, windows 2004
-
-#### Content
-
-- [2022.10.3-linux](#2022103-linux)
-- [2022.10.3-nanoserver-1809](#2022103-nanoserver-1809)
-- [2022.10.3-nanoserver-2004](#2022103-nanoserver-2004)
-
-### 2022.10.3
+### 2022.10.4
 
 Supported platforms: linux 20.04, windows 1809, windows 2004
 
 #### Content
 
-- [2022.10.3-linux](#2022103-linux)
-- [2022.10.3-nanoserver-1809](#2022103-nanoserver-1809)
-- [2022.10.3-nanoserver-2004](#2022103-nanoserver-2004)
+- [2022.10.4-linux](#2022104-linux)
+- [2022.10.4-nanoserver-1809](#2022104-nanoserver-1809)
+- [2022.10.4-nanoserver-2004](#2022104-nanoserver-2004)
 
 
-### 2022.10.3-linux
+### 2022.10.4-linux
 
 [Dockerfile](linux/MinimalAgent/Ubuntu/20.04/Dockerfile)
 
@@ -80,12 +69,12 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2022.10.3-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2022.10.4-linux "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2022.10.3-nanoserver-1809
+### 2022.10.4-nanoserver-1809
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1809/Dockerfile)
 
@@ -110,12 +99,12 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1809
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2022.10.3-nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2022.10.4-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
 
-### 2022.10.3-nanoserver-2004
+### 2022.10.4-nanoserver-2004
 
 [Dockerfile](windows/MinimalAgent/nanoserver/2004/Dockerfile)
 
@@ -140,12 +129,12 @@ docker pull mcr.microsoft.com/powershell:nanoserver-2004
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2022.10.3-nanoserver-2004 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2022.10.4-nanoserver-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
 
-### 2022.10.3-linux-18.04
+### 2022.10.4-linux-18.04
 
 [Dockerfile](linux/MinimalAgent/Ubuntu/18.04/Dockerfile)
 
@@ -166,12 +155,12 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2022.10.3-linux-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2022.10.4-linux-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2022.10.3-linux-arm64
+### 2022.10.4-linux-arm64
 
 [Dockerfile](linux/MinimalAgent/UbuntuARM/20.04/Dockerfile)
 
@@ -192,12 +181,12 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2022.10.3-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2022.10.4-linux-arm64 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2022.10.3-linux-arm64-18.04
+### 2022.10.4-linux-arm64-18.04
 
 [Dockerfile](linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
 
@@ -218,12 +207,12 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2022.10.3-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2022.10.4-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2022.10.3-nanoserver-1803
+### 2022.10.4-nanoserver-1803
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1803/Dockerfile)
 
@@ -244,12 +233,12 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1803
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2022.10.3-nanoserver-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2022.10.4-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
 
-### 2022.10.3-nanoserver-1903
+### 2022.10.4-nanoserver-1903
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1903/Dockerfile)
 
@@ -271,12 +260,12 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1903
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2022.10.3-nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2022.10.4-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
 
-### 2022.10.3-nanoserver-1909
+### 2022.10.4-nanoserver-1909
 
 [Dockerfile](windows/MinimalAgent/nanoserver/1909/Dockerfile)
 
@@ -298,7 +287,7 @@ docker pull mcr.microsoft.com/powershell:nanoserver-1909
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2022.10.3-nanoserver-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2022.10.4-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
