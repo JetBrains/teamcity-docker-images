@@ -26,7 +26,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_windows_1809 : BuildType({
 	 name = "Build and push windows 1809"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2022.04.5-nanoserver-1809,${latestTag},2022.04.5 teamcity-minimal-agent:2022.04.5-nanoserver-1809,${latestTag},2022.04.5 teamcity-agent:2022.04.5-windowsservercore-1809,2022.04.5-windowsservercore,${latestTag}-windowsservercore:2022.04.5-nanoserver-1809,${latestTag},2022.04.5"
+	 description  = "teamcity-server:2022.04.5-nanoserver-1809,2022.04.5 teamcity-minimal-agent:2022.04.5-nanoserver-1809,2022.04.5 teamcity-agent:2022.04.5-windowsservercore-1809,2022.04.5-windowsservercore,2022.04.5"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
