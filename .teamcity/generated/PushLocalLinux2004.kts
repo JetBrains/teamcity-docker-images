@@ -26,7 +26,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_linux_20_04 : BuildType({
 	 name = "Build and push linux 20.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:EAP-linux,EAP teamcity-minimal-agent:EAP-linux,EAP teamcity-agent:EAP-linux,EAP:EAP-linux-sudo:EAP-linux-arm64,EAP:EAP-linux-arm64-sudo"
+	 description  = "teamcity-server:2022.04.5-linux,${latestTag},2022.04.5 teamcity-minimal-agent:2022.04.5-linux,${latestTag},2022.04.5 teamcity-agent:2022.04.5-linux,${latestTag},2022.04.5:2022.04.5-linux-sudo"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
@@ -43,7 +43,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-server:EAP-linux"
+			 name = "context teamcity-server:2022.04.5-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/buildAgent >> context/.dockerignore
@@ -53,7 +53,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-server:EAP-linux"
+			 name = "build teamcity-server:2022.04.5-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Server/Ubuntu/20.04/Dockerfile"""
@@ -61,7 +61,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-server:EAP-linux
+		teamcity-server:2022.04.5-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -69,7 +69,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-minimal-agent:EAP-linux"
+			 name = "context teamcity-minimal-agent:2022.04.5-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -80,7 +80,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-minimal-agent:EAP-linux"
+			 name = "build teamcity-minimal-agent:2022.04.5-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"""
@@ -88,7 +88,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-minimal-agent:EAP-linux
+		teamcity-minimal-agent:2022.04.5-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -96,7 +96,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:EAP-linux"
+			 name = "context teamcity-agent:2022.04.5-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -105,7 +105,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:EAP-linux"
+			 name = "build teamcity-agent:2022.04.5-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"""
@@ -113,7 +113,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:EAP-linux
+		teamcity-agent:2022.04.5-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -121,7 +121,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:EAP-linux-sudo"
+			 name = "context teamcity-agent:2022.04.5-linux-sudo"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -130,7 +130,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:EAP-linux-sudo"
+			 name = "build teamcity-agent:2022.04.5-linux-sudo"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"""
@@ -138,61 +138,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:EAP-linux-sudo
-		""".trimIndent()
-		}
-		param("dockerImage.platform", "linux")
-		}
-		
-		script {
-			// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "context teamcity-agent:EAP-linux-arm64"
-			 scriptContent = """
-		echo 2> context/.dockerignore
-		echo TeamCity >> context/.dockerignore
-		""".trimIndent()
-		}
-		
-		dockerCommand {
-		// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "build teamcity-agent:EAP-linux-arm64"
-			 commandType = build {
-				 source = file {
-					 path = """context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"""
-				 }
-			 contextDir = "context"
-			 commandArgs = "--no-cache"
-			 namesAndTags = """
-		teamcity-agent:EAP-linux-arm64
-		""".trimIndent()
-		}
-		param("dockerImage.platform", "linux")
-		}
-		
-		script {
-			// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "context teamcity-agent:EAP-linux-arm64-sudo"
-			 scriptContent = """
-		echo 2> context/.dockerignore
-		echo TeamCity >> context/.dockerignore
-		""".trimIndent()
-		}
-		
-		dockerCommand {
-		// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "build teamcity-agent:EAP-linux-arm64-sudo"
-			 commandType = build {
-				 source = file {
-					 path = """context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile"""
-				 }
-			 contextDir = "context"
-			 commandArgs = "--no-cache"
-			 namesAndTags = """
-		teamcity-agent:EAP-linux-arm64-sudo
+		teamcity-agent:2022.04.5-linux-sudo
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -200,66 +146,46 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-server:EAP-linux"
+			 name = "tag teamcity-server:2022.04.5-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-server:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux"
+				 commandArgs = "teamcity-server:2022.04.5-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent:EAP-linux"
+			 name = "tag teamcity-minimal-agent:2022.04.5-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-minimal-agent:EAP-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux"
+				 commandArgs = "teamcity-minimal-agent:2022.04.5-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:EAP-linux"
+			 name = "tag teamcity-agent:2022.04.5-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux"
+				 commandArgs = "teamcity-agent:2022.04.5-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:EAP-linux-sudo"
+			 name = "tag teamcity-agent:2022.04.5-linux-sudo"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo"
-			}
-		}
-		
-		dockerCommand {
-			// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "tag teamcity-agent:EAP-linux-arm64"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-			}
-		}
-		
-		dockerCommand {
-			// ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "tag teamcity-agent:EAP-linux-arm64-sudo"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo"
+				 commandArgs = "teamcity-agent:2022.04.5-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server:EAP-linux"
+			 name = "push teamcity-server:2022.04.5-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux
+		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -267,10 +193,10 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent:EAP-linux"
+			 name = "push teamcity-minimal-agent:2022.04.5-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux
+		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -278,10 +204,10 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:EAP-linux"
+			 name = "push teamcity-agent:2022.04.5-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -289,34 +215,10 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:EAP-linux-sudo"
+			 name = "push teamcity-agent:2022.04.5-linux-sudo"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-sudo
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 // ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "push teamcity-agent:EAP-linux-arm64"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 // ARM-based images are currently not supported by TeamCity 
-			enabled = false
-			 name = "push teamcity-agent:EAP-linux-arm64-sudo"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64-sudo
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-linux-sudo
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -325,7 +227,7 @@ object push_local_linux_20_04 : BuildType({
 	}
 	features {
 		freeDiskSpace {
-			 requiredSpace = "8gb"
+			 requiredSpace = "6gb"
 			 failBuild = true
 		}
 		dockerSupport {
@@ -339,7 +241,7 @@ object push_local_linux_20_04 : BuildType({
 		}
 	}
 	dependencies {
-		 dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+		 dependency(AbsoluteId("TC2022_04_BuildDistDocker")) {
 			 snapshot {
 				 onDependencyFailure = FailureAction.IGNORE
 				 reuseBuilds = ReuseBuilds.ANY
@@ -350,7 +252,7 @@ object push_local_linux_20_04 : BuildType({
 		 }
 	}
 	params {
-		 param("system.teamcity.agent.ensure.free.space", "8gb")
+		 param("system.teamcity.agent.ensure.free.space", "6gb")
 	}
 	requirements {
 	}

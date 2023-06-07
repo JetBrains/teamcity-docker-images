@@ -26,7 +26,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 object push_local_windows_1809 : BuildType({
 	 name = "Build and push windows 1809"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:EAP-nanoserver-1809,EAP teamcity-minimal-agent:EAP-nanoserver-1809,EAP teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,-windowsservercore:EAP-nanoserver-1809,EAP"
+	 description  = "teamcity-server:2022.04.5-nanoserver-1809,latest,2022.04.5 teamcity-minimal-agent:2022.04.5-nanoserver-1809,latest,2022.04.5 teamcity-agent:2022.04.5-windowsservercore-1809,2022.04.5-windowsservercore,latest-windowsservercore:2022.04.5-nanoserver-1809,latest,2022.04.5"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
@@ -61,7 +61,7 @@ object push_local_windows_1809 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-server:EAP-nanoserver-1809"
+			 name = "context teamcity-server:2022.04.5-nanoserver-1809"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/buildAgent >> context/.dockerignore
@@ -71,7 +71,7 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-server:EAP-nanoserver-1809"
+			 name = "build teamcity-server:2022.04.5-nanoserver-1809"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/windows/Server/nanoserver/1809/Dockerfile"""
@@ -79,7 +79,7 @@ object push_local_windows_1809 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-server:EAP-nanoserver-1809
+		teamcity-server:2022.04.5-nanoserver-1809
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "windows")
@@ -87,7 +87,7 @@ object push_local_windows_1809 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-minimal-agent:EAP-nanoserver-1809"
+			 name = "context teamcity-minimal-agent:2022.04.5-nanoserver-1809"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -98,7 +98,7 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-minimal-agent:EAP-nanoserver-1809"
+			 name = "build teamcity-minimal-agent:2022.04.5-nanoserver-1809"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile"""
@@ -106,7 +106,7 @@ object push_local_windows_1809 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-minimal-agent:EAP-nanoserver-1809
+		teamcity-minimal-agent:2022.04.5-nanoserver-1809
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "windows")
@@ -114,7 +114,7 @@ object push_local_windows_1809 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:EAP-windowsservercore-1809"
+			 name = "context teamcity-agent:2022.04.5-windowsservercore-1809"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -125,7 +125,7 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:EAP-windowsservercore-1809"
+			 name = "build teamcity-agent:2022.04.5-windowsservercore-1809"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/windows/Agent/windowsservercore/1809/Dockerfile"""
@@ -133,7 +133,7 @@ object push_local_windows_1809 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:EAP-windowsservercore-1809
+		teamcity-agent:2022.04.5-windowsservercore-1809
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "windows")
@@ -141,7 +141,7 @@ object push_local_windows_1809 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:EAP-nanoserver-1809"
+			 name = "context teamcity-agent:2022.04.5-nanoserver-1809"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -152,7 +152,7 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:EAP-nanoserver-1809"
+			 name = "build teamcity-agent:2022.04.5-nanoserver-1809"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/windows/Agent/nanoserver/1809/Dockerfile"""
@@ -160,7 +160,7 @@ object push_local_windows_1809 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:EAP-nanoserver-1809
+		teamcity-agent:2022.04.5-nanoserver-1809
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "windows")
@@ -168,46 +168,46 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-server:EAP-nanoserver-1809"
+			 name = "tag teamcity-server:2022.04.5-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-server:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809"
+				 commandArgs = "teamcity-server:2022.04.5-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-nanoserver-1809"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent:EAP-nanoserver-1809"
+			 name = "tag teamcity-minimal-agent:2022.04.5-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-minimal-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+				 commandArgs = "teamcity-minimal-agent:2022.04.5-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-nanoserver-1809"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:EAP-windowsservercore-1809"
+			 name = "tag teamcity-agent:2022.04.5-windowsservercore-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809"
+				 commandArgs = "teamcity-agent:2022.04.5-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-windowsservercore-1809"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:EAP-nanoserver-1809"
+			 name = "tag teamcity-agent:2022.04.5-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809"
+				 commandArgs = "teamcity-agent:2022.04.5-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-nanoserver-1809"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server:EAP-nanoserver-1809"
+			 name = "push teamcity-server:2022.04.5-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809
+		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.5-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -215,10 +215,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent:EAP-nanoserver-1809"
+			 name = "push teamcity-minimal-agent:2022.04.5-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809
+		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.5-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -226,10 +226,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:EAP-windowsservercore-1809"
+			 name = "push teamcity-agent:2022.04.5-windowsservercore-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-windowsservercore-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -237,10 +237,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:EAP-nanoserver-1809"
+			 name = "push teamcity-agent:2022.04.5-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.5-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -263,7 +263,7 @@ object push_local_windows_1809 : BuildType({
 		}
 	}
 	dependencies {
-		 dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+		 dependency(AbsoluteId("TC2022_04_BuildDistDocker")) {
 			 snapshot {
 				 onDependencyFailure = FailureAction.IGNORE
 				 reuseBuilds = ReuseBuilds.ANY
@@ -277,7 +277,8 @@ object push_local_windows_1809 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "43gb")
 	}
 	requirements {
-		 contains("teamcity.agent.jvm.os.name", "Windows 10")
+		 contains("system.agent.name", "docker")
+		 contains("system.agent.name", "windows10")
 	}
 })
 
