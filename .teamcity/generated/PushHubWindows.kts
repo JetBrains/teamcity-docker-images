@@ -279,8 +279,6 @@ object push_hub_windows: BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "52gb")
 	}
 	 requirements {
-	 	 contains("docker.server.osType", "windows")
-	 	 contains("system.agent.name", "docker")
 		 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	 }
 		 dependencies {

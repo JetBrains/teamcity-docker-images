@@ -277,7 +277,6 @@ object push_local_windows_2004 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "43gb")
 	}
 	requirements {
-		 contains("system.agent.name", "docker")
 		contains("teamcity.agent.jvm.os.name", "Windows 10")
 	}
 })
