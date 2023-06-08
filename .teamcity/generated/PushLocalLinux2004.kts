@@ -353,6 +353,8 @@ object push_local_linux_20_04 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "8gb")
 	}
 	requirements {
+		// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+		doesNotContain("teamcity.agent.name", "arm")
 	}
 })
 

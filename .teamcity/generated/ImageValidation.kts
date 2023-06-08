@@ -88,6 +88,9 @@ object image_validation: BuildType({
 		  // ... Docker agent will be used, platform-compatibility must be addressed, ...
 		  // ... especially in case of Windows images.
 		  contains("teamcity.agent.jvm.os.name", "Linux")
+
+		 // Currently, only AMD-based images are published
+		 doesNotContain("teamcity.agent.name", "arm")
 	 }
 
 	 features {
