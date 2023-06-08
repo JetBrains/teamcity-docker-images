@@ -140,10 +140,7 @@ object publish_local: BuildType({
  		 }
 		 }
 	requirements {
-		 noLessThanVer("docker.version", "18.05.0")
-		 contains("docker.server.osType", "windows")
-		 contains("system.agent.name", "docker")
-		 contains("teamcity.agent.jvm.os.name", "Windows 10")
+		contains("teamcity.agent.jvm.os.name", "Windows 10")
 	}
 	 features {
 		 dockerSupport {
