@@ -16,4 +16,11 @@ class DockerhubCredentials {
         this.username = username?.trim() ?: ""
         this.token = token?.trim() ?: ""
     }
+
+    /**
+     * @return true if credentials are usable for DockerHub auth (both are non-empty)
+     */
+    fun isUsable(): Boolean {
+        return !(this.username.isNullOrEmpty() || this.token.isNullOrEmpty())
+    }
 }

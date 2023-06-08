@@ -35,7 +35,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
             isLenient = true
         }
-        this.token = if (credentials != null) this.getPersonalAccessToken(credentials) else ""
+        this.token = if (credentials != null && credentials.isUsable()) this.getPersonalAccessToken(credentials) else ""
     }
 
     /**
