@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object push_local_windows_1909 : BuildType({
 	 name = "ON PAUSE Build and push windows 1909"

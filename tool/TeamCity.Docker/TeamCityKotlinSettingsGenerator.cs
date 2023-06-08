@@ -373,7 +373,7 @@ namespace TeamCity.Docker
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             yield return $"\t {_buildNumberPattern}";
 
-            // VCS Root Is needed in order to launch automaiton framework
+            // VCS Root Is needed in order to launch automation framework
             yield return String.Join('\n',
                 "\t vcs {",
                 "\t\t root(TeamCityDockerImagesRepo)",
@@ -568,6 +568,11 @@ namespace TeamCity.Docker
             if (!string.IsNullOrWhiteSpace(platform))
             {
                 yield return $"\t contains(\"docker.server.osType\", \"{platform}\")";
+            }
+
+            if (!IsArmBasedImageBuildEnabled) {
+                yield return "\t// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent";
+                yield return $"\tdoesNotContain(\"teamcity.agent.name\", \"arm\")";
             }
 
             foreach (var requirement in requirements)

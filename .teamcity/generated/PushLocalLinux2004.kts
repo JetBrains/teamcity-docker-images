@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object push_local_linux_20_04 : BuildType({
 	 name = "Build and push linux 20.04"
@@ -331,7 +332,7 @@ object push_local_linux_20_04 : BuildType({
 		dockerSupport {
 			 cleanupPushedImages = true
 			 loginToRegistry = on {
-				 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+				 dockerRegistryId = "PROJECT_EXT_774"
 			 }
 		}
 		swabra {
@@ -353,6 +354,8 @@ object push_local_linux_20_04 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "8gb")
 	}
 	requirements {
+		// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+		doesNotContain("teamcity.agent.name", "arm")
 	}
 })
 

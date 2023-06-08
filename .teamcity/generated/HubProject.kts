@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object HubProject : Project({
 	 name = "Docker hub"

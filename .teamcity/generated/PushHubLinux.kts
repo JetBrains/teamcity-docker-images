@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object push_hub_linux: BuildType({
 	 name = "Push linux"
@@ -164,6 +165,8 @@ object push_hub_linux: BuildType({
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "linux")
+	 	// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+	 	doesNotContain("teamcity.agent.name", "arm")
 	 }
 		 dependencies {
 			 snapshot(PublishLocal.publish_local) {
