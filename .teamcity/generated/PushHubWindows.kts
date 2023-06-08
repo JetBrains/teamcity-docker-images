@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object push_hub_windows: BuildType({
 	 name = "Push windows"
@@ -280,6 +281,8 @@ object push_hub_windows: BuildType({
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "windows")
+	 	// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+	 	doesNotContain("teamcity.agent.name", "arm")
 	 	 contains("teamcity.agent.jvm.os.name", "Windows 10")
 	 }
 		 dependencies {
