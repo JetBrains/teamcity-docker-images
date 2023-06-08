@@ -16,6 +16,7 @@ namespace TeamCity.Docker
         private const string BuildNumberParam = "dockerImage.teamcity.buildNumber";
         private readonly string _buildNumberPattern = $"buildNumberPattern=\"%{BuildNumberParam}%-%build.counter%\"";
         private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
+        private const bool isArmSupported = false;
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string BuildImagePostfix = "%docker.buildImagePostfix%";
         [NotNull] private readonly string DeployRepositoryName = "%docker.deployRepository%";
@@ -366,6 +367,11 @@ namespace TeamCity.Docker
                 yield return $"contains(\"docker.server.osType\", \"{platform}\")";
             }
 
+            if (!isArmSupported) {
+                yield return "\t// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent";
+                yield return $"\tdoesNotContain(\"teamcity.agent.name\", \"arm\")";
+            }
+
             foreach (var requirement in requirements)
             {
                 if (string.IsNullOrWhiteSpace(requirement.Value))
@@ -467,6 +473,8 @@ namespace TeamCity.Docker
                     }
                 }
             }
+
+            description.Replace("${latestTag}", "");
 
             var pauseStr = onPause ? "ON PAUSE " : "";
             yield return $"object {buildTypeId} : BuildType({{";
