@@ -1,6 +1,8 @@
 package generated
 
 import common.TeamCityDockerImagesRepo
+import hosted.utils.Utils
+import hosted.utils.models.ImageInfo
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -27,18 +29,6 @@ object push_staging_linux_2004_aarch64 : BuildType({
         // will be included into the tag, e.g. 2023.05-linux-amd64
         param("tc.image.version", "EAP")
     }
-
-    /**
-     * Holds data about the building docker image.
-     */
-    data class ImageInfo(
-        val name: String,
-        val dockerfilePath: String,
-        // 'baseFqdn' - basic image domain name, could be used as a reference within Dockerfile (e.g. for base image)
-        // 'stagingFqdn' - domain name of the image, including the registry, which will be used for deployment
-        val baseFqdn: String,
-        val stagingFqdn: String
-    )
 
     val imageInfoContainer = linkedSetOf<ImageInfo>(
         // Minimal Agents
@@ -91,10 +81,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
 
             script {
                 name = "Set build context for [${imageInfo.name}]"
-                scriptContent = """
-                echo 2> context/.dockerignore
-                echo TeamCity >> context/.dockerignore
-                """.trimIndent()
+                scriptContent = Utils.getDockerignoreCtx(imageInfo)
             }
 
             dockerCommand {
@@ -145,6 +132,15 @@ object push_staging_linux_2004_aarch64 : BuildType({
         }
     }
     dependencies {
+//        dependencies {
+//            dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+//                artifacts {
+//                    artifactRules = "TeamCity.zip!/**=>context/TeamCity"
+//                    cleanDestination = true
+//                    lastSuccessful()
+//                }
+//            }
+//        }
         dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
             snapshot {
                 onDependencyFailure = FailureAction.IGNORE
