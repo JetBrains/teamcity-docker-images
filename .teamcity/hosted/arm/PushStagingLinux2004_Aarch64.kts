@@ -115,32 +115,25 @@ object push_staging_linux_2004_aarch64 : BuildType({
         }
     }
 
-
     features {
         freeDiskSpace {
             requiredSpace = "8gb"
             failBuild = true
         }
+
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+                dockerRegistryId = "PROJECT_EXT_315"
             }
         }
+
         swabra {
             forceCleanCheckout = true
         }
     }
+
     dependencies {
-//        dependencies {
-//            dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-//                artifacts {
-//                    artifactRules = "TeamCity.zip!/**=>context/TeamCity"
-//                    cleanDestination = true
-//                    lastSuccessful()
-//                }
-//            }
-//        }
         dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
             snapshot {
                 onDependencyFailure = FailureAction.IGNORE
