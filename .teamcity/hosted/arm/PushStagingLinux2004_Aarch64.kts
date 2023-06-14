@@ -40,7 +40,16 @@ object push_staging_linux_2004_aarch64 : BuildType({
         val stagingFqdn: String
     )
 
-    val imageInfoContainer = listOf<ImageInfo>(
+    val imageInfoContainer = linkedSetOf<ImageInfo>(
+        // Minimal Agents
+        ImageInfo(
+            "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
+            "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile",
+            "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
+            "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
+        ),
+
+        // Regular Agents
         ImageInfo(
             "teamcity-agent:%tc.image.version%-linux-arm64",
             "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
@@ -52,6 +61,20 @@ object push_staging_linux_2004_aarch64 : BuildType({
             "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
             "teamcity-agent:%tc.image.version%-linux-arm64-sudo",
             "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo"
+        ),
+
+        // Servers
+        ImageInfo(
+            "teamcity-server:%tc.image.version%-linux-arm64",
+            "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
+            "teamcity-server:%tc.image.version%-linux-arm64",
+            "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
+        ),
+        ImageInfo(
+            "teamcity-server:%tc.image.version%-linux-arm64-sudo",
+            "context/generated/linux/Server/UbuntuARM/20.04-sudo/Dockerfile",
+            "teamcity-server:%tc.image.version%-linux-arm64-sudo",
+            "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo"
         ),
     )
 
