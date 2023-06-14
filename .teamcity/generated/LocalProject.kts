@@ -35,4 +35,7 @@ object LocalProject : Project({
 	 buildType(PushLocalWindows2004.push_local_windows_2004)
 	 buildType(PublishLocal.publish_local)
 	 buildType(ImageValidation.image_validation)
+
+	// aarch64 (ARM) images
+	buildType(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64)
 })
