@@ -137,7 +137,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774"
+                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
             }
         }
         swabra {
