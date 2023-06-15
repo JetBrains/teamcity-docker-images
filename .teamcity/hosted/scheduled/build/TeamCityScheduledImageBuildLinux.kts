@@ -21,7 +21,8 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
-    artifactRules = "**/*"
+    // all .yml files (e.g. compose samples)
+    artifactRules = "+:*.yml"
 
     params {
         // the images will be published into registry that holds nightly builds
@@ -40,7 +41,7 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         script {
             name = "Generate Sample docker-compose manifest for the created images"
             scriptContent = """
-                cat <<EOF > file.txt
+                cat <<EOF > teamcity-linux-%tc.image.version%.docker-compose.yml
                 ${Utils.getSampleComposeFile("%docker.nightlyRepository%", "%tc.image.version%")}
                 EOF
                 """.trimIndent()
