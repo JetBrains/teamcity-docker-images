@@ -17,6 +17,13 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
         showDependenciesChanges = true
     }
 
+    params {
+        // the images will be published into registry that holds nightly builds
+        param("docker.buildRepository", "%docker.nightlyRepository%")
+        // no postfix needed
+        param("docker.buildImagePostfix", "")
+    }
+
     triggers {
         schedule {
             id = "TRIGGER_TC_DOCKER_IMAGES_NIGHTLY"

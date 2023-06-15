@@ -16,6 +16,7 @@ import kotlin.collections.HashMap
  * Scheduled build of TeamCity Docker Images for Windows.
  */
 object TeamCityScheduledImageBuildWindows : BuildType({
+
     name = "TeamCity Docker Images - Automated Scheduled Build - Windows"
 
     vcs {
@@ -38,11 +39,6 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                 "EAP-windowsservercore-1809",
                 "context/generated/windows/Agent/windowsservercore/1809/Dockerfile"
             ),
-            DockerImageInfo(
-                "teamcity-agent",
-                "EAP-windowsservercore-2004",
-                "context/generated/windows/Agent/windowsservercore/2004/Dockerfile"
-            ),
             // -- 18.09 NanoServer, build based on 18.09 Windows Server Core Agents
             DockerImageInfo(
                 "teamcity-agent",
@@ -62,6 +58,13 @@ object TeamCityScheduledImageBuildWindows : BuildType({
                 "teamcity-minimal-agent",
                 "EAP-nanoserver-2004",
                 "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"
+            ),
+
+            // -- Windows 20.04 agents
+            DockerImageInfo(
+                "teamcity-agent",
+                "EAP-windowsservercore-2004",
+                "context/generated/windows/Agent/windowsservercore/2004/Dockerfile"
             ),
 
             // -- Windows 20.04 nanoservers
