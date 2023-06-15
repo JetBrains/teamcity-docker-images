@@ -2,10 +2,12 @@ package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
+import hosted.utils.Utils
 import hosted.utils.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import java.io.File
 
 
 /**
@@ -17,6 +19,9 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     vcs {
         root(TeamCityDockerImagesRepo)
     }
+
+    val sampleComposeFile: File = Utils.getSampleComposeFile("", "", "")
+    artifactRules = "**/*"
 
     params {
         // the images will be published into registry that holds nightly builds

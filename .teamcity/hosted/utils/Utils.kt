@@ -1,6 +1,7 @@
 package hosted.utils
 
 import hosted.utils.models.ImageInfo
+import java.io.File
 
 /**
  * Utilities for the build up of Docker images.
@@ -32,6 +33,105 @@ class Utils {
                 """.trimIndent()
                 else -> ""
             }
+        }
+
+        /**
+         * Creates sample docker-compose manifest and returns file that matches it.
+         */
+        fun getSampleComposeFile(repo: String, version: String, namePostfix: String = ""): File {
+            val composeContent = """
+                version: "3.3"
+                services:
+                  linux-server:
+
+                    image: ${repo}teamcity-server${namePostfix}:${version}-linux
+                    platform: linux/arm64
+                    
+                    # privileged mode & 'root' user to solve issue with unwritable mounts
+                    privileged: true
+                    user: root
+
+                    environment:
+                      - TEAMCITY_SERVER_OPTS="-Dteamcity.startup.maintenance=false -Dteamcity.csrf.origin.check.enabled=logOnly"
+                      - TEAMCITY_SERVER_MEM_OPTS="-Xmx2048m"
+                    ports:
+                      - "8111:8111"
+                      - ./docker-images-test/data/server:/data/teamcity_server/datadir
+                      - ./docker-images-test/logs/server:/opt/teamcity/logs
+                      - ./docker-images-test/temp/server:/opt/teamcity/temp
+
+                    healthcheck:
+                      test: grep "TeamCity initialized" /opt/teamcity/logs/teamcity-server.log || exit 1
+                      interval: 1m
+                      timeout: 15m
+                      retries: 16
+
+
+                  linux-agent:
+                    image: ${repo}teamcity-agent${namePostfix}:${version}-linux
+                    platform: linux/arm64
+                   
+                   depends_on:
+                      - linux-server
+
+                    # privileged mode & 'root' user to solve issue with unwritable mounts
+                    privileged: true
+                    user: root
+
+                    environment:
+                      - SERVER_URL=http://linux-server:8111
+                      - AGENT_NAME=tc-agent-linux-regular
+                      - TEAMCITY_AGENT_EC2_DISABLE=true
+                    volumes:
+                      - ./docker-images-test/data/agent:/data/teamcity_agent/conf
+                      - ./docker-images-test/logs/agent:/opt/buildagent/logs
+                      - ./docker-images-test/temp/agent:/opt/buildagent/temp
+
+                    healthcheck:
+                      # Plugin initialization should be completed at this point
+                      test: grep "Build Agent version" /opt/buildagent/logs/teamcity-agent.log || exit 1
+                      interval: 1m
+                      timeout: 15m
+                      retries: 16
+
+                  linux-minimal-agent:
+                    image: ${repo}teamcity-minimal-agent:${version}-linux
+                    platform: linux/arm64
+
+                    # privileged mode & 'root' user to solve issue with unwritable mounts
+                    privileged: true
+                    user: root
+
+                    depends_on:
+                      - linux-server
+
+                    deploy:
+                      resources:
+                        limits:
+                          memory: 2000m
+                        reservations:
+                          memory: 2000m
+                    environment:
+                      - SERVER_URL=http://linux-server:8111
+                      - AGENT_NAME=tc-agent-linux-minimal
+                      - TEAMCITY_AGENT_EC2_DISABLE=true
+
+                    volumes:
+                      - ./docker-images-test/data/min-agent:/data/teamcity_agent/conf
+                      - ./docker-images-test/logs/min-agent:/opt/buildagent/logs
+                      - ./docker-images-test/temp/min-agent:/opt/buildagent/temp
+
+                    healthcheck:
+                      # Plugin initialization should be completed at this point
+                      test: grep "Build Agent version" /opt/buildagent/logs/teamcity-agent.log || exit 1
+                      interval: 1m
+                      timeout: 15m
+                      retries: 16
+            """.trimIndent()
+
+            val composeFile = File("teamcity-instance.docker-compose.yml")
+            composeFile.writeText(composeContent)
+            return composeFile
         }
     }
 }
