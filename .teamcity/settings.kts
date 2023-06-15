@@ -18,7 +18,7 @@ object RootProject : Project({
 
     buildType(TeamCityDockerImagesScheduledBuild.TeamCityDockerImagesScheduledBuild)
     buildType(TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows)
-    buildType(TeamCityScheduledImageBuildLinux_Base("amd64", ""))
+    buildType(TeamCityScheduledImageBuildLinux_Base("amd64", "linux"))
     buildType(TeamCityScheduledImageBuildLinux_Base("aarch64", "arm"))
 
     params {

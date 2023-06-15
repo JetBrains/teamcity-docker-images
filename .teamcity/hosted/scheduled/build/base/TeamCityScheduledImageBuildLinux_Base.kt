@@ -12,9 +12,9 @@ import java.lang.IllegalArgumentException
 /**
  * Base class for the build of Linux-based Docker images.
  * @param platform target platform, e.g. amd64, aarch64 (ARM)
- * @param agentReq (optional) a substring that agent name ('teamcity.agent.name') must contain
+ * @param agentReq a substring that agent name ('teamcity.agent.name') must contain
  */
-class TeamCityScheduledImageBuildLinux_Base(private val platform: String, private val agentReq: String = "") :
+class TeamCityScheduledImageBuildLinux_Base(private val platform: String, private val agentReq: String) :
     BuildType({
         name = "[${platform}] TeamCity Docker Images - Automated Scheduled Build - Linux"
         id("TeamCityScheduledImageBuildLinux_Base${platform}")
