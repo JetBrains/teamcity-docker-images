@@ -38,8 +38,8 @@ class Utils {
         /**
          * Creates sample docker-compose manifest and returns file that matches it.
          */
-        fun getSampleComposeFile(repo: String, version: String, namePostfix: String = ""): File {
-            val composeContent = """
+        fun getSampleComposeFile(repo: String, version: String, namePostfix: String = ""): String {
+            return """
                 version: "3.3"
                 services:
                   linux-server:
@@ -127,11 +127,7 @@ class Utils {
                       interval: 1m
                       timeout: 15m
                       retries: 16
-            """.trimIndent()
-
-            val composeFile = File("teamcity-instance.docker-compose.yml")
-            composeFile.writeText(composeContent)
-            return composeFile
+            """
         }
     }
 }

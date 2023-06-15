@@ -7,6 +7,7 @@ import hosted.utils.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import java.io.File
 
 
@@ -20,7 +21,6 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
-    val sampleComposeFile: File = Utils.getSampleComposeFile("", "", "")
     artifactRules = "**/*"
 
     params {
@@ -36,6 +36,15 @@ object TeamCityScheduledImageBuildLinux : BuildType({
                 // args: repository, version
             .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
             .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
+
+        script {
+            name = "Generate Sample docker-compose manifest for the created images"
+            scriptContent = """
+                cat <<EOF > file.txt
+                ${Utils.getSampleComposeFile("%docker.nightlyRepository%", "%tc.image.version%")}
+                EOF
+                """.trimIndent()
+        }
     }
 
     dependencies {
