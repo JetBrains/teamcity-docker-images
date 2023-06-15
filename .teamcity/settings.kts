@@ -1,13 +1,14 @@
-import Settings.RootProject.buildTypes
-import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import hosted.*
-import generated.*
+import generated.HubProject
+import generated.LocalProject
+import hosted.BuildAndPushHosted
 import hosted.scheduled.build.TeamCityDockerImagesScheduledBuild
-import hosted.scheduled.build.TeamCityScheduledImageBuildLinux
 import hosted.scheduled.build.TeamCityScheduledImageBuildWindows
+import jetbrains.buildServer.configs.kotlin.v2019_2.Project
+import jetbrains.buildServer.configs.kotlin.v2019_2.project
+import jetbrains.buildServer.configs.kotlin.v2019_2.version
 
-version = "2019.2"
+version =  "2019.2"
 
 object RootProject : Project({
     vcsRoot(TeamCityDockerImagesRepo)
@@ -17,7 +18,8 @@ object RootProject : Project({
 
     buildType(TeamCityDockerImagesScheduledBuild.TeamCityDockerImagesScheduledBuild)
     buildType(TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows)
-    buildType(TeamCityScheduledImageBuildLinux.TeamCityScheduledImageBuildLinux)
+    buildType(TeamCityScheduledImageBuildLinux_Base("amd64", ""))
+    buildType(TeamCityScheduledImageBuildLinux_Base("aarch64", "arm"))
 
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")

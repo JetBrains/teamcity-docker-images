@@ -1,5 +1,6 @@
 package hosted.scheduled.build
 
+import TeamCityScheduledImageBuildLinux_Base
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.schedule
 
@@ -39,7 +40,8 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
     dependencies {
         arrayOf(
             TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows,
-            TeamCityScheduledImageBuildLinux.TeamCityScheduledImageBuildLinux
+            TeamCityScheduledImageBuildLinux_Base("amd64", ""),
+            TeamCityScheduledImageBuildLinux_Base("aarch64", "arm")
         ).forEach {
             snapshot(it) {
                 onDependencyFailure = FailureAction.ADD_PROBLEM

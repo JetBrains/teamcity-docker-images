@@ -48,36 +48,39 @@ class ImageInfoRepository {
         /**
          * Returns a set of Ubuntu 20.04 (aarch64)-based TeamCity Docker Images
          */
-        fun getArmImages(): Set<ImageInfo> {
+        fun getArmImages(repo: String = "%docker.buildRepository%",
+                         version: String = "%tc.image.version%",
+                         deployTag: String = "EAP",
+                         namePostfix: String = "%docker.buildImagePostfix%"): Set<ImageInfo> {
             return linkedSetOf(
                 // Minimal Agents
                 ImageInfo(
-                    "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
+                    "teamcity-minimal-agent:${version}-linux-arm64",
                     "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
-                    "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
+                    "teamcity-minimal-agent:${deployTag}-linux-arm64",
+                    "${repo}teamcity-minimal-agent${namePostfix}:${version}-linux-arm64"
                 ),
 
                 // Regular Agents
                 ImageInfo(
-                    "teamcity-agent:%tc.image.version%-linux-arm64",
+                    "teamcity-agent:${version}-linux-arm64",
                     "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-agent:%tc.image.version%-linux-arm64",
-                    "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
+                    "teamcity-agent:${deployTag}-linux-arm64",
+                    "${repo}teamcity-agent${namePostfix}:${version}-linux-arm64"
                 ),
                 ImageInfo(
-                    "teamcity-agent:%tc.image.version%-linux-arm64-sudo",
+                    "teamcity-agent:${version}-linux-arm64-sudo",
                     "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
-                    "teamcity-agent:%tc.image.version%-linux-arm64-sudo",
-                    "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo"
+                    "teamcity-agent:${deployTag}-linux-arm64-sudo",
+                    "${repo}teamcity-agent${namePostfix}:${version}-linux-arm64-sudo"
                 ),
 
                 // Servers
                 ImageInfo(
-                    "teamcity-server:%tc.image.version%-linux-arm64",
+                    "teamcity-server:${version}-linux-arm64",
                     "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-server:%tc.image.version%-linux-arm64",
-                    "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
+                    "teamcity-server:${deployTag}-linux-arm64",
+                    "${repo}teamcity-server${namePostfix}:${version}-linux-arm64"
                 )
             )
         }
