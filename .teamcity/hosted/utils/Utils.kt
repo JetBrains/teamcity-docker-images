@@ -1,7 +1,6 @@
 package hosted.utils
 
 import hosted.utils.models.ImageInfo
-import java.io.File
 
 /**
  * Utilities for the build up of Docker images.
@@ -38,16 +37,16 @@ class Utils {
         /**
          * Creates sample docker-compose manifest and returns file that matches it.
          */
-        fun getSampleComposeFile(repo: String, version: String, namePostfix: String = ""): String {
+        fun getSampleComposeFile(repo: String, version: String, namePostfix: String = "", platform: String = "amd"): String {
+            val dockerPlatformId = if (platform.lowercase().contains("arm")) "linux/arm64" else "linux/amd64"
             return """
                 version: "3.3"
                 services:
                   linux-server:
 
                     image: ${repo}teamcity-server${namePostfix}:${version}-linux
-                    platform: linux/arm64
+                    platform: $dockerPlatformId
                     
-                    # privileged mode & 'root' user to solve issue with unwritable mounts
                     privileged: true
                     user: root
 
@@ -69,12 +68,11 @@ class Utils {
 
                   linux-agent:
                     image: ${repo}teamcity-agent${namePostfix}:${version}-linux
-                    platform: linux/arm64
+                    platform: $dockerPlatformId
                    
                    depends_on:
                       - linux-server
 
-                    # privileged mode & 'root' user to solve issue with unwritable mounts
                     privileged: true
                     user: root
 
@@ -96,9 +94,8 @@ class Utils {
 
                   linux-minimal-agent:
                     image: ${repo}teamcity-minimal-agent:${version}-linux
-                    platform: linux/arm64
+                    platform: $dockerPlatformId
 
-                    # privileged mode & 'root' user to solve issue with unwritable mounts
                     privileged: true
                     user: root
 
