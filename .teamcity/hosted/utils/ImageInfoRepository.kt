@@ -10,13 +10,14 @@ class ImageInfoRepository {
          */
         fun getAmdImages(repo: String = "%docker.buildRepository%",
                          version: String = "%tc.image.version%",
+                         deployTag: String = "EAP",
                          namePostfix: String = "%docker.buildImagePostfix%"): Set<ImageInfo> {
             return linkedSetOf(
                 // Minimal Agents
                 ImageInfo(
                     "teamcity-minimal-agent:${version}-linux",
                     "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-minimal-agent:${version}-linux",
+                    "teamcity-minimal-agent:${deployTag}-linux",
                     "${repo}teamcity-minimal-agent${namePostfix}:${version}-linux"
                 ),
 
@@ -24,13 +25,13 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-linux",
                     "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-agent:${version}-linux",
+                    "teamcity-agent:${deployTag}-linux",
                     "${repo}teamcity-agent${namePostfix}:${version}-linux"
                 ),
                 ImageInfo(
                     "teamcity-agent:${version}-linux-sudo",
                     "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile",
-                    "teamcity-agent:${version}-linux-sudo",
+                    "teamcity-agent:${deployTag}-linux-sudo",
                     "${repo}teamcity-agent${namePostfix}:${version}-linux-sudo"
                 ),
 
@@ -38,7 +39,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-server:${version}-linux",
                     "context/generated/linux/Server/Ubuntu/20.04/Dockerfile",
-                    "teamcity-server:${version}-linux",
+                    "teamcity-server:${deployTag}-linux",
                     "${repo}teamcity-server${namePostfix}:${version}-linux"
                 )
             )
