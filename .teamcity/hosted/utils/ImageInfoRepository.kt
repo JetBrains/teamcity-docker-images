@@ -8,36 +8,38 @@ class ImageInfoRepository {
         /**
          * Returns a set of Ubuntu 20.04 (amd64)-based TeamCity Docker Images
          */
-        fun getAmdImages(): Set<ImageInfo> {
+        fun getAmdImages(repo: String = "%docker.buildRepository%",
+                         version: String = "%tc.image.version%",
+                         namePostfix: String = "%docker.buildImagePostfix%"): Set<ImageInfo> {
             return linkedSetOf(
                 // Minimal Agents
                 ImageInfo(
-                    "teamcity-minimal-agent:%tc.image.version%-linux",
+                    "teamcity-minimal-agent:${version}-linux",
                     "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-minimal-agent:%tc.image.version%-linux",
-                    "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux"
+                    "teamcity-minimal-agent:${version}-linux",
+                    "${repo}teamcity-minimal-agent${namePostfix}:${version}-linux"
                 ),
 
                 // Regular Agents
                 ImageInfo(
-                    "teamcity-agent:%tc.image.version%-linux",
+                    "teamcity-agent:${version}-linux",
                     "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-agent:%tc.image.version%-linux",
-                    "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux"
+                    "teamcity-agent:${version}-linux",
+                    "${repo}teamcity-agent${namePostfix}:${version}-linux"
                 ),
                 ImageInfo(
-                    "teamcity-agent:%tc.image.version%-linux-sudo",
+                    "teamcity-agent:${version}-linux-sudo",
                     "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile",
-                    "teamcity-agent:%tc.image.version%-linux-sudo",
-                    "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-sudo"
+                    "teamcity-agent:${version}-linux-sudo",
+                    "${repo}teamcity-agent${namePostfix}:${version}-linux-sudo"
                 ),
 
                 // Servers
                 ImageInfo(
-                    "teamcity-server:%tc.image.version%-linux",
+                    "teamcity-server:${version}-linux",
                     "context/generated/linux/Server/Ubuntu/20.04/Dockerfile",
-                    "teamcity-server:%tc.image.version%-linux",
-                    "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux"
+                    "teamcity-server:${version}-linux",
+                    "${repo}teamcity-server${namePostfix}:${version}-linux"
                 )
             )
         }

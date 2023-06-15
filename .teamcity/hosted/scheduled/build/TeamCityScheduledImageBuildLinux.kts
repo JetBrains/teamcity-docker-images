@@ -26,9 +26,10 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     }
 
     steps {
-        ImageInfoRepository.getArmImages().forEach { imageInfo ->
-            buildAndPublishImage(imageInfo)
-        }
+        ImageInfoRepository
+                // args: repository, version
+            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber")
+            .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
     }
 
     dependencies {
