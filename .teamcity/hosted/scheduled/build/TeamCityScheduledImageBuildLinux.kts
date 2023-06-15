@@ -23,12 +23,13 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         param("docker.buildRepository", "%docker.nightlyRepository%")
         // no postfix needed
         param("docker.buildImagePostfix", "")
+        param("tc.image.version", "%dockerImage.teamcity.buildNumber%")
     }
 
     steps {
         ImageInfoRepository
                 // args: repository, version
-            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber")
+            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
             .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
     }
 
