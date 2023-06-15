@@ -1,8 +1,8 @@
 package generated
 
 import common.TeamCityDockerImagesRepo
-import hosted.utils.Utils
 import hosted.utils.models.ImageInfo
+import hosted.utils.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -11,7 +11,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
 /**
  * Building and deploying aarch64 (ARM) Linux-based Docker images into staging registry, which is defined ...
@@ -59,13 +58,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
             "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
             "teamcity-server:%tc.image.version%-linux-arm64",
             "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
-        ),
-        ImageInfo(
-            "teamcity-server:%tc.image.version%-linux-arm64-sudo",
-            "context/generated/linux/Server/UbuntuARM/20.04-sudo/Dockerfile",
-            "teamcity-server:%tc.image.version%-linux-arm64-sudo",
-            "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo"
-        ),
+        )
     )
 
     steps {
@@ -78,40 +71,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
         }
 
         imageInfoContainer.forEach { imageInfo ->
-
-            script {
-                name = "Set build context for [${imageInfo.name}]"
-                scriptContent = Utils.getDockerignoreCtx(imageInfo)
-            }
-
-            dockerCommand {
-                name = "Build [${imageInfo.name}]"
-                commandType = build {
-                    source = file {
-                        path = imageInfo.dockerfilePath
-                    }
-                    contextDir = "context"
-                    commandArgs = "--no-cache"
-                    namesAndTags = imageInfo.baseFqdn.trimIndent()
-                }
-                param("dockerImage.platform", "linux")
-            }
-
-            dockerCommand {
-                name = "Tag image for staging [${imageInfo.baseFqdn}]"
-                commandType = other {
-                    subCommand = "tag"
-                    commandArgs = "${imageInfo.baseFqdn} ${imageInfo.stagingFqdn}"
-                }
-            }
-
-            dockerCommand {
-                name = "Push image to registry - [${imageInfo.stagingFqdn}]"
-                commandType = push {
-                    namesAndTags = imageInfo.stagingFqdn.trimIndent()
-                    removeImageAfterPush = false
-                }
-            }
+            buildAndPublishImage(imageInfo)
         }
     }
 
