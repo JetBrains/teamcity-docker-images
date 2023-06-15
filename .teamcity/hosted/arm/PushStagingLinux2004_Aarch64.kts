@@ -1,7 +1,7 @@
 package generated
 
 import common.TeamCityDockerImagesRepo
-import hosted.utils.models.ImageInfo
+import hosted.utils.ImageInfoRepository
 import hosted.utils.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
@@ -29,38 +29,6 @@ object push_staging_linux_2004_aarch64 : BuildType({
         param("tc.image.version", "EAP")
     }
 
-    val imageInfoContainer = linkedSetOf<ImageInfo>(
-        // Minimal Agents
-        ImageInfo(
-            "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
-            "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile",
-            "teamcity-minimal-agent:%tc.image.version%-linux-arm64",
-            "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
-        ),
-
-        // Regular Agents
-        ImageInfo(
-            "teamcity-agent:%tc.image.version%-linux-arm64",
-            "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
-            "teamcity-agent:%tc.image.version%-linux-arm64",
-            "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
-        ),
-        ImageInfo(
-            "teamcity-agent:%tc.image.version%-linux-arm64-sudo",
-            "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
-            "teamcity-agent:%tc.image.version%-linux-arm64-sudo",
-            "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo"
-        ),
-
-        // Servers
-        ImageInfo(
-            "teamcity-server:%tc.image.version%-linux-arm64",
-            "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
-            "teamcity-server:%tc.image.version%-linux-arm64",
-            "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux-arm64"
-        )
-    )
-
     steps {
         dockerCommand {
             name = "pull ubuntu:20.04"
@@ -70,7 +38,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
             }
         }
 
-        imageInfoContainer.forEach { imageInfo ->
+        ImageInfoRepository.getArmImages().forEach { imageInfo ->
             buildAndPublishImage(imageInfo)
         }
     }
@@ -84,7 +52,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_315"
+                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
             }
         }
 
@@ -107,6 +75,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
     params {
         param("system.teamcity.agent.ensure.free.space", "8gb")
     }
+
     requirements {
         // must be built on aarch64-based agents
         contains("teamcity.agent.name", "arm")
