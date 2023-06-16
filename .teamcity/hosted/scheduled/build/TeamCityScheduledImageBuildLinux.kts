@@ -29,8 +29,8 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         // no postfix needed
         param("docker.buildImagePostfix", "")
 
-        // 'EAP' could be replaced with a particular release number, such as 2023.05.
-        param("tc.image.version", "EAP-%dockerImage.teamcity.buildNumber%")
+        // 'trunk' could be replaced with a particular release number, such as 2023.05.
+        param("tc.image.version", "trunk-%dockerImage.teamcity.buildNumber%")
     }
 
     steps {
