@@ -8,7 +8,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import java.io.File
 
 
 /**
@@ -29,7 +28,9 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         param("docker.buildRepository", "%docker.nightlyRepository%")
         // no postfix needed
         param("docker.buildImagePostfix", "")
-        param("tc.image.version", "%dockerImage.teamcity.buildNumber%")
+
+        // 'EAP' could be replaced with a particular release number, such as 2023.05.
+        param("tc.image.version", "EAP-%dockerImage.teamcity.buildNumber%")
     }
 
     steps {
