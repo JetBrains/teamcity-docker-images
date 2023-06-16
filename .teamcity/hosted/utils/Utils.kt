@@ -38,7 +38,8 @@ class Utils {
          * Creates sample docker-compose manifest and returns file that matches it.
          */
         fun getSampleComposeFile(repo: String, version: String, namePostfix: String = "", platform: String = "amd"): String {
-            val dockerPlatformId = if (platform.lowercase().contains("arm")) "linux/arm64" else "linux/amd64"
+            val isArmArch = (platform.lowercase().contains("arm") || platform.lowercase().contains("arch"))
+            val dockerPlatformId = if (isArmArch) "linux/arm64" else "linux/amd64"
             return """
                 version: "3.3"
                 services:
