@@ -56,6 +56,8 @@ class Utils {
                       - TEAMCITY_SERVER_MEM_OPTS="-Xmx2048m"
                     ports:
                       - "8111:8111"
+                      
+                    volumes:
                       - ./docker-images-test/data/server:/data/teamcity_server/datadir
                       - ./docker-images-test/logs/server:/opt/teamcity/logs
                       - ./docker-images-test/temp/server:/opt/teamcity/temp
@@ -71,7 +73,7 @@ class Utils {
                     image: ${repo}teamcity-agent${namePostfix}:${version}-linux
                     platform: $dockerPlatformId
                    
-                   depends_on:
+                    depends_on:
                       - linux-server
 
                     privileged: true
