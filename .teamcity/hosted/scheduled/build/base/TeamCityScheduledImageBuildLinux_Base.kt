@@ -57,7 +57,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
                 name = "Generate Sample docker-compose manifest for the created images"
                 scriptContent = """
                 cat <<EOF > teamcity-linux-%tc.image.version%.docker-compose.${platform.trim()}.yml
-                ${Utils.getSampleComposeFile("%docker.nightlyRepository%", "%tc.image.version%", platform)}
+                ${Utils.getSampleComposeFile("%docker.nightlyRepository%", "%tc.image.version%", "", platform)}
                 EOF
                 """.trimIndent()
             }
