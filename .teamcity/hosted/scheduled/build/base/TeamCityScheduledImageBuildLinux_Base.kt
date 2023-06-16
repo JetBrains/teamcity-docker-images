@@ -3,6 +3,8 @@ import hosted.utils.ImageInfoRepository
 import hosted.utils.Utils
 import hosted.utils.models.ImageInfo
 import hosted.utils.steps.buildAndPublishImage
+import hosted.utils.steps.buildImage
+import hosted.utils.steps.publishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
@@ -50,8 +52,11 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         }
 
         steps {
+            // build each image
+            images.forEach { imageInfo -> buildImage(imageInfo) }
 
-            images.forEach { imageInfo -> buildAndPublishImage(imageInfo) }
+            // publish images if build of each one of them succeeded
+            images.forEach { imageInfo -> publishImage(imageInfo) }
 
             script {
                 name = "Generate Sample docker-compose manifest for the created images"
