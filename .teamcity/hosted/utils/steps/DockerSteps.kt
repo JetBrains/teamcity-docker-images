@@ -13,11 +13,11 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
  */
 
 
+
 /**
- * Build and publishes given Docker image.
- * @param imageInfo information about Docker image
+ * Build given image: sets context, builds it, adds tag.
  */
-fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
+fun BuildSteps.buildImage(imageInfo: ImageInfo) {
     this.script {
         name = "Set build context for [${imageInfo.name}]"
         scriptContent = Utils.getDockerignoreCtx(imageInfo)
@@ -43,7 +43,12 @@ fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
             commandArgs = "${imageInfo.baseFqdn} ${imageInfo.stagingFqdn}"
         }
     }
+}
 
+/**
+ * Publishes provided image into its registry.
+ */
+fun BuildSteps.publishImage(imageInfo: ImageInfo) {
     this.dockerCommand {
         name = "Push image to registry - [${imageInfo.stagingFqdn}]"
         commandType = push {
@@ -51,4 +56,13 @@ fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
             removeImageAfterPush = false
         }
     }
+}
+
+/**
+ * Build and publishes given Docker image.
+ * @param imageInfo information about Docker image
+ */
+fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
+    buildImage(imageInfo)
+    publishImage(imageInfo)
 }
