@@ -177,6 +177,10 @@ namespace TeamCity.Docker
             {
                 lines.Add($"\t buildType({NormalizeFileName(buildType)}.{buildType})");
             }
+
+            // "Hosted" (static) configurations for image build
+            lines.Add("buildType(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64)")
+
             lines.Add("})");
 
             graph.TryAddNode(AddFile("LocalProject", lines), out _);
