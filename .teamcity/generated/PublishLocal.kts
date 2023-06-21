@@ -90,7 +90,11 @@ object publish_local: BuildType({
 		 name = "manifest create teamcity-minimal-agent:EAP"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP " +
+					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux " +
+					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
+					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" +
+					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64"
 		 }
 	}
 	dockerCommand {
