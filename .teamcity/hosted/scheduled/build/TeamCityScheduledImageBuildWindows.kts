@@ -30,24 +30,24 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             // -- Windows 18.09 minimal agents
             DockerImageInfo(
                 "teamcity-minimal-agent",
-                "EAP-nanoserver-1809",
+                "%tc.image.version%-nanoserver-1809",
                 "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile"
             ),
             // -- Windows 18.09 core, build based on Minimal Agents
             DockerImageInfo(
                 "teamcity-agent",
-                "EAP-windowsservercore-1809",
+                "%tc.image.version%-windowsservercore-1809",
                 "context/generated/windows/Agent/windowsservercore/1809/Dockerfile"
             ),
             // -- 18.09 NanoServer, build based on 18.09 Windows Server Core Agents
             DockerImageInfo(
                 "teamcity-agent",
-                "EAP-nanoserver-1809",
+                "%tc.image.version%-nanoserver-1809",
                 "context/generated/windows/Agent/nanoserver/1809/Dockerfile"
             ),
             DockerImageInfo(
                 "teamcity-server",
-                "EAP-nanoserver-1809",
+                "%tc.image.version%-nanoserver-1809",
                 "context/generated/windows/Server/nanoserver/1809/Dockerfile"
             ),
 
@@ -56,26 +56,26 @@ object TeamCityScheduledImageBuildWindows : BuildType({
             // -- Windows 20.04 minimal agent
             DockerImageInfo(
                 "teamcity-minimal-agent",
-                "EAP-nanoserver-2004",
+                "%tc.image.version%-nanoserver-2004",
                 "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"
             ),
 
             // -- Windows 20.04 agents
             DockerImageInfo(
                 "teamcity-agent",
-                "EAP-windowsservercore-2004",
+                "%tc.image.version%-windowsservercore-2004",
                 "context/generated/windows/Agent/windowsservercore/2004/Dockerfile"
             ),
 
             // -- Windows 20.04 nanoservers
             DockerImageInfo(
                 "teamcity-server",
-                "EAP-nanoserver-2004",
+                "%tc.image.version%-nanoserver-2004",
                 "context/generated/windows/Server/nanoserver/2004/Dockerfile"
             ),
             DockerImageInfo(
                 "teamcity-agent",
-                "EAP-nanoserver-2004",
+                "%tc.image.version%-nanoserver-2004",
                 "context/generated/windows/Agent/nanoserver/2004/Dockerfile"
             )
         )
@@ -99,7 +99,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+        dependency(AbsoluteId("TC2023_05_BuildDistDocker")) {
             artifacts {
                 artifactRules = "TeamCity.zip!/**=>context/TeamCity"
             }
@@ -115,7 +115,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
         }
     }
 
-    // An implicit Windoiws 10 requirement has been added in order to prevent DotNet's WebClient internal exception.
+    // An implicit Windows 10 requirement has been added in order to prevent DotNet's WebClient internal exception.
     requirements {
         contains("teamcity.agent.jvm.os.name", "Windows 10")
     }

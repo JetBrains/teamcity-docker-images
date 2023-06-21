@@ -104,15 +104,15 @@ object image_validation: BuildType({
 			     }
 		   }
 	 }
-
 	 dependencies {
-	 // Dependency on the build of the Docker image
-		 dependency(BuildAndPushHosted.BuildAndPushHosted) {
-			 snapshot {
-				 onDependencyFailure = FailureAction.FAIL_TO_START
-				 reuseBuilds = ReuseBuilds.SUCCESSFUL
-			 }
-		 }
-	}
+		    // Last build of Docker Image
+		    dependency(BuildAndPushHosted.BuildAndPushHosted) {
+			      artifacts {
+				        artifactRules = "TeamCity.zip!/**=>context/TeamCity"
+				        cleanDestination = true
+				        lastSuccessful()
+			      }
+		    }
+	 }
 })
 

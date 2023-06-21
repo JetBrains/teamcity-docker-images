@@ -239,6 +239,8 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
+                // -- Build configurations
+                "import hosted.BuildAndPushHosted",
 
                 string.Empty
             };
@@ -481,6 +483,20 @@ namespace TeamCity.Docker
                 "\t\t\t     }",
                 "\t\t   }",
                 "\t }"
+            );
+
+            // Dependencies
+            yield return String.Join('\n',
+            "\t dependencies {",
+            "\t\t    // Last build of Docker Image",
+            "\t\t    dependency(BuildAndPushHosted.BuildAndPushHosted) {",
+            "\t\t\t      artifacts {",
+            "\t\t\t\t        artifactRules = \"TeamCity.zip!/**=>context/TeamCity\"",
+            "\t\t\t\t        cleanDestination = true",
+            "\t\t\t\t        lastSuccessful()",
+            "\t\t\t      }",
+            "\t\t    }",
+            "\t }"
             );
 
             yield return "})";
@@ -821,34 +837,6 @@ namespace TeamCity.Docker
             yield return $"\t\t\t artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
             yield return "\t\t }";
             yield return "\t }";
-            yield return "}";
-        }
-
-        /// <summary>
-        /// Creates dependencies {...} block for build configuration responsible for post-push ...
-        /// ... validation of Docker images.
-        /// <param name="dependencyIds">IDs of dependant build configuration</param> 
-        /// <returns>none</returns>
-        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string[] dependencyIds) {
-            
-            if (dependencyIds == null || dependencyIds.Length == 0) {
-                // dependency IDs must be specified, otherwise the block wouldn't be useful
-                yield break;
-            }
-
-           yield return "dependencies {";
-
-            foreach (string dependantBuildId in dependencyIds)
-            {
-                yield return $"\t dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
-                // -- build problem is reported, but not termeinated, as some of the dependencies might successfully ...
-                // -- ... create images.
-                yield return "\t\t snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }";
-                // dependency {...}
-                yield return "\t }";
-            }
-            
-            // dependencies {...}
             yield return "}";
         }
 
