@@ -476,7 +476,8 @@ namespace TeamCity.Docker
                 "\t\t   dockerSupport {",
                 "\t\t\t     cleanupPushedImages = true",
                 "\t\t\t     loginToRegistry = on {",
-                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774\"",
+                // Registries: DockerHub, JetBrains Space
+                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774,PROJECT_EXT_315\"",
                 "\t\t\t     }",
                 "\t\t   }",
                 "\t }"
