@@ -30,6 +30,7 @@ object publish_local: BuildType({
 	 enablePersonalBuilds = false
 	 type = BuildTypeSettings.Type.DEPLOYMENT
 	 maxRunningBuilds = 1
+
 	 steps {
 		 script {
 		 	 name = "remove manifests"
@@ -39,7 +40,11 @@ object publish_local: BuildType({
 		 name = "manifest create teamcity-server:EAP"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP " +
+					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux " +
+					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
+					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004" +
+					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64"
 		 }
 	}
 	dockerCommand {
@@ -60,7 +65,11 @@ object publish_local: BuildType({
 		 name = "manifest create teamcity-agent:EAP"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004"
+			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP " +
+					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux " +
+					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
+					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
+					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
 		 }
 	}
 	dockerCommand {
