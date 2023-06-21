@@ -13,6 +13,9 @@ import java.lang.IllegalArgumentException
 
 /**
  * Base class for the build of Linux-based Docker images.
+ * The image uses parameter 'docker.nightlyRepository', which, for security reasons, should be defined at ...
+ * ... TeamCity-server level rather than DSL.
+ *
  * @param platform target platform, e.g. amd64, aarch64 (ARM)
  * @param agentReq a substring that agent name ('teamcity.agent.name') must contain
  */

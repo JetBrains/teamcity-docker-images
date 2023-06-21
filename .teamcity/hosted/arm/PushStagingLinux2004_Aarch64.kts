@@ -24,11 +24,6 @@ object push_staging_linux_2004_aarch64 : BuildType({
         root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
     }
 
-    params {
-        // will be included into the tag, e.g. 2023.05-linux-amd64
-        param("tc.image.version", "EAP")
-    }
-
     steps {
         dockerCommand {
             name = "pull ubuntu:20.04"

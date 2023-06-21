@@ -375,7 +375,7 @@ namespace TeamCity.Docker
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             yield return $"\t {_buildNumberPattern}";
 
-            // VCS Root Is needed in order to launch automaiton framework
+            // VCS Root Is needed in order to launch automation framework
             yield return String.Join('\n',
                 "\t vcs {",
                 "\t\t root(TeamCityDockerImagesRepo)",

@@ -23,6 +23,8 @@ object RootProject : Project({
 
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC2023_05_BuildDistDocker.build.number%")
+        param("tc.image.version", "2023.05")
+
         param("teamcity.ui.settings.readOnly", "false")
 
         // Used by build for teamcity.jetbrains.com
