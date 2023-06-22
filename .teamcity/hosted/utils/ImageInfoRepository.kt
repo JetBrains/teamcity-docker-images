@@ -10,7 +10,7 @@ class ImageInfoRepository {
          */
         fun getAmdImages(repo: String = "%docker.buildRepository%",
                          version: String = "%tc.image.version%",
-                         deployTag: String = "EAP",
+                         deployTag: String = "%tc.image.version%",
                          namePostfix: String = "%docker.buildImagePostfix%"): Set<ImageInfo> {
             return linkedSetOf(
                 // Minimal Agents
@@ -50,7 +50,7 @@ class ImageInfoRepository {
          */
         fun getArmImages(repo: String = "%docker.buildRepository%",
                          version: String = "%tc.image.version%",
-                         deployTag: String = "EAP",
+                         deployTag: String = "%tc.image.version%",
                          namePostfix: String = "%docker.buildImagePostfix%"): Set<ImageInfo> {
             return linkedSetOf(
                 // Minimal Agents
