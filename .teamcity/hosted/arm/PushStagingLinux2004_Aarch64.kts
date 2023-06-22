@@ -67,9 +67,6 @@ object push_staging_linux_2004_aarch64 : BuildType({
             }
         }
     }
-    params {
-        param("system.teamcity.agent.ensure.free.space", "8gb")
-    }
 
     requirements {
         // must be built on aarch64-based agents
