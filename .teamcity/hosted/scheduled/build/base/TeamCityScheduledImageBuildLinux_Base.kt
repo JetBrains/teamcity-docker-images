@@ -2,8 +2,8 @@ import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
 import hosted.utils.Utils
 import hosted.utils.models.ImageInfo
-import hosted.utils.steps.buildImage
-import hosted.utils.steps.publishToStaging
+import hosted.utils.dsl.steps.buildImage
+import hosted.utils.dsl.steps.publishToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport

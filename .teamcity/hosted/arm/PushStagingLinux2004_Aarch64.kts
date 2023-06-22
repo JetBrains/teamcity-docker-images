@@ -2,7 +2,7 @@ package generated
 
 import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
-import hosted.utils.steps.buildAndPublishImage
+import hosted.utils.dsl.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction

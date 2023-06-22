@@ -3,7 +3,7 @@ package hosted.scheduled.build
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
 import hosted.utils.Utils
-import hosted.utils.steps.buildAndPublishImage
+import hosted.utils.dsl.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport

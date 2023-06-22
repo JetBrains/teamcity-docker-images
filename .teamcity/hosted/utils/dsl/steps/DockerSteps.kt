@@ -1,4 +1,4 @@
-package hosted.utils.steps
+package hosted.utils.dsl.steps
 
 import hosted.utils.Utils
 import hosted.utils.models.ImageInfo
