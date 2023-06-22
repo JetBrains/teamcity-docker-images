@@ -67,13 +67,10 @@ fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
 }
 
 /**
- * Moves image from one registry to another.
- * @param image information about the image
- * @param oldRegistry
+ * Moves given image from staging into production repository.
+ * @param image information about Docker image
  */
-fun BuildSteps.modifyTagAndPush(image: ImageInfo, oldRegistry: String, newRegistry: String) {
-    val productionFqdn: String = image.stagingFqdn.replace(oldRegistry, newRegistry)
-
+fun BuildSteps.moveToProduction(image: ImageInfo) {
     this.dockerCommand {
         name = "Pull image [${image.name}] for further re-tagging"
         commandType = other {
@@ -83,17 +80,17 @@ fun BuildSteps.modifyTagAndPush(image: ImageInfo, oldRegistry: String, newRegist
     }
 
     this.dockerCommand {
-        name = "Re-tag image [${image.name}] for publishing into [${newRegistry}]"
+        name = "Re-tag image [${image.name}] for publishing into [${image.productionFqdn}]"
         commandType = other {
             subCommand = "tag"
-            commandArgs = "${image.stagingFqdn} $productionFqdn"
+            commandArgs = "${image.stagingFqdn} ${image.productionFqdn}"
         }
     }
 
     this.dockerCommand {
-        name =  "Publish [${productionFqdn}] after re-tag"
+        name =  "Publish [${image.productionFqdn}] after re-tag"
         commandType = push {
-            namesAndTags = productionFqdn
+            namesAndTags = image.productionFqdn
         }
     }
 }

@@ -3,7 +3,7 @@ package generated
 
 import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
-import hosted.utils.steps.buildAndPublishImage
+import hosted.utils.steps.moveToProduction
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -11,7 +11,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
 /**
  * Deploy aarch64 (ARM) TeamCity Docker images into production registry.
@@ -31,7 +30,7 @@ object push_production_linux_2004_aarch64 : BuildType({
 
     steps {
         ImageInfoRepository.getArmImages().forEach { imageInfo ->
-            buildAndPublishImage(imageInfo)
+            moveToProduction(imageInfo)
         }
     }
 
@@ -64,10 +63,6 @@ object push_production_linux_2004_aarch64 : BuildType({
             }
         }
     }
-    params {
-        param("system.teamcity.agent.ensure.free.space", "8gb")
-    }
-
     requirements {
         // must be built on aarch64-based agents
         contains("teamcity.agent.name", "arm")
