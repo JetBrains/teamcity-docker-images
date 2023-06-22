@@ -13,7 +13,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
  */
 
 
-
 /**
  * Build given image: sets context, builds it, adds tag.
  */
@@ -48,7 +47,7 @@ fun BuildSteps.buildImage(imageInfo: ImageInfo) {
 /**
  * Publishes provided image into its registry.
  */
-fun BuildSteps.publishImage(imageInfo: ImageInfo) {
+fun BuildSteps.publishToStaging(imageInfo: ImageInfo) {
     this.dockerCommand {
         name = "Push image to registry - [${imageInfo.stagingFqdn}]"
         commandType = push {
@@ -64,5 +63,37 @@ fun BuildSteps.publishImage(imageInfo: ImageInfo) {
  */
 fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
     buildImage(imageInfo)
-    publishImage(imageInfo)
+    publishToStaging(imageInfo)
+}
+
+/**
+ * Moves image from one registry to another.
+ * @param image information about the image
+ * @param oldRegistry
+ */
+fun BuildSteps.modifyTagAndPush(image: ImageInfo, oldRegistry: String, newRegistry: String) {
+    val productionFqdn: String = image.stagingFqdn.replace(oldRegistry, newRegistry)
+
+    this.dockerCommand {
+        name = "Pull image [${image.name}] for further re-tagging"
+        commandType = other {
+            subCommand = "pull"
+            commandArgs = image.stagingFqdn
+        }
+    }
+
+    this.dockerCommand {
+        name = "Re-tag image [${image.name}] for publishing into [${newRegistry}]"
+        commandType = other {
+            subCommand = "tag"
+            commandArgs = "${image.stagingFqdn} $productionFqdn"
+        }
+    }
+
+    this.dockerCommand {
+        name =  "Publish [${productionFqdn}] after re-tag"
+        commandType = push {
+            namesAndTags = productionFqdn
+        }
+    }
 }
