@@ -43,7 +43,7 @@ object publish_local: BuildType({
 			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP " +
 					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux " +
 					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
-					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004" +
+					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
 					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64"
 		 }
 	}
@@ -93,7 +93,7 @@ object publish_local: BuildType({
 			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP " +
 					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux " +
 					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
-					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004" +
+					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
 					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64"
 		 }
 	}
