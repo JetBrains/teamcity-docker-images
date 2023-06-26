@@ -12,7 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
  * TODO: Merge with 'publish_hub_version'?
  */
 object publish_hub_latest : BuildType({
-    name = "Publish as latest"
+    name = "[All] [Production] Release Manifests as 'latest' into Production Registry"
     description = "Publish Docker Manifests into production repository as 'latest' tag."
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     enablePersonalBuilds = false

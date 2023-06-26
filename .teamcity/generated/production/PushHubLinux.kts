@@ -12,7 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
 
 object push_hub_linux : BuildType({
     name = "Push linux"
-    description = "Upload Linux-based (AMD) TeamCity Docker Images into production registry."
+    name = "[Linux] [Production] Release TeamCity Docker Images into Production Registry"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
 
     steps {

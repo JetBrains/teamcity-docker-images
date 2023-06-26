@@ -12,7 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
 object publish_hub_version : BuildType({
-    name = "Publish as version"
+    name = "[All] [Production] Release Manifests as 'version' into Production Registry"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description = "Publish Docker Manifests into production repository with 'version' tag, e.g. 2023.05.1."
 

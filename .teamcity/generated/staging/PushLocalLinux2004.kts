@@ -1,6 +1,3 @@
-// NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...
-// ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... 
-// ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
 package generated.staging
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
@@ -21,7 +18,6 @@ object push_local_linux_20_04 : BuildType({
 
  	 steps {
 		dockerCommand {
-			 
 			 name = "pull ubuntu:20.04"
 			 commandType = other {
 				 subCommand = "pull"

@@ -11,7 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 
 object push_hub_windows : BuildType({
-    name = "Push windows"
+    name = "[Windows] [Production] Release TeamCity Docker Images into Production Registry"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     steps {
         // Move Windows 1809-based Docker Images into production registry
