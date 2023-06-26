@@ -1,6 +1,7 @@
 package hosted.utils
 
 import hosted.utils.models.ImageInfo
+import java.lang.IllegalArgumentException
 
 class ImageInfoRepository {
     companion object {
@@ -145,6 +146,7 @@ class ImageInfoRepository {
         }
 
         /**
+         * Returns the list of Windows 2004-based TeamCity Docker images.
          */
         fun getWindowsImages2004(
             stagingRepo: String = "%docker.buildRepository%",
@@ -153,42 +155,74 @@ class ImageInfoRepository {
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
+            return getWindowsImages("2004", stagingRepo, version, deployTag, namePostfix, prodRepo)
+        }
+
+        /**
+         * Returns the list of Windows 1809-based TeamCity Docker images.
+         */
+        fun getWindowsImages1809(
+            stagingRepo: String = "%docker.buildRepository%",
+            version: String = "%tc.image.version%",
+            deployTag: String = "%tc.image.version%",
+            namePostfix: String = "%docker.buildImagePostfix%",
+            prodRepo: String = "%docker.deployRepository%"
+        ): Set<ImageInfo> {
+            return getWindowsImages("1809", stagingRepo, version, deployTag, namePostfix, prodRepo)
+        }
+
+        /**
+         * Returns list of Windows-based TeamCity images.
+         * The difference between their names / paths are only Windows version.
+         *
+         * @param winVersion version of Windows (1809 / 2004)
+         */
+        private fun getWindowsImages(winVersion: String,
+                                     stagingRepo: String,
+                                     version: String,
+                                     deployTag: String,
+                                     namePostfix: String,
+                                     prodRepo: String): Set<ImageInfo> {
+            if (!(winVersion == "1809" || winVersion == "2004")) {
+                throw IllegalArgumentException("Unsupported Windows version: [${winVersion}]")
+            }
+
             return linkedSetOf(
                 // Servers
                 ImageInfo(
-                    "teamcity-server:${version}-nanoserver-2004",
-                    "context/generated/windows/Server/nanoserver/2004/Dockerfile",
-                    "teamcity-server:${deployTag}-nanoserver-2004",
-                    "${stagingRepo}teamcity-server${namePostfix}:${version}-nanoserver-2004",
-                    "${prodRepo}teamcity-server:${version}-nanoserver-2004\""
+                    "teamcity-server:${version}-nanoserver-${winVersion}",
+                    "context/generated/windows/Server/nanoserver/${winVersion}/Dockerfile",
+                    "teamcity-server:${deployTag}-nanoserver-${winVersion}",
+                    "${stagingRepo}teamcity-server${namePostfix}:${version}-nanoserver-${winVersion}",
+                    "${prodRepo}teamcity-server:${version}-nanoserver-${winVersion}\""
                 ),
 
                 // Minimal Agent - nanoserver
                 ImageInfo(
-                    "teamcity-minimal-agent:${version}-nanoserver-2004",
-                    "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile",
-                    "teamcity-minimal-agent:${deployTag}-nanoserver-2004",
-                    "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-nanoserver-2004",
-                    "${prodRepo}teamcity-minimal-agent:${version}-nanoserver-2004"
+                    "teamcity-minimal-agent:${version}-nanoserver-${winVersion}",
+                    "context/generated/windows/MinimalAgent/nanoserver/${winVersion}/Dockerfile",
+                    "teamcity-minimal-agent:${deployTag}-nanoserver-${winVersion}",
+                    "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-nanoserver-${winVersion}",
+                    "${prodRepo}teamcity-minimal-agent:${version}-nanoserver-${winVersion}"
                 ),
 
                 // Agents
                 // Windows Server Core
                 ImageInfo(
-                    "teamcity-agent:${version}-windowsservercore-2004",
-                    "context/generated/windows/Agent/windowsservercore/2004/Dockerfile",
-                    "teamcity-agent:${deployTag}-windowsservercore-2004",
-                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-windowsservercore-2004",
-                    "${prodRepo}teamcity-agent:${version}-windowsservercore-2004"
+                    "teamcity-agent:${version}-windowsservercore-${winVersion}",
+                    "context/generated/windows/Agent/windowsservercore/${winVersion}/Dockerfile",
+                    "teamcity-agent:${deployTag}-windowsservercore-${winVersion}",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-windowsservercore-${winVersion}",
+                    "${prodRepo}teamcity-agent:${version}-windowsservercore-${winVersion}"
                 ),
 
-                // Nanoserver
+                // Nano server
                 ImageInfo(
-                    "teamcity-agent:${version}-nanoserver-2004",
-                    "context/generated/windows/Agent/nanoserver/2004/Dockerfile",
-                    "teamcity-agent:${deployTag}-nanoserver-2004",
-                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-nanoserver-2004",
-                    "${prodRepo}teamcity-agent${namePostfix}:${version}-nanoserver-2004"
+                    "teamcity-agent:${version}-nanoserver-${winVersion}",
+                    "context/generated/windows/Agent/nanoserver/${winVersion}/Dockerfile",
+                    "teamcity-agent:${deployTag}-nanoserver-${winVersion}",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-nanoserver-${winVersion}",
+                    "${prodRepo}teamcity-agent${namePostfix}:${version}-nanoserver-${winVersion}"
                 )
             )
         }

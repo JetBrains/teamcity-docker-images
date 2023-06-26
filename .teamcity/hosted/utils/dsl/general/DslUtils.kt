@@ -1,6 +1,12 @@
 package hosted.utils.dsl.general
 
-import generated.*
+import generated.production.PushHubLinux
+import generated.production.PushHubWindows
+import generated.staging.PushLocalLinux2004
+import generated.staging.PushLocalWindows1809
+import generated.staging.PushLocalWindows2004
+import hosted.arm.PushProductionLinux2004_Aarch64
+import hosted.arm.PushStagingLinux2004_Aarch64
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace

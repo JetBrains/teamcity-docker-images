@@ -1,5 +1,4 @@
-
-package generated
+package hosted.arm
 
 import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository

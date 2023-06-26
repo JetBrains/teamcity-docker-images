@@ -1,4 +1,4 @@
-package generated.production
+package generated.production.manifest
 
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityProdImagesSnapshot

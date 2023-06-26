@@ -1,7 +1,7 @@
 // NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...
 // ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... 
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
-package generated
+package generated.production.manifest
 
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityProdImagesSnapshot
@@ -54,7 +54,6 @@ object publish_hub_version : BuildType({
             agentTagsWinServerCore,
             "${manifestName}-windowsservercore"
         )
-
     }
 
     dependencies {

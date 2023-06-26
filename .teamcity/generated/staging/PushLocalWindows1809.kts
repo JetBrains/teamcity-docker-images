@@ -11,58 +11,58 @@ import hosted.utils.dsl.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
-object push_local_windows_2004 : BuildType({
-    name = "[Windows 2004] [Staging] Build And Push TeamCity Docker Images"
+object push_local_windows_1809 : BuildType({
+    name = "[Windows 1809] [Staging] Build And Push TeamCity Docker Images"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
-    description = "Build Windows 2004-based TeamCity Docker images and pushes them into staging registry.\n" +
-			"Build images are: teamcity-server (NanoServer 2004), minimal agent (NanoServer 2004), " +
-			"regular agent (NanoServer 2004, WindowsServer Core 2004)."
-
-	vcs {
+    description = "Build Windows 1809-based TeamCity Docker images and pushes them into staging registry.\n" +
+                    "Build images are: teamcity-server (NanoServer 1809), minimal agent (NanoServer 1809), " +
+                    "regular agent (NanoServer 1809, WindowsServer Core 1809)."
+    vcs {
         root(TeamCityDockerImagesRepo)
     }
 
     params {
         param("dockerImage.platform", "windows")
+
     }
 
     steps {
         dockerCommand {
-            name = "pull mcr.microsoft.com/powershell:nanoserver-2004"
+            name = "pull mcr.microsoft.com/powershell:nanoserver-1809"
             commandType = other {
                 subCommand = "pull"
-                commandArgs = "mcr.microsoft.com/powershell:nanoserver-2004"
+                commandArgs = "mcr.microsoft.com/powershell:nanoserver-1809"
             }
         }
 
         dockerCommand {
-            name = "pull mcr.microsoft.com/windows/nanoserver:2004"
+            name = "pull mcr.microsoft.com/windows/nanoserver:1809"
             commandType = other {
                 subCommand = "pull"
-                commandArgs = "mcr.microsoft.com/windows/nanoserver:2004"
+                commandArgs = "mcr.microsoft.com/windows/nanoserver:1809"
             }
         }
 
         dockerCommand {
-            name = "pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004"
+            name = "pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019"
             commandType = other {
                 subCommand = "pull"
-                commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004"
+                commandArgs = "mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019"
             }
         }
 
-        ImageInfoRepository.getWindowsImages2004().forEach { imageInfo ->
+        ImageInfoRepository.getWindowsImages1809().forEach { imageInfo ->
             buildAndPublishImage(imageInfo)
         }
     }
 
     features {
-		// Windows-based images require more available disk space
-		teamCityImageBuildFeatures(requiredSpaceGb = 43)
+        // Windows-based images require more available disk space
+        teamCityImageBuildFeatures(requiredSpaceGb = 43)
     }
 
     dependencies {
-		teamCityBuildDistDocker()
+        teamCityBuildDistDocker()
     }
 
     requirements {
@@ -71,4 +71,3 @@ object push_local_windows_2004 : BuildType({
         contains("teamcity.agent.jvm.os.name", "Windows 10")
     }
 })
-

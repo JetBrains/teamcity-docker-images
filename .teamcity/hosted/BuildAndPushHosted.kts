@@ -1,13 +1,9 @@
 package hosted
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
+import hosted.utils.dsl.general.teamCityBuildDistDocker
+import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
-import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
@@ -61,32 +57,10 @@ echo TeamCity/temp >> context/.dockerignore
         }
     }
     features {
-        freeDiskSpace {
-            requiredSpace = "4gb"
-            failBuild = true
-        }
-        dockerSupport {
-            cleanupPushedImages = true
-            loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774"
-            }
-        }
-        swabra {
-            forceCleanCheckout = true
-        }
+        teamCityImageBuildFeatures(requiredSpaceGb = 4)
     }
+
     dependencies {
-        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-            snapshot {
-                onDependencyFailure = FailureAction.IGNORE
-                reuseBuilds = ReuseBuilds.ANY
-            }
-            artifacts {
-                artifactRules = "TeamCity.zip!/**=>context/TeamCity"
-            }
-        }
-    }
-    params {
-        param("system.teamcity.agent.ensure.free.space", "4gb")
+        teamCityBuildDistDocker()
     }
 })

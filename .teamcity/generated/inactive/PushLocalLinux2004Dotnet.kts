@@ -1,14 +1,6 @@
 package generated.inactive
 
-import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 
 object push_local_linux_20_04_dotnet : BuildType({
 name = "ON PAUSE Build and push linux 20.04-dotnet"

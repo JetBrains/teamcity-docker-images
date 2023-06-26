@@ -2,6 +2,7 @@ package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.scheduled.build.model.DockerImageInfo
+import hosted.utils.dsl.general.teamCityBuildDistDocker
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -99,6 +100,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
     }
 
     dependencies {
+        teamCityBuildDistDocker()
         dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
             artifacts {
                 artifactRules = "TeamCity.zip!/**=>context/TeamCity"
