@@ -1,5 +1,6 @@
 package hosted.utils.dsl.general
 
+import generated.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
@@ -26,6 +27,53 @@ fun Dependencies.teamCityBuildDistDocker() {
         artifacts {
             artifactRules = "TeamCity.zip!/**=>context/TeamCity"
         }
+    }
+}
+
+/**
+ * Returns snapshot dependencies on build configurations required for publishing Staging Images of TeamCity.
+ */
+fun Dependencies.teamCityStagingImagesSnapshot() {
+    snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+        reuseBuilds = ReuseBuilds.ANY
+        synchronizeRevisions = false
+    }
+    snapshot(PushLocalLinux2004.push_local_linux_20_04) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+
+    snapshot(PushLocalWindows1809.push_local_windows_1809) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+
+    snapshot(PushLocalWindows2004.push_local_windows_2004) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+
+    snapshot(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+}
+
+/**
+ * Returns snapshot dependencies on build configurations required for publishing Production Images of TeamCity.
+ */
+fun Dependencies.teamCityProdImagesSnapshot() {
+    snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+        onDependencyFailure = FailureAction.IGNORE
+    }
+
+    snapshot(PushHubLinux.push_hub_linux) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+
+    snapshot(PushProductionLinux2004_Aarch64.push_production_linux_2004_aarch64) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
+    }
+
+    snapshot(PushHubWindows.push_hub_windows) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
     }
 }
 

@@ -24,11 +24,13 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
 import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.general.teamCityStagingImagesSnapshot
 import hosted.utils.dsl.steps.publishManifest
 
 object publish_local : BuildType({
     name = "Publish"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
+    description = "Publish Docker Manifests into staging repository."
     enablePersonalBuilds = false
     type = BuildTypeSettings.Type.DEPLOYMENT
     maxRunningBuilds = 1
@@ -68,27 +70,10 @@ object publish_local : BuildType({
         )
     }
 
-
     dependencies {
-        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
-
-            onDependencyFailure = FailureAction.FAIL_TO_START
-            reuseBuilds = ReuseBuilds.ANY
-            synchronizeRevisions = false
-        }
-        snapshot(PushLocalLinux2004.push_local_linux_20_04) {
-
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
-        snapshot(PushLocalWindows1809.push_local_windows_1809) {
-
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
-        snapshot(PushLocalWindows2004.push_local_windows_2004) {
-
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
+        teamCityStagingImagesSnapshot()
     }
+
     requirements {
         noLessThanVer("docker.version", "18.05.0")
         contains("docker.server.osType", "windows")

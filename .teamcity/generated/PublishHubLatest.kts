@@ -10,6 +10,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.general.teamCityProdImagesSnapshot
 import hosted.utils.dsl.steps.publishManifest
 
 object publish_hub_latest : BuildType({
@@ -57,19 +58,9 @@ object publish_hub_latest : BuildType({
 
     }
     dependencies {
-        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
-        {
-            onDependencyFailure = FailureAction.IGNORE
-        }
-        snapshot(PushHubLinux.push_hub_linux)
-        {
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
-        snapshot(PushHubWindows.push_hub_windows)
-        {
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
+        teamCityProdImagesSnapshot()
     }
+
     requirements {
         noLessThanVer("docker.version", "18.05.0")
         contains("docker.server.osType", "windows")
