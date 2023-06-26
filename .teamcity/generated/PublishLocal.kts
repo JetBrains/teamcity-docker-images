@@ -23,150 +23,87 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
+import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.steps.publishManifest
 
-object publish_local: BuildType({
-	 name = "Publish"
-	buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 enablePersonalBuilds = false
-	 type = BuildTypeSettings.Type.DEPLOYMENT
-	 maxRunningBuilds = 1
+object publish_local : BuildType({
+    name = "Publish"
+    buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
+    enablePersonalBuilds = false
+    type = BuildTypeSettings.Type.DEPLOYMENT
+    maxRunningBuilds = 1
 
-	 steps {
-		 script {
-		 	 name = "remove manifests"
-		 	 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-		 }
-	dockerCommand {
-		 name = "manifest create teamcity-server:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP " +
-					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux " +
-					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
-					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
-					 "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP-linux-arm64"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest push teamcity-server:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest inspect teamcity-server:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:EAP --verbose"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest create teamcity-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP " +
-					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux " +
-					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
-					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
-					 "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest push teamcity-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest inspect teamcity-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP --verbose"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest create teamcity-minimal-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP " +
-					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux " +
-					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-1809 " +
-					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-nanoserver-2004 " +
-					 "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP-linux-arm64"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest push teamcity-minimal-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest inspect teamcity-minimal-agent:EAP"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:EAP --verbose"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest create teamcity-agent:EAP-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "create %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore-2004"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest push teamcity-agent:EAP-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "push %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore"
-		 }
-	}
-	dockerCommand {
-		 name = "manifest inspect teamcity-agent:EAP-windowsservercore"
-		 commandType = other {
-			 subCommand = "manifest"
-			 commandArgs = "inspect %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:EAP-windowsservercore --verbose"
-		 }
-	}
-	 }
-		 dependencies {
-			 snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+    steps {
+        script {
+            name = "remove manifests"
+            scriptContent =
+                """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+        }
 
-				 onDependencyFailure = FailureAction.FAIL_TO_START 
- 			 reuseBuilds = ReuseBuilds.ANY 
- 			 synchronizeRevisions = false 
- 		 }
-			 snapshot(PushLocalLinux2004.push_local_linux_20_04) {
+        // typically, either 'latest' or release version
+        val manifestName = "%tc.image.version%"
 
-				 onDependencyFailure =  FailureAction.FAIL_TO_START 
- 		 }
-			 snapshot(PushLocalWindows1809.push_local_windows_1809) {
+        // 1. Publish Server Manifests
+        val serverTags = ImageInfoRepository.getAllServerTags(manifestName)
+        publishManifest("%docker.buildRepository%teamcity-server%docker.buildImagePostfix%", serverTags, manifestName)
 
-				 onDependencyFailure =  FailureAction.FAIL_TO_START 
- 		 }
-			 snapshot(PushLocalWindows2004.push_local_windows_2004) {
+        // 2. Publish Agent Manifests
+        val agentTags = ImageInfoRepository.getAllAgentTags(manifestName)
+        publishManifest("%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%", agentTags, manifestName)
 
-				 onDependencyFailure =  FailureAction.FAIL_TO_START 
- 		 }
-		 }
-	requirements {
-		 noLessThanVer("docker.version", "18.05.0")
-		 contains("docker.server.osType", "windows")
-		// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
-		doesNotContain("teamcity.agent.name", "arm")
-		 contains("teamcity.agent.jvm.os.name", "Windows 10")
-	}
-	 features {
-		 dockerSupport {
-		 	 cleanupPushedImages = true
-		 	 loginToRegistry = on {
-		 		 dockerRegistryId = "PROJECT_EXT_774"
-		 	 }
-		 }
-	}
+        // 3. Publish Minimal Agent Manifests
+        val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(manifestName)
+        publishManifest(
+            "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%",
+            minAgentTags,
+            manifestName
+        )
+
+        // 4. Publish Windows Server Core Agents Manifests
+        val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(manifestName)
+        publishManifest(
+            "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%",
+            agentTagsWinServerCore,
+            "${manifestName}-windowsservercore"
+        )
+    }
+
+
+    dependencies {
+        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+
+            onDependencyFailure = FailureAction.FAIL_TO_START
+            reuseBuilds = ReuseBuilds.ANY
+            synchronizeRevisions = false
+        }
+        snapshot(PushLocalLinux2004.push_local_linux_20_04) {
+
+            onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+        snapshot(PushLocalWindows1809.push_local_windows_1809) {
+
+            onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+        snapshot(PushLocalWindows2004.push_local_windows_2004) {
+
+            onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+    }
+    requirements {
+        noLessThanVer("docker.version", "18.05.0")
+        contains("docker.server.osType", "windows")
+        // In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+        doesNotContain("teamcity.agent.name", "arm")
+        contains("teamcity.agent.jvm.os.name", "Windows 10")
+    }
+
+    features {
+        dockerSupport {
+            cleanupPushedImages = true
+            loginToRegistry = on {
+                dockerRegistryId = "PROJECT_EXT_774"
+            }
+        }
+    }
 })
 

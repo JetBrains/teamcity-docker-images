@@ -94,3 +94,42 @@ fun BuildSteps.moveToProduction(image: ImageInfo) {
         }
     }
 }
+
+/**
+ * Create a manifest list for annotating images & publishes it into registry.
+ * @param imageName domain name of image
+ * @param tags list of tags that'd be associated with the manifest
+ * @param manifestTag tag of the manifest, with which given tags will be associated, e.g. 'latest' TODO: change to "EAP" or teamcity version?
+ */
+fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTag: String = "latest") {
+    // manifest name
+    val manifestName = "${imageName}:${manifestTag}"
+
+    val matchingManifests = StringBuilder()
+    tags.forEach { tag -> matchingManifests.append(" ${imageName}:$tag")}
+
+    this.dockerCommand {
+        name = "Create manifest for [${imageName}]"
+        commandType = other {
+            subCommand = "manifest"
+            // <latest> - <all other manifests>
+            commandArgs = "create $manifestName $matchingManifests"
+        }
+    }
+
+    this.dockerCommand {
+        name = "Push manifest for [${imageName}]"
+        commandType = other {
+            subCommand = "manifest"
+            commandArgs = "push $manifestName"
+        }
+    }
+
+    dockerCommand {
+        name = "Print-out manifest for [${imageName}]"
+        commandType = other {
+            subCommand = "manifest"
+            commandArgs = "inspect $manifestName --verbose"
+        }
+    }
+}

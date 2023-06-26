@@ -7,9 +7,6 @@ import hosted.utils.dsl.general.teamCityBuildDistDocker
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.steps.moveToProduction
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 
 /**
  * Deploy aarch64 (ARM) TeamCity Docker images into production registry.

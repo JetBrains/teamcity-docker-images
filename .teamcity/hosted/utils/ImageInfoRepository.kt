@@ -6,6 +6,49 @@ class ImageInfoRepository {
     companion object {
 
         /**
+         * Returns tags of all expected TeamCity Server instances.
+         */
+        fun getAllServerTags(version: String = "%tc.image.version%"): List<String> {
+            return listOf(
+                "$version-linux",
+                "$version-nanoserver-1809",
+                "$version-nanoserver-2004",
+                "$version-linux-arm64"
+            )
+        }
+
+        /**
+         * Returns tags of all expected TeamCity Agent instances.
+         */
+        fun getAllAgentTags(version: String): List<String> {
+            return listOf(
+                "$version-linux",
+                "$version-nanoserver-1809",
+                "$version-nanoserver-2004 ",
+                "$version-linux-arm64"
+            )
+        }
+
+        /**
+         * Returns tags for WindowsServerCore TeamCity Agents.
+         * Usually, they must match WinServerCore manifest, e.g. 'teamcity-agent:EAP-windowsservercore'
+         */
+        fun getWindowsCoreAgentTags(version: String): List<String> {
+            return listOf(
+                "${version}-windowsservercore-1809",
+                "${version}-windowsservercore-2004"
+            )
+        }
+
+        /**
+         * Returns the tags of all expected TeamCity Minimal Agent instances.
+         */
+        fun getAllMinimalAgentTags(version: String): List<String> {
+            // for now, the tags are equal to regular agent's
+            return getAllAgentTags(version)
+        }
+
+        /**
          * Returns a set of Ubuntu 20.04 (amd64)-based TeamCity Docker Images
          */
         fun getAmdImages(
