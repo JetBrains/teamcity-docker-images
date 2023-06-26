@@ -1,18 +1,20 @@
 package generated.production
 
+import generated.staging.manifest.PublishLocal
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.steps.moveToProduction
-import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
 
 object push_hub_windows : BuildType({
     name = "[Windows] [Production] Release TeamCity Docker Images into Production Registry"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
+
+    params {
+        param("dockerImage.platform", "windows")
+    }
+
     steps {
         // Move Windows 1809-based Docker Images into production registry
         ImageInfoRepository.getWindowsImages1809().forEach { imageInfo ->

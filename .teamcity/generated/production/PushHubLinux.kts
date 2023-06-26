@@ -1,6 +1,6 @@
 package generated.production
 
-import generated.staging.PublishLocal
+import generated.staging.manifest.PublishLocal
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.steps.moveToProduction

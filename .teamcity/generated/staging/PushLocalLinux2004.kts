@@ -43,4 +43,3 @@ object push_local_linux_20_04 : BuildType({
 		doesNotContain("teamcity.agent.name", "arm")
 	}
 })
-

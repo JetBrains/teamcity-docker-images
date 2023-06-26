@@ -12,15 +12,14 @@ object push_local_windows_1809 : BuildType({
     name = "[Windows 1809] [Staging] Build And Push TeamCity Docker Images"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description = "Build Windows 1809-based TeamCity Docker images and pushes them into staging registry.\n" +
-                    "Build images are: teamcity-server (NanoServer 1809), minimal agent (NanoServer 1809), " +
-                    "regular agent (NanoServer 1809, WindowsServer Core 1809)."
+            "Build images are: teamcity-server (NanoServer 1809), minimal agent (NanoServer 1809), " +
+            "regular agent (NanoServer 1809, WindowsServer Core 1809)."
     vcs {
         root(TeamCityDockerImagesRepo)
     }
 
     params {
         param("dockerImage.platform", "windows")
-
     }
 
     steps {
