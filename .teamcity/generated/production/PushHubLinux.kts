@@ -1,8 +1,9 @@
 // NOTE: THIS IS AN AUTO-GENERATED FILE. IT HAD BEEN CREATED USING TEAMCITY.DOCKER PROJECT. ...
 // ... IF NEEDED, PLEASE, EDIT DSL GENERATOR RATHER THAN THE FILES DIRECTLY. ... 
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
-package generated
+package generated.production
 
+import generated.staging.PublishLocal
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.steps.moveToProduction

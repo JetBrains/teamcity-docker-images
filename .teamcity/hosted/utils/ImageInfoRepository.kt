@@ -100,7 +100,7 @@ class ImageInfoRepository {
          *
          */
         fun getArmImages(
-            repo: String = "%docker.buildRepository%",
+            stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
             deployTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
@@ -112,7 +112,7 @@ class ImageInfoRepository {
                     "teamcity-minimal-agent:${version}-linux-arm64",
                     "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile",
                     "teamcity-minimal-agent:${deployTag}-linux-arm64",
-                    "${repo}teamcity-minimal-agent${namePostfix}:${version}-linux-arm64",
+                    "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-linux-arm64",
                     "${prodRepo}teamcity-minimal-agent:${version}-linux-arm64"
                 ),
 
@@ -121,7 +121,7 @@ class ImageInfoRepository {
                     "teamcity-agent:${version}-linux-arm64",
                     "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
                     "teamcity-agent:${deployTag}-linux-arm64",
-                    "${repo}teamcity-agent${namePostfix}:${version}-linux-arm64",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-arm64",
                     "${prodRepo}teamcity-agent:${version}-linux-arm64"
 
                 ),
@@ -129,8 +129,8 @@ class ImageInfoRepository {
                     "teamcity-agent:${version}-linux-arm64-sudo",
                     "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
                     "teamcity-agent:${deployTag}-linux-arm64-sudo",
-                    "${repo}teamcity-agent${namePostfix}:${version}-linux-arm64-sudo",
-                    "${prodRepo}teamcity-agent${namePostfix}:${version}-linux-arm64-sudo"
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-arm64-sudo",
+                    "${prodRepo}teamcity-agent:${version}-linux-arm64-sudo"
                 ),
 
                 // Servers
@@ -138,8 +138,57 @@ class ImageInfoRepository {
                     "teamcity-server:${version}-linux-arm64",
                     "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
                     "teamcity-server:${deployTag}-linux-arm64",
-                    "${repo}teamcity-server${namePostfix}:${version}-linux-arm64",
-                    "${prodRepo}teamcity-server${namePostfix}:${version}-linux-arm64"
+                    "${stagingRepo}teamcity-server${namePostfix}:${version}-linux-arm64",
+                    "${prodRepo}teamcity-server:${version}-linux-arm64"
+                )
+            )
+        }
+
+        /**
+         */
+        fun getWindowsImages2004(
+            stagingRepo: String = "%docker.buildRepository%",
+            version: String = "%tc.image.version%",
+            deployTag: String = "%tc.image.version%",
+            namePostfix: String = "%docker.buildImagePostfix%",
+            prodRepo: String = "%docker.deployRepository%"
+        ): Set<ImageInfo> {
+            return linkedSetOf(
+                // Servers
+                ImageInfo(
+                    "teamcity-server:${version}-nanoserver-2004",
+                    "context/generated/windows/Server/nanoserver/2004/Dockerfile",
+                    "teamcity-server:${deployTag}-nanoserver-2004",
+                    "${stagingRepo}teamcity-server${namePostfix}:${version}-nanoserver-2004",
+                    "${prodRepo}teamcity-server:${version}-nanoserver-2004\""
+                ),
+
+                // Minimal Agent - nanoserver
+                ImageInfo(
+                    "teamcity-minimal-agent:${version}-nanoserver-2004",
+                    "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile",
+                    "teamcity-minimal-agent:${deployTag}-nanoserver-2004",
+                    "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-nanoserver-2004",
+                    "${prodRepo}teamcity-minimal-agent:${version}-nanoserver-2004"
+                ),
+
+                // Agents
+                // Windows Server Core
+                ImageInfo(
+                    "teamcity-agent:${version}-windowsservercore-2004",
+                    "context/generated/windows/Agent/windowsservercore/2004/Dockerfile",
+                    "teamcity-agent:${deployTag}-windowsservercore-2004",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-windowsservercore-2004",
+                    "${prodRepo}teamcity-agent:${version}-windowsservercore-2004"
+                ),
+
+                // Nanoserver
+                ImageInfo(
+                    "teamcity-agent:${version}-nanoserver-2004",
+                    "context/generated/windows/Agent/nanoserver/2004/Dockerfile",
+                    "teamcity-agent:${deployTag}-nanoserver-2004",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-nanoserver-2004",
+                    "${prodRepo}teamcity-agent${namePostfix}:${version}-nanoserver-2004"
                 )
             )
         }

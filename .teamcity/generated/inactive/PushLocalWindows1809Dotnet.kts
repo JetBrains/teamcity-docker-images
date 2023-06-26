@@ -1,4 +1,4 @@
-package generated
+package generated.inactive
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
@@ -10,9 +10,9 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 
-object push_local_linux_5_4 : BuildType({
-name = "ON PAUSE Build and push linux 5.4"
+object push_local_windows_1809_dotnet : BuildType({
+name = "ON PAUSE Build and push windows 1809-dotnet"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-minimal-agent:EAP-linux-raspbian5.4,EAP"
+description  = "teamcity-agent:nanoserver-dotnet"
 })
 

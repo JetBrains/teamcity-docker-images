@@ -3,10 +3,12 @@
 // ... FOR MORE DETAILS, PLEASE, REFER TO DOCUMENTATION WITHIN THE REPOSITORY.
 package generated
 
+import generated.production.PushHubLinux
+import generated.production.PushHubWindows
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 
 object HubProject : Project({
-	 name = "Docker hub"
+	 name = "TeamCity Docker Images Deployment into Production Registry"
 	 buildType(PushHubLinux.push_hub_linux)
 	 buildType(PushHubWindows.push_hub_windows)
 	 buildType(PublishHubVersion.publish_hub_version)
