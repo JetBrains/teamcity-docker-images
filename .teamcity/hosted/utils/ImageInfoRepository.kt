@@ -54,7 +54,7 @@ class ImageInfoRepository {
         fun getAmdImages(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "EAP",
+            deployTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
@@ -102,7 +102,7 @@ class ImageInfoRepository {
         fun getArmImages(
             repo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "EAP",
+            deployTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {

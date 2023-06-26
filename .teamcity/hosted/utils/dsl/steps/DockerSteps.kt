@@ -91,6 +91,8 @@ fun BuildSteps.moveToProduction(image: ImageInfo) {
         name =  "Publish [${image.productionFqdn}] after re-tag"
         commandType = push {
             namesAndTags = image.productionFqdn
+            // must always be disabled - no need to clear-up images from production registry
+            removeImageAfterPush = false
         }
     }
 }

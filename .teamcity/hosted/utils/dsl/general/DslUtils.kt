@@ -79,8 +79,10 @@ fun Dependencies.teamCityProdImagesSnapshot() {
 
 /**
  * Shared features required for the build of TeamCity Docker Images.
+ *
+ * @param requiredSpaceGb space required for the build (more for image build-up, less for metadata (tag))
  */
-fun BuildFeatures.teamCityImageBuildFeatures() {
+fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 8) {
     this.freeDiskSpace {
         requiredSpace = "8gb"
         failBuild = true
