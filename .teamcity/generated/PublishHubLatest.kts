@@ -9,115 +9,78 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.steps.publishManifest
 
-object publish_hub_latest : BuildType(
-    {
-        name = "Publish as latest"
-        buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
-        enablePersonalBuilds = false
-        type = BuildTypeSettings.Type.DEPLOYMENT
-        maxRunningBuilds = 1
-        steps {
-            script {
-                name = "remove manifests"
-                scriptContent =
-                    """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
-            }
-            dockerCommand {
-                name = "manifest create teamcity-server:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs =
-                        "create %docker.deployRepository%teamcity-server:latest " +
-                                "%docker.deployRepository%teamcity-server:2021.1.1-linux " +
-                                "%docker.deployRepository%teamcity-server:2021.1.1-nanoserver-1809 " +
-                                "%docker.deployRepository%teamcity-server:2021.1.1-nanoserver-2004"
-                }
-            }
-            dockerCommand {
-                name = "manifest push teamcity-server:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "push %docker.deployRepository%teamcity-server:latest"
-                }
-            }
-            dockerCommand {
-                name = "manifest inspect teamcity-server:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "inspect %docker.deployRepository%teamcity-server:latest --verbose"
-                }
-            }
-            dockerCommand {
-                name = "manifest create teamcity-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs =
-                        "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2021.1.1-linux %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2021.1.1-nanoserver-2004"
-                }
-            }
-            dockerCommand {
-                name = "manifest push teamcity-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "push %docker.deployRepository%teamcity-agent:latest"
-                }
-            }
-            dockerCommand {
-                name = "manifest inspect teamcity-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "inspect %docker.deployRepository%teamcity-agent:latest --verbose"
-                }
-            }
-            dockerCommand {
-                name = "manifest create teamcity-minimal-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs =
-                        "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2021.1.1-linux %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2021.1.1-nanoserver-2004"
-                }
-            }
-            dockerCommand {
-                name = "manifest push teamcity-minimal-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "push %docker.deployRepository%teamcity-minimal-agent:latest"
-                }
-            }
-            dockerCommand {
-                name = "manifest inspect teamcity-minimal-agent:latest"
-                commandType = other {
-                    subCommand = "manifest"
-                    commandArgs = "inspect %docker.deployRepository%teamcity-minimal-agent:latest --verbose"
-                }
+object publish_hub_latest : BuildType({
+    name = "Publish as latest"
+    description = "Publish Docker Manifests into production repository."
+    buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
+    enablePersonalBuilds = false
+    type = BuildTypeSettings.Type.DEPLOYMENT
+    maxRunningBuilds = 1
+    steps {
+        script {
+            name = "remove manifests"
+            scriptContent =
+                """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
+        }
+
+        // 'version' - TeamCity version, e.g. 2023.05.1
+        // 'manifestName' - ID of manifest (usually, 'latest')
+        val manifestName = "latest"
+        val version = "%tc.image.version%"
+
+        // 1. Publish Server Manifests
+        val serverTags = ImageInfoRepository.getAllServerTags(version)
+        publishManifest("%docker.deployRepository%teamcity-server", serverTags, manifestName)
+
+        // 2. Publish Agent Manifests
+        val agentTags = ImageInfoRepository.getAllAgentTags(version)
+        publishManifest("%docker.deployRepository%teamcity-agent", agentTags, manifestName)
+
+        // 3. Publish Minimal Agent Manifests
+        val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(version)
+        publishManifest(
+            "%docker.deployRepository%teamcity-minimal-agent",
+            minAgentTags,
+            manifestName
+        )
+
+        // 4. Publish Windows Server Core Agents Manifests
+//            val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(version)
+//            publishManifest(
+//                "%docker.deployRepository%teamcity-agent",
+//                agentTagsWinServerCore,
+//                "${manifestName}-windowsservercore"
+//            )
+
+    }
+    dependencies {
+        snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
+        {
+            onDependencyFailure = FailureAction.IGNORE
+        }
+        snapshot(PushHubLinux.push_hub_linux)
+        {
+            onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+        snapshot(PushHubWindows.push_hub_windows)
+        {
+            onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+    }
+    requirements {
+        noLessThanVer("docker.version", "18.05.0")
+        contains("docker.server.osType", "windows")
+    }
+    features {
+        dockerSupport {
+            cleanupPushedImages = true
+            loginToRegistry = on {
+                dockerRegistryId = "PROJECT_EXT_774"
             }
         }
-        dependencies {
-            snapshot(AbsoluteId("TC_Trunk_BuildDistDocker"))
-            {
-                onDependencyFailure = FailureAction.IGNORE
-            }
-            snapshot(PushHubLinux.push_hub_linux)
-            {
-                onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-            snapshot(PushHubWindows.push_hub_windows)
-            {
-                onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-        }
-        requirements {
-            noLessThanVer("docker.version", "18.05.0")
-            contains("docker.server.osType", "windows")
-        }
-        features {
-            dockerSupport {
-                cleanupPushedImages = true
-                loginToRegistry = on {
-                    dockerRegistryId = "PROJECT_EXT_774"
-                }
-            }
-        }
-    })
+    }
+})
 
