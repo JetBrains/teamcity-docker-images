@@ -13,9 +13,12 @@ import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityProdImagesSnapshot
 import hosted.utils.dsl.steps.publishManifest
 
+/**
+ * TODO: Merge with 'publish_hub_version'?
+ */
 object publish_hub_latest : BuildType({
     name = "Publish as latest"
-    description = "Publish Docker Manifests into production repository."
+    description = "Publish Docker Manifests into production repository as 'latest' tag."
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     enablePersonalBuilds = false
     type = BuildTypeSettings.Type.DEPLOYMENT

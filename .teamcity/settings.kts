@@ -25,6 +25,9 @@ object RootProject : Project({
         param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
 
+        // TeamCity version: EAP, 2023.05, etc.
+        param("tc.image.version", "EAP")
+
         // Used by build for teamcity.jetbrains.com
         param("hostedLinuxVersion", "20.04")
     }
