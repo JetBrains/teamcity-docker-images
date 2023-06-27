@@ -58,8 +58,7 @@ fun BuildSteps.publishToStaging(imageInfo: ImageInfo) {
 }
 
 /**
- * Build and publishes given Docker image into staging repository..
- * @param imageInfo information about Docker image
+ * Build and publishes given Docker image into staging repository.
  */
 fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
     buildImage(imageInfo)
@@ -68,7 +67,6 @@ fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
 
 /**
  * Moves given image from staging into production repository.
- * @param image information about Docker image
  */
 fun BuildSteps.moveToProduction(image: ImageInfo) {
     this.dockerCommand {

@@ -68,4 +68,3 @@ object push_local_windows_2004 : BuildType({
         contains("teamcity.agent.jvm.os.name", "Windows 10")
     }
 })
-

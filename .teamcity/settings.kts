@@ -22,6 +22,11 @@ object RootProject : Project({
     buildType(TeamCityScheduledImageBuildLinux_Base("aarch64", "arm"))
 
     params {
+        // The build using the following parameters inherited from the hosting TeamCity Server:
+        // * %docker.deployRepository% - production repository
+        // *  %docker.buildRepository% - staging repository
+        // Please, overwrite them here, if needed.
+
         param("dockerImage.teamcity.buildNumber", "%dep.TC_Trunk_BuildDistDocker.build.number%")
         param("teamcity.ui.settings.readOnly", "false")
 

@@ -2,12 +2,10 @@ package generated
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import generated.production.manifest.PublishHubVersion
-import hosted.BuildAndPushHosted
+import hosted.utils.dsl.general.teamCityImageBuildFeatures
+import hosted.utils.dsl.general.teamCityStagingImagesSnapshot
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildStep
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
-import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
@@ -87,22 +85,11 @@ object image_validation : BuildType({
     }
 
     features {
-        dockerSupport {
-            cleanupPushedImages = true
-            loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
-            }
-        }
+        teamCityImageBuildFeatures(requiredSpaceGb = 2)
     }
 
     dependencies {
         // Dependency on the build of the Docker image
-        dependency(BuildAndPushHosted.BuildAndPushHosted) {
-            snapshot {
-                onDependencyFailure = FailureAction.FAIL_TO_START
-                reuseBuilds = ReuseBuilds.SUCCESSFUL
-            }
-        }
+        teamCityStagingImagesSnapshot()
     }
 })
-

@@ -7,4 +7,3 @@ object push_local_linux_5_4 : BuildType({
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description = "teamcity-minimal-agent:EAP-linux-raspbian5.4,EAP"
 })
-

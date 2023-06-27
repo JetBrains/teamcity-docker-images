@@ -1,11 +1,10 @@
 package generated.production
 
-import generated.staging.manifest.PublishLocal
 import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.general.publishStagingManifests
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.steps.moveToProduction
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
 
 object push_hub_windows : BuildType({
     name = "[Windows] [Production] Release TeamCity Docker Images into Production Registry"
@@ -40,8 +39,6 @@ object push_hub_windows : BuildType({
     }
 
     dependencies {
-        snapshot(PublishLocal.publish_local) {
-            onDependencyFailure = FailureAction.FAIL_TO_START
-        }
+        publishStagingManifests()
     }
 })

@@ -3,6 +3,9 @@ package hosted.utils
 import hosted.utils.models.ImageInfo
 import java.lang.IllegalArgumentException
 
+/**
+ * Repository for information related to TeamCity Docker Images: registries, domain names, tags.
+ */
 class ImageInfoRepository {
     companion object {
 

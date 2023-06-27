@@ -5,6 +5,7 @@ import generated.production.PushHubWindows
 import generated.staging.PushLocalLinux2004
 import generated.staging.PushLocalWindows1809
 import generated.staging.PushLocalWindows2004
+import generated.staging.manifest.PublishLocal
 import hosted.arm.PushProductionLinux2004_Aarch64
 import hosted.arm.PushStagingLinux2004_Aarch64
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
@@ -33,6 +34,15 @@ fun Dependencies.teamCityBuildDistDocker() {
         artifacts {
             artifactRules = "TeamCity.zip!/**=>context/TeamCity"
         }
+    }
+}
+
+/**
+ * Dependency on successful publishing of staging manifests.
+ */
+fun Dependencies.publishStagingManifests() {
+    snapshot(PublishLocal.publish_local) {
+        onDependencyFailure = FailureAction.FAIL_TO_START
     }
 }
 
@@ -90,14 +100,14 @@ fun Dependencies.teamCityProdImagesSnapshot() {
  */
 fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 8) {
     this.freeDiskSpace {
-        requiredSpace = "8gb"
+        requiredSpace = "${requiredSpaceGb}gb"
         failBuild = true
     }
 
     this.dockerSupport {
         cleanupPushedImages = true
         loginToRegistry = on {
-            // Dockerhub, Space
+            // Registries: Dockerhub, Space
             dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
         }
     }

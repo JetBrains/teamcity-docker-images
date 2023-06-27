@@ -45,7 +45,8 @@ echo TeamCity/temp >> context/.dockerignore
             name = "tag teamcity-server-staging"
             commandType = other {
                 subCommand = "tag"
-                commandArgs = "teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
+                commandArgs =
+                    "teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
             }
         }
 

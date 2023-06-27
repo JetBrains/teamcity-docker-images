@@ -7,4 +7,3 @@ object push_local_linux_20_04_dotnet : BuildType({
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description = "teamcity-agent:linux-dotnet"
 })
-

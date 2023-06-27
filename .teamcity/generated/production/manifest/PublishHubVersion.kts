@@ -1,6 +1,7 @@
 package generated.production.manifest
 
 import hosted.utils.ImageInfoRepository
+import hosted.utils.dsl.general.teamCityImageBuildFeatures
 import hosted.utils.dsl.general.teamCityProdImagesSnapshot
 import hosted.utils.dsl.steps.publishManifest
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
@@ -66,11 +67,6 @@ object publish_hub_version : BuildType({
     }
 
     features {
-        dockerSupport {
-            cleanupPushedImages = true
-            loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774"
-            }
-        }
+        teamCityImageBuildFeatures(requiredSpaceGb = 1)
     }
 })
