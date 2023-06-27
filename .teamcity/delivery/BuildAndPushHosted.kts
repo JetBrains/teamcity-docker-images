@@ -10,6 +10,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
 /**
  * Builds Ubuntu-based Server image and publishes it to staging.
+ * TODO: Remove configuration, as it duplicates the build included into PushLocalLinux2004.kts, while seems redundant.
  */
 object BuildAndPushHosted : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
