@@ -6,7 +6,6 @@ import hosted.utils.dsl.general.teamCityStagingImagesSnapshot
 import hosted.utils.dsl.steps.publishManifest
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildTypeSettings
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
 object publish_local : BuildType({

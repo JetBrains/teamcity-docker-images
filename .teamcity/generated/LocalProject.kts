@@ -13,7 +13,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 
 object LocalProject : Project({
     name = "TeamCity Docker Images Deployment into Staging Registry"
-    description = "Configurations aimed at the build of TeamCity Docker Images and their publishing into staging registry."
+    description = "Configurations designed for the build of TeamCity Docker Images and their publishing into staging registry."
 
     buildType(PushLocalLinux1804.push_local_linux_18_04)
     buildType(PushLocalLinux2004.push_local_linux_20_04)

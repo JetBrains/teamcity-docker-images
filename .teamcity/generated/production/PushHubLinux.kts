@@ -8,6 +8,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 
 object push_hub_linux : BuildType({
     name = "[Linux] [Production] Release TeamCity Docker Images into Production Registry"
+    description = "Moves TeamCity Linux-based staging images into production registry."
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
 
     steps {
