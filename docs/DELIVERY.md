@@ -1,5 +1,8 @@
 # TeamCity Docker Images Delivery Pipeline
 
+[.teamcity](../.teamcity/) holds Kotlin DSL-based build configurations that define delivery process
+for TeamCity Docker Images.
+
 ```
 .teamcity
 ├── common          # Common entities (VCS roots, etc.) for delivery build configurations.
@@ -12,3 +15,6 @@
     └── scheduled   # Scheduled build of images (e.g. nightly)
     └── utils       # Common DSL utils (shared requirements, dependencies, etc.)
 ```
+
+In order to change the release, please, do the following:
+
