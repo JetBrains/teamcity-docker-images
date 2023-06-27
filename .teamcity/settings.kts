@@ -1,9 +1,9 @@
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import generated.HubProject
-import generated.LocalProject
-import hosted.BuildAndPushHosted
-import hosted.scheduled.build.TeamCityDockerImagesScheduledBuild
-import hosted.scheduled.build.TeamCityScheduledImageBuildWindows
+import delivery.BuildAndPushHosted
+import delivery.HubProject
+import delivery.LocalProject
+import scheduled.build.TeamCityDockerImagesScheduledBuild
+import scheduled.build.TeamCityScheduledImageBuildWindows
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 import jetbrains.buildServer.configs.kotlin.v2019_2.project
 import jetbrains.buildServer.configs.kotlin.v2019_2.version
