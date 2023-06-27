@@ -55,7 +55,7 @@ class ImageInfoRepository {
         /**
          * Returns a set of Ubuntu 20.04 (amd64)-based TeamCity Docker Images
          */
-        fun getAmdImages(
+        fun getAmdLinuxImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
             deployTag: String = "%tc.image.version%",
@@ -103,7 +103,7 @@ class ImageInfoRepository {
          * Returns a set of Ubuntu 20.04 (aarch64)-based TeamCity Docker Image.
          *
          */
-        fun getArmImages(
+        fun getArmLinuxImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
             deployTag: String = "%tc.image.version%",

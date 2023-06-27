@@ -3,7 +3,7 @@ package hosted.scheduled.build
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
 import hosted.utils.Utils
-import hosted.utils.dsl.steps.buildAndPublishImage
+import hosted.utils.dsl.steps.buildAndPushToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
@@ -36,8 +36,8 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     steps {
         ImageInfoRepository
                 // args: repository, version
-            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
-            .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
+            .getAmdLinuxImages2004("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
+            .forEach { imageInfo -> buildAndPushToStaging(imageInfo) }
 
         script {
             name = "Generate Sample docker-compose manifest for the created images"

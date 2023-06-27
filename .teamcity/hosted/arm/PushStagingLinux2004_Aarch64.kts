@@ -2,7 +2,7 @@ package hosted.arm
 
 import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
-import hosted.utils.dsl.steps.buildAndPublishImage
+import hosted.utils.dsl.steps.buildAndPushToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
@@ -38,8 +38,8 @@ object push_staging_linux_2004_aarch64 : BuildType({
             }
         }
 
-        ImageInfoRepository.getArmImages().forEach { imageInfo ->
-            buildAndPublishImage(imageInfo)
+        ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
+            buildAndPushToStaging(imageInfo)
         }
     }
 

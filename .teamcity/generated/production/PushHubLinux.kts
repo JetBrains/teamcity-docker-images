@@ -11,7 +11,7 @@ object push_hub_linux : BuildType({
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
 
     steps {
-        ImageInfoRepository.getAmdImages().forEach { imageInfo ->
+        ImageInfoRepository.getAmdLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)
         }
     }

@@ -24,7 +24,7 @@ object push_production_linux_2004_aarch64 : BuildType({
     }
 
     steps {
-        ImageInfoRepository.getArmImages().forEach { imageInfo ->
+        ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)
         }
     }

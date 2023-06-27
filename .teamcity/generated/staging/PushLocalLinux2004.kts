@@ -4,7 +4,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityBuildDistDocker
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
-import hosted.utils.dsl.steps.buildAndPublishImage
+import hosted.utils.dsl.steps.buildAndPushToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 
@@ -18,15 +18,15 @@ object push_local_linux_20_04 : BuildType({
 
  	 steps {
 		dockerCommand {
-			 name = "pull ubuntu:20.04"
+			 name = "Preflight check of base image - ubuntu:20.04"
 			 commandType = other {
 				 subCommand = "pull"
 				 commandArgs = "ubuntu:20.04"
 			 }
 		}
 		
-		ImageInfoRepository.getAmdImages().forEach { imageInfo ->
-			buildAndPublishImage(imageInfo)
+		ImageInfoRepository.getAmdLinuxImages2004().forEach { imageInfo ->
+			buildAndPushToStaging(imageInfo)
 		}
 	}
 

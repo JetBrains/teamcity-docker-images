@@ -1,62 +1,41 @@
 package hosted
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import hosted.utils.ImageInfoRepository
 import hosted.utils.dsl.general.teamCityBuildDistDocker
 import hosted.utils.dsl.general.teamCityImageBuildFeatures
+import hosted.utils.dsl.steps.buildAndPushToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
+/**
+ * Builds Ubuntu-based Server image and publishes it to staging.
+ */
 object BuildAndPushHosted : BuildType({
     name = "Build and push for teamcity.jetbrains.com"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     vcs { root(TeamCityDockerImagesRepo) }
+
+    params {
+        param("dockerImage.platform", "linux")
+        param("docker.buildImagePostfix", "staging")
+    }
+
     steps {
         dockerCommand {
-            name = "pull ubuntu"
+            name = "Preflight check of base image - ubuntu:20.04"
             commandType = other {
                 subCommand = "pull"
-                commandArgs = "ubuntu:%hostedLinuxVersion%"
+                commandArgs = "ubuntu:20.04"
             }
         }
 
-        script {
-            name = "context"
-            scriptContent = """
-echo 2> context/.dockerignore
-echo TeamCity/buildAgent >> context/.dockerignore
-echo TeamCity/temp >> context/.dockerignore
-""".trimIndent()
-        }
-
-        dockerCommand {
-            name = "build teamcity-server-staging"
-            commandType = build {
-                source = file {
-                    path = """context/generated/linux/Server/Ubuntu/%hostedLinuxVersion%/Dockerfile"""
-                }
-                contextDir = "context"
-                namesAndTags = "teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
-            }
-            param("dockerImage.platform", "linux")
-        }
-
-        dockerCommand {
-            name = "tag teamcity-server-staging"
-            commandType = other {
-                subCommand = "tag"
-                commandArgs =
-                    "teamcity-server-staging:%dockerImage.teamcity.buildNumber% %docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
-            }
-        }
-
-        dockerCommand {
-            name = "push teamcity-server-staging"
-            commandType = push {
-                namesAndTags = "%docker.buildRepository%teamcity-server-staging:%dockerImage.teamcity.buildNumber%"
-            }
+        val serverImages = ImageInfoRepository.getAmdLinuxImages2004().filter { it.name.contains("server") }
+        serverImages.forEach { serverImg ->
+            buildAndPushToStaging(serverImg)
         }
     }
+
     features {
         teamCityImageBuildFeatures(requiredSpaceGb = 4)
     }
