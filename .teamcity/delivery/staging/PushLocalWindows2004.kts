@@ -12,10 +12,10 @@ object push_local_windows_2004 : BuildType({
     name = "[Windows 2004] [Staging] Build And Push TeamCity Docker Images"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description = "Build Windows 2004-based TeamCity Docker images and pushes them into staging registry.\n" +
-			"Build images are: teamcity-server (NanoServer 2004), minimal agent (NanoServer 2004), " +
-			"regular agent (NanoServer 2004, WindowsServer Core 2004)."
+            "Target images: teamcity-server (NanoServer 2004), minimal agent (NanoServer 2004), " +
+            "regular agent (NanoServer 2004, WindowsServer Core 2004)."
 
-	vcs {
+    vcs {
         root(TeamCityDockerImagesRepo)
     }
 
@@ -54,12 +54,12 @@ object push_local_windows_2004 : BuildType({
     }
 
     features {
-		// Windows-based images require more available disk space
-		teamCityImageBuildFeatures(requiredSpaceGb = 43)
+        // Windows-based images require more available disk space
+        teamCityImageBuildFeatures(requiredSpaceGb = 43)
     }
 
     dependencies {
-		teamCityBuildDistDocker()
+        teamCityBuildDistDocker()
     }
 
     requirements {

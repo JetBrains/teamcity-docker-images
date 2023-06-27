@@ -5,6 +5,7 @@ import utils.models.ImageInfo
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildSteps
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import utils.config.DeliveryConfig
 
 /**
  *
@@ -99,9 +100,9 @@ fun BuildSteps.moveToProduction(image: ImageInfo) {
  * Create a manifest list for annotating images & publishes it into registry.
  * @param imageName domain name of image
  * @param tags list of tags that'd be associated with the manifest
- * @param manifestTag tag of the manifest, with which given tags will be associated, e.g. 'latest' TODO: change to "EAP" or teamcity version?
+ * @param manifestTag tag of the manifest, with which given tags will be associated, e.g. 'latest'
  */
-fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTag: String = "latest") {
+fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTag: String = DeliveryConfig.tcVersion) {
     // manifest name
     val manifestName = "${imageName}:${manifestTag}"
 

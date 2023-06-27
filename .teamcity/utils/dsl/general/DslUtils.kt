@@ -12,6 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
+import utils.config.DeliveryConfig
 
 /**
  *
@@ -26,7 +27,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
  * Provides snapshot dependency on TeamCity Build compatible with Docker.
  */
 fun Dependencies.teamCityBuildDistDocker() {
-    this.dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+    this.dependency(AbsoluteId(DeliveryConfig.buildDistDockerDepId)) {
         snapshot {
             onDependencyFailure = FailureAction.IGNORE
             reuseBuilds = ReuseBuilds.ANY
@@ -50,7 +51,7 @@ fun Dependencies.publishStagingManifests() {
  * Returns snapshot dependencies on build configurations required for publishing Staging Images of TeamCity.
  */
 fun Dependencies.teamCityStagingImagesSnapshot() {
-    snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+    snapshot(AbsoluteId(DeliveryConfig.buildDistDockerDepId)) {
         onDependencyFailure = FailureAction.FAIL_TO_START
         reuseBuilds = ReuseBuilds.ANY
         synchronizeRevisions = false
@@ -76,7 +77,7 @@ fun Dependencies.teamCityStagingImagesSnapshot() {
  * Returns snapshot dependencies on build configurations required for publishing Production Images of TeamCity.
  */
 fun Dependencies.teamCityProdImagesSnapshot() {
-    snapshot(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+    snapshot(AbsoluteId(DeliveryConfig.buildDistDockerDepId)) {
         onDependencyFailure = FailureAction.IGNORE
     }
 

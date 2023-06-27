@@ -18,11 +18,6 @@ object push_production_linux_2004_aarch64 : BuildType({
         root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
     }
 
-    params {
-        // will be included into the tag, e.g. 2023.05-linux-amd64
-        param("tc.image.version", "EAP")
-    }
-
     steps {
         ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)

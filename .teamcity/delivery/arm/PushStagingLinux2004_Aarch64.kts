@@ -11,6 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
+import utils.config.DeliveryConfig
 
 /**
  * Building and deploying aarch64 (ARM) Linux-based Docker images into staging registry, which is defined ...
@@ -22,11 +23,6 @@ object push_staging_linux_2004_aarch64 : BuildType({
     description = "Build and deploy Linux-based Docker images for aarch64 platform."
     vcs {
         root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
-    }
-
-    params {
-        // will be included into the tag, e.g. 2023.05-linux-amd64
-        param("tc.image.version", "EAP")
     }
 
     steps {
@@ -62,7 +58,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("TC_Trunk_BuildDistDocker")) {
+        dependency(AbsoluteId(DeliveryConfig.buildDistDockerDepId)) {
             snapshot {
                 onDependencyFailure = FailureAction.IGNORE
                 reuseBuilds = ReuseBuilds.ANY
