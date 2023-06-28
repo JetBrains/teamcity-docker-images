@@ -84,7 +84,7 @@ EXPOSE 9090
 
 VOLUME C:/BuildAgent/conf
 
-CMD ./BuildAgent/run-agent.ps1
+CMD ["./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
 ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
@@ -104,5 +104,5 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
     NUGET_XMLDOC_MODE=skip
 
 USER ContainerAdministrator
-RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
+RUN ["setx", "/M", "PATH", "(''{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial'' -f $env:PATH, $env:JAVA_HOME)"]
 USER ContainerUser

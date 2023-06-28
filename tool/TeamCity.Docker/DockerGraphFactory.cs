@@ -36,6 +36,10 @@ namespace TeamCity.Docker
             _pathService = pathService ?? throw new ArgumentNullException(nameof(pathService));
         }
 
+        /// <summary>
+        /// Generates Dockerfile out of given template.
+        /// </summary>
+        /// <param name="templates">parsed template files (e.g. from "configs/linux/*.Dockerfile")</param>
         public Result<IGraph<IArtifact, Dependency>> Create(IEnumerable<Template> templates)
         {
             var graph = new Graph<IArtifact, Dependency>();
