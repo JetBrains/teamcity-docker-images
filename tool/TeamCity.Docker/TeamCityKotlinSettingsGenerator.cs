@@ -11,6 +11,9 @@ namespace TeamCity.Docker
     using Model;
     using Constants;
 
+    /// <summary>
+    /// DEPRECATION NOTICE: The use of Kotlin DSL generator had been removed from TeamCity Delivery Pipeline.
+    /// </summary>
     internal class TeamCityKotlinSettingsGenerator : IGenerator
     {
         private const string MinDockerVersion = "18.05.0";

@@ -4,7 +4,7 @@
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
-<img src="https://raw.githubusercontent.com/JetBrains/teamcity-docker-images/master/logo/GitHub.png" height="20" align="center"/> More details about tags and components are 
+<img src="https://raw.githubusercontent.com/JetBrains/teamcity-docker-images/master/docs/media/GitHub.png" height="20" align="center"/> More details about tags and components are 
 [here](https://github.com/JetBrains/teamcity-docker-images/blob/master/context/generated/teamcity-agent.md) .
 
 The [TeamCity build agent](https://www.jetbrains.com/help/teamcity/build-agent.html) connects to the TeamCity server and spawns the actual build processes.

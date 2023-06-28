@@ -45,7 +45,8 @@ namespace TeamCity.Docker
                 .Bind<IFactory<IEnumerable<IGraph<IArtifact, Dependency>>, IGraph<IArtifact, Dependency>>>().As(Singleton).To<BuildGraphsFactory>()
                 .Bind<IScriptGenerator>().As(Singleton).To<ScriptGenerator>()
                 .Bind<IGenerator>().Tag("Readme files").As(Singleton).To<ReadmeFilesGenerator>()
-                .Bind<IGenerator>().Tag("Kotlin DSL").As(Singleton).To<TeamCityKotlinSettingsGenerator>()
+                // -- Generation of Kotlin DSL via C# had been replaced with reusable build configurations.
+                // .Bind<IGenerator>().Tag("Kotlin DSL").As(Singleton).To<TeamCityKotlinSettingsGenerator>()
                 .Bind<IGenerator>().Tag("Scripts").As(Singleton).To<ScriptsGenerator>()
                 .Bind<IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>>>().As(Singleton).To<DockerGraphFactory>()
                 .Bind<IContextFactory>().As(Singleton).To<ContextFactory>()
