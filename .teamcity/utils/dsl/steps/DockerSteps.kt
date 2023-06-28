@@ -33,7 +33,6 @@ fun BuildSteps.buildImage(imageInfo: ImageInfo) {
             commandArgs = "--no-cache"
             namesAndTags = imageInfo.baseFqdn.trimIndent()
         }
-        param("dockerImage.platform", "linux")
     }
 
     this.dockerCommand {

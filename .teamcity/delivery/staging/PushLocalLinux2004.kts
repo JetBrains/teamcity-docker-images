@@ -40,6 +40,7 @@ object push_local_linux_20_04 : BuildType({
     }
 
     requirements {
+        contains("docker.server.osType", "linux")
         // In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
         doesNotContain("teamcity.agent.name", "arm")
     }
