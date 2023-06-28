@@ -13,7 +13,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
  * TODO: Remove configuration, as it duplicates the build included into PushLocalLinux2004.kts, while seems redundant.
  */
 object BuildAndPushHosted : BuildType({
-    name = "Build and push for teamcity.jetbrains.com"
+    name = "[Linux] [Staging] Build And Push 'teamcity-server' Docker image into staging registry"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     vcs { root(TeamCityDockerImagesRepo) }
 

@@ -17,6 +17,10 @@ object push_local_linux_20_04 : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
+    params {
+        param("dockerImage.platform", "linux")
+    }
+
     steps {
         dockerCommand {
             name = "Preflight check of base image - ubuntu:20.04"
