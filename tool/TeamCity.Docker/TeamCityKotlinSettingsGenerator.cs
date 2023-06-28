@@ -177,6 +177,10 @@ namespace TeamCity.Docker
             {
                 lines.Add($"\t buildType({NormalizeFileName(buildType)}.{buildType})");
             }
+
+            // "Hosted" (static) configurations for image build
+            lines.Add("\t buildType(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64)");
+
             lines.Add("})");
 
             graph.TryAddNode(AddFile("LocalProject", lines), out _);
@@ -235,6 +239,8 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
+                // -- Build configurations
+                "import hosted.BuildAndPushHosted",
 
                 string.Empty
             };
@@ -371,7 +377,7 @@ namespace TeamCity.Docker
             yield return "\t name = \"Validation of Size Regression - Staging Docker Images (Windows / Linux)\"";
             yield return $"\t {_buildNumberPattern}";
 
-            // VCS Root Is needed in order to launch automaiton framework
+            // VCS Root Is needed in order to launch automation framework
             yield return String.Join('\n',
                 "\t vcs {",
                 "\t\t root(TeamCityDockerImagesRepo)",
@@ -472,10 +478,25 @@ namespace TeamCity.Docker
                 "\t\t   dockerSupport {",
                 "\t\t\t     cleanupPushedImages = true",
                 "\t\t\t     loginToRegistry = on {",
-                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774\"",
+                // Registries: DockerHub, JetBrains Space
+                "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774,PROJECT_EXT_315\"",
                 "\t\t\t     }",
                 "\t\t   }",
                 "\t }"
+            );
+
+            // Dependencies
+            yield return String.Join('\n',
+            "\t dependencies {",
+            "\t\t    // Last build of Docker Image",
+            "\t\t    dependency(BuildAndPushHosted.BuildAndPushHosted) {",
+            "\t\t\t      artifacts {",
+            "\t\t\t\t        artifactRules = \"TeamCity.zip!/**=>context/TeamCity\"",
+            "\t\t\t\t        cleanDestination = true",
+            "\t\t\t\t        lastSuccessful()",
+            "\t\t\t      }",
+            "\t\t    }",
+            "\t }"
             );
 
             yield return "})";
@@ -816,34 +837,6 @@ namespace TeamCity.Docker
             yield return $"\t\t\t artifactRules = \"TeamCity.zip!/**=>{_pathService.Normalize(_options.ContextPath)}/TeamCity\"";
             yield return "\t\t }";
             yield return "\t }";
-            yield return "}";
-        }
-
-        /// <summary>
-        /// Creates dependencies {...} block for build configuration responsible for post-push ...
-        /// ... validation of Docker images.
-        /// <param name="dependencyIds">IDs of dependant build configuration</param> 
-        /// <returns>none</returns>
-        private IEnumerable<string> CreateDockerImageValidationSnapDependencies(string[] dependencyIds) {
-            
-            if (dependencyIds == null || dependencyIds.Length == 0) {
-                // dependency IDs must be specified, otherwise the block wouldn't be useful
-                yield break;
-            }
-
-           yield return "dependencies {";
-
-            foreach (string dependantBuildId in dependencyIds)
-            {
-                yield return $"\t dependency(AbsoluteId(\"{dependantBuildId}\")) {{";
-                // -- build problem is reported, but not termeinated, as some of the dependencies might successfully ...
-                // -- ... create images.
-                yield return "\t\t snapshot { onDependencyFailure = FailureAction.ADD_PROBLEM }";
-                // dependency {...}
-                yield return "\t }";
-            }
-            
-            // dependencies {...}
             yield return "}";
         }
 

@@ -1,16 +1,13 @@
 package hosted.scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import hosted.scheduled.build.model.DockerImageInfo
+import hosted.utils.ImageInfoRepository
+import hosted.utils.Utils
+import hosted.utils.steps.buildAndPublishImage
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.FailureAction
-import jetbrains.buildServer.configs.kotlin.v2019_2.ReuseBuilds
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import java.util.*
-import kotlin.collections.HashMap
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
 
 /**
@@ -23,33 +20,32 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
+    // all .yml files (e.g. compose samples)
+    artifactRules = "+:*.yml"
 
-    // -- order matters as teamcity-agent used teamcity-minimal-agent as base image
-    val images = LinkedList(listOf(
-        // Ubuntu 20.04
-        DockerImageInfo("teamcity-server", "2023.05.1-linux", "context/generated/linux/Server/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-minimal-agent", "2023.05.1-linux", "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-agent", "2023.05.1-linux", "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"),
-        DockerImageInfo("teamcity-agent", "2023.05.1-linux-sudo", "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"),
-        // -- ARM images are commented out since TeamCity, currently, does not support it
-        // DockerImageInfo("teamcity-agent", "2023.05.1-linux-arm64", "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"),
-        // DockerImageInfo("teamcity-agent", "2023.05.1-linux-arm64-sudo", "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile")
-    ))
+    params {
+        // the images will be published into registry that holds nightly builds
+        param("docker.buildRepository", "%docker.nightlyRepository%")
+        // no postfix needed
+        param("docker.buildImagePostfix", "")
+
+        // 'trunk' could be replaced with a particular release number, such as 2023.05.
+        param("tc.image.version", "2023.05-%dockerImage.teamcity.buildNumber%")
+    }
 
     steps {
+        ImageInfoRepository
+            // args: repository, version
+            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
+            .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
 
-        images.forEach { imageInfo ->
-            dockerCommand {
-                name = "build ${imageInfo.repository}-${imageInfo.tag}"
-                commandType = build {
-                    source = file {
-                        path = imageInfo.dockerfilePath
-                    }
-                    platform = DockerCommandStep.ImagePlatform.Linux
-                    contextDir = "context"
-                    namesAndTags = "${imageInfo.repository}:${imageInfo.tag}"
-                }
-            }
+        script {
+            name = "Generate Sample docker-compose manifest for the created images"
+            scriptContent = """
+                cat <<EOF > teamcity-linux-%tc.image.version%.docker-compose.yml
+                ${Utils.getSampleComposeFile("%docker.nightlyRepository%", "%tc.image.version%")}
+                EOF
+                """.trimIndent()
         }
     }
 
@@ -67,8 +63,19 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774"
+                dockerRegistryId = "PROJECT_EXT_315"
             }
+        }
+    }
+
+    // We retain nightly builds for the previous 2 weeks
+    cleanup {
+        keepRule {
+            id = "TC_DOCKER_IMAGES_SCHEDULED_CLEANUP"
+            keepAtLeast = days(14)
+            dataToKeep = everything()
+            applyPerEachBranch = true
+            preserveArtifactsDependencies = true
         }
     }
 })

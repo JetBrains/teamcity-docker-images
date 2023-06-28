@@ -1,5 +1,6 @@
 package hosted.scheduled.build
 
+import TeamCityScheduledImageBuildLinux_Base
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.schedule
 
@@ -17,6 +18,13 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
         showDependenciesChanges = true
     }
 
+    params {
+        // the images will be published into registry that holds nightly builds
+        param("docker.buildRepository", "%docker.nightlyRepository%")
+        // no postfix needed
+        param("docker.buildImagePostfix", "")
+    }
+
     triggers {
         schedule {
             id = "TRIGGER_TC_DOCKER_IMAGES_NIGHTLY"
@@ -32,7 +40,8 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
     dependencies {
         arrayOf(
             TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows,
-            TeamCityScheduledImageBuildLinux.TeamCityScheduledImageBuildLinux
+            TeamCityScheduledImageBuildLinux_Base("amd64", ""),
+            TeamCityScheduledImageBuildLinux_Base("aarch64", "arm")
         ).forEach {
             snapshot(it) {
                 onDependencyFailure = FailureAction.ADD_PROBLEM
