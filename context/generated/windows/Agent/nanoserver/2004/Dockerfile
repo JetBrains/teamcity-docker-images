@@ -80,4 +80,4 @@ USER ContainerUser
 # Trigger first run experience by running arbitrary cmd to populate local package cache
 RUN dotnet help
 
-CMD pwsh ./BuildAgent/run-agent.ps1
+CMD ["pwsh", "./BuildAgent/run-agent.ps1"]

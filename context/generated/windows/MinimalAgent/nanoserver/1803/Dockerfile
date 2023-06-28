@@ -58,4 +58,4 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-CMD pwsh ./BuildAgent/run-agent.ps1
+CMD ["pwsh", "./BuildAgent/run-agent.ps1"]

@@ -102,7 +102,7 @@ VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
        $CATALINA_TMPDIR
 
-CMD pwsh C:/TeamCity/run-server.ps1
+CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator

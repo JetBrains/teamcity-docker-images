@@ -82,4 +82,4 @@ VOLUME C:/BuildAgent/work
 VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
 
-CMD pwsh ./BuildAgent/run-agent.ps1
+CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
