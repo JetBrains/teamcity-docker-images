@@ -64,6 +64,6 @@ object publish_local : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures(requiredSpaceGb = 1)
+        teamCityImageBuildFeatures()
     }
 })

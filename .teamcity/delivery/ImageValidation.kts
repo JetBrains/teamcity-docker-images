@@ -85,7 +85,7 @@ object image_validation : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures(requiredSpaceGb = 2)
+        teamCityImageBuildFeatures()
     }
 
     dependencies {

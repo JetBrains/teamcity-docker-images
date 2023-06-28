@@ -66,6 +66,6 @@ object publish_hub_version : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures(requiredSpaceGb = 1)
+        teamCityImageBuildFeatures()
     }
 })

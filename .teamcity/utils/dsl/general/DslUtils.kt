@@ -99,7 +99,7 @@ fun Dependencies.teamCityProdImagesSnapshot() {
  *
  * @param requiredSpaceGb space required for the build (more for image build-up, less for metadata (tag))
  */
-fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 8) {
+fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1) {
     this.freeDiskSpace {
         requiredSpace = "${requiredSpaceGb}gb"
         failBuild = true
