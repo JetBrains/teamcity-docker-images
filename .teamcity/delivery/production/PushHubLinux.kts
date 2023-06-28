@@ -11,6 +11,10 @@ object push_hub_linux : BuildType({
     description = "Moves TeamCity Linux-based staging images into production registry."
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
 
+    params {
+        param("dockerImage.platform", "linux")
+    }
+
     steps {
         ImageInfoRepository.getAmdLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)

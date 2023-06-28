@@ -17,6 +17,10 @@ object push_local_linux_20_04 : BuildType({
         root(TeamCityDockerImagesRepo)
     }
 
+    params {
+        param("dockerImage.platform", "linux")
+    }
+
     steps {
         dockerCommand {
             name = "Preflight check of base image - ubuntu:20.04"
@@ -40,6 +44,7 @@ object push_local_linux_20_04 : BuildType({
     }
 
     requirements {
+        contains("docker.server.osType", "linux")
         // In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
         doesNotContain("teamcity.agent.name", "arm")
     }
