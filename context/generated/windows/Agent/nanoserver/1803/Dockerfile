@@ -60,7 +60,7 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
-RUN ["setx", "/M", "PATH", "\"%PATH%;%JAVA_HOME%\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\""]
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet"
 USER ContainerUser
 
 ENV LOCALAPPDATA="C:\Users\ContainerUser\AppData\Local" \
