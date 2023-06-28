@@ -15,6 +15,7 @@ class Utils {
             val imageFqdn = info.name.lowercase()
             return when {
                 imageFqdn.contains("minimal") -> """
+                     echo 2> context/.dockerignore
                      echo TeamCity/webapps >> context/.dockerignore
                      echo TeamCity/devPackage >> context/.dockerignore
                      echo TeamCity/lib >> context/.dockerignore
