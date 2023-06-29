@@ -44,6 +44,8 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
             TeamCityScheduledImageBuildLinux_Base("aarch64", "arm")
         ).forEach {
             snapshot(it) {
+                // Once triggered, new Docker-compatible distribution is available
+                reuseBuilds = ReuseBuilds.NO
                 onDependencyFailure = FailureAction.ADD_PROBLEM
                 onDependencyCancel = FailureAction.CANCEL
             }
