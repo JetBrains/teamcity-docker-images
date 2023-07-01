@@ -26,8 +26,7 @@ object TeamCityDockerImageScheduledBuildLinuxManifest : BuildType({
         }
 
         publishLinuxManifests(name = "%dockerImage.teamcity.buildNumber%",
-            repo = "%docker.nightlyRepository%",
-            postfix = "")
+            repo = "%docker.nightlyRepository%")
     }
 
     features {
