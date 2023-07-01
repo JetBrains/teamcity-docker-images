@@ -13,6 +13,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import utils.config.DeliveryConfig
+import utils.config.Registries
 
 /**
  *
@@ -98,8 +99,10 @@ fun Dependencies.teamCityProdImagesSnapshot() {
  * Shared features required for the build of TeamCity Docker Images.
  *
  * @param requiredSpaceGb space required for the build (more for image build-up, less for metadata (tag))
+ * @param registries list of supported Docker Registries
  */
-fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1) {
+fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1,
+                                             registries: List<String> = listOf(Registries.SPACE, Registries.HUB)) {
     this.freeDiskSpace {
         requiredSpace = "${requiredSpaceGb}gb"
         failBuild = true
@@ -108,8 +111,7 @@ fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1) {
     this.dockerSupport {
         cleanupPushedImages = true
         loginToRegistry = on {
-            // Registries: Dockerhub, Space
-            dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+            dockerRegistryId = registries.joinToString(",")
         }
     }
 
