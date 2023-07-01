@@ -139,22 +139,42 @@ fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTa
  * Publishes manifest for Linux-based images.
  * @param name manifest name (usually, either 'latest' or release tag)
  * @param repo target Docker registry
- * @param postfix postfix for image name (e.g. "-staging")
+ * @param postfix (optional) postfix for image name (e.g. "-staging")
+ * @param version (optional) image tag, by default equals to manifest name
  */
-fun BuildSteps.publishLinuxManifests(name: String, repo: String, postfix: String) {
+fun BuildSteps.publishLinuxManifests(name: String, repo: String, postfix: String = "", version: String = "") {
+    val ver = version.ifEmpty { name }
+
     // 1. Publish Server Manifests
-    val serverTags = ImageInfoRepository.getAllServerTags(name)
+    val serverTags = ImageInfoRepository.getAllServerTags(ver)
     publishManifest("${repo}teamcity-server${postfix}", serverTags, name)
 
     // 2. Publish Agent Manifests
-    val agentTags = ImageInfoRepository.getAllAgentTags(name)
+    val agentTags = ImageInfoRepository.getAllAgentTags(ver)
     publishManifest("${repo}teamcity-agent${postfix}", agentTags, name)
 
     // 3. Publish Minimal Agent Manifests
-    val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(name)
+    val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(ver)
     publishManifest(
         "${repo}teamcity-minimal-agent${postfix}",
         minAgentTags,
         name
+    )
+}
+
+/**
+ * Publishes manifest for Windows-based images.
+ * Currently, only Windows Server Core is published.
+ * @param name manifest name (usually, either 'latest' or release tag)
+ * @param repo target Docker registry
+ * @param postfix (optional) postfix for image name (e.g. "-staging")
+ * @param version (optional) image tag, by default equals to manifest name
+ */
+fun BuildSteps.publishWindowsManifests(name: String, repo: String, postfix: String = "", version: String = "") {
+    val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(version)
+    publishManifest(
+        "${repo}teamcity-agent${postfix}",
+        agentTagsWinServerCore,
+        "${name}-windowsservercore"
     )
 }

@@ -7,6 +7,9 @@ import utils.dsl.steps.publishManifest
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildTypeSettings
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.version
+import utils.dsl.steps.publishLinuxManifests
+import utils.dsl.steps.publishWindowsManifests
 
 /**
  * TODO: Merge with 'publish_hub_version'?
@@ -27,32 +30,8 @@ object publish_hub_latest : BuildType({
 
         // 'version' - TeamCity version, e.g. 2023.05.1
         // 'manifestName' - ID of manifest (usually, 'latest')
-        val manifestName = "latest"
-        val version = "%tc.image.version%"
-
-        // 1. Publish Server Manifests
-        val serverTags = ImageInfoRepository.getAllServerTags(version)
-        publishManifest("%docker.deployRepository%teamcity-server", serverTags, manifestName)
-
-        // 2. Publish Agent Manifests
-        val agentTags = ImageInfoRepository.getAllAgentTags(version)
-        publishManifest("%docker.deployRepository%teamcity-agent", agentTags, manifestName)
-
-        // 3. Publish Minimal Agent Manifests
-        val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(version)
-        publishManifest(
-            "%docker.deployRepository%teamcity-minimal-agent",
-            minAgentTags,
-            manifestName
-        )
-
-        // 4. Publish Windows Server Core Agents Manifests
-        val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(version)
-        publishManifest(
-            "%docker.deployRepository%teamcity-agent",
-            agentTagsWinServerCore,
-            "${manifestName}-windowsservercore"
-        )
+        publishLinuxManifests(name = "latest", repo = "%docker.deployRepository%", postfix = "", version = "%tc.image.version%")
+        publishWindowsManifests(name = "latest", repo = "%docker.deployRepository%", postfix = "", version = "%tc.image.version%")
     }
 
     dependencies {

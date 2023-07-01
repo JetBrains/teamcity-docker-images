@@ -7,6 +7,8 @@ import utils.dsl.steps.publishManifest
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildTypeSettings
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import utils.dsl.steps.publishLinuxManifests
+import utils.dsl.steps.publishWindowsManifests
 
 object publish_hub_version : BuildType({
     name = "[All] [Production] Release Manifests as 'version' into Production Registry"
@@ -22,35 +24,11 @@ object publish_hub_version : BuildType({
             scriptContent =
                 """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
         }
+
         // 'version' - TeamCity version, e.g. 2023.05.1
         // 'manifestName' - ID of manifest (usually, 'latest')
-        val manifestName = "%tc.image.version%"
-        val version = "%tc.image.version%"
-
-        // 1. Publish Server Manifests
-        val serverTags = ImageInfoRepository.getAllServerTags(version)
-        publishManifest("%docker.deployRepository%teamcity-server", serverTags, manifestName)
-
-        // 2. Publish Agent Manifests
-        val agentTags = ImageInfoRepository.getAllAgentTags(version)
-        publishManifest("%docker.deployRepository%teamcity-agent", agentTags, manifestName)
-
-
-        // 3. Publish Minimal Agent Manifests
-        val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(version)
-        publishManifest(
-            "%docker.deployRepository%teamcity-minimal-agent",
-            minAgentTags,
-            manifestName
-        )
-
-        // 4. Publish Windows Server Core Agents Manifests
-        val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(version)
-        publishManifest(
-            "%docker.deployRepository%teamcity-agent",
-            agentTagsWinServerCore,
-            "${manifestName}-windowsservercore"
-        )
+        publishLinuxManifests(name = "%tc.image.version%", repo = "%docker.deployRepository%")
+        publishWindowsManifests(name = "%tc.image.version%", repo = "%docker.deployRepository%")
     }
 
     dependencies {
