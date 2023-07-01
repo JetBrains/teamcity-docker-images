@@ -5,6 +5,7 @@ import utils.models.ImageInfo
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildSteps
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import utils.ImageInfoRepository
 import utils.config.DeliveryConfig
 
 /**
@@ -132,4 +133,28 @@ fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTa
             commandArgs = "inspect $manifestName --verbose"
         }
     }
+}
+
+/**
+ * Publishes manifest for Linux-based images.
+ * @param name manifest name (usually, either 'latest' or release tag)
+ * @param repo target Docker registry
+ * @param postfix postfix for image name (e.g. "-staging")
+ */
+fun BuildSteps.publishLinuxManifests(name: String, repo: String, postfix: String) {
+    // 1. Publish Server Manifests
+    val serverTags = ImageInfoRepository.getAllServerTags(name)
+    publishManifest("${repo}teamcity-server${postfix}", serverTags, name)
+
+    // 2. Publish Agent Manifests
+    val agentTags = ImageInfoRepository.getAllAgentTags(name)
+    publishManifest("${repo}teamcity-agent${postfix}", agentTags, name)
+
+    // 3. Publish Minimal Agent Manifests
+    val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(name)
+    publishManifest(
+        "${repo}teamcity-minimal-agent${postfix}",
+        minAgentTags,
+        name
+    )
 }
