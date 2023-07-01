@@ -149,6 +149,19 @@ class ImageInfoRepository {
         }
 
         /**
+         * Returns Linux images for all supported platforms.
+         */
+        fun getAllLinuxImages(stagingRepo: String = "%docker.buildRepository%",
+                              version: String = "%tc.image.version%",
+                              deployTag: String = "%tc.image.version%",
+                              namePostfix: String = "%docker.buildImagePostfix%",
+                              prodRepo: String = "%docker.deployRepository%"): Set<ImageInfo> {
+            val armImages = this.getArmLinuxImages2004(stagingRepo, version, deployTag, namePostfix, prodRepo)
+            val amdImages = this.getAmdLinuxImages2004(stagingRepo, version, deployTag, namePostfix, prodRepo)
+            return armImages + amdImages
+        }
+
+        /**
          * Returns the list of Windows 2004-based TeamCity Docker images.
          */
         fun getWindowsImages2004(
