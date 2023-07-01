@@ -12,6 +12,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import utils.config.DeliveryConfig
+import utils.dsl.general.teamCityImageBuildFeatures
 
 /**
  * Building and deploying aarch64 (ARM) Linux-based Docker images into staging registry, which is defined ...
@@ -40,21 +41,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
     }
 
     features {
-        freeDiskSpace {
-            requiredSpace = "8gb"
-            failBuild = true
-        }
-
-        dockerSupport {
-            cleanupPushedImages = true
-            loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
-            }
-        }
-
-        swabra {
-            forceCleanCheckout = true
-        }
+        teamCityImageBuildFeatures(requiredSpaceGb = 8)
     }
 
     dependencies {
