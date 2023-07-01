@@ -7,6 +7,7 @@ import scheduled.build.TeamCityScheduledImageBuildWindows
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 import jetbrains.buildServer.configs.kotlin.v2019_2.project
 import jetbrains.buildServer.configs.kotlin.v2019_2.version
+import scheduled.build.TeamCityDockerImageScheduledBuildLinuxManifest
 import utils.config.DeliveryConfig
 
 version =  "2019.2"
@@ -21,6 +22,7 @@ object RootProject : Project({
     buildType(TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows)
     buildType(TeamCityScheduledImageBuildLinux_Base("amd64", "linux"))
     buildType(TeamCityScheduledImageBuildLinux_Base("aarch64", "arm"))
+    buildType(TeamCityDockerImageScheduledBuildLinuxManifest)
 
     params {
         // The build using the following parameters inherited from the hosting TeamCity Server:
