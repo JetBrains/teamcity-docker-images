@@ -58,7 +58,7 @@ class ImageInfoRepository {
         fun getAmdLinuxImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "%tc.image.version%",
+            dockerfileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
@@ -67,7 +67,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-minimal-agent:${version}-linux",
                     "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-minimal-agent:${deployTag}-linux",
+                    "teamcity-minimal-agent:${dockerfileTag}-linux",
                     "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-linux",
                     "${prodRepo}teamcity-minimal-agent:${version}-linux",
                 ),
@@ -76,14 +76,14 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-linux",
                     "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile",
-                    "teamcity-agent:${deployTag}-linux",
+                    "teamcity-agent:${dockerfileTag}-linux",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux",
                     "${prodRepo}teamcity-agent:${version}-linux"
                 ),
                 ImageInfo(
                     "teamcity-agent:${version}-linux-sudo",
                     "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile",
-                    "teamcity-agent:${deployTag}-linux-sudo",
+                    "teamcity-agent:${dockerfileTag}-linux-sudo",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-sudo",
                     "${prodRepo}teamcity-agent:${version}-linux-sudo"
                 ),
@@ -92,7 +92,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-server:${version}-linux",
                     "context/generated/linux/Server/Ubuntu/20.04/Dockerfile",
-                    "teamcity-server:${deployTag}-linux",
+                    "teamcity-server:${dockerfileTag}-linux",
                     "${stagingRepo}teamcity-server${namePostfix}:${version}-linux",
                     "${prodRepo}teamcity-server:${version}-linux"
                 )
@@ -106,7 +106,7 @@ class ImageInfoRepository {
         fun getArmLinuxImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "%tc.image.version%",
+            dockerfileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
@@ -115,7 +115,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-minimal-agent:${version}-linux-arm64",
                     "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-minimal-agent:${deployTag}-linux-arm64",
+                    "teamcity-minimal-agent:${dockerfileTag}-linux-arm64",
                     "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-linux-arm64",
                     "${prodRepo}teamcity-minimal-agent:${version}-linux-arm64"
                 ),
@@ -124,7 +124,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-linux-arm64",
                     "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-agent:${deployTag}-linux-arm64",
+                    "teamcity-agent:${dockerfileTag}-linux-arm64",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-arm64",
                     "${prodRepo}teamcity-agent:${version}-linux-arm64"
 
@@ -132,7 +132,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-linux-arm64-sudo",
                     "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile",
-                    "teamcity-agent:${deployTag}-linux-arm64-sudo",
+                    "teamcity-agent:${dockerfileTag}-linux-arm64-sudo",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-arm64-sudo",
                     "${prodRepo}teamcity-agent:${version}-linux-arm64-sudo"
                 ),
@@ -141,24 +141,11 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-server:${version}-linux-arm64",
                     "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile",
-                    "teamcity-server:${deployTag}-linux-arm64",
+                    "teamcity-server:${dockerfileTag}-linux-arm64",
                     "${stagingRepo}teamcity-server${namePostfix}:${version}-linux-arm64",
                     "${prodRepo}teamcity-server:${version}-linux-arm64"
                 )
             )
-        }
-
-        /**
-         * Returns Linux images for all supported platforms.
-         */
-        fun getAllLinuxImages(stagingRepo: String = "%docker.buildRepository%",
-                              version: String = "%tc.image.version%",
-                              deployTag: String = "%tc.image.version%",
-                              namePostfix: String = "%docker.buildImagePostfix%",
-                              prodRepo: String = "%docker.deployRepository%"): Set<ImageInfo> {
-            val armImages = this.getArmLinuxImages2004(stagingRepo, version, deployTag, namePostfix, prodRepo)
-            val amdImages = this.getAmdLinuxImages2004(stagingRepo, version, deployTag, namePostfix, prodRepo)
-            return armImages + amdImages
         }
 
         /**
@@ -167,11 +154,11 @@ class ImageInfoRepository {
         fun getWindowsImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "%tc.image.version%",
+            dockerfiileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
-            return getWindowsImages("2004", stagingRepo, version, deployTag, namePostfix, prodRepo)
+            return getWindowsImages("2004", stagingRepo, version, dockerfiileTag, namePostfix, prodRepo)
         }
 
         /**
@@ -180,11 +167,11 @@ class ImageInfoRepository {
         fun getWindowsImages1809(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            deployTag: String = "%tc.image.version%",
+            dockerfileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
-            return getWindowsImages("1809", stagingRepo, version, deployTag, namePostfix, prodRepo)
+            return getWindowsImages("1809", stagingRepo, version, dockerfileTag, namePostfix, prodRepo)
         }
 
         /**
@@ -196,7 +183,7 @@ class ImageInfoRepository {
         private fun getWindowsImages(winVersion: String,
                                      stagingRepo: String,
                                      version: String,
-                                     deployTag: String,
+                                     dockerfileTag: String,
                                      namePostfix: String,
                                      prodRepo: String): Set<ImageInfo> {
             if (!(winVersion == "1809" || winVersion == "2004")) {
@@ -208,7 +195,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-server:${version}-nanoserver-${winVersion}",
                     "context/generated/windows/Server/nanoserver/${winVersion}/Dockerfile",
-                    "teamcity-server:${deployTag}-nanoserver-${winVersion}",
+                    "teamcity-server:${dockerfileTag}-nanoserver-${winVersion}",
                     "${stagingRepo}teamcity-server${namePostfix}:${version}-nanoserver-${winVersion}",
                     "${prodRepo}teamcity-server:${version}-nanoserver-${winVersion}\""
                 ),
@@ -217,7 +204,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-minimal-agent:${version}-nanoserver-${winVersion}",
                     "context/generated/windows/MinimalAgent/nanoserver/${winVersion}/Dockerfile",
-                    "teamcity-minimal-agent:${deployTag}-nanoserver-${winVersion}",
+                    "teamcity-minimal-agent:${dockerfileTag}-nanoserver-${winVersion}",
                     "${stagingRepo}teamcity-minimal-agent${namePostfix}:${version}-nanoserver-${winVersion}",
                     "${prodRepo}teamcity-minimal-agent:${version}-nanoserver-${winVersion}"
                 ),
@@ -227,7 +214,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-windowsservercore-${winVersion}",
                     "context/generated/windows/Agent/windowsservercore/${winVersion}/Dockerfile",
-                    "teamcity-agent:${deployTag}-windowsservercore-${winVersion}",
+                    "teamcity-agent:${dockerfileTag}-windowsservercore-${winVersion}",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-windowsservercore-${winVersion}",
                     "${prodRepo}teamcity-agent:${version}-windowsservercore-${winVersion}"
                 ),
@@ -236,7 +223,7 @@ class ImageInfoRepository {
                 ImageInfo(
                     "teamcity-agent:${version}-nanoserver-${winVersion}",
                     "context/generated/windows/Agent/nanoserver/${winVersion}/Dockerfile",
-                    "teamcity-agent:${deployTag}-nanoserver-${winVersion}",
+                    "teamcity-agent:${dockerfileTag}-nanoserver-${winVersion}",
                     "${stagingRepo}teamcity-agent${namePostfix}:${version}-nanoserver-${winVersion}",
                     "${prodRepo}teamcity-agent${namePostfix}:${version}-nanoserver-${winVersion}"
                 )
