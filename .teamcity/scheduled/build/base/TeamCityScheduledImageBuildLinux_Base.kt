@@ -9,6 +9,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import utils.config.DeliveryConfig
+import utils.config.Registries
+import utils.dsl.general.teamCityImageBuildFeatures
 import java.lang.IllegalArgumentException
 
 /**
@@ -22,8 +24,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         id("TeamCityScheduledImageBuildLinux_Base${platform}")
 
         val images: Set<ImageInfo> = when {
-            platform.lowercase().contains("arm") || platform.lowercase()
-                .contains("aarch") -> ImageInfoRepository.getArmLinuxImages2004(
+            platform.lowercase().contains("arm") || platform.lowercase().contains("aarch") -> ImageInfoRepository.getArmLinuxImages2004(
                 "%docker.nightlyRepository%",
                 "%dockerImage.teamcity.buildNumber%"
             )
@@ -79,12 +80,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         }
 
         features {
-            dockerSupport {
-                cleanupPushedImages = true
-                loginToRegistry = on {
-                    dockerRegistryId = "PROJECT_EXT_315"
-                }
-            }
+            teamCityImageBuildFeatures(requiredSpaceGb = 8, registries = listOf(Registries.SPACE))
         }
 
         requirements {
