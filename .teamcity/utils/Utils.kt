@@ -41,12 +41,13 @@ class Utils {
         fun getSampleComposeFile(repo: String, version: String, namePostfix: String = "", platform: String = "amd"): String {
             val isArmArch = (platform.lowercase().contains("arm") || platform.lowercase().contains("arch"))
             val dockerPlatformId = if (isArmArch) "linux/arm64" else "linux/amd64"
+            val platformPostfix = if (isArmArch) "-arm64" else ""
             return """
                 version: "3.3"
                 services:
                   linux-server:
 
-                    image: ${repo}teamcity-server${namePostfix}:${version}-linux
+                    image: ${repo}teamcity-server${namePostfix}:${version}-linux${platformPostfix}
                     platform: $dockerPlatformId
                     
                     privileged: true
@@ -71,7 +72,7 @@ class Utils {
 
 
                   linux-agent:
-                    image: ${repo}teamcity-agent${namePostfix}:${version}-linux
+                    image: ${repo}teamcity-agent${namePostfix}:${version}-linux${platformPostfix}
                     platform: $dockerPlatformId
                    
                     depends_on:
@@ -97,7 +98,7 @@ class Utils {
                       retries: 16
 
                   linux-minimal-agent:
-                    image: ${repo}teamcity-minimal-agent:${version}-linux
+                    image: ${repo}teamcity-minimal-agent:${version}-linux${platformPostfix}
                     platform: $dockerPlatformId
 
                     privileged: true

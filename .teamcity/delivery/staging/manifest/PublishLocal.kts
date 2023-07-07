@@ -1,12 +1,12 @@
 package delivery.staging.manifest
 
-import utils.ImageInfoRepository
-import utils.dsl.general.teamCityImageBuildFeatures
-import utils.dsl.general.teamCityStagingImagesSnapshot
-import utils.dsl.steps.publishManifest
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildTypeSettings
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import utils.dsl.general.teamCityImageBuildFeatures
+import utils.dsl.general.teamCityStagingImagesSnapshot
+import utils.dsl.steps.publishLinuxManifests
+import utils.dsl.steps.publishWindowsManifests
 
 object publish_local : BuildType({
     name = "[All] [Staging] Release Manifests as 'version' into Staging Registry"
@@ -23,32 +23,14 @@ object publish_local : BuildType({
                 """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
         }
 
-        // typically, either 'latest' or release version
-        val manifestName = "%tc.image.version%"
+        publishLinuxManifests(name = "%tc.image.version%",
+            repo = "%docker.buildRepository%",
+            postfix = "%docker.buildImagePostfix%")
 
-        // 1. Publish Server Manifests
-        val serverTags = ImageInfoRepository.getAllServerTags(manifestName)
-        publishManifest("%docker.buildRepository%teamcity-server%docker.buildImagePostfix%", serverTags, manifestName)
 
-        // 2. Publish Agent Manifests
-        val agentTags = ImageInfoRepository.getAllAgentTags(manifestName)
-        publishManifest("%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%", agentTags, manifestName)
-
-        // 3. Publish Minimal Agent Manifests
-        val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(manifestName)
-        publishManifest(
-            "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%",
-            minAgentTags,
-            manifestName
-        )
-
-        // 4. Publish Windows Server Core Agents Manifests
-        val agentTagsWinServerCore = ImageInfoRepository.getWindowsCoreAgentTags(manifestName)
-        publishManifest(
-            "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%",
-            agentTagsWinServerCore,
-            "${manifestName}-windowsservercore"
-        )
+        publishWindowsManifests(name = "%tc.image.version%",
+            repo = "%docker.buildRepository%",
+            postfix = "%docker.buildImagePostfix%")
     }
 
     dependencies {
