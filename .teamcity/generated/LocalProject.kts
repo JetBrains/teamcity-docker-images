@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object LocalProject : Project({
 	 name = "Staging registry"
@@ -32,7 +33,7 @@ object LocalProject : Project({
 	 buildType(PushLocalWindows1903.push_local_windows_1903)
 	 buildType(PushLocalWindows1909.push_local_windows_1909)
 	 buildType(PushLocalWindows2004.push_local_windows_2004)
-	 buildType(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64)
 	 buildType(PublishLocal.publish_local)
 	 buildType(ImageValidation.image_validation)
+	 buildType(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64)
 })
