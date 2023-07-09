@@ -22,6 +22,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import hosted.BuildAndPushHosted
 
 object publish_hub_latest: BuildType({
 	 name = "Publish as latest"
@@ -38,7 +39,7 @@ object publish_hub_latest: BuildType({
 		 name = "manifest create teamcity-server:latest"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2023.05-linux %docker.deployRepository%teamcity-server:2023.05-nanoserver-1809 %docker.deployRepository%teamcity-server:2023.05-nanoserver-2004"
+			 commandArgs = "create %docker.deployRepository%teamcity-server:latest %docker.deployRepository%teamcity-server:2023.05.1-linux %docker.deployRepository%teamcity-server:2023.05.1-nanoserver-1809 %docker.deployRepository%teamcity-server:2023.05.1-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
@@ -59,7 +60,7 @@ object publish_hub_latest: BuildType({
 		 name = "manifest create teamcity-agent:latest"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2023.05-linux %docker.deployRepository%teamcity-agent:2023.05-nanoserver-1809 %docker.deployRepository%teamcity-agent:2023.05-nanoserver-2004"
+			 commandArgs = "create %docker.deployRepository%teamcity-agent:latest %docker.deployRepository%teamcity-agent:2023.05.1-linux %docker.deployRepository%teamcity-agent:2023.05.1-nanoserver-1809 %docker.deployRepository%teamcity-agent:2023.05.1-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
@@ -80,7 +81,7 @@ object publish_hub_latest: BuildType({
 		 name = "manifest create teamcity-minimal-agent:latest"
 		 commandType = other {
 			 subCommand = "manifest"
-			 commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2023.05-linux %docker.deployRepository%teamcity-minimal-agent:2023.05-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2023.05-nanoserver-2004"
+			 commandArgs = "create %docker.deployRepository%teamcity-minimal-agent:latest %docker.deployRepository%teamcity-minimal-agent:2023.05.1-linux %docker.deployRepository%teamcity-minimal-agent:2023.05.1-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 		 }
 	}
 	dockerCommand {
