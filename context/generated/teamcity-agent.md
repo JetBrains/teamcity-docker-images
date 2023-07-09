@@ -10,42 +10,42 @@ Other tags
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
 - [latest](#latest)
-- [2023.05](#202305)
+- [2023.05.1](#2023051)
 - [latest-windowsservercore](#latest-windowsservercore)
-- [2023.05-windowsservercore](#202305-windowsservercore)
+- [2023.05.1-windowsservercore](#2023051-windowsservercore)
 
 #### linux
 
 - 20.04-sudo
-  - [2023.05-linux-arm64-sudo](#202305-linux-arm64-sudo)
-  - [2023.05-linux-sudo](#202305-linux-sudo)
+  - [2023.05.1-linux-arm64-sudo](#2023051-linux-arm64-sudo)
+  - [2023.05.1-linux-sudo](#2023051-linux-sudo)
 - 20.04
-  - [2023.05-linux](#202305-linux)
-  - [2023.05-linux-arm64](#202305-linux-arm64)
+  - [2023.05.1-linux](#2023051-linux)
+  - [2023.05.1-linux-arm64](#2023051-linux-arm64)
 - 18.04-sudo
-  - [2023.05-linux-18.04-sudo](#202305-linux-1804-sudo)
-  - [2023.05-linux-arm64-18.04-sudo](#202305-linux-arm64-1804-sudo)
+  - [2023.05.1-linux-18.04-sudo](#2023051-linux-1804-sudo)
+  - [2023.05.1-linux-arm64-18.04-sudo](#2023051-linux-arm64-1804-sudo)
 - 18.04
-  - [2023.05-linux-18.04](#202305-linux-1804)
-  - [2023.05-linux-arm64-18.04](#202305-linux-arm64-1804)
+  - [2023.05.1-linux-18.04](#2023051-linux-1804)
+  - [2023.05.1-linux-arm64-18.04](#2023051-linux-arm64-1804)
 
 #### windows
 
 - 2004
-  - [2023.05-nanoserver-2004](#202305-nanoserver-2004)
-  - [2023.05-windowsservercore-2004](#202305-windowsservercore-2004)
+  - [2023.05.1-nanoserver-2004](#2023051-nanoserver-2004)
+  - [2023.05.1-windowsservercore-2004](#2023051-windowsservercore-2004)
 - 1909
-  - [2023.05-nanoserver-1909](#202305-nanoserver-1909)
-  - [2023.05-windowsservercore-1909](#202305-windowsservercore-1909)
+  - [2023.05.1-nanoserver-1909](#2023051-nanoserver-1909)
+  - [2023.05.1-windowsservercore-1909](#2023051-windowsservercore-1909)
 - 1903
-  - [2023.05-nanoserver-1903](#202305-nanoserver-1903)
-  - [2023.05-windowsservercore-1903](#202305-windowsservercore-1903)
+  - [2023.05.1-nanoserver-1903](#2023051-nanoserver-1903)
+  - [2023.05.1-windowsservercore-1903](#2023051-windowsservercore-1903)
 - 1809
-  - [2023.05-nanoserver-1809](#202305-nanoserver-1809)
-  - [2023.05-windowsservercore-1809](#202305-windowsservercore-1809)
+  - [2023.05.1-nanoserver-1809](#2023051-nanoserver-1809)
+  - [2023.05.1-windowsservercore-1809](#2023051-windowsservercore-1809)
 - 1803
-  - [2023.05-nanoserver-1803](#202305-nanoserver-1803)
-  - [2023.05-windowsservercore-1803](#202305-windowsservercore-1803)
+  - [2023.05.1-nanoserver-1803](#2023051-nanoserver-1803)
+  - [2023.05.1-windowsservercore-1803](#2023051-windowsservercore-1803)
 
 
 ### latest
@@ -54,21 +54,21 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 
 #### Content
 
-- [2023.05-linux](#202305-linux)
-- [2023.05-linux-arm64](#202305-linux-arm64)
-- [2023.05-nanoserver-1809](#202305-nanoserver-1809)
-- [2023.05-nanoserver-2004](#202305-nanoserver-2004)
+- [2023.05.1-linux](#2023051-linux)
+- [2023.05.1-linux-arm64](#2023051-linux-arm64)
+- [2023.05.1-nanoserver-1809](#2023051-nanoserver-1809)
+- [2023.05.1-nanoserver-2004](#2023051-nanoserver-2004)
 
-### 2023.05
+### 2023.05.1
 
 Supported platforms: linux 20.04, windows 1809, windows 2004
 
 #### Content
 
-- [2023.05-linux](#202305-linux)
-- [2023.05-linux-arm64](#202305-linux-arm64)
-- [2023.05-nanoserver-1809](#202305-nanoserver-1809)
-- [2023.05-nanoserver-2004](#202305-nanoserver-2004)
+- [2023.05.1-linux](#2023051-linux)
+- [2023.05.1-linux-arm64](#2023051-linux-arm64)
+- [2023.05.1-nanoserver-1809](#2023051-nanoserver-1809)
+- [2023.05.1-nanoserver-2004](#2023051-nanoserver-2004)
 
 ### latest-windowsservercore
 
@@ -76,20 +76,20 @@ Supported platforms: windows 1809, windows 2004
 
 #### Content
 
-- [2023.05-windowsservercore-1809](#202305-windowsservercore-1809)
-- [2023.05-windowsservercore-2004](#202305-windowsservercore-2004)
+- [2023.05.1-windowsservercore-1809](#2023051-windowsservercore-1809)
+- [2023.05.1-windowsservercore-2004](#2023051-windowsservercore-2004)
 
-### 2023.05-windowsservercore
+### 2023.05.1-windowsservercore
 
 Supported platforms: windows 1809, windows 2004
 
 #### Content
 
-- [2023.05-windowsservercore-1809](#202305-windowsservercore-1809)
-- [2023.05-windowsservercore-2004](#202305-windowsservercore-2004)
+- [2023.05.1-windowsservercore-1809](#2023051-windowsservercore-1809)
+- [2023.05.1-windowsservercore-2004](#2023051-windowsservercore-2004)
 
 
-### 2023.05-linux
+### 2023.05.1-linux
 
 [Dockerfile](linux/Agent/Ubuntu/20.04/Dockerfile)
 
@@ -120,15 +120,15 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2023.05-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2023.05.1-linux "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2023.05-linux-arm64
+### 2023.05.1-linux-arm64
 
 [Dockerfile](linux/Agent/UbuntuARM/20.04/Dockerfile)
 
@@ -158,15 +158,15 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2023.05-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2023.05-linux-arm64-sudo
+### 2023.05.1-linux-arm64-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/20.04-sudo/Dockerfile)
 
@@ -186,16 +186,16 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2023.05-linux-arm64 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:2023.05-linux-arm64-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2023.05-linux-sudo
+### 2023.05.1-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/20.04-sudo/Dockerfile)
 
@@ -215,16 +215,16 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2023.05-linux "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:2023.05-linux-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2023.05.1-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:2023.05.1-linux-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2023.05-nanoserver-1809
+### 2023.05.1-nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
@@ -252,14 +252,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1809 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:2023.05-nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:2023.05.1-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2023.05-nanoserver-2004
+### 2023.05.1-nanoserver-2004
 
 [Dockerfile](windows/Agent/nanoserver/2004/Dockerfile)
 
@@ -287,14 +287,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-2004 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-2004 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/2004/Dockerfile" -t teamcity-agent:2023.05-nanoserver-2004 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-2004 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-2004 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/2004/Dockerfile" -t teamcity-agent:2023.05.1-nanoserver-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2023.05-windowsservercore-1809
+### 2023.05.1-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
@@ -325,13 +325,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2023.05-windowsservercore-2004
+### 2023.05.1-windowsservercore-2004
 
 [Dockerfile](windows/Agent/windowsservercore/2004/Dockerfile)
 
@@ -362,13 +362,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-2004 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-2004 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-2004 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2023.05-linux-18.04
+### 2023.05.1-linux-18.04
 
 [Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
 
@@ -396,15 +396,15 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2023.05-linux-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2023.05-linux-18.04-sudo
+### 2023.05.1-linux-18.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -421,16 +421,16 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2023.05-linux-18.04 "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:2023.05-linux-18.04-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:2023.05.1-linux-18.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2023.05-linux-arm64-18.04
+### 2023.05.1-linux-arm64-18.04
 
 [Dockerfile](linux/Agent/UbuntuARM/18.04/Dockerfile)
 
@@ -457,15 +457,15 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-arm64-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2023.05-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2023.05-linux-arm64-18.04-sudo
+### 2023.05.1-linux-arm64-18.04-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
 
@@ -482,16 +482,16 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2023.05.1-linux-arm64-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2023.05-linux-arm64-18.04 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile" -t teamcity-agent:2023.05-linux-arm64-18.04-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile" -t teamcity-agent:2023.05.1-linux-arm64-18.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2023.05-nanoserver-1803
+### 2023.05.1-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
 
@@ -513,14 +513,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1803 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:2023.05-nanoserver-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1803 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:2023.05.1-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **36 GB**._
 
-### 2023.05-nanoserver-1903
+### 2023.05.1-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
@@ -545,14 +545,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1903 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:2023.05-nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:2023.05.1-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2023.05-nanoserver-1909
+### 2023.05.1-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
 
@@ -577,14 +577,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1909 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:2023.05-nanoserver-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1909 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:2023.05.1-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2023.05-windowsservercore-1803
+### 2023.05.1-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
 
@@ -611,13 +611,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **34 GB**._
 
-### 2023.05-windowsservercore-1903
+### 2023.05.1-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
@@ -645,13 +645,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2023.05-windowsservercore-1909
+### 2023.05.1-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
 
@@ -665,7 +665,7 @@ Installed components:
 - [.NET Runtime v.5.0.12 x86 Checksum (SHA512) 636f22bfbfd98c80c96f2fc3815beb42ee2699cf2a410eeba24ddcc9304bc39594260eca4061b012d4b02b9c4592fa6927343077df053343a9c344a9289658e1](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.12/dotnet-runtime-5.0.12-win-x64.zip)
 - [.NET SDK v.6.0.100 x86 Checksum (SHA512) d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-win-x64.zip)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) feb7eab99c647a0b4347be9f0a3276de](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip)
-- [Git x64 v.2.41.0 Checksum (SHA256) c9cffc25e2ef81f51029138678b7bfc538a56095ec0538125dc790a01e20d77a](https://github.com/git-for-windows/git/releases/download/v2.41.0.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.41.0 Checksum (SHA256) c9cffc25e2ef81f51029138678b7bfc538a56095ec0538125dc790a01e20d77a](https://github.com/git-for-windows/git/releases/download/v2.41.0.windows.1/MinGit-2.41.0-64-bit.zip)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 
 Container platform: windows
@@ -679,8 +679,8 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2023.05-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2023.05-windowsservercore-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
