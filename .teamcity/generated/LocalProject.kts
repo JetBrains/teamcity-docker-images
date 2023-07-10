@@ -4,25 +4,7 @@
 package generated
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
-import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
-import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnText
-import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnText
-import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
-import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.kotlinFile
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.gradle
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import jetbrains.buildServer.configs.kotlin.v2019_2.Trigger
-import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
-import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
-import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
-import hosted.BuildAndPushHosted
+import hosted.arm.PushStagingLinux2004_Aarch64
 
 object LocalProject : Project({
 	 name = "Staging registry"
