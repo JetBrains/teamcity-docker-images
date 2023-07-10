@@ -4,6 +4,7 @@ import generated.LocalProject
 import hosted.BuildAndPushHosted
 import hosted.scheduled.build.TeamCityDockerImagesScheduledBuild
 import hosted.scheduled.build.TeamCityScheduledImageBuildWindows
+import hosted.utils.config.DeliveryConfig
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 import jetbrains.buildServer.configs.kotlin.v2019_2.project
 import jetbrains.buildServer.configs.kotlin.v2019_2.version
@@ -23,7 +24,7 @@ object RootProject : Project({
 
     params {
         param("dockerImage.teamcity.buildNumber", "%dep.TC2023_05_BuildDistDocker.build.number%")
-        param("tc.image.version", "2023.05")
+        param("tc.image.version", DeliveryConfig.tcVersion)
 
         param("teamcity.ui.settings.readOnly", "false")
 
