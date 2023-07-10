@@ -25,12 +25,12 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
 
     val images: Set<ImageInfo> = when {
         platform.lowercase().contains("arm") || platform.lowercase()
-            .contains("aarch") -> ImageInfoRepository.getArmImages(
+            .contains("aarch") -> ImageInfoRepository.getArmLinuxImages2004(
             "%docker.nightlyRepository%",
             "%dockerImage.teamcity.buildNumber%"
         )
 
-        platform.lowercase().contains("amd") -> ImageInfoRepository.getAmdImages(
+        platform.lowercase().contains("amd") -> ImageInfoRepository.getAmdLinuxImages2004(
             "%docker.nightlyRepository%",
             "%dockerImage.teamcity.buildNumber%"
         )
