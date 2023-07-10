@@ -34,7 +34,6 @@ object push_local_windows_2004 : BuildType({
 
  	 steps {
 		dockerCommand {
-			 enabled = false
 			 name = "pull mcr.microsoft.com/powershell:nanoserver-2004"
 			 commandType = other {
 				 subCommand = "pull"
@@ -43,7 +42,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
 
 			name = "pull mcr.microsoft.com/windows/nanoserver:2004"
 			 commandType = other {
@@ -62,7 +60,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
-			enabled = false
 
 			name = "context teamcity-server:2023.05.1-nanoserver-2004"
 			 scriptContent = """
@@ -73,7 +70,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
 
 			name = "build teamcity-server:2023.05.1-nanoserver-2004"
 			 commandType = build {
@@ -90,7 +86,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
-			enabled = false
 
 			name = "context teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 scriptContent = """
@@ -145,7 +140,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		script {
-			enabled = false
 
 			name = "context teamcity-agent:2023.05.1-nanoserver-2004"
 			 scriptContent = """
@@ -157,8 +151,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "build teamcity-agent:2023.05.1-nanoserver-2004"
 			 commandType = build {
 				 source = file {
@@ -174,8 +166,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "tag teamcity-server:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -184,8 +174,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "tag teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -203,8 +191,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "tag teamcity-agent:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
@@ -213,8 +199,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "push teamcity-server:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -225,8 +209,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "push teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
@@ -248,8 +230,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "push teamcity-agent:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
