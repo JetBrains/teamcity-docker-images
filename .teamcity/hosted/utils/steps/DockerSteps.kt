@@ -65,3 +65,33 @@ fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
     buildImage(imageInfo)
     publishImage(imageInfo)
 }
+
+/**
+ * Moves given image from staging into production repository.
+ */
+fun BuildSteps.moveToProduction(image: ImageInfo) {
+    this.dockerCommand {
+        name = "Pull image [${image.name}] for further re-tagging"
+        commandType = other {
+            subCommand = "pull"
+            commandArgs = image.stagingFqdn
+        }
+    }
+
+    this.dockerCommand {
+        name = "Re-tag image [${image.name}] for publishing into [${image.productionFqdn}]"
+        commandType = other {
+            subCommand = "tag"
+            commandArgs = "${image.stagingFqdn} ${image.productionFqdn}"
+        }
+    }
+
+    this.dockerCommand {
+        name =  "Publish [${image.productionFqdn}] after re-tag"
+        commandType = push {
+            namesAndTags = image.productionFqdn
+            // must always be disabled - no need to clear-up images from production registry
+            removeImageAfterPush = false
+        }
+    }
+}

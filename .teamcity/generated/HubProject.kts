@@ -23,6 +23,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
+import hosted.arm.push_production_linux_2004_aarch64
 
 object HubProject : Project({
 	 name = "Docker hub"
@@ -30,4 +31,5 @@ object HubProject : Project({
 	 buildType(PushHubWindows.push_hub_windows)
 	 buildType(PublishHubLatest.publish_hub_latest)
 	 buildType(PublishHubVersion.publish_hub_version)
+	 buildType(push_production_linux_2004_aarch64)
 })

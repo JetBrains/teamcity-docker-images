@@ -8,6 +8,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.v2019_2.version
 
 
 /**
@@ -36,7 +37,9 @@ object TeamCityScheduledImageBuildLinux : BuildType({
     steps {
         ImageInfoRepository
             // args: repository, version
-            .getAmdImages("%docker.nightlyRepository%", "%dockerImage.teamcity.buildNumber%")
+            .getAmdLinuxImages2004(stagingRepo = "%docker.nightlyRepository%",
+                version = "%dockerImage.teamcity.buildNumber%",
+                prodRepo =  "%docker.nightlyRepository%")
             .forEach { imageInfo -> buildAndPublishImage(imageInfo) }
 
         script {

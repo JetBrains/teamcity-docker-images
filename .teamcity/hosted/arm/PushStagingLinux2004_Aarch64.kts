@@ -33,7 +33,7 @@ object push_staging_linux_2004_aarch64 : BuildType({
             }
         }
 
-        ImageInfoRepository.getArmImages().forEach { imageInfo ->
+        ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
             buildAndPublishImage(imageInfo)
         }
     }
