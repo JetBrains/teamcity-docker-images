@@ -354,6 +354,7 @@ object push_local_linux_20_04 : BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "8gb")
 	}
 	requirements {
+		doesNotContain("teamcity.agent.name", "arm")
 	}
 })
 
