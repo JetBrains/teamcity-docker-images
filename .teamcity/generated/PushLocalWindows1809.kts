@@ -103,8 +103,6 @@ object push_local_windows_1809 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
-
 			name = "build teamcity-minimal-agent:2023.05.1-nanoserver-1809"
 			 commandType = build {
 				 source = file {

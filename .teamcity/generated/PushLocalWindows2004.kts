@@ -102,7 +102,6 @@ object push_local_windows_2004 : BuildType({
 		}
 		
 		dockerCommand {
-			enabled = false
 
 			name = "build teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 commandType = build {
