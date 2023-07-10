@@ -23,6 +23,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
+import hosted.arm.PushStagingLinux2004_Aarch64
 
 object publish_local: BuildType({
 	 name = "Publish"
@@ -223,6 +224,10 @@ object publish_local: BuildType({
 
 				 onDependencyFailure =  FailureAction.FAIL_TO_START 
  		 }
+
+			 snapshot(PushStagingLinux2004_Aarch64.push_staging_linux_2004_aarch64) {
+				 onDependencyFailure =  FailureAction.FAIL_TO_START
+			 }
 		 }
 	requirements {
 		 noLessThanVer("docker.version", "18.05.0")

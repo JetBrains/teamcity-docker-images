@@ -23,6 +23,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
+import hosted.arm.push_production_linux_2004_aarch64
 
 object publish_hub_version: BuildType({
 	 name = "Publish as version"
@@ -155,6 +156,10 @@ object publish_hub_version: BuildType({
 
 				 onDependencyFailure =  FailureAction.FAIL_TO_START 
  		 }
+
+			 snapshot(push_production_linux_2004_aarch64) {
+				 onDependencyFailure =  FailureAction.FAIL_TO_START
+			 }
 		 }
 	requirements {
 		 noLessThanVer("docker.version", "18.05.0")
