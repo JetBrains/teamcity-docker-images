@@ -47,7 +47,7 @@ fun BuildSteps.buildImage(imageInfo: ImageInfo) {
 /**
  * Publishes provided image into its registry.
  */
-fun BuildSteps.publishImage(imageInfo: ImageInfo) {
+fun BuildSteps.publishToStaging(imageInfo: ImageInfo) {
     this.dockerCommand {
         name = "Push image to registry - [${imageInfo.stagingFqdn}]"
         commandType = push {
@@ -63,7 +63,20 @@ fun BuildSteps.publishImage(imageInfo: ImageInfo) {
  */
 fun BuildSteps.buildAndPublishImage(imageInfo: ImageInfo) {
     buildImage(imageInfo)
-    publishImage(imageInfo)
+    publishToStaging(imageInfo)
+}
+
+/**
+ * Updates staging tag for given image.
+ */
+fun BuildSteps.changeStagingTag(image: ImageInfo, tag: String, newTag: String) {
+    this.dockerCommand {
+        name = "Re-tag image [${image.name}]"
+        commandType = other {
+            subCommand = "tag"
+            commandArgs = "${image.stagingFqdn} ${image.stagingFqdn.replace(tag, newTag)}"
+        }
+    }
 }
 
 /**

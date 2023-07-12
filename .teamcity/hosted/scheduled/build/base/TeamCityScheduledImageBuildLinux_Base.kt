@@ -1,15 +1,17 @@
 import common.TeamCityDockerImagesRepo
 import hosted.utils.ImageInfoRepository
 import hosted.utils.Utils
+import hosted.utils.config.DeliveryConfig
+import hosted.utils.general.Registries
 import hosted.utils.models.ImageInfo
-import hosted.utils.steps.buildAndPublishImage
 import hosted.utils.steps.buildImage
-import hosted.utils.steps.publishImage
+import hosted.utils.steps.changeStagingTag
+import hosted.utils.steps.publishToStaging
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
-import java.lang.IllegalArgumentException
+import jetbrains.buildServer.configs.kotlin.v2019_2.version
 
 /**
  * Base class for the build of Linux-based Docker images.
@@ -26,13 +28,13 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
     val images: Set<ImageInfo> = when {
         platform.lowercase().contains("arm") || platform.lowercase()
             .contains("aarch") -> ImageInfoRepository.getArmLinuxImages2004(
-            "%docker.nightlyRepository%",
-            "%dockerImage.teamcity.buildNumber%"
+            stagingRepo = "%docker.nightlyRepository%",
+            version = DeliveryConfig.tcVersion
         )
 
         platform.lowercase().contains("amd") -> ImageInfoRepository.getAmdLinuxImages2004(
-            "%docker.nightlyRepository%",
-            "%dockerImage.teamcity.buildNumber%"
+            stagingRepo = "%docker.nightlyRepository%",
+            version = DeliveryConfig.tcVersion
         )
 
         else -> throw IllegalArgumentException("Unable to find images for specified platform [${platform}]")
@@ -57,8 +59,11 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         // build each image
         images.forEach { imageInfo -> buildImage(imageInfo) }
 
+        // Update tag to distinguish image within nightly registry
+        images.forEach { imageInfo -> changeStagingTag(imageInfo, DeliveryConfig.tcVersion, "%dockerImage.teamcity.buildNumber%")  }
+
         // publish images if build of each one of them succeeded
-        images.forEach { imageInfo -> publishImage(imageInfo) }
+        images.forEach { imageInfo -> publishToStaging(imageInfo) }
 
         script {
             name = "Generate Sample docker-compose manifest for the created images"
@@ -84,7 +89,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         dockerSupport {
             cleanupPushedImages = true
             loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_315"
+                dockerRegistryId = Registries.SPACE
             }
         }
     }
