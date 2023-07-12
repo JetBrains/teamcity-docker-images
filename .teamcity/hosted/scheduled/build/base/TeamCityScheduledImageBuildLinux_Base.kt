@@ -29,12 +29,14 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         platform.lowercase().contains("arm") || platform.lowercase()
             .contains("aarch") -> ImageInfoRepository.getArmLinuxImages2004(
             stagingRepo = "%docker.nightlyRepository%",
-            version = DeliveryConfig.tcVersion
+            dockerfileTag = DeliveryConfig.tcVersion,
+            version = "%dockerImage.teamcity.buildNumber%"
         )
 
         platform.lowercase().contains("amd") -> ImageInfoRepository.getAmdLinuxImages2004(
             stagingRepo = "%docker.nightlyRepository%",
-            version = DeliveryConfig.tcVersion
+            dockerfileTag = DeliveryConfig.tcVersion,
+            version = "%dockerImage.teamcity.buildNumber%"
         )
 
         else -> throw IllegalArgumentException("Unable to find images for specified platform [${platform}]")
@@ -58,9 +60,6 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
     steps {
         // build each image
         images.forEach { imageInfo -> buildImage(imageInfo) }
-
-        // Update tag to distinguish image within nightly registry
-        images.forEach { imageInfo -> changeStagingTag(imageInfo, DeliveryConfig.tcVersion, "%dockerImage.teamcity.buildNumber%")  }
 
         // publish images if build of each one of them succeeded
         images.forEach { imageInfo -> publishToStaging(imageInfo) }
