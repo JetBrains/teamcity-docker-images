@@ -29,7 +29,7 @@ object TeamCityDockerImagesScheduledBuild : BuildType({
         schedule {
             id = "TRIGGER_TC_DOCKER_IMAGES_NIGHTLY"
             schedulingPolicy = daily {
-                hour = 2
+                hour = 4
                 minute = 15
             }
             branchFilter = "+:<default>"
