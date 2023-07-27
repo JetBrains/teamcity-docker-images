@@ -19,7 +19,7 @@ namespace TeamCity.Docker
         private const string RemoveManifestsScript = "\"\"if exist \"%%USERPROFILE%%\\.docker\\manifests\\\" rmdir \"%%USERPROFILE%%\\.docker\\manifests\\\" /s /q\"\"";
         
         // Apart from other conditions, the optional flag for ARM-based Docker Image allows to enable them for investigation / development purposes.
-        private const bool IsArmBasedImageBuildEnabled = false;
+        private const bool IsArmBasedImageBuildEnabled = true;
 
         [NotNull] private readonly string BuildRepositoryName = "%docker.buildRepository%";
         [NotNull] private readonly string BuildImagePostfix = "%docker.buildImagePostfix%";
