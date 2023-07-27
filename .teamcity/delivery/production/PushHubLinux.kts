@@ -22,7 +22,7 @@ object push_hub_linux : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures(requiredSpaceGb = 4)
+        teamCityImageBuildFeatures(requiredSpaceGb = 4, useCleanup = false)
     }
 
     requirements {

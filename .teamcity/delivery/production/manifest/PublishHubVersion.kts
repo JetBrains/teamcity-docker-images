@@ -44,6 +44,6 @@ object publish_hub_version : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures()
+        teamCityImageBuildFeatures(useCleanup = false)
     }
 })
