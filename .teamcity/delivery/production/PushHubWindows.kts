@@ -29,7 +29,7 @@ object push_hub_windows : BuildType({
 
     features {
         // Windows Images Require more disk space
-        teamCityImageBuildFeatures(requiredSpaceGb = 52)
+        teamCityImageBuildFeatures(requiredSpaceGb = 52, useCleanup = false)
     }
 
     requirements {

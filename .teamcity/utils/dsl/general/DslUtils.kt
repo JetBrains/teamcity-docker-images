@@ -100,16 +100,18 @@ fun Dependencies.teamCityProdImagesSnapshot() {
  *
  * @param requiredSpaceGb space required for the build (more for image build-up, less for metadata (tag))
  * @param registries list of supported Docker Registries
+ * @param useCleanup indicates if pushed images should be cleaned up during server clean up
  */
 fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1,
-                                             registries: List<String> = listOf(Registries.SPACE, Registries.HUB)) {
+                                             registries: List<String> = listOf(Registries.SPACE, Registries.HUB),
+                                             useCleanup: Boolean = false) {
     this.freeDiskSpace {
         requiredSpace = "${requiredSpaceGb}gb"
         failBuild = true
     }
 
     this.dockerSupport {
-        cleanupPushedImages = true
+        cleanupPushedImages = useCleanup
         loginToRegistry = on {
             dockerRegistryId = registries.joinToString(",")
         }

@@ -25,7 +25,7 @@ object push_production_linux_2004_aarch64 : BuildType({
     }
 
     features {
-        teamCityImageBuildFeatures()
+        teamCityImageBuildFeatures(useCleanup = false)
     }
 
     dependencies {
