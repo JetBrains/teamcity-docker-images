@@ -5,5 +5,5 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05.1-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05.1-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.05.2-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2023.05.2-windowsservercore-1809 "context"
