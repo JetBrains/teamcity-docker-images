@@ -27,6 +27,6 @@ import hosted.BuildAndPushHosted
 object push_local_linux_18_04 : BuildType({
 	 name = "ON PAUSE Build and push linux 18.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2023.05.2-linux-arm64-18.04,latest,2023.05.2:2023.05.2-linux-18.04,latest,2023.05.2 teamcity-minimal-agent:2023.05.2-linux-arm64-18.04,latest,2023.05.2:2023.05.2-linux-18.04,latest,2023.05.2 teamcity-agent:2023.05.2-linux-arm64-18.04,latest,2023.05.2:2023.05.2-linux-arm64-18.04-sudo:2023.05.2-linux-18.04,latest,2023.05.2:2023.05.2-linux-18.04-sudo"
+	 description  = "teamcity-server:2023.05.1-linux-arm64-18.04,latest,2023.05.1:2023.05.1-linux-18.04,latest,2023.05.1 teamcity-minimal-agent:2023.05.1-linux-arm64-18.04,latest,2023.05.1:2023.05.1-linux-18.04,latest,2023.05.1 teamcity-agent:2023.05.1-linux-arm64-18.04,latest,2023.05.1:2023.05.1-linux-arm64-18.04-sudo:2023.05.1-linux-18.04,latest,2023.05.1:2023.05.1-linux-18.04-sudo"
 })
 
