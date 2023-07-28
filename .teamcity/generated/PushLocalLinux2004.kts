@@ -27,7 +27,7 @@ import hosted.BuildAndPushHosted
 object push_local_linux_20_04 : BuildType({
 	 name = "Build and push linux 20.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2023.05.2-linux,latest,2023.05.2 teamcity-minimal-agent:2023.05.2-linux,latest,2023.05.2 teamcity-agent:2023.05.2-linux,latest,2023.05.2:2023.05.2-linux-sudo:2023.05.2-linux-arm64,latest,2023.05.2:2023.05.2-linux-arm64-sudo"
+	 description  = "teamcity-server:2023.05.1-linux,latest,2023.05.1 teamcity-minimal-agent:2023.05.1-linux,latest,2023.05.1 teamcity-agent:2023.05.1-linux,latest,2023.05.1:2023.05.1-linux-sudo:2023.05.1-linux-arm64,latest,2023.05.1:2023.05.1-linux-arm64-sudo"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
@@ -44,7 +44,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-server:2023.05.2-linux"
+			 name = "context teamcity-server:2023.05.1-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/buildAgent >> context/.dockerignore
@@ -54,7 +54,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-server:2023.05.2-linux"
+			 name = "build teamcity-server:2023.05.1-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Server/Ubuntu/20.04/Dockerfile"""
@@ -62,7 +62,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-server:2023.05.2-linux
+		teamcity-server:2023.05.1-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -70,7 +70,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-minimal-agent:2023.05.2-linux"
+			 name = "context teamcity-minimal-agent:2023.05.1-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -81,7 +81,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-minimal-agent:2023.05.2-linux"
+			 name = "build teamcity-minimal-agent:2023.05.1-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"""
