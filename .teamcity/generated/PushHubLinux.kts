@@ -25,152 +25,151 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
 
 object push_hub_linux: BuildType({
-	 name = "Push linux"
+	name = "Push linux"
 	buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 steps {
+	steps {
 		dockerCommand {
-			 
-			 name = "pull teamcity-server%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.2-linux"
-			 }
-		}
-		
-		dockerCommand {
-			
-			 name = "tag teamcity-server%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.2-linux %docker.deployRepository%teamcity-server:2023.05.2-linux"
+
+			name = "pull teamcity-server%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "pull"
+				commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-linux"
 			}
 		}
-		
+
 		dockerCommand {
-			 
-			 name = "push teamcity-server%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-server:2023.05.2-linux
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 }
-		}
-		
-		dockerCommand {
-			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux %docker.deployRepository%teamcity-agent:2023.05.2-linux"
+
+			name = "tag teamcity-server%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "tag"
+				commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-linux %docker.deployRepository%teamcity-server:2023.05.1-linux"
 			}
 		}
-		
+
 		dockerCommand {
-			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2023.05.2-linux
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux-sudo"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux-sudo"
-			 }
-		}
-		
-		dockerCommand {
-			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux-sudo"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux-sudo %docker.deployRepository%teamcity-agent:2023.05.2-linux-sudo"
+
+			name = "push teamcity-server%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = push {
+				namesAndTags = """
+        %docker.deployRepository%teamcity-server:2023.05.1-linux
+        """.trimIndent()
+				removeImageAfterPush = false
 			}
 		}
-		
+
 		dockerCommand {
-			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.2-linux-sudo"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2023.05.2-linux-sudo
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
-		}
-		
-		dockerCommand {
-			 
-			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 }
-		}
-		
-		dockerCommand {
-			
-			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = other {
-				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-linux %docker.deployRepository%teamcity-minimal-agent:2023.05.2-linux"
+
+			name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "pull"
+				commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux"
 			}
 		}
-		
+
 		dockerCommand {
-			 
-			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-linux"
-			 commandType = push {
-				 namesAndTags = """
-		%docker.deployRepository%teamcity-minimal-agent:2023.05.2-linux
-		""".trimIndent()
-				 removeImageAfterPush = false
-			 }
+
+			name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "tag"
+				commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux %docker.deployRepository%teamcity-agent:2023.05.1-linux"
+			}
 		}
-		
-	 }
-	 features {
-		 freeDiskSpace {
-		 	 requiredSpace = "4gb"
-		 	 failBuild = true
-		 }
-		 dockerSupport {
-		 	 cleanupPushedImages = false
-		 	 loginToRegistry = on {
-		 		 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
-		 	 }
-		 }
-		 swabra {
-		 	 forceCleanCheckout = true
-		 }
-	 }
-	params {
-		 param("system.teamcity.agent.ensure.free.space", "4gb")
+
+		dockerCommand {
+
+			name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = push {
+				namesAndTags = """
+        %docker.deployRepository%teamcity-agent:2023.05.1-linux
+        """.trimIndent()
+				removeImageAfterPush = false
+			}
+		}
+
+		dockerCommand {
+
+			name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo"
+			commandType = other {
+				subCommand = "pull"
+				commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo"
+			}
+		}
+
+		dockerCommand {
+
+			name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo"
+			commandType = other {
+				subCommand = "tag"
+				commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo %docker.deployRepository%teamcity-agent:2023.05.1-linux-sudo"
+			}
+		}
+
+		dockerCommand {
+
+			name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.1-linux-sudo"
+			commandType = push {
+				namesAndTags = """
+        %docker.deployRepository%teamcity-agent:2023.05.1-linux-sudo
+        """.trimIndent()
+				removeImageAfterPush = false
+			}
+		}
+
+		dockerCommand {
+
+			name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "pull"
+				commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			}
+		}
+
+		dockerCommand {
+
+			name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = other {
+				subCommand = "tag"
+				commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux %docker.deployRepository%teamcity-minimal-agent:2023.05.1-linux"
+			}
+		}
+
+		dockerCommand {
+
+			name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-linux"
+			commandType = push {
+				namesAndTags = """
+        %docker.deployRepository%teamcity-minimal-agent:2023.05.1-linux
+        """.trimIndent()
+				removeImageAfterPush = false
+			}
+		}
+
 	}
-	 requirements {
-	 	 contains("docker.server.osType", "linux")
-	 }
-		 dependencies {
-			 snapshot(PublishLocal.publish_local) {
+	features {
+		freeDiskSpace {
+			requiredSpace = "4gb"
+			failBuild = true
+		}
+		dockerSupport {
+			cleanupPushedImages = false
+			loginToRegistry = on {
+				dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
+			}
+		}
+		swabra {
+			forceCleanCheckout = true
+		}
+	}
+	params {
+		param("system.teamcity.agent.ensure.free.space", "4gb")
+	}
+	requirements {
+		contains("docker.server.osType", "linux")
+	}
+	dependencies {
+		snapshot(PublishLocal.publish_local) {
 
-				 onDependencyFailure =  FailureAction.FAIL_TO_START 
- 		 }
-		 }
+			onDependencyFailure =  FailureAction.FAIL_TO_START
+		}
+	}
 })
-
