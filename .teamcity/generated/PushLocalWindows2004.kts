@@ -172,43 +172,43 @@ object push_local_windows_2004 : BuildType({
 			 name = "tag teamcity-server:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-server:2023.05.2-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.2-nanoserver-2004"
+				 commandArgs = "teamcity-server:2023.05.1-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent:2023.05.2-nanoserver-2004"
+			 name = "tag teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-minimal-agent:2023.05.2-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-2004"
+				 commandArgs = "teamcity-minimal-agent:2023.05.1-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.2-windowsservercore-2004"
+			 name = "tag teamcity-agent:2023.05.1-windowsservercore-2004"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.2-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-windowsservercore-2004"
+				 commandArgs = "teamcity-agent:2023.05.1-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-2004"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.2-nanoserver-2004"
+			 name = "tag teamcity-agent:2023.05.1-nanoserver-2004"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.2-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-2004"
+				 commandArgs = "teamcity-agent:2023.05.1-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server:2023.05.2-nanoserver-2004"
+			 name = "push teamcity-server:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.2-nanoserver-2004
+		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-2004
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -216,10 +216,10 @@ object push_local_windows_2004 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent:2023.05.2-nanoserver-2004"
+			 name = "push teamcity-minimal-agent:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-2004
+		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -227,10 +227,10 @@ object push_local_windows_2004 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.2-windowsservercore-2004"
+			 name = "push teamcity-agent:2023.05.1-windowsservercore-2004"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-windowsservercore-2004
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-2004
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -238,10 +238,10 @@ object push_local_windows_2004 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.2-nanoserver-2004"
+			 name = "push teamcity-agent:2023.05.1-nanoserver-2004"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-2004
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-2004
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }

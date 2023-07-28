@@ -187,28 +187,28 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.2-windowsservercore-1809"
+			 name = "tag teamcity-agent:2023.05.1-windowsservercore-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.2-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-windowsservercore-1809"
+				 commandArgs = "teamcity-agent:2023.05.1-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-1809"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.2-nanoserver-1809"
+			 name = "tag teamcity-agent:2023.05.1-nanoserver-1809"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.2-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-1809"
+				 commandArgs = "teamcity-agent:2023.05.1-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server:2023.05.2-nanoserver-1809"
+			 name = "push teamcity-server:2023.05.1-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.2-nanoserver-1809
+		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.1-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -216,10 +216,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent:2023.05.2-nanoserver-1809"
+			 name = "push teamcity-minimal-agent:2023.05.1-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-1809
+		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -227,10 +227,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.2-windowsservercore-1809"
+			 name = "push teamcity-agent:2023.05.1-windowsservercore-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-windowsservercore-1809
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-windowsservercore-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -238,10 +238,10 @@ object push_local_windows_1809 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.2-nanoserver-1809"
+			 name = "push teamcity-agent:2023.05.1-nanoserver-1809"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.2-nanoserver-1809
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.1-nanoserver-1809
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
