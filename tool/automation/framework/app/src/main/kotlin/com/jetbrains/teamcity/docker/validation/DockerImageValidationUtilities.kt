@@ -46,7 +46,12 @@ class DockerImageValidationUtilities {
          * @param registryUri URI of Docker Registry where image is placed
          * @returns list of associated images that didn't pass the validation.
          */
-        fun validateImageSize(originalImageFqdn: String, registryUri: String, threshold: Float, credentials: DockerhubCredentials?): ArrayList<DockerhubImage> {
+        fun validateImageSize(
+            originalImageFqdn: String,
+            registryUri: String,
+            threshold: Float,
+            credentials: DockerhubCredentials?
+        ): ArrayList<DockerhubImage> {
             val registryAccessor = DockerRegistryAccessor(registryUri, credentials)
 
             val currentImage = DockerImage(originalImageFqdn)
@@ -56,12 +61,17 @@ class DockerImageValidationUtilities {
             val originalImageRegistryInfo = registryAccessor.getRepositoryInfo(currentImage)
             originalImageRegistryInfo.images.forEach { associatedImage ->
                 // -- report size for each image
-                TeamCityUtils.reportTeamCityStatistics("SIZE-${getImageStatisticsId(currentImage.toString())}", associatedImage.size)
+                TeamCityUtils.reportTeamCityStatistics(
+                    "SIZE-${getImageStatisticsId(currentImage.toString())}",
+                    associatedImage.size
+                )
 
                 // -- compare image
-                val dockerHubInfoOfPreviousRelease: DockerRepositoryInfo? = registryAccessor.getPreviousImages(currentImage,
-                                                                                                        associatedImage.os,
-                                                                                                        associatedImage.osVersion) ?: null
+                val dockerHubInfoOfPreviousRelease: DockerRepositoryInfo? = registryAccessor.getPreviousImages(
+                    currentImage,
+                    associatedImage.os,
+                    associatedImage.osVersion
+                )
                 if (dockerHubInfoOfPreviousRelease == null || dockerHubInfoOfPreviousRelease.images.size != 1) {
                     println("Unable to determine previous image for $originalImageFqdn-${associatedImage.os}")
                     return@forEach
@@ -69,12 +79,15 @@ class DockerImageValidationUtilities {
 
                 // -- we will always have only 1 corresponding image, due to extensive criteria
                 val previousImage = dockerHubInfoOfPreviousRelease.images.first()
-                val percentageChange = MathUtils.getPercentageIncrease(associatedImage.size.toLong(), previousImage.size.toLong())
-                val osVersion = "-${associatedImage.osVersion}" ?: ""
-                println("$originalImageFqdn-${associatedImage.os}${osVersion}-${associatedImage.architecture}: "
-                        + "\n\t - Original size: ${associatedImage.size} ($originalImageFqdn)"
-                        + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
-                        + "\n\t - Percentage change: ${MathUtils.roundOffDecimal(percentageChange)}% (max allowable - $threshold%)\n")
+                val percentageChange =
+                    MathUtils.getPercentageIncrease(associatedImage.size.toLong(), previousImage.size.toLong())
+                val osVersion = if (associatedImage.osVersion.isNullOrBlank()) "" else associatedImage.osVersion
+                println(
+                    "$originalImageFqdn-${associatedImage.os}${osVersion}-${associatedImage.architecture}: "
+                            + "\n\t - Original size: ${associatedImage.size} ($originalImageFqdn)"
+                            + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
+                            + "\n\t - Percentage change: ${MathUtils.roundOffDecimal(percentageChange)}% (max allowable - $threshold%)\n"
+                )
                 if (percentageChange > threshold) {
                     imagesFailedValidation.add(associatedImage)
                 } else {
@@ -82,40 +95,6 @@ class DockerImageValidationUtilities {
                 }
             }
             return imagesFailedValidation
-        }
-
-        /**
-         * Generates ID of previous TeamCity Docker image assuming the pattern didn't change.
-         * WARNING: the function depends on the assumption that tag pattern ...
-         * ... is "<year>.<month number>-<OS>".
-         */
-        fun getPrevDockerImageId(curImage: DockerImage): DockerImage? {
-            val curImageTagElems = curImage.tag.split(".")
-            if (curImageTagElems.size < 2) {
-                // image is highly likely doesn't correspond to pattern
-                System.err.println("Unable to auto-determine previous image tag - it doesn't correspond to pattern: $curImage")
-                return null
-            }
-
-            // handling 2 types: 2022.04-OS and 2022.04.2-OS
-            val isMinorRelease = curImageTagElems.size > 2
-
-            if (!isMinorRelease) {
-                System.err.println("Automatic determination of previous release is supported only for minor version of TeamCity.")
-                return null
-            }
-
-            val imageBuildNum = curImageTagElems[2].split("-")[0]
-
-            // -- construct old image tag based on retrieved information from the current one
-            // -- -- adding "0" since build number has at least 2 digits
-            val oldBuildNumber = Integer.parseInt(imageBuildNum) - 1
-
-            val originalImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + imageBuildNum + "-")
-            val determinedOldImageTagPart = (curImageTagElems[0] + "." + curImageTagElems[1] + "." + oldBuildNumber + "-")
-
-            // Replace current image's numeric part of tag with determined "old" value, e.g. "2022.04.2-" -> "2022.04.1-"
-            return DockerImage(curImage.repo, curImage.tag.replace(originalImageTagPart, determinedOldImageTagPart))
         }
 
         /**
