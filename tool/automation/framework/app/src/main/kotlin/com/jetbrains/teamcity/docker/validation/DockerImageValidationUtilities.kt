@@ -70,7 +70,8 @@ class DockerImageValidationUtilities {
                 // -- we will always have only 1 corresponding image, due to extensive criteria
                 val previousImage = dockerHubInfoOfPreviousRelease.images.first()
                 val percentageChange = MathUtils.getPercentageIncrease(associatedImage.size.toLong(), previousImage.size.toLong())
-                println("$originalImageFqdn-${associatedImage.os}-${associatedImage.osVersion}-${associatedImage.architecture}: "
+                val osVersion = "-${associatedImage.osVersion}" ?: ""
+                println("$originalImageFqdn-${associatedImage.os}${osVersion}-${associatedImage.architecture}: "
                         + "\n\t - Original size: ${associatedImage.size} ($originalImageFqdn)"
                         + "\n\t - Previous size: ${previousImage.size} (${dockerHubInfoOfPreviousRelease.name})"
                         + "\n\t - Percentage change: ${MathUtils.roundOffDecimal(percentageChange)}% (max allowable - $threshold%)\n")
