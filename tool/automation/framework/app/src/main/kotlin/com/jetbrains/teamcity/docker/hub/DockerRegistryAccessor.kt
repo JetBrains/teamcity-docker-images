@@ -11,11 +11,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
-import java.lang.Exception
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 import java.net.http.HttpResponse
-import java.time.Instant
 
 /**
  * Provides access to Docker registry.
@@ -93,43 +89,39 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             print("Registry information for given image was not found: $currentImage")
             return null
         }
-
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
         val previousImageRepository = registryInfo.results
             // Remove current & EAP (non-production) tags
+            .asSequence()
             .filter {
                 return@filter ((it.name != currentImage.tag)
-                        && (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
+                        // EAP & latest
+                        && (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX))
+                        && (!it.name.contains(ValidationConstants.LATEST)))
             }
-            // Remove year from tag, making it comparable
-            .filter {
-                try {
-                    return@filter it.name.contains(currentImage.tag.split("-", limit = 2)[1])
-                } catch (e: Exception) {
-                    println("Image name does not match the expected pattern, thus would be filtered out: ${it.name}")
-                    return@filter false
-                }
-            }
-            .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
-        if (previousImageRepository == null) {
-            return null
-        }
+            // Remove releases that were after the image under test
+            .filter { return@filter isPrevRelease(it.name, currentImage.tag) }
+            // lookup previous image for specific distribution, e.g. 2023.05-linux, 2023.05-windowsservercore, etc.
+            .filter { return@filter isSameDistribution(currentImage.tag, it.name) }
+            // Sort based on tag
+            .sortedWith { lhs, rhs -> imageTagComparator(lhs.name, rhs.name) }
+            .last()
 
-        // Apply filtering to the found Docker images.
 
         // -- 1. Filter by OS type
         previousImageRepository.images = previousImageRepository.images.filter { it.os == targetOs }
         if (previousImageRepository.images.isNotEmpty() && !osVersion.isNullOrEmpty()) {
-
             // --- 2. Filter by OS version (e.g. specific version of Windows, Linux)
             val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
             if (imagesFilteredByTarget.isEmpty()) {
                 // Found images that matches OS type, but doesn't match OS version, e.g. ...
                 // ... - Previous: teamcity-agent:2022.10.1--windowsservercore-2004 (Windows 10.0.17763.3650)
                 // ... - Current : teamcity-agent:2022.10.2-windowsservercore-2004 (Windows 10.0.17763.3887)
-                println("$currentImage - found previous image - ${previousImageRepository.name}, but OS version is "
-                        + "different - $osVersion and ${previousImageRepository.images.first().osVersion} \n"
-                        + "Images with mismatching OS versions, but matching tags will be compared.")
+                println(
+                    "$currentImage - found previous image - ${previousImageRepository.name}, but OS version is "
+                            + "different - $osVersion and ${previousImageRepository.images.first().osVersion} \n"
+                            + "Images with mismatching OS versions, but matching tags will be compared."
+                )
                 return previousImageRepository
             }
 
@@ -137,6 +129,51 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
         }
 
         return previousImageRepository
+    }
+
+    /**
+     * Compares image tags, e.g. (2023.05.1 > 2023.05)
+     */
+    private fun imageTagComparator(lhsImageTag: String, rhsImageTag: String): Int {
+        val lhsTagComponents = lhsImageTag.split("-")[0].split(".").map { it.toIntOrNull() }
+        val rhsTagComponents = rhsImageTag.split("-")[0].split(".").map { it.toIntOrNull() }
+
+        for (i in 0 until maxOf(lhsTagComponents.size, rhsTagComponents.size)) {
+            // e.g. 2023.05 transforms into 2023.05.0 for comparison purposes
+            val lhsTagComponent: Int = lhsTagComponents.getOrNull(i) ?: 0
+            val rhsTagComponent = rhsTagComponents.getOrNull(i) ?: 0
+            if (lhsTagComponent != rhsTagComponent) {
+                return lhsTagComponent.compareTo(rhsTagComponent)
+            }
+        }
+        return lhsTagComponents.size.compareTo(rhsTagComponents.size)
+    }
+
+    /**
+     * returns true if lhs was earlier release than rhs
+     */
+    private fun isPrevRelease(lhsTag: String, rhsTag: String): Boolean {
+        return imageTagComparator(lhsTag, rhsTag) < 0
+    }
+
+    /**
+     * Returns true if both images below to the same distribution, e.g. lhs="2023.05.1-windowsservercore", rhs= ...
+     * ...="2023.05-windowsservercore" will return true.
+     */
+    private fun isSameDistribution(lhsTag: String, rhsTag: String): Boolean {
+        val nameComponents = lhsTag.split("-")
+        if (nameComponents.size == 1) {
+            // e.g. "2023.05"
+            return true
+        }
+        return try {
+            // 2023.05-linux-amd64 => linux-amd64
+            val something = lhsTag.split("-", limit = 2)[1]
+            rhsTag.contains(something)
+        } catch (e: Exception) {
+            println("Image name does not match the expected pattern, thus would be filtered out: $rhsTag")
+            false
+        }
     }
 
     /**
@@ -173,7 +210,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             throw RuntimeException("Failed to obtain JSON Web Token - response body is empty. \n $response \n ${this.uri}")
         }
 
-        val authResponseJson= jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(webTokenJsonString)
+        val authResponseJson = jsonSerializer.decodeFromString<DockerhubPersonalAccessToken>(webTokenJsonString)
         return authResponseJson.token
     }
 }
