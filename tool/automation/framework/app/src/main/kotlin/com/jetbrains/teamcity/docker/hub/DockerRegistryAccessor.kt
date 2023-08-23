@@ -94,20 +94,18 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             return null
         }
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
-        val previousImageRepository = registryInfo.results
+        var previousImageRepositoryy = registryInfo.results
             // Remove current & EAP (non-production) tags
             .filter {
                 return@filter ((it.name != currentImage.tag)
                         // EAP & latest
                         && (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX))
-                        && (!it.name.contains(ValidationConstants.LATEST))
+                        && (!it.name.contains(ValidationConstants.LATEST)))
                         // leave only given distribution
-                        && (currentImage.tag.split("-").size == it.name.split("-").size))
+//                        && (currentImage.tag.split("-").size == it.name.split("-").size))
             }
-            .sortedWith { lhs, rhs ->
-                imageTagComparator(lhs.name, rhs.name)
-            }
-            .takeLast(2)
+            .filter { return@filter isPrevRelease(it.name, currentImage.tag) }
+//            .takeLast(2)
             // Here, we may try to lookup previous image for specific distribution, e.g. 2023.05-linux, 2023.05-windowsservercore, etc.
             .filter {
                 val nameComponents =  currentImage.tag.split("-")
@@ -122,7 +120,15 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
                     return@filter false
                 }
             }
-            .maxByOrNull { result -> Instant.parse(result.tagLastPushed) } ?: return null
+            // Sort
+            .sortedWith { lhs, rhs ->
+                imageTagComparator(lhs.name, rhs.name)
+            }
+                // take last
+//            .takeLast(1)
+//                // max by tag last pushed and the tag that is lower than current release
+
+            val previousImageRepository = previousImageRepositoryy.last()
 
         // Apply filtering to the found Docker images.
 
@@ -152,19 +158,25 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * Compares image tags, e.g. (2023.05.1 > 2023.05)
      */
     private fun imageTagComparator(lhsImageTag: String, rhsImageTag: String): Int {
-        val lhsTagComponents = lhsImageTag.split(".").map { it.toIntOrNull() }
-        val rhsTagComponents = rhsImageTag.split(".").map { it.toIntOrNull() }
+        val lhsTagComponents = lhsImageTag.split("-")[0].split(".").map { it.toIntOrNull() }
+        val rhsTagComponents = rhsImageTag.split("-")[0].split(".").map { it.toIntOrNull() }
 
         for (i in 0 until maxOf(lhsTagComponents.size, rhsTagComponents.size)) {
             // e.g. 2023.05 transforms into 2023.05.0 for comparison purposes
-            val lhsTagComponent = lhsTagComponents[i] ?: 0
-            val rhsTagComponent = rhsTagComponents[i] ?: 0
+            val lhsTagComponent: Int = lhsTagComponents.getOrNull(i) ?: 0
+            val rhsTagComponent = rhsTagComponents.getOrNull(i)?: 0
             if (lhsTagComponent != rhsTagComponent) {
                 return lhsTagComponent.compareTo(rhsTagComponent)
             }
         }
-
         return lhsTagComponents.size.compareTo(rhsTagComponents.size)
+    }
+
+    /**
+     * returns true if lhs was earlier release than rhs
+     */
+    private fun isPrevRelease(lhsTag: String, rhsTag: String): Boolean {
+        return imageTagComparator(lhsTag, rhsTag) < 0
     }
 
     /**
