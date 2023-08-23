@@ -93,16 +93,28 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             print("Registry information for given image was not found: $currentImage")
             return null
         }
-
         // get the TAG of previous image. It might have multiple corresponding images (same tag, but different target OS)
         val previousImageRepository = registryInfo.results
             // Remove current & EAP (non-production) tags
             .filter {
                 return@filter ((it.name != currentImage.tag)
-                        && (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX)))
+                        // EAP & latest
+                        && (!it.name.contains(ValidationConstants.PRE_PRODUCTION_IMAGE_PREFIX))
+                        && (!it.name.contains(ValidationConstants.LATEST))
+                        // leave only given distribution
+                        && (currentImage.tag.split("-").size == it.name.split("-").size))
             }
-            // Remove year from tag, making it comparable
+            .sortedWith { lhs, rhs ->
+                imageTagComparator(lhs.name, rhs.name)
+            }
+            .takeLast(2)
+            // Here, we may try to lookup previous image for specific distribution, e.g. 2023.05-linux, 2023.05-windowsservercore, etc.
             .filter {
+                val nameComponents =  currentImage.tag.split("-")
+                if (nameComponents.size == 1) {
+                    // skip, it's 2023.05
+                    return@filter true
+                }
                 try {
                     return@filter it.name.contains(currentImage.tag.split("-", limit = 2)[1])
                 } catch (e: Exception) {
@@ -110,10 +122,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
                     return@filter false
                 }
             }
-            .maxByOrNull { result -> Instant.parse(result.tagLastPushed) }
-        if (previousImageRepository == null) {
-            return null
-        }
+            .maxByOrNull { result -> Instant.parse(result.tagLastPushed) } ?: return null
 
         // Apply filtering to the found Docker images.
 
@@ -137,6 +146,24 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
         }
 
         return previousImageRepository
+    }
+
+    /**
+     * Compares image tags, e.g. (2023.05.1 > 2023.05)
+     */
+    private fun imageTagComparator(lhsImageTag: String, rhsImageTag: String): Int {
+        val lhsTagComponents = lhsImageTag.split(".").map { it.toIntOrNull() }
+        val rhsTagComponents = rhsImageTag.split(".").map { it.toIntOrNull() }
+
+        for (i in 0 until minOf(lhsTagComponents.size, rhsTagComponents.size)) {
+            val lhsTagComponent = lhsTagComponents[i] ?: Int.MAX_VALUE
+            val rhsTagComponent = rhsTagComponents[i] ?: Int.MAX_VALUE
+            if (lhsTagComponent != rhsTagComponent) {
+                return lhsTagComponent.compareTo(rhsTagComponent)
+            }
+        }
+
+        return lhsTagComponents.size.compareTo(rhsTagComponents.size)
     }
 
     /**
