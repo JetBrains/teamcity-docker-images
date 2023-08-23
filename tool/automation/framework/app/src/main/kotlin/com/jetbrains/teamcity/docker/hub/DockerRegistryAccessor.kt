@@ -155,9 +155,10 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
         val lhsTagComponents = lhsImageTag.split(".").map { it.toIntOrNull() }
         val rhsTagComponents = rhsImageTag.split(".").map { it.toIntOrNull() }
 
-        for (i in 0 until minOf(lhsTagComponents.size, rhsTagComponents.size)) {
-            val lhsTagComponent = lhsTagComponents[i] ?: Int.MAX_VALUE
-            val rhsTagComponent = rhsTagComponents[i] ?: Int.MAX_VALUE
+        for (i in 0 until maxOf(lhsTagComponents.size, rhsTagComponents.size)) {
+            // e.g. 2023.05 transforms into 2023.05.0 for comparison purposes
+            val lhsTagComponent = lhsTagComponents[i] ?: 0
+            val rhsTagComponent = rhsTagComponents[i] ?: 0
             if (lhsTagComponent != rhsTagComponent) {
                 return lhsTagComponent.compareTo(rhsTagComponent)
             }
