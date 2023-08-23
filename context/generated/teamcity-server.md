@@ -10,29 +10,29 @@ Other tags
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
 - [latest](#latest)
-- [2023.05.3](#2023052)
+- [2023.05.3](#2023053)
 
 #### linux
 
 - 20.04
-  - [2023.05.3-linux](#2023052-linux)
-  - [2023.05.3-linux-arm64](#2023052-linux-arm64)
+  - [2023.05.3-linux](#2023053-linux)
+  - [2023.05.3-linux-arm64](#2023053-linux-arm64)
 - 18.04
-  - [2023.05.3-linux-18.04](#2023052-linux-1804)
-  - [2023.05.3-linux-arm64-18.04](#2023052-linux-arm64-1804)
+  - [2023.05.3-linux-18.04](#2023053-linux-1804)
+  - [2023.05.3-linux-arm64-18.04](#2023053-linux-arm64-1804)
 
 #### windows
 
 - 2004
-  - [2023.05.3-nanoserver-2004](#2023052-nanoserver-2004)
+  - [2023.05.3-nanoserver-2004](#2023053-nanoserver-2004)
 - 1909
-  - [2023.05.3-nanoserver-1909](#2023052-nanoserver-1909)
+  - [2023.05.3-nanoserver-1909](#2023053-nanoserver-1909)
 - 1903
-  - [2023.05.3-nanoserver-1903](#2023052-nanoserver-1903)
+  - [2023.05.3-nanoserver-1903](#2023053-nanoserver-1903)
 - 1809
-  - [2023.05.3-nanoserver-1809](#2023052-nanoserver-1809)
+  - [2023.05.3-nanoserver-1809](#2023053-nanoserver-1809)
 - 1803
-  - [2023.05.3-nanoserver-1803](#2023052-nanoserver-1803)
+  - [2023.05.3-nanoserver-1803](#2023053-nanoserver-1803)
 
 
 ### latest
@@ -41,9 +41,9 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 
 #### Content
 
-- [2023.05.3-linux](#2023052-linux)
-- [2023.05.3-nanoserver-1809](#2023052-nanoserver-1809)
-- [2023.05.3-nanoserver-2004](#2023052-nanoserver-2004)
+- [2023.05.3-linux](#2023053-linux)
+- [2023.05.3-nanoserver-1809](#2023053-nanoserver-1809)
+- [2023.05.3-nanoserver-2004](#2023053-nanoserver-2004)
 
 ### 2023.05.3
 
@@ -51,9 +51,9 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 
 #### Content
 
-- [2023.05.3-linux](#2023052-linux)
-- [2023.05.3-nanoserver-1809](#2023052-nanoserver-1809)
-- [2023.05.3-nanoserver-2004](#2023052-nanoserver-2004)
+- [2023.05.3-linux](#2023053-linux)
+- [2023.05.3-nanoserver-1809](#2023053-nanoserver-1809)
+- [2023.05.3-nanoserver-2004](#2023053-nanoserver-2004)
 
 
 ### 2023.05.3-linux
