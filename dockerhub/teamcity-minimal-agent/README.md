@@ -86,13 +86,12 @@ TeamCity is free for perpetual use with the limitation of 100 build configuratio
 
 ## Troubleshooting
 
-### Apt manager distrusts the apt Perforce repository key.
-This issue applies exclusively to Docker images that were released **prior to August 14th, 2023**
+### Apt manager distrusts the apt Perforce repository key
+
+This issue may occur for Docker images released **prior to August 14, 2023**
 ([TW-83304](https://youtrack.jetbrains.com/issue/TW-83304/Agent-Docker-images-apt-package-manager-doesnt-trust-the-key-of-the-apt-Perforce-repository)).
 
-Due to the expiration and subsequent renewal of the [Perforce Package key on August 14, 2023](https://www.perforce.com/perforce-packages),
-if modifications to `apt` packages containers based on images released before that date would be made,
-the following error would be encountered:
+The [Perforce Package key](https://www.perforce.com/perforce-packages) expired and was updated on August 14, 2023. This results in the following error that occurs if you modify the `apt` packages in images based on containers released before this date:
 ```
 $ apt-get update
 ...
@@ -100,11 +99,12 @@ Err:15 https://package.perforce.com/apt/ubuntu focal InRelease
   The following signatures were invalid: EXPKEYSIG 7123CB760FF18869 Perforce Software (Package Signing) <support+packaging@perforce.com>
 …
 ```
-To prevent this error in images, we suggest executing this command in a container or including it in a Docker image
+To avoid this issue, execute this command in a container or include it in a Docker image
 build step before altering packages:
 ```
 sudo apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey
 ```
+
 
 ## Feedback
 
