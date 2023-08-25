@@ -176,7 +176,7 @@ the following error would be encountered:
 ```
 $ apt-get update
 ...
-Err:15 http://package.perforce.com/apt/ubuntu focal InRelease                                                                                                                                                                          
+Err:15 https://package.perforce.com/apt/ubuntu focal InRelease                                                                                                                                                                          
   The following signatures were invalid: EXPKEYSIG 7123CB760FF18869 Perforce Software (Package Signing) <support+packaging@perforce.com>
 …
 ```
