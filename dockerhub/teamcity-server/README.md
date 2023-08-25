@@ -171,7 +171,7 @@ This issue applies exclusively to Docker images that were released **prior to Au
 ([TW-83304](https://youtrack.jetbrains.com/issue/TW-83304/Agent-Docker-images-apt-package-manager-doesnt-trust-the-key-of-the-apt-Perforce-repository)).
 
 Due to the expiration and subsequent renewal of the [Perforce Package key on August 14, 2023](https://www.perforce.com/perforce-packages),
-if modifications to `apt` packages in images based on containers released before that date would be made, 
+if modifications to `apt` packages in containers based on images released before that date would be made, 
 the following error would be encountered:
 ```
 $ apt-get update
