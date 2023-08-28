@@ -84,6 +84,28 @@ docker commit my-customized-agent <the registry where you what to store the imag
 The image is available under the [TeamCity license](https://www.jetbrains.com/teamcity/buy/license.html).
 TeamCity is free for perpetual use with the limitation of 100 build configurations (jobs) and 3 agents. [Licensing details](https://www.jetbrains.com/help/teamcity/licensing-policy.html).
 
+## Troubleshooting
+
+### Apt manager distrusts the apt Perforce repository key
+
+This issue may occur for Docker images released **prior to August 14, 2023**
+([TW-83304](https://youtrack.jetbrains.com/issue/TW-83304/Agent-Docker-images-apt-package-manager-doesnt-trust-the-key-of-the-apt-Perforce-repository)).
+
+The [Perforce Package key](https://www.perforce.com/perforce-packages) expired and was updated on August 14, 2023. This results in the following error that occurs if you modify the `apt` packages in images based on containers released before this date:
+```
+$ apt-get update
+...
+Err:15 https://package.perforce.com/apt/ubuntu focal InRelease                                                                                                                                                                          
+  The following signatures were invalid: EXPKEYSIG 7123CB760FF18869 Perforce Software (Package Signing) <support+packaging@perforce.com>
+…
+```
+To avoid this issue, execute this command in a container or include it in a Docker image
+build step before altering packages:
+```
+sudo apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey
+```
+
+
 ## Feedback
 
 Report issues of suggestions to the official TeamCity [issue tracker](https://youtrack.jetbrains.com/issues/TW).
