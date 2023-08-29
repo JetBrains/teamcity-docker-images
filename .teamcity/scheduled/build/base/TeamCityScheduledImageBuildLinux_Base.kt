@@ -10,6 +10,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import utils.config.DeliveryConfig
 import utils.config.Registries
+import utils.dsl.general.teamCityBuildDistDocker
 import utils.dsl.general.teamCityImageBuildFeatures
 import java.lang.IllegalArgumentException
 
@@ -74,13 +75,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
     }
 
     dependencies {
-        dependency(AbsoluteId(DeliveryConfig.buildDistDockerDepId)) {
-            artifacts {
-                artifactRules = "TeamCity.zip!/**=>context/TeamCity"
-                cleanDestination = true
-                lastSuccessful()
-            }
-        }
+        teamCityBuildDistDocker()
     }
 
     features {
