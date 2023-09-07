@@ -61,11 +61,11 @@ ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
 # Lines below mention tools coming from base image (added for doc generation purposes)
-# @AddToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
-# @AddToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-# @AddToDoc  ${gitLFSLinuxComponentName}
-# @AddToDoc  ${gitLinuxComponentName}
-# @AddToDoc  Mercurial
+# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc  ${gitLFSLinuxComponentName}
+# @AddToolToDoc  ${gitLinuxComponentName}
+# @AddToolToDoc  Mercurial
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
@@ -74,7 +74,7 @@ RUN apt-get update && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# @AddToDoc  ${p4Name}
+# @AddToolToDoc  ${p4Name}
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
@@ -83,8 +83,8 @@ RUN apt-get update && \
     (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# @AddToDoc  ${dockerLinuxComponentName}
-# @AddToDoc  ${containerdIoLinuxComponentName}
+# @AddToolToDoc  ${dockerLinuxComponentName}
+# @AddToolToDoc  ${containerdIoLinuxComponentName}
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
@@ -95,26 +95,26 @@ RUN apt-get update && \
                         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
-# @AddToDoc  [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# @AddToolToDoc  [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# @AddToDoc  [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+# @AddToolToDoc  [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
     curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# @AddToDoc  [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc  [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
     curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# @AddToDoc  [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# @AddToolToDoc  [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \

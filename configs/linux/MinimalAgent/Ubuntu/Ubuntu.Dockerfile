@@ -20,7 +20,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \
-# @AddToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
     apt-get install -y python3-venv && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -29,7 +29,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m buildagent
 
-# @AddToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
 ARG jdkLinuxComponent
 ARG jdkLinuxComponentMD5SUM
 

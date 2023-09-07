@@ -34,7 +34,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
-# @AddToDoc  ${powerShellComponentName}
+# @AddToolToDoc  ${powerShellComponentName}
 COPY --from=dotnet ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
@@ -53,11 +53,11 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-# @AddToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
-# @AddToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-# @AddToDoc  [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc  [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 

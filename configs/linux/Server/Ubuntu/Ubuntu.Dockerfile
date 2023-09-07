@@ -30,7 +30,7 @@ RUN apt-get update && \
 
 # JDK preparation start
 
-# @AddToDoc  [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
+# @AddToolToDoc  [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
 ARG jdkServerLinuxComponent
 ARG jdkServerLinuxComponentMD5SUM
 
@@ -61,13 +61,13 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# @AddToDoc  ${gitLinuxComponentName}
+# @AddToolToDoc  ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
 
-# @AddToDoc  ${gitLFSLinuxComponentName}
+# @AddToolToDoc  ${gitLFSLinuxComponentName}
 ARG gitLFSLinuxComponentVersion
 
-# @AddToDoc  ${p4Name}
+# @AddToolToDoc  ${p4Name}
 ARG p4Version
 
 RUN apt-get update && \

@@ -25,8 +25,8 @@ namespace TeamCity.Docker
         private const string RequiresPrefix = "# Requires ";
         
         // Indicates if tool must be reflected within installation, e.g. ...
-        // ... "@@AddToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})"
-        private const string ComponentsPrefix = "# @AddToDoc ";
+        // ... "@@AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})"
+        private const string ComponentsPrefix = "# @AddToolToDoc ";
 
         private readonly IContentParser _contentParser;
         private readonly IPathService _pathService;
