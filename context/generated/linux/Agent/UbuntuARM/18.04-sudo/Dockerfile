@@ -6,8 +6,6 @@ ARG teamcityAgentImage='teamcity-agent:EAP-linux-arm64-18.04'
 
 
 
-# Inherited from base image (teamcity-agent-sudo)
-
 
 
 FROM ${teamcityAgentImage}

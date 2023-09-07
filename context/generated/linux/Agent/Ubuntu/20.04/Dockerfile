@@ -31,7 +31,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 
 
 
-# Inherited from base image (minimal agent)
 
 
 

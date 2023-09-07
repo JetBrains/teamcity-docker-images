@@ -6,7 +6,6 @@ ARG teamcityAgentImage='teamcity-agent:EAP-linux'
 
 
 
-# -- Inherited from base image (teamcity-agent)
 
 FROM ${teamcityAgentImage}
 
