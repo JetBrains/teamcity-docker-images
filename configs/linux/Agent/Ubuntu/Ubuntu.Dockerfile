@@ -22,22 +22,21 @@
 
 ## ${agentCommentHeader}
 
-# Inherited from base image (minimal agent)
-# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
-# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
-# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
-# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-# @AddToolToDoc  ${gitLFSLinuxComponentName}
-# @AddToolToDoc  ${gitLinuxComponentName}
-# @AddToolToDoc  Mercurial
-# @AddToolToDoc  ${dockerLinuxComponentName}
-# @AddToolToDoc  [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
-# @AddToolToDoc  ${containerdIoLinuxComponentName}
-# @AddToolToDoc  [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
-# @AddToolToDoc  [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
-# @AddToolToDoc  [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
-# @AddToolToDoc  ${p4Name}
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc Mercurial
+# @AddToolToDoc ${dockerLinuxComponentName}
+# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# @AddToolToDoc ${containerdIoLinuxComponentName}
+# @AddToolToDoc [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+# @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# @AddToolToDoc [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc ${p4Name}
 
 
 # Based on ${teamcityMinimalAgentImage}

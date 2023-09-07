@@ -15,10 +15,10 @@
 
 ## ${serverCommentHeader}
 
-# @AddToolToDoc  [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
-# @AddToolToDoc  ${gitLinuxComponentName}
-# @AddToolToDoc  ${gitLFSLinuxComponentName}
-# @AddToolToDoc  ${p4Name}
+# @AddToolToDoc [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc ${p4Name}
 
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}

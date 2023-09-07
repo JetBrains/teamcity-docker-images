@@ -18,9 +18,9 @@
 
 ## ${serverCommentHeader}
 
-# @AddToolToDoc  [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
-# @AddToolToDoc  ${powerShellComponentName}
-# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
 
 # Based on ${powershellImage} 3
 # PowerShell

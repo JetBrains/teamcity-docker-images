@@ -14,8 +14,8 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
-# @AddToolToDoc  ${powerShellComponentName}
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
 
 # Based on ${powershellImage} 3
 # PowerShell

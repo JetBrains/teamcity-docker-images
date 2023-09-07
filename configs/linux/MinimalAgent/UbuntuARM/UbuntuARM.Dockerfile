@@ -13,8 +13,8 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  [${jdkLinuxARM64ComponentName}](${jdkLinuxARM64Component})
-# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc [${jdkLinuxARM64ComponentName}](${jdkLinuxARM64Component})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}

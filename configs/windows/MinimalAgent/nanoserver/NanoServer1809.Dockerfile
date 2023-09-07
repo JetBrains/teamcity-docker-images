@@ -15,8 +15,8 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
-# @AddToolToDoc  ${powerShellComponentName}
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
 
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS base

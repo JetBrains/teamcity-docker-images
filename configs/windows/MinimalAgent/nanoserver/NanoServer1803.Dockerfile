@@ -13,8 +13,8 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  ${powerShellComponentName}
-# @AddToolToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
 
 # Based on ${powershellImage} 3
 # PoweShell

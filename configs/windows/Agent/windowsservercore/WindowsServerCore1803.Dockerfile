@@ -24,13 +24,13 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
-# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
-# @AddToolToDoc  ${powerShellComponentName}
-# @AddToolToDoc  [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
-# @AddToolToDoc  [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
-# @AddToolToDoc  [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
-# @AddToolToDoc  [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
+# @AddToolToDoc [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage} AS buildagent

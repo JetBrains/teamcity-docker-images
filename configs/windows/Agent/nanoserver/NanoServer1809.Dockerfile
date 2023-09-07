@@ -13,10 +13,10 @@
 
 ## ${agentCommentHeader}
 
-# @AddToolToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
-# @AddToolToDoc  ${powerShellComponentName}
-# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
-# @AddToolToDoc  [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS dotnet

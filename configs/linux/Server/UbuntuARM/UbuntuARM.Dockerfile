@@ -15,9 +15,9 @@
 
 ## ${serverCommentHeader}
 
-# @AddToolToDoc  [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
-# @AddToolToDoc  ${gitLinuxComponentName}
-# @AddToolToDoc  ${gitLFSLinuxComponentName}
+# @AddToolToDoc [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc ${gitLFSLinuxComponentName}
 
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}

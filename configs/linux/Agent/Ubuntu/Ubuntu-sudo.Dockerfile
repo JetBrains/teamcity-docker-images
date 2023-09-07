@@ -10,19 +10,18 @@
 ## ${agentCommentHeader}
 ## This image allows to do *__sudo__* without a password for the *__buildagent__* user. ## To enable Docker, please add the following arguments: ```--privileged -e DOCKER_IN_DOCKER=start```.
 
-# -- Inherited from base image (teamcity-agent)
-# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
-# @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-# @AddToolToDoc  ${gitLFSLinuxComponentName}
-# @AddToolToDoc  ${gitLinuxComponentName}
-# @AddToolToDoc  Mercurial
-# @AddToolToDoc  ${dockerLinuxComponentName}
-# @AddToolToDoc  [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
-# @AddToolToDoc  ${containerdIoLinuxComponentName}
-# @AddToolToDoc  [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
-# @AddToolToDoc  [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
-# @AddToolToDoc  [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
-# @AddToolToDoc  ${p4Name}
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc Mercurial
+# @AddToolToDoc ${dockerLinuxComponentName}
+# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# @AddToolToDoc ${containerdIoLinuxComponentName}
+# @AddToolToDoc [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+# @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# @AddToolToDoc [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc ${p4Name}
 
 # Based on ${teamcityAgentImage}
 FROM ${teamcityAgentImage}
