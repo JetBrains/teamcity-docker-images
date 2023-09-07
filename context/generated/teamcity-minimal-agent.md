@@ -57,8 +57,8 @@ The docker image is available on:
 
 Installed components:
 
-- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
 
@@ -143,8 +143,8 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
 

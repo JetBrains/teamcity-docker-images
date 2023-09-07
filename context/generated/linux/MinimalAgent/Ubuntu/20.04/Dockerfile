@@ -12,10 +12,14 @@ ARG ubuntuImage='ubuntu:20.04'
 
 FROM ${ubuntuImage}
 
+# Lines below are required for auto-generation of documentation
+
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \
+# Python
     apt-get install -y python3-venv && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -24,6 +28,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m buildagent
 
+# JDK
 ARG jdkLinuxComponent
 ARG jdkLinuxComponentMD5SUM
 
