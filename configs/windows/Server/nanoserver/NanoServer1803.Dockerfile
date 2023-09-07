@@ -17,12 +17,12 @@
 ## ${serverCommentHeader}
 
 # Based on ${powershellImage} 3
-# Install ${powerShellComponentName}
+# @AddToDoc  ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Install [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# @AddToDoc  [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
 ARG jdkServerWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
@@ -32,7 +32,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Remove-Item -Force jdk.zip ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force
 
-# Install [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \

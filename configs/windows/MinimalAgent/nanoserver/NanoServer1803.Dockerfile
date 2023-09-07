@@ -14,7 +14,7 @@
 ## ${agentCommentHeader}
 
 # Based on ${powershellImage} 3
-# Install ${powerShellComponentName}
+# @AddToDoc  ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -23,7 +23,7 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToDoc  [${jdkWindowsComponentName}](${jdkWindowsComponent})
 ARG jdkWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \

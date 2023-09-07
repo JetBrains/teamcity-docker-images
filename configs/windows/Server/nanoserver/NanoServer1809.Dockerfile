@@ -19,17 +19,17 @@
 ## ${serverCommentHeader}
 
 # Based on ${powershellImage} 3
-# Install ${powerShellComponentName}
+# @AddToDoc  ${powerShellComponentName}
 FROM ${powershellImage} AS base
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Install [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# @AddToDoc  [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
 ARG jdkServerWindowsComponent
 ARG jdkServerWindowsComponentMD5SUM
 
-# Install [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 

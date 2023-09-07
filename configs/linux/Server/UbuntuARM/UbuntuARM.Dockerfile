@@ -30,7 +30,7 @@ RUN apt-get update && \
 
 # JDK preparation start
 
-# Install [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
+# @AddToDoc  [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
 
@@ -61,10 +61,10 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# Install ${gitLinuxComponentName}
+# @AddToDoc  ${gitLinuxComponentName}
 ARG gitLinuxComponentVersion
 
-# Install ${gitLFSLinuxComponentName}
+# @AddToDoc  ${gitLFSLinuxComponentName}
 ARG gitLFSLinuxComponentVersion
 
 RUN apt-get update && \

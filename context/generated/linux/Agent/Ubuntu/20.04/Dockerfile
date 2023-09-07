@@ -68,6 +68,8 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
+# Lines below mention tools coming from base image (added for doc generation purposes)
+
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
     add-apt-repository ppa:git-core/ppa -y && \
