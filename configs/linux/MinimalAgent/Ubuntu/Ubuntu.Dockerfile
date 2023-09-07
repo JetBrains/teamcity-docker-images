@@ -13,6 +13,9 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
 
@@ -20,7 +23,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \
-# Install [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# Python
     apt-get install -y python3-venv && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -29,7 +32,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m buildagent
 
-# Install [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# JDK
 ARG jdkLinuxComponent
 ARG jdkLinuxComponentMD5SUM
 

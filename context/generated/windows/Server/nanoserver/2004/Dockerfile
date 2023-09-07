@@ -18,14 +18,18 @@ ARG windowsBuild='2004'
 
 
 
+
+# PowerShell
 FROM ${powershellImage} AS base
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+# JDK
 ARG jdkServerWindowsComponent
 ARG jdkServerWindowsComponentMD5SUM
 
+# Git
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 

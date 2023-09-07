@@ -14,10 +14,13 @@ ARG windowsBuild='1803'
 
 
 
+
+# PowerShell
 FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+# JDK
 ARG jdkServerWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
@@ -27,6 +30,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Remove-Item -Force jdk.zip ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force
 
+# Git
 ARG gitWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \

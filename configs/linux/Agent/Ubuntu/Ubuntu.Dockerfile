@@ -22,6 +22,23 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+
+# @AddToolToDoc [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc Mercurial
+# @AddToolToDoc ${dockerLinuxComponentName}
+# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# @AddToolToDoc ${containerdIoLinuxComponentName}
+# @AddToolToDoc [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+# @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# @AddToolToDoc [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc ${p4Name}
+
+
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage}
 
@@ -61,16 +78,13 @@ ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
 RUN apt-get update && \
-# Install ${gitLinuxComponentName}
-# Install ${gitLFSLinuxComponentName}
-# Install Mercurial
     apt-get install -y mercurial apt-transport-https software-properties-common && \
     add-apt-repository ppa:git-core/ppa -y && \
     apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# Install ${p4Name}
+# Perforce (p4 CLI)
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
@@ -79,7 +93,7 @@ RUN apt-get update && \
     (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# Install ${dockerLinuxComponentName}, ${containerdIoLinuxComponentName}
+    # Docker & ContainerD
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
@@ -90,26 +104,26 @@ RUN apt-get update && \
                         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
-# Install [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# Docker Compose
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# Install [${dotnetLinuxComponentName_31}](${dotnetLinuxComponent_31})
+# .NET Framework 3.1
     curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# Install [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# .NET 5.0
     curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# Install [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
+# .NET 6.0
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \

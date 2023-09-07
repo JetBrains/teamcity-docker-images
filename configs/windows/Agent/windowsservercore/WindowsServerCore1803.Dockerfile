@@ -24,6 +24,14 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
+# @AddToolToDoc [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage} AS buildagent
 
@@ -33,7 +41,7 @@ FROM ${windowsservercoreImage}
 
 COPY scripts/*.cs /scripts/
 
-# Install ${powerShellComponentName}
+# PowerShell
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetWindowsComponent
@@ -53,22 +61,22 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_31 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_31, 'dotnet_31.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# Install [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
+# .NET 3.1
     Expand-Archive dotnet_31.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet_31.zip; \
-# Install [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
+# .NET 5.0
     Expand-Archive dotnet_50.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet_50.zip; \
-# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# JDK
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
     Remove-Item -Force jdk.zip ; \
-# Install [${gitWindowsComponentName}](${gitWindowsComponent})
+# Git
     $gitPath = $Env:ProgramFiles + '\Git'; \
     Expand-Archive git.zip -DestinationPath $gitPath ; \
     Remove-Item -Force git.zip ; \
@@ -77,7 +85,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $configContent = Get-Content $gitConfigFile; \
     $configContent = $configContent.Replace('path = C:/Program Files/Git/etc/gitconfig', ''); \
     Set-Content $gitConfigFile $configContent; \
-# Install [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
+# Mercirual
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 

@@ -15,6 +15,11 @@
 
 ## ${serverCommentHeader}
 
+# @AddToolToDoc [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc ${p4Name}
+
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
 
@@ -29,8 +34,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # JDK preparation start
-
-# Install [${jdkServerLinuxComponentName}](${jdkServerLinuxComponent})
 ARG jdkServerLinuxComponent
 ARG jdkServerLinuxComponentMD5SUM
 
@@ -61,13 +64,13 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# Install ${gitLinuxComponentName}
+# Git
 ARG gitLinuxComponentVersion
 
-# Install ${gitLFSLinuxComponentName}
+# Git LFS
 ARG gitLFSLinuxComponentVersion
 
-# Install ${p4Name}
+# Perforce
 ARG p4Version
 
 RUN apt-get update && \

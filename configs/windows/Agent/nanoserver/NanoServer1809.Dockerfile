@@ -13,6 +13,11 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS dotnet
 
@@ -34,7 +39,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
-# Install ${powerShellComponentName}
+# PowerShell
 COPY --from=dotnet ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
@@ -53,11 +58,11 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# JDK
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
-# Install [${gitWindowsComponentName}](${gitWindowsComponent})
+# Git
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
-# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# .NET
 COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 

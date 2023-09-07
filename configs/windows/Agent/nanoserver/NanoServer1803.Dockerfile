@@ -14,15 +14,18 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+
 # Based on ${powershellImage} 3
-# Install ${powerShellComponentName}
+# PowerShell
 FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetWindowsComponent
 
-# Install [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# .NET
 RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetWindowsComponent; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \

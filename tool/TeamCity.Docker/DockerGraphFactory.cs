@@ -20,10 +20,13 @@ namespace TeamCity.Docker
         private const string TagPrefix = "# Tag ";
         private const string PlatformPrefix = "# Platform ";
         private const string BasedOnPrefix = "# Based on ";
-        private const string ComponentsPrefix = "# Install ";
         private const string RepoPrefix = "# Repo ";
         private const string WeightPrefix = "# Weight ";
         private const string RequiresPrefix = "# Requires ";
+        
+        // Indicates if tool must be reflected within installation, e.g. ...
+        // ... "@@AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})"
+        private const string ComponentsPrefix = "# @AddToolToDoc ";
 
         private readonly IContentParser _contentParser;
         private readonly IPathService _pathService;

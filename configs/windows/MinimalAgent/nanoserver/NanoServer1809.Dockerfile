@@ -15,6 +15,9 @@
 
 ## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS base
 
@@ -25,7 +28,7 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
-# Install [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# JDK
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 
@@ -51,7 +54,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
-# Install ${powerShellComponentName}
+# PowerShell
 COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used

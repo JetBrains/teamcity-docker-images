@@ -6,6 +6,7 @@ ARG teamcityAgentImage='teamcity-agent:EAP-linux-18.04'
 
 
 
+
 FROM ${teamcityAgentImage}
 
 USER root

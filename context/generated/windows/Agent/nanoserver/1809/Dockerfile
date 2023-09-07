@@ -10,6 +10,7 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1809'
 
 
 
+
 FROM ${powershellImage} AS dotnet
 
 COPY scripts/*.cs /scripts/
@@ -28,6 +29,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
+# PowerShell
 COPY --from=dotnet ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
@@ -46,8 +48,11 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
+# JDK
 COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+# Git
 COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
+# .NET
 COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
 COPY --from=tools /BuildAgent /BuildAgent
 

@@ -42,6 +42,13 @@ generate -s configs -f "configs/common.config;configs/local.config;configs/windo
 | `verbose` | `-v`       | false    | Specified necessity for verbose (detailed) output.                                                                                                   |
 | `regex`   | `-r`       | false    | Regular expression for filtering an internal build graph. Used for development purposes mostly.                                                      |
 
+## 1.2 Generation of documentation (README files)
+Markdown files are automatically generated using [ReadmeFilesGenerator.cs](TeamCity.Docker/ReadmeFilesGenerator.cs). It uses 
+information from Dockerfiles to construct a resulting document.
+
+Please, note that the tools are included via `@AddToolToDoc` annotation. Dockerfiles contain tools installed in context of 
+current image (e.g. `teamcity-agent`), as well as files installed from base image (e.g. `teamcity-minimal-agent`).
+
 # 2. Automation utilities
 [Automation utilities](automation/framework) contains utilities that simplify release process. Please, follow the link for the detailed documentation.
 

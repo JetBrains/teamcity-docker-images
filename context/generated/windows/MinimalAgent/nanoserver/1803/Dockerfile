@@ -10,6 +10,8 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 
 
 
+
+# PoweShell
 FROM ${powershellImage} AS base
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -18,6 +20,7 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
+# JDK
 ARG jdkWindowsComponent
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \

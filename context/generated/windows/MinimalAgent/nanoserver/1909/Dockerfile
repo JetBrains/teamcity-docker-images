@@ -12,6 +12,7 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1909'
 
 
 
+
 FROM ${powershellImage} AS base
 
 COPY scripts/*.cs /scripts/
@@ -21,6 +22,7 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
+# JDK
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 
@@ -45,6 +47,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
+# PowerShell
 COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used

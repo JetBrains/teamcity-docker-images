@@ -30,6 +30,9 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 
 
 
+
+
+
 FROM ${teamcityMinimalAgentImage}
 
 USER root
@@ -73,6 +76,7 @@ RUN apt-get update && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
+# Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
@@ -83,22 +87,26 @@ RUN apt-get update && \
     systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
+# Docker-Compose
     curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
-# Dotnet
+# .NET Libraries
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
+# .NET Framework 3.1
     curl -SL ${dotnetLinuxARM64Component_31} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxARM64ComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# .NET 5.0
     curl -SL ${dotnetLinuxARM64Component_50} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxARM64ComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# .NET
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \

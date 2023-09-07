@@ -11,12 +11,15 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1803'
 
 
 
+
+# PowerShell
 FROM ${powershellImage} AS dotnet
 
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG dotnetWindowsComponent
 
+# .NET
 RUN Invoke-WebRequest -OutFile dotnet.zip $Env:dotnetWindowsComponent; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \

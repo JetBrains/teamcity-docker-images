@@ -10,6 +10,19 @@
 ## ${agentCommentHeader}
 ## This image allows to do *__sudo__* without a password for the *__buildagent__* user. ## To enable Docker, please add the following arguments: ```--privileged -e DOCKER_IN_DOCKER=start```.
 
+# @AddToolToDoc [${jdkLinuxARM64ComponentName}](${jdkLinuxARM64Component})
+# @AddToolToDoc [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+# @AddToolToDoc ${gitLinuxComponentName}
+# @AddToolToDoc ${gitLFSLinuxComponentName}
+# @AddToolToDoc Mercurial
+# @AddToolToDoc ${dockerLinuxComponentName}
+# @AddToolToDoc ${containerdIoLinuxComponentName}
+# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
+# @AddToolToDoc [${dotnetLinuxARM64ComponentName}](${dotnetLinuxARM64Component})
+# @AddToolToDoc [${dotnetLinuxARM64ComponentName_31}](${dotnetLinuxARM64Component_31})
+# @AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})
+
+
 # Based on ${teamcityAgentImage}
 FROM ${teamcityAgentImage}
 
