@@ -17,7 +17,6 @@
 FROM ${ubuntuImage}
 
 # Lines below are required for auto-generation of documentation
-
 # @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
 # @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 

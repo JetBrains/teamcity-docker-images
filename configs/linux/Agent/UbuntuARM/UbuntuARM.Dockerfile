@@ -22,10 +22,8 @@
 
 ## ${agentCommentHeader}
 
-# Lines below are required for auto-generation of documentation
-
 # Inherited from base image (minimal agent)
-# @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
+# @AddToolToDoc  [${jdkLinuxARM64ComponentName}](${jdkLinuxARM64Component})
 # @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 # @AddToolToDoc  ${gitLinuxComponentName}
