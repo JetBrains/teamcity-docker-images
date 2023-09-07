@@ -22,7 +22,6 @@
 
 ## ${agentCommentHeader}
 
-
 # Inherited from base image (minimal agent)
 # @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
 # @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)

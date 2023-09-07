@@ -15,6 +15,10 @@
 
 ## ${serverCommentHeader}
 
+# @AddToolToDoc  [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
+# @AddToolToDoc  ${gitLinuxComponentName}
+# @AddToolToDoc  ${gitLFSLinuxComponentName}
+
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
 
@@ -29,8 +33,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # JDK preparation start
-
-# @AddToolToDoc  [${jdkServerLinuxARM64ComponentName}](${jdkServerLinuxARM64Component})
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
 
@@ -61,10 +63,10 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# @AddToolToDoc  ${gitLinuxComponentName}
+# Git
 ARG gitLinuxComponentVersion
 
-# @AddToolToDoc  ${gitLFSLinuxComponentName}
+# Git LFS
 ARG gitLFSLinuxComponentVersion
 
 RUN apt-get update && \

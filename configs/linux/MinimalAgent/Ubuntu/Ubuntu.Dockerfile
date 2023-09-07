@@ -13,12 +13,11 @@
 
 ## ${agentCommentHeader}
 
-# Based on ${ubuntuImage} 0
-FROM ${ubuntuImage}
-
-# Lines below are required for auto-generation of documentation
 # @AddToolToDoc  [${jdkLinuxComponentName}](${jdkLinuxComponent})
 # @AddToolToDoc  [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+
+# Based on ${ubuntuImage} 0
+FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 

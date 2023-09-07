@@ -18,18 +18,22 @@
 
 ## ${serverCommentHeader}
 
-# Based on ${powershellImage} 3
+# @AddToolToDoc  [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
 # @AddToolToDoc  ${powerShellComponentName}
+# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
+
+# Based on ${powershellImage} 3
+# PowerShell
 FROM ${powershellImage} AS base
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# @AddToolToDoc  [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# JDK
 ARG jdkServerWindowsComponent
 ARG jdkServerWindowsComponentMD5SUM
 
-# @AddToolToDoc  [${gitWindowsComponentName}](${gitWindowsComponent})
+# Git
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
 

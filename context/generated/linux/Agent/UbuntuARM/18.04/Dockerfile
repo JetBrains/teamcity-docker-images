@@ -30,8 +30,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 
 
 
-# Lines below are required for auto-generation of documentation
-
 # Inherited from base image (minimal agent)
 
 

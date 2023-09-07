@@ -10,10 +10,8 @@ ARG ubuntuImage='ubuntu:18.04'
 
 
 
+
 FROM ${ubuntuImage}
-
-# Lines below are required for auto-generation of documentation
-
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 

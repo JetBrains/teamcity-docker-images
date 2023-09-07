@@ -15,6 +15,7 @@ ARG ubuntuImage='ubuntu:18.04'
 
 
 
+
 FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -28,7 +29,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # JDK preparation start
-
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
 
@@ -59,8 +59,10 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
+# Git
 ARG gitLinuxComponentVersion
 
+# Git LFS
 ARG gitLFSLinuxComponentVersion
 
 RUN apt-get update && \
