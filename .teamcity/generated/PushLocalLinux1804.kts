@@ -24,8 +24,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 object push_local_linux_18_04 : BuildType({
-	 name = "ON PAUSE Build and push linux 18.04"
-	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2022.10.4-linux-arm64-18.04,2022.10.4:2022.10.4-linux-18.04,2022.10.4 teamcity-minimal-agent:2022.10.4-linux-arm64-18.04,,2022.10.4:2022.10.4-linux-18.04,2022.10.4 teamcity-agent:2022.10.4-linux-arm64-18.04,,2022.10.4:2022.10.4-linux-arm64-18.04-sudo:2022.10.4-linux-18.04,,2022.10.4:2022.10.4-linux-18.04-sudo"
+	name = "ON PAUSE Build and push linux 18.04"
+	buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
+	description  = "teamcity-server:2022.10.5-linux-arm64-18.04,2022.10.5:2022.10.5-linux-18.04, ,2022.10.5 teamcity-minimal-agent:2022.10.5-linux-arm64-18.04, ,2022.10.5:2022.10.5-linux-18.04,2022.10.5 teamcity-agent:2022.10.5-linux-arm64-18.04, ,2022.10.5:2022.10.5-linux-arm64-18.04-sudo:2022.10.5-linux-18.04,2022.10.5:2022.10.5-linux-18.04-sudo"
 })
 
