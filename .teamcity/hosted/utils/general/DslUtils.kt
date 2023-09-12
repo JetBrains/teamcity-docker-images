@@ -106,7 +106,7 @@ fun BuildFeatures.teamCityImageBuildFeatures(requiredSpaceGb: Int = 1,
     }
 
     this.dockerSupport {
-        cleanupPushedImages = true
+        cleanupPushedImages = false
         loginToRegistry = on {
             dockerRegistryId = registries.joinToString(",")
         }

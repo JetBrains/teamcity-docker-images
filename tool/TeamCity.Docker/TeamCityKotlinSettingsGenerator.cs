@@ -476,7 +476,7 @@ namespace TeamCity.Docker
             yield return String.Join('\n',
                 "\n\t features {",
                 "\t\t   dockerSupport {",
-                "\t\t\t     cleanupPushedImages = true",
+                "\t\t\t     cleanupPushedImages = false",
                 "\t\t\t     loginToRegistry = on {",
                 // Registries: DockerHub, JetBrains Space
                 "\t\t\t       dockerRegistryId = \"PROJECT_EXT_774,PROJECT_EXT_315\"",
@@ -882,7 +882,7 @@ namespace TeamCity.Docker
             }
 
             yield return "dockerSupport {";
-            yield return "\t cleanupPushedImages = true";
+            yield return "\t cleanupPushedImages = false";
             yield return "\t loginToRegistry = on {";
             yield return $"\t\t dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
             yield return "\t }";

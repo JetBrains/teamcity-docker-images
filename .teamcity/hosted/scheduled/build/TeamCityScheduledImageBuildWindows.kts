@@ -108,7 +108,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
 
     features {
         dockerSupport {
-            cleanupPushedImages = true
+            cleanupPushedImages = false
             loginToRegistry = on {
                 dockerRegistryId = "PROJECT_EXT_774"
             }

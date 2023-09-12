@@ -86,7 +86,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
 
     features {
         dockerSupport {
-            cleanupPushedImages = true
+            cleanupPushedImages = false
             loginToRegistry = on {
                 dockerRegistryId = Registries.SPACE
             }

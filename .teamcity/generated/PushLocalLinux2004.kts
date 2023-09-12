@@ -27,7 +27,7 @@ import hosted.BuildAndPushHosted
 object push_local_linux_20_04 : BuildType({
 	 name = "Build and push linux 20.04"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2023.05.3-linux,latest,2023.05.3 teamcity-minimal-agent:2023.05.3-linux,latest,2023.05.3 teamcity-agent:2023.05.3-linux,latest,2023.05.3:2023.05.3-linux-sudo:2023.05.3-linux-arm64,latest,2023.05.3:2023.05.3-linux-arm64-sudo"
+	 description  = "teamcity-server:2023.05.4-linux,latest,2023.05.4 teamcity-minimal-agent:2023.05.4-linux,latest,2023.05.4 teamcity-agent:2023.05.4-linux,latest,2023.05.4:2023.05.4-linux-sudo:2023.05.4-linux-arm64,latest,2023.05.4:2023.05.4-linux-arm64-sudo"
 	 vcs {
 		 root(TeamCityDockerImagesRepo)
 	 }
@@ -44,7 +44,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-server:2023.05.3-linux"
+			 name = "context teamcity-server:2023.05.4-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/buildAgent >> context/.dockerignore
@@ -54,7 +54,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-server:2023.05.3-linux"
+			 name = "build teamcity-server:2023.05.4-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Server/Ubuntu/20.04/Dockerfile"""
@@ -62,7 +62,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-server:2023.05.3-linux
+		teamcity-server:2023.05.4-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -70,7 +70,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-minimal-agent:2023.05.3-linux"
+			 name = "context teamcity-minimal-agent:2023.05.4-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity/webapps >> context/.dockerignore
@@ -81,7 +81,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-minimal-agent:2023.05.3-linux"
+			 name = "build teamcity-minimal-agent:2023.05.4-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile"""
@@ -89,7 +89,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-minimal-agent:2023.05.3-linux
+		teamcity-minimal-agent:2023.05.4-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -97,7 +97,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:2023.05.3-linux"
+			 name = "context teamcity-agent:2023.05.4-linux"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -106,7 +106,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:2023.05.3-linux"
+			 name = "build teamcity-agent:2023.05.4-linux"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/Ubuntu/20.04/Dockerfile"""
@@ -114,7 +114,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:2023.05.3-linux
+		teamcity-agent:2023.05.4-linux
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -122,7 +122,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		script {
 			
-			 name = "context teamcity-agent:2023.05.3-linux-sudo"
+			 name = "context teamcity-agent:2023.05.4-linux-sudo"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -131,7 +131,7 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 		
-			 name = "build teamcity-agent:2023.05.3-linux-sudo"
+			 name = "build teamcity-agent:2023.05.4-linux-sudo"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile"""
@@ -139,16 +139,16 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:2023.05.3-linux-sudo
+		teamcity-agent:2023.05.4-linux-sudo
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
 		}
 		
 		script {
-			// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "context teamcity-agent:2023.05.3-linux-arm64"
+			 name = "context teamcity-agent:2023.05.4-linux-arm64"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -156,9 +156,9 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-		// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "build teamcity-agent:2023.05.3-linux-arm64"
+			 name = "build teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile"""
@@ -166,16 +166,16 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:2023.05.3-linux-arm64
+		teamcity-agent:2023.05.4-linux-arm64
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
 		}
 		
 		script {
-			// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "context teamcity-agent:2023.05.3-linux-arm64-sudo"
+			 name = "context teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 scriptContent = """
 		echo 2> context/.dockerignore
 		echo TeamCity >> context/.dockerignore
@@ -183,9 +183,9 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-		// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "build teamcity-agent:2023.05.3-linux-arm64-sudo"
+			 name = "build teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = build {
 				 source = file {
 					 path = """context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile"""
@@ -193,7 +193,7 @@ object push_local_linux_20_04 : BuildType({
 			 contextDir = "context"
 			 commandArgs = "--no-cache"
 			 namesAndTags = """
-		teamcity-agent:2023.05.3-linux-arm64-sudo
+		teamcity-agent:2023.05.4-linux-arm64-sudo
 		""".trimIndent()
 		}
 		param("dockerImage.platform", "linux")
@@ -201,66 +201,66 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-server:2023.05.3-linux"
+			 name = "tag teamcity-server:2023.05.4-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-server:2023.05.3-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.3-linux"
+				 commandArgs = "teamcity-server:2023.05.4-linux %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.4-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent:2023.05.3-linux"
+			 name = "tag teamcity-minimal-agent:2023.05.4-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-minimal-agent:2023.05.3-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.3-linux"
+				 commandArgs = "teamcity-minimal-agent:2023.05.4-linux %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.3-linux"
+			 name = "tag teamcity-agent:2023.05.4-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.3-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux"
+				 commandArgs = "teamcity-agent:2023.05.4-linux %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux"
 			}
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent:2023.05.3-linux-sudo"
+			 name = "tag teamcity-agent:2023.05.4-linux-sudo"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.3-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-sudo"
+				 commandArgs = "teamcity-agent:2023.05.4-linux-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo"
 			}
 		}
 		
 		dockerCommand {
-			// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "tag teamcity-agent:2023.05.3-linux-arm64"
+			 name = "tag teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.3-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-arm64"
+				 commandArgs = "teamcity-agent:2023.05.4-linux-arm64 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-arm64"
 			}
 		}
 		
 		dockerCommand {
-			// ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "tag teamcity-agent:2023.05.3-linux-arm64-sudo"
+			 name = "tag teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "teamcity-agent:2023.05.3-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-arm64-sudo"
+				 commandArgs = "teamcity-agent:2023.05.4-linux-arm64-sudo %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-arm64-sudo"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server:2023.05.3-linux"
+			 name = "push teamcity-server:2023.05.4-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.3-linux
+		%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.4-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -268,10 +268,10 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent:2023.05.3-linux"
+			 name = "push teamcity-minimal-agent:2023.05.4-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.3-linux
+		%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -279,10 +279,10 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.3-linux"
+			 name = "push teamcity-agent:2023.05.4-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -290,34 +290,34 @@ object push_local_linux_20_04 : BuildType({
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent:2023.05.3-linux-sudo"
+			 name = "push teamcity-agent:2023.05.4-linux-sudo"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-sudo
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
 		}
 		
 		dockerCommand {
-			 // ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "push teamcity-agent:2023.05.3-linux-arm64"
+			 name = "push teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-arm64
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-arm64
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
 		}
 		
 		dockerCommand {
-			 // ARM-based images are currently not supported by TeamCity 
+			// ARM-based images are currently not supported by TeamCity
 			enabled = false
-			 name = "push teamcity-agent:2023.05.3-linux-arm64-sudo"
+			 name = "push teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.3-linux-arm64-sudo
+		%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-arm64-sudo
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -330,7 +330,7 @@ object push_local_linux_20_04 : BuildType({
 			 failBuild = true
 		}
 		dockerSupport {
-			 cleanupPushedImages = true
+			 cleanupPushedImages = false
 			 loginToRegistry = on {
 				 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 			 }
@@ -353,9 +353,7 @@ object push_local_linux_20_04 : BuildType({
 	params {
 		 param("system.teamcity.agent.ensure.free.space", "8gb")
 	}
-
 	requirements {
-		doesNotContain("teamcity.agent.name", "arm")
 	}
 })
 
