@@ -27,6 +27,6 @@ import hosted.BuildAndPushHosted
 object push_local_windows_1903 : BuildType({
 	 name = "ON PAUSE Build and push windows 1903"
 	 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-	 description  = "teamcity-server:2023.05.3-nanoserver-1903,latest,2023.05.3 teamcity-minimal-agent:2023.05.3-nanoserver-1903,latest,2023.05.3 teamcity-agent:2023.05.3-windowsservercore-1903,2023.05.3-windowsservercore,latest-windowsservercore:2023.05.3-nanoserver-1903,latest,2023.05.3"
+	 description  = "teamcity-server:2023.05.4-nanoserver-1903,latest,2023.05.4 teamcity-minimal-agent:2023.05.4-nanoserver-1903,latest,2023.05.4 teamcity-agent:2023.05.4-windowsservercore-1903,2023.05.4-windowsservercore,latest-windowsservercore:2023.05.4-nanoserver-1903,latest,2023.05.4"
 })
 
