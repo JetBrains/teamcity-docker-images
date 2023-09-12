@@ -146,7 +146,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		script {
-			
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "context teamcity-agent:2023.05.4-linux-arm64"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -155,7 +156,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-		
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "build teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = build {
 				 source = file {
@@ -171,7 +173,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		script {
-			
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "context teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 scriptContent = """
 		echo 2> context/.dockerignore
@@ -180,7 +183,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-		
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "build teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = build {
 				 source = file {
@@ -232,7 +236,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-			
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "tag teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = other {
 				 subCommand = "tag"
@@ -241,7 +246,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-			
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "tag teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "tag"
@@ -294,7 +300,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-			 
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "push teamcity-agent:2023.05.4-linux-arm64"
 			 commandType = push {
 				 namesAndTags = """
@@ -305,7 +312,8 @@ object push_local_linux_20_04 : BuildType({
 		}
 		
 		dockerCommand {
-			 
+			// ARM-based images are currently not supported by TeamCity
+			enabled = false
 			 name = "push teamcity-agent:2023.05.4-linux-arm64-sudo"
 			 commandType = push {
 				 namesAndTags = """
