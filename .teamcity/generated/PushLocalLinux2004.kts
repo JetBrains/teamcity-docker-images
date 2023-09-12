@@ -322,7 +322,7 @@ object push_local_linux_20_04 : BuildType({
 			 failBuild = true
 		}
 		dockerSupport {
-			 cleanupPushedImages = true
+			 cleanupPushedImages = false
 			 loginToRegistry = on {
 				 dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 			 }

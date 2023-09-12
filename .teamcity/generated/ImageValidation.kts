@@ -100,7 +100,7 @@ object image_validation: BuildType({
 
 	 features {
 		   dockerSupport {
-			     cleanupPushedImages = true
+			     cleanupPushedImages = false
 			     loginToRegistry = on {
 			       dockerRegistryId = "PROJECT_EXT_774,PROJECT_EXT_315"
 			     }
