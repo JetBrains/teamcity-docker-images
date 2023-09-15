@@ -59,9 +59,10 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
     fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
+        val repo = image.repo.replace("-staging", "")
         val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth(
             "${this.uri}/repositories"
-                    + "/${image.repo}/tags?page_size=$pageSize", this.token
+                    + "/${repo}/tags?page_size=$pageSize", this.token
         )
         val result = registryResponse.body() ?: ""
 
@@ -105,8 +106,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             .filter { return@filter isSameDistribution(currentImage.tag, it.name) }
             // Sort based on tag
             .sortedWith { lhs, rhs -> imageTagComparator(lhs.name, rhs.name) }
-            .last()
-
+            .lastOrNull() ?: throw RuntimeException("Previous images weren't found for $currentImage")
 
         // -- 1. Filter by OS type
         previousImageRepository.images = previousImageRepository.images.filter { it.os == targetOs }
