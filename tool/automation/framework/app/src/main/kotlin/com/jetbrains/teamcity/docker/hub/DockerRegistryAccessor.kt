@@ -18,8 +18,9 @@ import java.net.http.HttpResponse
  * @param uri - Docker Registry URI
  * @param credentials - (optional) - credentials for the access of Dockerhub REST API
  */
-class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCredentials?) {
-
+class DockerRegistryAccessor(private val uri: String,
+                             private val ignoreStaging: Boolean,
+                             credentials: DockerhubCredentials?) {
     private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
     private val token: String?
     private val jsonSerializer: Json = Json {
@@ -29,9 +30,13 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
         isLenient = true
     }
 
+
     init {
         this.token = if (credentials != null && credentials.isUsable()) this.getPersonalAccessToken(credentials) else ""
     }
+
+    constructor(uri: String, credentials: DockerhubCredentials?) : this(uri, false, credentials)
+
 
     /**
      * Returns general information about Docker Repository.
@@ -58,7 +63,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
     fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
-        val repo = image.repo.replace(ValidationConstants.STAGING_POSTFIX, "")
+        val repo = if (ignoreStaging) image.repo.replace(ValidationConstants.STAGING_POSTFIX, "") else image.repo
         val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth(
             "${this.uri}/repositories"
                     + "/${repo}/tags?page_size=$pageSize", this.token

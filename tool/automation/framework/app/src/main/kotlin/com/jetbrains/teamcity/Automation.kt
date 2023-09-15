@@ -28,13 +28,12 @@ class ValidateImage : Subcommand("validate", "Validate Docker Image with (option
         val image = validationArgs[0]
         val username = if (validationArgs.size > 1) validationArgs[1] else null
         val token = if (validationArgs.size > 2) validationArgs[2] else null
-        val ignoreStaging = if (validationArgs.size > 3) validationArgs[3] else false
-
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(
             originalImageFqdn = image,
             registryUri = "https://hub.docker.com/v2",
             threshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT,
-            credentials = getDockerhubCredentials(username, token)
+            credentials = getDockerhubCredentials(username, token),
+            ignoreStaging = true
         )
 
         if (imagesFailedValidation.isNotEmpty()) {

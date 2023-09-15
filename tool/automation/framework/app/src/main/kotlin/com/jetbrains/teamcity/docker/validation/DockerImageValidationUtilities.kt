@@ -50,9 +50,10 @@ class DockerImageValidationUtilities {
             originalImageFqdn: String,
             registryUri: String,
             threshold: Float,
-            credentials: DockerhubCredentials?
+            credentials: DockerhubCredentials?,
+            ignoreStaging: Boolean
         ): ArrayList<DockerhubImage> {
-            val registryAccessor = DockerRegistryAccessor(registryUri, credentials)
+            val registryAccessor = DockerRegistryAccessor(registryUri, ignoreStaging, credentials)
 
             val currentImage = DockerImage(originalImageFqdn)
             val imagesFailedValidation = ArrayList<DockerhubImage>()
