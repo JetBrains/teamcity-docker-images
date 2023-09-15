@@ -22,15 +22,14 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
 
     private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
     private val token: String?
-    private val jsonSerializer: Json
+    private val jsonSerializer: Json = Json {
+        // -- remove the necessity to include parsing of unused fields
+        ignoreUnknownKeys = true
+        // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
+        isLenient = true
+    }
 
     init {
-        this.jsonSerializer = Json {
-            // -- remove the necessity to include parsing of unused fields
-            ignoreUnknownKeys = true
-            // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
-            isLenient = true
-        }
         this.token = if (credentials != null && credentials.isUsable()) this.getPersonalAccessToken(credentials) else ""
     }
 
@@ -59,7 +58,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
     fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
-        val repo = image.repo.replace("-staging", "")
+        val repo = image.repo.replace(ValidationConstants.STAGING_POSTFIX, "")
         val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth(
             "${this.uri}/repositories"
                     + "/${repo}/tags?page_size=$pageSize", this.token

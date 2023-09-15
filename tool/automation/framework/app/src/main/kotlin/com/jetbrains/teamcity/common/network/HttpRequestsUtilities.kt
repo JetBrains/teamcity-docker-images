@@ -1,7 +1,5 @@
 package com.jetbrains.teamcity.common.network
 
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import java.io.IOException
 import java.net.ConnectException
 import java.net.URI
