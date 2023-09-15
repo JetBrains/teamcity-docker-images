@@ -44,6 +44,7 @@ class DockerImageValidationUtilities {
          * 4. Compare the size of each corresponding image.
          * @param originalImageFqdn fully-qualified domain name of the original image
          * @param registryUri URI of Docker Registry where image is placed
+         * @param ignoreStaging if true, staging images would be compared to production ones
          * @returns list of associated images that didn't pass the validation.
          */
         fun validateImageSize(
