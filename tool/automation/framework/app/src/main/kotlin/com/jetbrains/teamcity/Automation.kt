@@ -25,29 +25,23 @@ class ValidateImage : Subcommand("validate", "Validate Docker Image with (option
      * Execute image validation option specified via CLI.
      */
     override fun execute() {
-
-        // 1. Capture current image size
-        val originalImageName = validationArgs[0]
-
+        val image = validationArgs[0]
         val username = if (validationArgs.size > 1) validationArgs[1] else null
         val token = if (validationArgs.size > 2) validationArgs[2] else null
-        val credentials: DockerhubCredentials = getDockerhubCredentials(username, token)
-
-
-        val percentageChangeThreshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT
         val imagesFailedValidation = DockerImageValidationUtilities.validateImageSize(
-            originalImageName,
-            "https://hub.docker.com/v2",
-            percentageChangeThreshold,
-            credentials
+            originalImageFqdn = image,
+            registryUri = "https://hub.docker.com/v2",
+            threshold = ValidationConstants.ALLOWED_IMAGE_SIZE_INCREASE_THRESHOLD_PERCENT,
+            credentials = getDockerhubCredentials(username, token),
+            ignoreStaging = true
         )
 
         if (imagesFailedValidation.isNotEmpty()) {
             imagesFailedValidation.forEach {
-                println("Validation failed for ${originalImageName}, OS: ${it.os}, OS version: ${it.osVersion}, architecture: ${it.architecture}")
+                println("Validation failed for ${image}, OS: ${it.os}, OS version: ${it.osVersion}, architecture: ${it.architecture}")
             }
             // throw exception in order to handle it within upstream DSL
-            throw DockerImageValidationException("Validation had failed for $originalImageName")
+            throw DockerImageValidationException("Validation had failed for $image")
         }
     }
 }

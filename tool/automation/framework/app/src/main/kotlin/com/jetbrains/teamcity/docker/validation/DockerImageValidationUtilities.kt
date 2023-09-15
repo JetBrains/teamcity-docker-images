@@ -44,15 +44,17 @@ class DockerImageValidationUtilities {
          * 4. Compare the size of each corresponding image.
          * @param originalImageFqdn fully-qualified domain name of the original image
          * @param registryUri URI of Docker Registry where image is placed
+         * @param ignoreStaging if true, staging images would be compared to production ones
          * @returns list of associated images that didn't pass the validation.
          */
         fun validateImageSize(
             originalImageFqdn: String,
             registryUri: String,
             threshold: Float,
-            credentials: DockerhubCredentials?
+            credentials: DockerhubCredentials?,
+            ignoreStaging: Boolean
         ): ArrayList<DockerhubImage> {
-            val registryAccessor = DockerRegistryAccessor(registryUri, credentials)
+            val registryAccessor = DockerRegistryAccessor(registryUri, ignoreStaging, credentials)
 
             val currentImage = DockerImage(originalImageFqdn)
             val imagesFailedValidation = ArrayList<DockerhubImage>()

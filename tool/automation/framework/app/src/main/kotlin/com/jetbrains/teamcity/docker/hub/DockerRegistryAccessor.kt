@@ -18,21 +18,25 @@ import java.net.http.HttpResponse
  * @param uri - Docker Registry URI
  * @param credentials - (optional) - credentials for the access of Dockerhub REST API
  */
-class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCredentials?) {
-
+class DockerRegistryAccessor(private val uri: String,
+                             private val ignoreStaging: Boolean,
+                             credentials: DockerhubCredentials?) {
     private val httpRequestsUtilities: HttpRequestsUtilities = HttpRequestsUtilities()
     private val token: String?
-    private val jsonSerializer: Json
+    private val jsonSerializer: Json = Json {
+        // -- remove the necessity to include parsing of unused fields
+        ignoreUnknownKeys = true
+        // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
+        isLenient = true
+    }
+
 
     init {
-        this.jsonSerializer = Json {
-            // -- remove the necessity to include parsing of unused fields
-            ignoreUnknownKeys = true
-            // -- parse JSON fields that don't have an assigned serializer into a String, e.g.: Number
-            isLenient = true
-        }
         this.token = if (credentials != null && credentials.isUsable()) this.getPersonalAccessToken(credentials) else ""
     }
+
+    constructor(uri: String, credentials: DockerhubCredentials?) : this(uri, false, credentials)
+
 
     /**
      * Returns general information about Docker Repository.
@@ -59,9 +63,10 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
      * @param pageSize maximal amount of images to be included into Dockerhub's response
      */
     fun getInfoAboutImagesInRegistry(image: DockerImage, pageSize: Int): DockerRegistryInfoAboutImages? {
+        val repo = if (ignoreStaging) image.repo.replace(ValidationConstants.STAGING_POSTFIX, "") else image.repo
         val registryResponse: HttpResponse<String?> = httpRequestsUtilities.getJsonWithAuth(
             "${this.uri}/repositories"
-                    + "/${image.repo}/tags?page_size=$pageSize", this.token
+                    + "/${repo}/tags?page_size=$pageSize", this.token
         )
         val result = registryResponse.body() ?: ""
 
@@ -105,8 +110,7 @@ class DockerRegistryAccessor(private val uri: String, credentials: DockerhubCred
             .filter { return@filter isSameDistribution(currentImage.tag, it.name) }
             // Sort based on tag
             .sortedWith { lhs, rhs -> imageTagComparator(lhs.name, rhs.name) }
-            .last()
-
+            .lastOrNull() ?: throw RuntimeException("Previous images weren't found for $currentImage")
 
         // -- 1. Filter by OS type
         previousImageRepository.images = previousImageRepository.images.filter { it.os == targetOs }
