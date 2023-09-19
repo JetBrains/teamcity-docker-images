@@ -5,6 +5,7 @@ import utils.dsl.general.publishStagingManifests
 import utils.dsl.general.teamCityImageBuildFeatures
 import utils.dsl.steps.moveToProduction
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import utils.dsl.steps.verifyBuildNumInLinuxImage
 
 object push_hub_linux : BuildType({
     name = "[Linux] [Production] Release TeamCity Docker Images into Production Registry"
@@ -16,6 +17,10 @@ object push_hub_linux : BuildType({
     }
 
     steps {
+        ImageInfoRepository.getAmdLinuxImages2004().forEach { imageInfo ->
+            verifyBuildNumInLinuxImage(image = imageInfo)
+        }
+
         ImageInfoRepository.getAmdLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)
         }

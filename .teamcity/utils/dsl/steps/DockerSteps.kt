@@ -126,7 +126,7 @@ fun BuildSteps.publishManifest(imageName: String, tags: List<String>, manifestTa
         }
     }
 
-    dockerCommand {
+    this.dockerCommand {
         name = "Print-out manifest for [${imageName}]"
         commandType = other {
             subCommand = "manifest"
@@ -177,4 +177,46 @@ fun BuildSteps.publishWindowsManifests(name: String, repo: String, postfix: Stri
         agentTagsWinServerCore,
         "${name}-windowsservercore"
     )
+}
+
+/**
+ * Ensures build number within Docker Image matches expected one on Linux OS family.
+ */
+fun BuildSteps.verifyBuildNumInLinuxImage(image: ImageInfo, tcBuildNum: String = "%dockerImage.teamcity.buildNumber%") {
+    val buildId = "BUILD_${tcBuildNum}"
+    val filePath = "/opt/teamcity/${buildId}"
+    this.script {
+        name = "Sanity Check of Build Number inside Linux-based Docker Images"
+        scriptContent = """
+            #!/bin/bash
+            if [ ! -f "$filePath" ]; then
+                echo "The file with build ID '${buildId}' does not exist in '$filePath'."
+                exit 1
+            fi
+        """.trimIndent()
+        formatStderrAsError = true
+        dockerImage = image.stagingFqdn
+        dockerPull = true
+    }
+}
+
+/**
+ * Ensures build number within Docker Image matches expected one on Windows OS family.
+ */
+fun BuildSteps.verifyBuildNumInWindowsImage(image: ImageInfo, tcBuildNum: String = "%dockerImage.teamcity.buildNumber%") {
+    val buildId = "BUILD_${tcBuildNum}"
+    val filePath = "C:\\TeamCity\\${buildId}"
+    this.script {
+        name = "Sanity Check of Build Number inside Windows-based Docker Images"
+        scriptContent = """
+            ${'$'}path = "${filePath}"
+            if (!(Test-Path -Path ${'$'}path -PathType Leaf)) {
+                Write-Output "The file '${buildId}' does not exist in '${filePath}'."
+                exit 1
+            }
+        """.trimIndent()
+        formatStderrAsError = true
+        dockerImage = image.stagingFqdn
+        dockerPull = true
+    }
 }

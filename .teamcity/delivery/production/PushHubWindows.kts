@@ -5,6 +5,7 @@ import utils.dsl.general.publishStagingManifests
 import utils.dsl.general.teamCityImageBuildFeatures
 import utils.dsl.steps.moveToProduction
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import utils.dsl.steps.verifyBuildNumInWindowsImage
 
 object push_hub_windows : BuildType({
     name = "[Windows] [Production] Release TeamCity Docker Images into Production Registry"
@@ -16,6 +17,16 @@ object push_hub_windows : BuildType({
     }
 
     steps {
+        // Check build within Windows 1809-based Docker Images
+        ImageInfoRepository.getWindowsImages1809().forEach { imageInfo ->
+            verifyBuildNumInWindowsImage(image = imageInfo, tcBuildNum = "%dockerImage.teamcity.buildNumber%")
+        }
+
+        // Check build within Windows 2004-based Docker Images
+        ImageInfoRepository.getWindowsImages2004().forEach { imageInfo ->
+            verifyBuildNumInWindowsImage(image = imageInfo, tcBuildNum = "%dockerImage.teamcity.buildNumber%")
+        }
+
         // Move Windows 1809-based Docker Images into production registry
         ImageInfoRepository.getWindowsImages1809().forEach { imageInfo ->
             moveToProduction(imageInfo)
