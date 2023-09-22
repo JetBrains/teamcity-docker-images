@@ -20,6 +20,10 @@ object push_production_linux_2004_aarch64 : BuildType({
 
     steps {
         ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
+            verifyBuildNumInLinuxImage(image = imageInfo)
+        }
+
+        ImageInfoRepository.getArmLinuxImages2004().forEach { imageInfo ->
             moveToProduction(imageInfo)
         }
     }
