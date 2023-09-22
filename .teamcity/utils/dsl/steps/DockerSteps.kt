@@ -180,11 +180,12 @@ fun BuildSteps.publishWindowsManifests(name: String, repo: String, postfix: Stri
 }
 
 /**
- * Ensures build number within Docker Image matches expected one on Linux OS family.
+ * Ensures build number within Linux-based Docker Image matches expected the expected one (including no 'EAP' postfix).
  */
 fun BuildSteps.verifyBuildNumInLinuxImage(image: ImageInfo, tcBuildNum: String = "%dockerImage.teamcity.buildNumber%") {
     val buildId = "BUILD_${tcBuildNum}"
-    val filePath = "/opt/teamcity/${buildId}"
+    val tcInstalLDir = "/opt/teamcity"
+    val filePath = "${tcInstalLDir}/${buildId}"
     this.script {
         name = "Sanity Check of Build Number inside Linux-based Docker Images"
         scriptContent = """
@@ -193,6 +194,12 @@ fun BuildSteps.verifyBuildNumInLinuxImage(image: ImageInfo, tcBuildNum: String =
                 echo "The file with build ID '${buildId}' does not exist in '$filePath'."
                 exit 1
             fi
+            
+            # Regular expression: look for version ending with "EAP", e.g. "2023.05.4 EAP", "2023.05 EAP"
+            if grep -qrE "${getEapLookupRegex()}" ${tcInstalLDir} ; then
+                echo "'EAP' notation had been found. Please, remove it to proceed the publication to DockerHub."
+                exit 1
+            else
         """.trimIndent()
         formatStderrAsError = true
         dockerImage = image.stagingFqdn
@@ -201,17 +208,25 @@ fun BuildSteps.verifyBuildNumInLinuxImage(image: ImageInfo, tcBuildNum: String =
 }
 
 /**
- * Ensures build number within Docker Image matches expected one on Windows OS family.
+ * Ensures build number within Windows-based Docker Image matches expected the expected one (including no 'EAP' postfix).
  */
 fun BuildSteps.verifyBuildNumInWindowsImage(image: ImageInfo, tcBuildNum: String = "%dockerImage.teamcity.buildNumber%") {
     val buildId = "BUILD_${tcBuildNum}"
-    val filePath = "C:\\TeamCity\\${buildId}"
+    val tcInstallDir = "C:\\TeamCity"
+    val bldFilePath = "${tcInstallDir}\\${buildId}"
+
     this.script {
         name = "Sanity Check of Build Number inside Windows-based Docker Images"
         scriptContent = """
-            ${'$'}path = "${filePath}"
-            if (!(Test-Path -Path ${'$'}path -PathType Leaf)) {
-                Write-Output "The file '${buildId}' does not exist in '${filePath}'."
+            if (!(Test-Path -Path "${bldFilePath}" -PathType Leaf)) {
+                Write-Output "The file '${buildId}' does not exist in '${bldFilePath}'."
+                exit 1
+            }
+            
+            ${'$'}regex = "${getEapLookupRegex()}"
+            ${'$'}items = Get-ChildItem -Path "${tcInstallDir}" -Recurse | Select-String -Pattern ${'$'}regex
+            if (${'$'}items) {
+                Write-Host "'EAP' notation had been found in ${tcInstallDir}. Please, remove it to proceed the publication to DockerHub."
                 exit 1
             }
         """.trimIndent()
@@ -219,4 +234,12 @@ fun BuildSteps.verifyBuildNumInWindowsImage(image: ImageInfo, tcBuildNum: String
         dockerImage = image.stagingFqdn
         dockerPull = true
     }
+}
+
+/**
+ * Returns regualr expression for lookup of 'EAP' notation - look for version ending with "EAP", e.g. ...
+ * ... "2023.05.4 EAP", "2023.05 EAP"
+ */
+private fun getEapLookupRegex(): String {
+    return "[0-9]+[.][0-9]{2}(.1)? EAP"
 }
