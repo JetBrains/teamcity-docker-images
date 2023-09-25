@@ -20,6 +20,7 @@
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
 # @AddToolToDoc [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc [${dotnetLinuxComponentName_70}](${dotnetLinuxComponent_70})
 # @AddToolToDoc ${p4Name}
 
 # Based on ${teamcityAgentImage}

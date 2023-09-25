@@ -3,6 +3,8 @@
 # ARG dotnetLinuxComponentSHA512
 # ARG dotnetLinuxComponent_50
 # ARG dotnetLinuxComponentSHA512_50
+# ARG dotnetLinuxComponent_70
+# ARG dotnetLinuxComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -33,6 +35,7 @@
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
 # @AddToolToDoc [${dotnetLinuxComponentName_50}](${dotnetLinuxComponent_50})
+# @AddToolToDoc [${dotnetLinuxComponentName_70}](${dotnetLinuxComponent_70})
 # @AddToolToDoc ${p4Name}
 
 
@@ -119,6 +122,13 @@ RUN apt-get update && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+# .NET 7.0
+     curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
+     echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+     rm /tmp/dotnet.tar.gz && \
+     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
