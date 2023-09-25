@@ -5,8 +5,10 @@ ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
 ARG dotnetLinuxComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz'
+ARG dotnetLinuxComponent_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916'
 ARG dotnetLinuxComponentSHA512_50='f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3'
+ARG dotnetLinuxComponentSHA512_70='2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG p4Version='2022.2-2468771'
@@ -18,6 +20,8 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
 # ARG dotnetLinuxComponentSHA512
 # ARG dotnetLinuxComponent_50
 # ARG dotnetLinuxComponentSHA512_50
+# ARG dotnetLinuxComponent_70
+# ARG dotnetLinuxComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -112,6 +116,13 @@ RUN apt-get update && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+# .NET 7.0
+     curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
+     echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+     rm /tmp/dotnet.tar.gz && \
+     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \

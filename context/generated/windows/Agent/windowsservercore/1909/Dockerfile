@@ -1,8 +1,10 @@
 # Default arguments
 ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip'
 ARG dotnetWindowsComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip'
+ARG dotnetWindowsComponent_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip'
 ARG dotnetWindowsComponentSHA512='a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e'
 ARG dotnetWindowsComponentSHA512_50='424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782'
+ARG dotnetWindowsComponentSHA512_70='02a4ecc05d0b9dfa0c9e32f8a3d288f329e7338b2430fcbc1276ae356f9d8e14920f91382f3f141842bf1e6e6cd331e532b301edc71c26de9d9e5ad2371afbe0'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip'
 ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
@@ -17,6 +19,8 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 # ARG dotnetWindowsComponentSHA512
 # ARG dotnetWindowsComponent_50
 # ARG dotnetWindowsComponentSHA512_50
+# ARG dotnetWindowsComponent_70
+# ARG dotnetWindowsComponentSHA512_70
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG gitWindowsComponent
@@ -50,17 +54,17 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip', $Env:dotnetWindowsComponent_70 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_70, 'dotnet_70.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# .NET 3.1
-    Expand-Archive dotnet_31.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet_31.zip; \
 # .NET 5.0
     Expand-Archive dotnet_50.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet_50.zip; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
+# .NET 7.0
+    Expand-Archive dotnet_70.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet_70.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # JDK
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \

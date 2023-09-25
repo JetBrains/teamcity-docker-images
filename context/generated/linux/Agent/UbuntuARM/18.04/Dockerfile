@@ -5,8 +5,10 @@ ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64Component_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz'
+ARG dotnetLinuxARM64Component_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759'
 ARG dotnetLinuxARM64ComponentSHA512_50='99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610'
+ARG dotnetLinuxARM64ComponentSHA512_70='7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG repo=''
@@ -17,6 +19,8 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 # ARG dotnetLinuxARM64ComponentSHA512
 # ARG dotnetLinuxARM64Component_50
 # ARG dotnetLinuxARM64ComponentSHA512_50
+# ARG dotnetLinuxARM64Component_70
+# ARG dotnetLinuxARM64ComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -56,6 +60,8 @@ ARG dotnetLinuxARM64Component
 ARG dotnetLinuxARM64ComponentSHA512
 ARG dotnetLinuxARM64Component_50
 ARG dotnetLinuxARM64ComponentSHA512_50
+ARG dotnetLinuxARM64Component_70
+ARG dotnetLinuxARM64ComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -94,14 +100,20 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET
+# .NET 6.0
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# .NET 7.0
+ curl -SL ${dotnetLinuxARM64Component_70} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxARM64ComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
 # Other

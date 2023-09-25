@@ -91,6 +91,7 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) 4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz)
+- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -130,9 +131,9 @@ Installed components:
 - [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
-- [.NET SDK v.6.0.413 arm64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [.NET Runtime v.3.1.32 arm64 Checksum (SHA512) ff311df0db488f3b5cc03c7f6724f8442de7e60fa0a503ec8f536361ce7a357ad26d09d2499d68c50ebdfa751a5520bba4aaa77a38b191c892d5a018561ce422](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.32/dotnet-runtime-3.1.32-linux-arm64.tar.gz)
-- [.NET Runtime v.5.0.17 arm65 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
+- [.NET Runtime v.5.0.17 ARM64 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [7.0.401 ARM64 Checksum (SHA512) 7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -172,9 +173,9 @@ Installed components:
 - [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
-- [.NET SDK v.6.0.413 arm64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [.NET Runtime v.3.1.32 arm64 Checksum (SHA512) ff311df0db488f3b5cc03c7f6724f8442de7e60fa0a503ec8f536361ce7a357ad26d09d2499d68c50ebdfa751a5520bba4aaa77a38b191c892d5a018561ce422](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.32/dotnet-runtime-3.1.32-linux-arm64.tar.gz)
-- [.NET Runtime v.5.0.17 arm65 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
+- [.NET Runtime v.5.0.17 ARM64 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [7.0.401 ARM64 Checksum (SHA512) 7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -217,6 +218,7 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) 4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz)
+- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -325,6 +327,7 @@ Installed components:
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) 424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -361,6 +364,7 @@ Installed components:
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) 424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -400,6 +404,7 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) 4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz)
+- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -439,6 +444,7 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) 4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz)
+- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -476,9 +482,9 @@ Installed components:
 - [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
-- [.NET SDK v.6.0.413 arm64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [.NET Runtime v.3.1.32 arm64 Checksum (SHA512) ff311df0db488f3b5cc03c7f6724f8442de7e60fa0a503ec8f536361ce7a357ad26d09d2499d68c50ebdfa751a5520bba4aaa77a38b191c892d5a018561ce422](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.32/dotnet-runtime-3.1.32-linux-arm64.tar.gz)
-- [.NET Runtime v.5.0.17 arm65 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
+- [.NET Runtime v.5.0.17 ARM64 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [7.0.401 ARM64 Checksum (SHA512) 7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -515,9 +521,9 @@ Installed components:
 - [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
-- [.NET SDK v.6.0.413 arm64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [.NET Runtime v.3.1.32 arm64 Checksum (SHA512) ff311df0db488f3b5cc03c7f6724f8442de7e60fa0a503ec8f536361ce7a357ad26d09d2499d68c50ebdfa751a5520bba4aaa77a38b191c892d5a018561ce422](https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.32/dotnet-runtime-3.1.32-linux-arm64.tar.gz)
-- [.NET Runtime v.5.0.17 arm65 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
+- [.NET Runtime v.5.0.17 ARM64 Checksum (SHA512) 99cb11871924d3abedcc9c8079c54bc0c550203c7cbe4e349ed70d4355f40e4620b68d90b797e6461d898c06bed6953580e2cd4ad01483e5de107ca5a3409610](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-arm64.tar.gz)
+- [7.0.401 ARM64 Checksum (SHA512) 7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -645,6 +651,7 @@ Installed components:
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) 424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -677,6 +684,7 @@ Installed components:
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) 424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -710,6 +718,7 @@ Installed components:
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET Runtime v.5.0.17 x86 Checksum (SHA512) 424df2b535f73c40aea164623a8a8f549bd18f89406eb2cb84289cb4cfceb3450db7762c5582756263d79ed628a574730e708d87dc906fd2c00d29f64942c782](https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-win-x64.zip)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
