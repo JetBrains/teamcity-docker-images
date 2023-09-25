@@ -4,6 +4,8 @@
 # ARG dotnetWindowsComponentSHA512
 # ARG dotnetWindowsComponent_50
 # ARG dotnetWindowsComponentSHA512_50
+# ARG dotnetWindowsComponent_70
+# ARG dotnetWindowsComponentSHA512_70
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG gitWindowsComponent
@@ -28,6 +30,7 @@
 # @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
 # @AddToolToDoc [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
 # @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
+# @AddToolToDoc [${dotnetComponentName_70}](${dotnetWindowsComponent_70})
 
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage} AS buildagent
@@ -54,17 +57,17 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip', $Env:dotnetWindowsComponent_70 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_70, 'dotnet_70.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# .NET 3.1
-    Expand-Archive dotnet_31.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet_31.zip; \
 # .NET 5.0
     Expand-Archive dotnet_50.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet_50.zip; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
+# .NET 7.0
+    Expand-Archive dotnet_70.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
+    Remove-Item -Force dotnet_70.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # JDK
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
