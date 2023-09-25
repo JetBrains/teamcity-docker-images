@@ -2,8 +2,6 @@
 # ARG windowsservercoreImage
 # ARG dotnetWindowsComponent
 # ARG dotnetWindowsComponentSHA512
-# ARG dotnetWindowsComponent_31
-# ARG dotnetWindowsComponentSHA512_31
 # ARG dotnetWindowsComponent_50
 # ARG dotnetWindowsComponentSHA512_50
 # ARG jdkWindowsComponent
@@ -28,7 +26,6 @@
 # @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
 # @AddToolToDoc ${powerShellComponentName}
 # @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
-# @AddToolToDoc [${dotnetWindowsComponentName_31}](${dotnetWindowsComponent_31})
 # @AddToolToDoc [${dotnetWindowsComponentName_50}](${dotnetWindowsComponent_50})
 # @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 
@@ -46,8 +43,6 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 ARG dotnetWindowsComponent
 ARG dotnetWindowsComponentSHA512
-ARG dotnetWindowsComponent_31
-ARG dotnetWindowsComponentSHA512_31
 ARG dotnetWindowsComponent_50
 ARG dotnetWindowsComponentSHA512_50
 ARG jdkWindowsComponent
@@ -59,7 +54,7 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_31 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_31, 'dotnet_31.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_50 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_50, 'dotnet_50.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
 # .NET 3.1
     Expand-Archive dotnet_31.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
