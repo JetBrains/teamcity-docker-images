@@ -19,7 +19,6 @@
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName}](${dotnetLinuxARM64Component})
-# @AddToolToDoc [${dotnetLinuxARM64ComponentName_31}](${dotnetLinuxARM64Component_31})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})
 
 
