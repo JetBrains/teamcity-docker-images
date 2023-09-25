@@ -3,6 +3,8 @@
 # ARG dotnetLinuxARM64ComponentSHA512
 # ARG dotnetLinuxARM64Component_50
 # ARG dotnetLinuxARM64ComponentSHA512_50
+# ARG dotnetLinuxARM64Component_70
+# ARG dotnetLinuxARM64ComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -31,6 +33,7 @@
 # @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName}](${dotnetLinuxARM64Component})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})
+# @AddToolToDoc [${dotnetLinuxARM64ComponentName_70}](${dotnetLinuxARM64Component_70})
 
 
 # Based on ${teamcityMinimalAgentImage}
@@ -61,6 +64,8 @@ ARG dotnetLinuxARM64Component
 ARG dotnetLinuxARM64ComponentSHA512
 ARG dotnetLinuxARM64Component_50
 ARG dotnetLinuxARM64ComponentSHA512_50
+ARG dotnetLinuxARM64Component_70
+ARG dotnetLinuxARM64ComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -99,14 +104,20 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET
+# .NET 6.0
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# .NET 7.0
+ curl -SL ${dotnetLinuxARM64Component_70} --output /tmp/dotnet.tar.gz && \
+    echo "${dotnetLinuxARM64ComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
 # Other
