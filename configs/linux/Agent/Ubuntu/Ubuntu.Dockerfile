@@ -113,7 +113,6 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # .NET 7.0
      curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
      echo "Downloaded .NET 7.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
