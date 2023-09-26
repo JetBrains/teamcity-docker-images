@@ -1,6 +1,5 @@
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import common.TeamCityDockerImagesRepo_AllBranches
-import delivery.BuildAndPushHosted
 import delivery.HubProject
 import delivery.LocalProject
 import scheduled.build.TeamCityDockerImagesScheduledBuild
@@ -17,10 +16,13 @@ object RootProject : Project({
     vcsRoot(TeamCityDockerImagesRepo)
     vcsRoot(TeamCityDockerImagesRepo_AllBranches)
 
+    // Staging registry
     subProject(LocalProject.LocalProject)
+
+    // Production registry
     subProject(HubProject.HubProject)
 
-    buildType(BuildAndPushHosted.BuildAndPushHosted)
+    // Scheduled Builds
     buildType(TeamCityDockerImagesScheduledBuild.TeamCityDockerImagesScheduledBuild)
     buildType(TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows)
     buildType(TeamCityScheduledImageBuildLinux_Base("amd64", "linux"))

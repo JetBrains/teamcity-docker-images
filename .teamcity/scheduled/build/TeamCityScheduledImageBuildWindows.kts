@@ -1,6 +1,7 @@
 package scheduled.build
 
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import common.TeamCityDockerImagesRepo_AllBranches
 import scheduled.build.model.DockerImageInfo
 import utils.dsl.general.teamCityBuildDistDocker
 import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
@@ -21,7 +22,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
     name = "TeamCity Docker Images - Automated Scheduled Build - Windows"
 
     vcs {
-        root(TeamCityDockerImagesRepo)
+        root(TeamCityDockerImagesRepo_AllBranches)
     }
 
     steps {
@@ -45,7 +46,7 @@ object TeamCityScheduledImageBuildWindows : BuildType({
         teamCityImageBuildFeatures(requiredSpaceGb = 50)
     }
 
-    // An implicit Windoiws 10 requirement has been added in order to prevent DotNet's WebClient internal exception.
+    // An implicit Windows 10 requirement has been added in order to prevent DotNet's WebClient internal exception.
     requirements {
         contains("teamcity.agent.jvm.os.name", "Windows 10")
     }
