@@ -24,7 +24,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
     id("TeamCityScheduledImageBuildLinux_Base${platform}")
 
     vcs {
-        root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo)
+        root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo.apply { branchSpec = "+:refs/heads/*"})
     }
 
     // all .yml files (e.g. compose samples)
