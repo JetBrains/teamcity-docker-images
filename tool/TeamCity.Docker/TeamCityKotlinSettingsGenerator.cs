@@ -238,8 +238,6 @@ namespace TeamCity.Docker
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger",
                 "import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs",
-                // -- Build Configurations
-                "import hosted.BuildAndPushHosted",
 
                 string.Empty
             };
@@ -483,15 +481,9 @@ namespace TeamCity.Docker
                 "\t }"
             );
 
+            // Generation of build configuration is deprecated, thus no dependencies are set.
             yield return String.Join('\n',
                	"\n\t dependencies {",
-               	"\t // Dependency on the build of the Docker image",
-               	"\t\t dependency(BuildAndPushHosted.BuildAndPushHosted) {",
-               	"\t\t\t snapshot {",
-               	"\t\t\t\t onDependencyFailure = FailureAction.FAIL_TO_START",
-               	"\t\t\t\t reuseBuilds = ReuseBuilds.SUCCESSFUL",
-               	"\t\t\t }",
-               	"\t\t }",
                	"\t}"
             );
 
