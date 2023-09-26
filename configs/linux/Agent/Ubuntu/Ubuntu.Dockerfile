@@ -106,6 +106,7 @@ RUN apt-get update && \
     mkdir -p /usr/share/dotnet && \
 # .NET 6.0
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 6.0 checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
@@ -113,6 +114,7 @@ RUN apt-get update && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # .NET 7.0
      curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
+     echo "Downloaded .NET 7.0 checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
      echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
      tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
      rm /tmp/dotnet.tar.gz && \
