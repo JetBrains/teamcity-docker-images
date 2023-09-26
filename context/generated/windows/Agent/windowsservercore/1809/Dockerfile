@@ -39,6 +39,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 ARG dotnetWindowsComponent
 ARG dotnetWindowsComponentSHA512
+ARG dotnetWindowsComponent_70
+ARG dotnetWindowsComponentSHA512_70
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 ARG gitWindowsComponent

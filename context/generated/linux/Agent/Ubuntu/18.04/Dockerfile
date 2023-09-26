@@ -55,6 +55,8 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
+ARG dotnetLinuxComponent_70
+ARG dotnetLinuxComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
