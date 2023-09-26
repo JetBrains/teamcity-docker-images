@@ -1,4 +1,5 @@
 import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
+import common.TeamCityDockerImagesRepo_AllBranches
 import delivery.BuildAndPushHosted
 import delivery.HubProject
 import delivery.LocalProject
@@ -14,10 +15,12 @@ version =  "2019.2"
 
 object RootProject : Project({
     vcsRoot(TeamCityDockerImagesRepo)
+    vcsRoot(TeamCityDockerImagesRepo_AllBranches)
+
     subProject(LocalProject.LocalProject)
     subProject(HubProject.HubProject)
-    buildType(BuildAndPushHosted.BuildAndPushHosted)
 
+    buildType(BuildAndPushHosted.BuildAndPushHosted)
     buildType(TeamCityDockerImagesScheduledBuild.TeamCityDockerImagesScheduledBuild)
     buildType(TeamCityScheduledImageBuildWindows.TeamCityScheduledImageBuildWindows)
     buildType(TeamCityScheduledImageBuildLinux_Base("amd64", "linux"))

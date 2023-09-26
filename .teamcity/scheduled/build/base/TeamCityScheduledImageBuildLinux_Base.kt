@@ -1,4 +1,5 @@
 import common.TeamCityDockerImagesRepo
+import common.TeamCityDockerImagesRepo_AllBranches
 import utils.ImageInfoRepository
 import utils.Utils
 import utils.models.ImageInfo
@@ -24,7 +25,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
     id("TeamCityScheduledImageBuildLinux_Base${platform}")
 
     vcs {
-        root(TeamCityDockerImagesRepo.TeamCityDockerImagesRepo.apply { branchSpec = "+:refs/heads/*"})
+        root(TeamCityDockerImagesRepo_AllBranches)
     }
 
     // all .yml files (e.g. compose samples)
