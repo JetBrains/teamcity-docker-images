@@ -90,12 +90,14 @@ RUN apt-get update && \
     mkdir -p /usr/share/dotnet && \
 # .NET 6.0
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 6.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
 # .NET 7.0
- curl -SL ${dotnetLinuxARM64Component_70} --output /tmp/dotnet.tar.gz && \
+    curl -SL ${dotnetLinuxARM64Component_70} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 7.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxARM64ComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \

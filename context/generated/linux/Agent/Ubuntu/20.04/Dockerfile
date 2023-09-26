@@ -5,7 +5,7 @@ ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
 ARG dotnetLinuxComponent_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz'
-ARG dotnetLinuxComponentSHA512='4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916'
+ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
 ARG dotnetLinuxComponentSHA512_70='3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f'
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
 ARG gitLinuxComponentVersion='1:2.42.0-0ppa1~ubuntu20.04.1'
@@ -99,7 +99,7 @@ RUN apt-get update && \
     mkdir -p /usr/share/dotnet && \
 # .NET 6.0
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "Downloaded .NET 6.0 checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+    echo "Downloaded .NET 6.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
@@ -107,7 +107,7 @@ RUN apt-get update && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # .NET 7.0
      curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
-     echo "Downloaded .NET 7.0 checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+     echo "Downloaded .NET 7.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
      echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
      tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
      rm /tmp/dotnet.tar.gz && \
