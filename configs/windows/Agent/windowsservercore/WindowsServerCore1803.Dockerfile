@@ -56,9 +56,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_70 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_70, 'dotnet_70.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# .NET 5.0
-    Expand-Archive dotnet_50.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet_50.zip; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
