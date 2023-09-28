@@ -18,9 +18,6 @@ object TeamCityScheduledImageBuildWindows : BuildType({
         root(TeamCityDockerImagesRepo_AllBranches)
     }
 
-    // all .yml files (e.g. compose samples)
-    artifactRules = "+:*.yml"
-
     params {
         // the images will be published into registry that holds nightly builds
         param("docker.buildRepository", "%docker.nightlyRepository%")
