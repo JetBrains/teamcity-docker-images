@@ -28,7 +28,12 @@ object TeamCityScheduledImageBuildWindows : BuildType({
 
     steps {
         // 1. Build Windows 1809-based images
-        val win1809images = ImageInfoRepository.getWindowsImages1809()
+        val win1809images = ImageInfoRepository.getWindowsImages1809(
+            stagingRepo = "%docker.nightlyRepository%",
+            version = "%dockerImage.teamcity.buildNumber%",
+            prodRepo = "%docker.nightlyRepository%",
+            dockerfileTag = DeliveryConfig.tcVersion
+        )
         win1809images.forEach { winImage1809 ->
             buildImage(winImage1809)
         }
@@ -37,7 +42,12 @@ object TeamCityScheduledImageBuildWindows : BuildType({
         win1809images.forEach { imageInfo -> publishToStaging(imageInfo) }
 
         // 3. Build Windows 2004-based images
-        val win2004images = ImageInfoRepository.getWindowsImages2004()
+        val win2004images = ImageInfoRepository.getWindowsImages2004(
+            stagingRepo = "%docker.nightlyRepository%",
+            version = "%dockerImage.teamcity.buildNumber%",
+            prodRepo = "%docker.nightlyRepository%",
+            dockerfileTag = DeliveryConfig.tcVersion
+        )
         win2004images.forEach { winImage2004 ->
             buildImage(winImage2004)
         }
