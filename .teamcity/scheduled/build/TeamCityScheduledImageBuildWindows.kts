@@ -12,7 +12,7 @@ import utils.dsl.steps.publishToStaging
  * Scheduled build of TeamCity Docker Images for Windows.
  */
 object TeamCityScheduledImageBuildWindows : BuildType({
-    name = "[amd] TeamCity Docker Images - Automated Scheduled Build - Windows"
+    name = "[amd64] TeamCity Docker Images - Automated Scheduled Build - Windows"
 
     vcs {
         root(TeamCityDockerImagesRepo_AllBranches)
