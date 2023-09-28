@@ -1,41 +1,52 @@
 package scheduled.build
 
-import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 import common.TeamCityDockerImagesRepo_AllBranches
-import scheduled.build.model.DockerImageInfo
-import utils.dsl.general.teamCityBuildDistDocker
-import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.DockerCommandStep
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import utils.ImageInfoRepository
+import utils.dsl.general.teamCityBuildDistDocker
 import utils.dsl.general.teamCityImageBuildFeatures
 import utils.dsl.steps.buildImage
-import java.util.*
+import utils.dsl.steps.publishToStaging
 
 /**
  * Scheduled build of TeamCity Docker Images for Windows.
  */
 object TeamCityScheduledImageBuildWindows : BuildType({
-
-    name = "TeamCity Docker Images - Automated Scheduled Build - Windows"
+    name = "[amd] TeamCity Docker Images - Automated Scheduled Build - Windows"
 
     vcs {
         root(TeamCityDockerImagesRepo_AllBranches)
     }
 
-    steps {
+    // all .yml files (e.g. compose samples)
+    artifactRules = "+:*.yml"
 
-        // Build images, while don't push anywhere - a sanity check for the correctness of all ...
-        // ... image's dependencies (CLI tools, etc.)
-        ImageInfoRepository.getWindowsImages1809().forEach { winImage1809 ->
+    params {
+        // the images will be published into registry that holds nightly builds
+        param("docker.buildRepository", "%docker.nightlyRepository%")
+        // no postfix needed
+        param("docker.buildImagePostfix", "")
+        param("tc.image.version", "%dockerImage.teamcity.buildNumber%")
+    }
+
+    steps {
+        // 1. Build Windows 1809-based images
+        val win1809images = ImageInfoRepository.getWindowsImages1809()
+        win1809images.forEach { winImage1809 ->
             buildImage(winImage1809)
         }
 
-        ImageInfoRepository.getWindowsImages2004().forEach { winImage2004 ->
+        // 2. Publish Windows 1809 images into staging (nightly) repository
+        win1809images.forEach { imageInfo -> publishToStaging(imageInfo) }
+
+        // 3. Build Windows 2004-based images
+        val win2004images = ImageInfoRepository.getWindowsImages2004()
+        win2004images.forEach { winImage2004 ->
             buildImage(winImage2004)
         }
+
+        // 4. Publish Windows 2004 images into staging (nightly) repository
+        win2004images.forEach { imageInfo -> publishToStaging(imageInfo) }
     }
 
     dependencies {
