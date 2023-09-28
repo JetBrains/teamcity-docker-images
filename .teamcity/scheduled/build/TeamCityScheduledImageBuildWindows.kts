@@ -3,6 +3,7 @@ package scheduled.build
 import common.TeamCityDockerImagesRepo_AllBranches
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import utils.ImageInfoRepository
+import utils.config.DeliveryConfig
 import utils.dsl.general.teamCityBuildDistDocker
 import utils.dsl.general.teamCityImageBuildFeatures
 import utils.dsl.steps.buildImage

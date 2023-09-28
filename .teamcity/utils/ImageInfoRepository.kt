@@ -154,11 +154,11 @@ class ImageInfoRepository {
         fun getWindowsImages2004(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
-            dockerfiileTag: String = "%tc.image.version%",
+            dockerfileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
-            return getWindowsImages("2004", stagingRepo, version, dockerfiileTag, namePostfix, prodRepo)
+            return getWindowsImages("2004", stagingRepo, version, dockerfileTag, namePostfix, prodRepo)
         }
 
         /**
