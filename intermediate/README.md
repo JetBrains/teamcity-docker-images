@@ -11,7 +11,7 @@ be used as templates for the installation of any custom .NET version.
 How to build:
 ```
 docker build \
-    --build-arg teamCityArmImage=<teamcity agent image> \
+    --build-arg teamCityAgentImage=<teamcity agent image> \
     --build-arg dotnetSdkVersion=<dotnetSdkVersion> \
      --build-arg dotnetSdkChecksum=<dotnetSdkChecksum>  \
                -f "linux/agent/arm/custom.dotnet.sdk.arm.Dockerfile" -t teamcity-agent:custom-dotnet-version .
@@ -31,7 +31,7 @@ TODO: Add LTS / STS status as of date of last release.
 Example:
 ```
 docker build \
-    --build-arg teamCityArmImage=<teamcity agent image> \
+    --build-arg teamCityAgentImage=<teamcity agent image> \
     --build-arg dotnetSdkVersion=7.0.401 \
      --build-arg dotnetSdkChecksum=7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25  \
                -f "linux/agent/arm/custom.dotnet.sdk.arm.Dockerfile" -t teamcity-agent:EAP-linux-dotnet-7-0-arm .

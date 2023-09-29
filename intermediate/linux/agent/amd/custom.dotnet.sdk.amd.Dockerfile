@@ -3,11 +3,11 @@
 # See: https://dotnet.microsoft.com/download/dotnet/
 #
 
-ARG teamCityArmImage
+ARG teamCityAgentImage
 ARG dotnetSdkVersion
 ARG dotnetSdkChecksum
 
-FROM ${teamCityArmImage}
+FROM ${teamCityAgentImage}
 USER root
 
 RUN rm -rf /usr/share/dotnet && \
