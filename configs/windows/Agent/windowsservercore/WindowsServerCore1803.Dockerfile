@@ -2,8 +2,6 @@
 # ARG windowsservercoreImage
 # ARG dotnetWindowsComponent
 # ARG dotnetWindowsComponentSHA512
-# ARG dotnetWindowsComponent_70
-# ARG dotnetWindowsComponentSHA512_70
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG gitWindowsComponent
@@ -27,7 +25,6 @@
 # @AddToolToDoc ${powerShellComponentName}
 # @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
 # @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
-# @AddToolToDoc [${dotnetComponentName_70}](${dotnetWindowsComponent_70})
 
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage} AS buildagent
@@ -43,8 +40,6 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 ARG dotnetWindowsComponent
 ARG dotnetWindowsComponentSHA512
-ARG dotnetWindowsComponent_70
-ARG dotnetWindowsComponentSHA512_70
 ARG jdkWindowsComponent
 ARG jdkWindowsComponentMD5SUM
 ARG gitWindowsComponent
@@ -54,7 +49,7 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:dotnetWindowsComponent_70 + '#SHA512#' + $Env:dotnetWindowsComponentSHA512_70, 'dotnet_70.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \

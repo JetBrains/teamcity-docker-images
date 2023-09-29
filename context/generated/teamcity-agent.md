@@ -318,7 +318,6 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
-- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -354,7 +353,6 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
-- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -632,7 +630,6 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
-- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -664,7 +661,6 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
-- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
@@ -697,7 +693,6 @@ Installed components:
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
-- [.NET SDK v.7.0.401](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-win-x64.zip)
 
 Container platform: windows
 
