@@ -90,7 +90,6 @@ Installed components:
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -131,7 +130,6 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [7.0.401 ARM64 Checksum (SHA512) ea222cb8e68744b55184a2a8eb24272f3ae51e4b30d8237e4c80018b1b0316b4f1dcdbfd8fdef18fc4735218d24d175f4e9701f685c4a9b9f0a22f587cc22c56](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -172,7 +170,6 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [7.0.401 ARM64 Checksum (SHA512) ea222cb8e68744b55184a2a8eb24272f3ae51e4b30d8237e4c80018b1b0316b4f1dcdbfd8fdef18fc4735218d24d175f4e9701f685c4a9b9f0a22f587cc22c56](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -214,7 +211,6 @@ Installed components:
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -397,7 +393,6 @@ Installed components:
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -436,7 +431,6 @@ Installed components:
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- [.NET SDK v.7.0.401 x86 Checksum (SHA512) 3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2022.2-2468771](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
@@ -475,7 +469,6 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [7.0.401 ARM64 Checksum (SHA512) ea222cb8e68744b55184a2a8eb24272f3ae51e4b30d8237e4c80018b1b0316b4f1dcdbfd8fdef18fc4735218d24d175f4e9701f685c4a9b9f0a22f587cc22c56](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -513,7 +506,6 @@ Installed components:
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
-- [7.0.401 ARM64 Checksum (SHA512) ea222cb8e68744b55184a2a8eb24272f3ae51e4b30d8237e4c80018b1b0316b4f1dcdbfd8fdef18fc4735218d24d175f4e9701f685c4a9b9f0a22f587cc22c56](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz)
 
 Container platform: linux
 

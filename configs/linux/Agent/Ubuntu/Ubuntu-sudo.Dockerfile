@@ -19,7 +19,6 @@
 # @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
-# @AddToolToDoc [${dotnetLinuxComponentName_70}](${dotnetLinuxComponent_70})
 # @AddToolToDoc ${p4Name}
 
 # Based on ${teamcityAgentImage}

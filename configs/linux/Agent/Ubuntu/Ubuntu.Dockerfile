@@ -1,8 +1,6 @@
 # The list of required arguments
 # ARG dotnetLinuxComponent
 # ARG dotnetLinuxComponentSHA512
-# ARG dotnetLinuxComponent_70
-# ARG dotnetLinuxComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -32,7 +30,6 @@
 # @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
-# @AddToolToDoc [${dotnetLinuxComponentName_70}](${dotnetLinuxComponent_70})
 # @AddToolToDoc ${p4Name}
 
 
@@ -62,8 +59,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
-ARG dotnetLinuxComponent_70
-ARG dotnetLinuxComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -113,14 +108,7 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET 7.0
-     curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
-     echo "Downloaded .NET 7.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
-     echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-     rm /tmp/dotnet.tar.gz && \
-     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \

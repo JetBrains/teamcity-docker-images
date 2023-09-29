@@ -4,9 +4,7 @@ ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
-ARG dotnetLinuxComponent_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
-ARG dotnetLinuxComponentSHA512_70='3cb346d98f6a1bf2b80738020a0d854c73f3adb6a5b0c2c7baf0a4fe4cfd41d5b3b7120f02e85d5fd55cef82521ae3e0dac8fd569ca73a1636a3b16050a8ab0f'
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
 ARG gitLinuxComponentVersion='1:2.42.0-0ppa1~ubuntu20.04.1'
 ARG p4Version='2022.2-2468771'
@@ -16,8 +14,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 # The list of required arguments
 # ARG dotnetLinuxComponent
 # ARG dotnetLinuxComponentSHA512
-# ARG dotnetLinuxComponent_70
-# ARG dotnetLinuxComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -55,8 +51,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
-ARG dotnetLinuxComponent_70
-ARG dotnetLinuxComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -106,14 +100,7 @@ RUN apt-get update && \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET 7.0
-     curl -SL ${dotnetLinuxComponent_70} --output /tmp/dotnet.tar.gz && \
-     echo "Downloaded .NET 7.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
-     echo "${dotnetLinuxComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-     rm /tmp/dotnet.tar.gz && \
-     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \

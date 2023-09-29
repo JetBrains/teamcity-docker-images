@@ -4,9 +4,7 @@ ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz'
-ARG dotnetLinuxARM64Component_70='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/7.0.401/dotnet-sdk-7.0.401-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759'
-ARG dotnetLinuxARM64ComponentSHA512_70='ea222cb8e68744b55184a2a8eb24272f3ae51e4b30d8237e4c80018b1b0316b4f1dcdbfd8fdef18fc4735218d24d175f4e9701f685c4a9b9f0a22f587cc22c56'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG repo=''
@@ -15,8 +13,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 # The list of required arguments
 # ARG dotnetLinuxARM64Component
 # ARG dotnetLinuxARM64ComponentSHA512
-# ARG dotnetLinuxARM64Component_70
-# ARG dotnetLinuxARM64ComponentSHA512_70
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -54,8 +50,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxARM64Component
 ARG dotnetLinuxARM64ComponentSHA512
-ARG dotnetLinuxARM64Component_70
-ARG dotnetLinuxARM64ComponentSHA512_70
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -92,13 +86,6 @@ RUN apt-get update && \
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
     echo "Downloaded .NET 6.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-    rm /tmp/dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET 7.0
-    curl -SL ${dotnetLinuxARM64Component_70} --output /tmp/dotnet.tar.gz && \
-    echo "Downloaded .NET 7.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
-    echo "${dotnetLinuxARM64ComponentSHA512_70} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
