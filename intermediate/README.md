@@ -25,9 +25,8 @@ The folder contains Dockerfiles that simplify this process, allowing to easily r
 be used as templates for the installation of any custom .NET version.
 
 ## 1.1. Build
-Table references multiple versions of .NET framework, which could be leveraged to build custom image via selection of
+Table above references multiple versions of .NET framework, which could be leveraged to build custom image via selection of
 target SDK version (`dotnetSdkVersion`) and a checksum for it (`dotnetSdkChecksum`):
-
 ```
 docker build \
     --build-arg teamCityAgentImage=<teamcity agent image> \
