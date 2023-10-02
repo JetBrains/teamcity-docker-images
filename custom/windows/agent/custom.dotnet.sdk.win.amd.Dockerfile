@@ -1,8 +1,16 @@
+#
+# Dockerfile containing manifest of TeamCity Windows Agent (AMD) with custom .NET SDKs
+# See: https://dotnet.microsoft.com/download/dotnet/
+#
+# @param teamCityAgentImage target TeamCity Agent image, e.g. 'jetbrains/teamcity-agent:2023.05.4'
+# @param dotnetSdkVersion target .NET SDK version, e.g. '7.0.401'
+# @param dotnetSdkChecksum checksum of .NET SDK's archive obtained from "dotnetcli.azureedge.net/dotnet/Sdk"
+#
+
 ARG teamCityAgentImage
 
 FROM ${teamCityAgentImage}
 
-# With Windows images, ARG variables become inaccessible after each FROM
 ARG dotnetSdkVersion
 ARG dotnetSdkChecksum
 
