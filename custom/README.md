@@ -1,6 +1,6 @@
 # Custom TeamCity Agent Images
 
-The folder includes Dockerfiles available for the creation of customized images of a TeamCity Agent.
+The folder includes Dockerfiles that you can utilize to create custom TeamCity Agent images.
 
 # 1. .NET SDK
 
@@ -18,15 +18,14 @@ The folder includes Dockerfiles available for the creation of customized images 
 
 
 The .NET SDK version bundled within TeamCity Docker Images is aligned with [Microsoft's Long Term Support (LTS) release](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) 
-at the moment of TeamCity release. Given the potential necessity to use STS (which is sometimes newer than LTS) or 
+at the moment of a TeamCity release. Since it is sometimes necessary to use STS (which can be newer than LTS) or 
 older versions, we provide examples of building images with custom .NET SDK versions inside.
 
-The folder contains Dockerfiles that simplify this process, allowing to easily replace .NET SDK version within the image with pre-defined one. Please, note these Dockerfiles might
-be used as templates for the installation of any custom .NET version.
+The folder contains Dockerfiles that simplify this process, allowing you to easily replace any .NET SDK version within the image with a pre-defined one. These Dockerfiles can also be used as templates for installing any custom .NET version.
 
-## 1.1. Build
-Table above references multiple versions of .NET framework, which could be leveraged to build custom image via selection of
-target SDK version (`dotnetSdkVersion`) and a checksum for it (`dotnetSdkChecksum`):
+## 1.1. Building Images
+
+The table above references multiple versions of .NET framework. To build a custom image, specify the required SDK version (`dotnetSdkVersion`) and a checksum for it (`dotnetSdkChecksum`):
 ```
 docker build \
     --build-arg teamCityAgentImage=<teamcity agent image> \
@@ -35,7 +34,7 @@ docker build \
                -f "linux/agent/arm/custom.dotnet.sdk.arm.Dockerfile" -t teamcity-agent:custom-dotnet-version .
 ```
 
-Example on Linux:
+Example for Linux:
 ```
 # 1. Build Image
 docker build \
@@ -50,7 +49,7 @@ docker exec <container ID> dotnet --version
 
 ```
 
-Example on Windows:
+Example for Windows:
 ```
 # 1. Build Image
 docker build `
@@ -64,12 +63,12 @@ docker run teamcity-agent:windows-custom-dotnet-7 dotnet --version
 7.0.401
 ```
 
-# 1.2 A note about .NET Support Dates
+# 1.2 .NET End of Support Dates
 
-Please, note end of support dates mentioned within Microsoft's [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core):
+In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) article, Microsoft states the following end of support dates for .NET:
 * **.NET Core 3.1** -  December 13th, 2022;
 * **.NET 5.0** -  May 10th, 2022;
 * **.NET 6** (LTS) - November 12, 2024;
 * **.NET 7.0** (STS) - May 14, 2024;
 
-We strongly encourage transitioning to a newer version of .NET, as the support for the current version is nearing its end.
+We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
