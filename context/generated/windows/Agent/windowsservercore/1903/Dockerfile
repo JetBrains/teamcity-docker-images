@@ -49,9 +49,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
-# .NET 7.0
-    Expand-Archive dotnet_70.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
-    Remove-Item -Force dotnet_70.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
 # JDK
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
