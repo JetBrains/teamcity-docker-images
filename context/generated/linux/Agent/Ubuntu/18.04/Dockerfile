@@ -4,11 +4,7 @@ ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
-ARG dotnetLinuxComponent_31='https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.32/dotnet-runtime-3.1.32-linux-x64.tar.gz'
-ARG dotnetLinuxComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.0.17/dotnet-runtime-5.0.17-linux-x64.tar.gz'
-ARG dotnetLinuxComponentSHA512='4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613c2bf7ec0c7c54d09b5a47ff160d4424dacc59661613fd4c9460d62f141a64def02a7228dd160f916'
-ARG dotnetLinuxComponentSHA512_31='56c5e045844f5474a9a12b42e4a22c851985fac5690e227ce62b529d644c4faeaafdfe255de2f1e86a90c0c114e7de66ce4de1692fbf66357ac4d35341f933c3'
-ARG dotnetLinuxComponentSHA512_50='f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3'
+ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG p4Version='2022.2-2468771'
@@ -18,10 +14,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
 # The list of required arguments
 # ARG dotnetLinuxComponent
 # ARG dotnetLinuxComponentSHA512
-# ARG dotnetLinuxComponent_31
-# ARG dotnetLinuxComponentSHA512_31
-# ARG dotnetLinuxComponent_50
-# ARG dotnetLinuxComponentSHA512_50
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -59,10 +51,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxComponent
 ARG dotnetLinuxComponentSHA512
-ARG dotnetLinuxComponent_31
-ARG dotnetLinuxComponentSHA512_31
-ARG dotnetLinuxComponent_50
-ARG dotnetLinuxComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -105,20 +93,9 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# .NET Framework 3.1
-    curl -SL ${dotnetLinuxComponent_31} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-    rm /tmp/dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET 5.0
-    curl -SL ${dotnetLinuxComponent_50} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-    rm /tmp/dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
 # .NET 6.0
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 6.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \

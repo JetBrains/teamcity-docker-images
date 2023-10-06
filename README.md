@@ -44,6 +44,9 @@ This image adds a TeamCity agent suitable for Java and .NET development.
   - Check the docker images by running ```docker-compose up``` in the directories like [checks/windows-local](checks/windows-local) or [checks/linux-local](checks/linux-local).
 - Push all repo changes.
 
+### To build custom TeamCity Agent, it is possible to leverage Dockerfiles we have provided
+- Please refer to the documentation regarding [custom TeamCity Agent Images for more information](custom/README.md).
+
 ### To build Docker images that were not provided in docker repositories, you could generate them by yourself
 
 - Ensure [Docker](https://www.docker.com/get-started) installed.

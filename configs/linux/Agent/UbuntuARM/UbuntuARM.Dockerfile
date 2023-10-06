@@ -1,10 +1,6 @@
 # The list of required arguments
 # ARG dotnetLinuxARM64Component
 # ARG dotnetLinuxARM64ComponentSHA512
-# ARG dotnetLinuxARM64Component_31
-# ARG dotnetLinuxARM64ComponentSHA512_31
-# ARG dotnetLinuxARM64Component_50
-# ARG dotnetLinuxARM64ComponentSHA512_50
 # ARG teamcityMinimalAgentImage
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
@@ -32,8 +28,6 @@
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName}](${dotnetLinuxARM64Component})
-# @AddToolToDoc [${dotnetLinuxARM64ComponentName_31}](${dotnetLinuxARM64Component_31})
-# @AddToolToDoc [${dotnetLinuxARM64ComponentName_50}](${dotnetLinuxARM64Component_50})
 
 
 # Based on ${teamcityMinimalAgentImage}
@@ -62,10 +56,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 
 ARG dotnetLinuxARM64Component
 ARG dotnetLinuxARM64ComponentSHA512
-ARG dotnetLinuxARM64Component_31
-ARG dotnetLinuxARM64ComponentSHA512_31
-ARG dotnetLinuxARM64Component_50
-ARG dotnetLinuxARM64ComponentSHA512_50
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
@@ -98,26 +88,15 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# .NET Framework 3.1
-    curl -SL ${dotnetLinuxARM64Component_31} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxARM64ComponentSHA512_31} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-    rm /tmp/dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET 5.0
-    curl -SL ${dotnetLinuxARM64Component_50} --output /tmp/dotnet.tar.gz && \
-    echo "${dotnetLinuxARM64ComponentSHA512_50} */tmp/dotnet.tar.gz" | sha512sum -c -; \
-    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
-    rm /tmp/dotnet.tar.gz && \
-    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
-# .NET
+# .NET 6.0
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 6.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
     find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
 # Other
