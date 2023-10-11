@@ -95,7 +95,7 @@ Rootless:
 ```
 $ docker build \
     --build-arg teamCityAgentImage=jetbrains/teamcity-agent:2023.05.4 \
-    -f linux/agent/amd/podman.amd.Dockerfile \
+    -f linux/agent/podman.Dockerfile \
     -t jebrains/teamcity-agent:2023.05.4-podman .
 ```
 
@@ -103,7 +103,7 @@ Rootful (based on `sudo` image):
 ```
 $ docker build \
 --build-arg teamCityAgentImage=jetbrains/teamcity-agent:2023.05.4-linux-sudo\
--f linux/agent/amd/podman.amd.Dockerfile \
+-f linux/agent/podman.Dockerfile \
 -t jebrains/teamcity-agent:2023.05.4-podman-sudo .
 ```
 Please, ensure the OS/Arch of Docker image matching the expected host (see: [2.3.1 Inability to execute images with rootful Podman](#231-inability-to-execute-images-with-rootful-podman)).
