@@ -49,7 +49,7 @@ ARG mercurialWindowsComponent
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip', $Env:curlWindowsComponent + '#SHA512#' + $Env:curlWindowsComponentSHA256 + 'curl.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
 # .NET 6.0
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
@@ -69,6 +69,12 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $configContent = Get-Content $gitConfigFile; \
     $configContent = $configContent.Replace('path = C:/Program Files/Git/etc/gitconfig', ''); \
     Set-Content $gitConfigFile $configContent; \
+# Curl
+    $curlPath = $Env:ProgramFiles + '\Curl'; \
+    Expand-Archive curl.zip -DestinationPath $curlPath ; \
+    Remove-Item -Force curl.zip ; \
+    Remove-Item -Force -Recurse $Env:ProgramFiles\Curl\curl-8.4.0_1-win64-mingw\lib ; \
+    Remove-Item -Force -Recurse $Env:ProgramFiles\Curl\curl-8.4.0_1-win64-mingw\dep ; \
 # Mercirual
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
@@ -99,5 +105,7 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
     NUGET_XMLDOC_MODE=skip
 
 USER ContainerAdministrator
-RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
+# TODO: Delete it - line added only in experimental purposes
+RUN Remove-Item -Force  'C:\Windows\system32\curl.exe'
+RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial;C:\Program Files\Curl\curl-8.4.0_1-win64-mingw\bin' -f $env:PATH, $env:JAVA_HOME)
 USER ContainerUser

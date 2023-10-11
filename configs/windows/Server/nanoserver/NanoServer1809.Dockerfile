@@ -40,16 +40,24 @@ ARG gitWindowsComponentSHA256
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
+    $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:curlWindowsComponent + '#SHA512#' + $Env:curlWindowsComponentSHA256 + 'curl.zip') ; \
     iex $downloadScript ; \
+    # JDK
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
     Remove-Item $Env:ProgramFiles\Java\OpenJDK\lib\src.zip -Force ; \
+    # Git
     Expand-Archive git.zip -DestinationPath $Env:ProgramFiles\Git ; \
-    # https://youtrack.jetbrains.com/issue/TW-73017
+    # -- https://youtrack.jetbrains.com/issue/TW-73017
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
-    Remove-Item -Force git.zip
+    Remove-Item -Force git.zip; \
+    # Curl
+    $curlPath = $Env:ProgramFiles + '\Curl'; \
+    Expand-Archive curl.zip -DestinationPath $curlPath ; \
+    Remove-Item -Force curl.zip ; \
+    Remove-Item -Force -Recurse $Env:ProgramFiles\Curl\curl-8.4.0_1-win64-mingw\lib ; \
+    Remove-Item -Force -Recurse $Env:ProgramFiles\Curl\curl-8.4.0_1-win64-mingw\dep
 
 # Prepare TeamCity server distribution
 ARG windowsBuild
@@ -110,5 +118,7 @@ CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
+# TODO: Delete it - line added only in experimental purposes
+RUN Remove-Item -Force  'C:\Windows\system32\curl.exe'
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\Curl\curl-8.4.0_1-win64-mingw\bin"
 USER ContainerUser
