@@ -63,7 +63,7 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
         images.forEach { imageInfo -> publishToStaging(imageInfo) }
 
         // publish manifests
-        publishLinuxManifests(name = "%dockerImage.teamcity.buildNumber%", repo = "%docker.nightlyRepository%")
+        // publishLinuxManifests(name = "%dockerImage.teamcity.buildNumber%", repo = "%docker.nightlyRepository%")
 
         script {
             name = "Generate Sample docker-compose manifest for the created images"
