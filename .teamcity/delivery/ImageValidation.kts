@@ -38,7 +38,8 @@ object image_validation : BuildType({
     val targetImages: HashMap<String, String> = hashMapOf(
         "teamcity-server-%tc.image.version%-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux",
         "teamcity-agent-%tc.image.version%-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux",
-        "teamcity-agent-%tc.image.version%-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-sudo",
+        "teamcity-agent-%tc.image.version%-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo",
+        "teamcity-agent-%tc.image.version%-linux-amd64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-amd64-sudo",
         "teamcity-minimal-agent-%tc.image.version%-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux",
         "teamcity-server-%tc.image.version%-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809",
         "teamcity-agent-%tc.image.version%-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-1809",
