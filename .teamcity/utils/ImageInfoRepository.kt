@@ -53,6 +53,16 @@ class ImageInfoRepository {
         }
 
         /**
+         * Returns the tags of all expected TeamCity Sudo-capable Agent instances.
+         */
+        fun getAllSudoAgentTags(version: String): List<String> {
+            return listOf(
+                "$version-linux-arm64-sudo",
+                "$version-linux-amd64-sudo"
+            )
+        }
+
+        /**
          * Returns a set of Ubuntu 20.04 (amd64)-based TeamCity Docker Images
          */
         fun getAmdLinuxImages2004(
@@ -81,11 +91,11 @@ class ImageInfoRepository {
                     "${prodRepo}teamcity-agent:${version}-linux"
                 ),
                 ImageInfo(
-                    "teamcity-agent:${version}-linux-sudo",
+                    "teamcity-agent:${version}-linux-amd64-sudo",
                     "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile",
-                    "teamcity-agent:${dockerfileTag}-linux-sudo",
-                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-sudo",
-                    "${prodRepo}teamcity-agent:${version}-linux-sudo"
+                    "teamcity-agent:${dockerfileTag}-linux-amd64-sudo",
+                    "${stagingRepo}teamcity-agent${namePostfix}:${version}-linux-amd64-sudo",
+                    "${prodRepo}teamcity-agent:${version}-linux-amd64-sudo"
                 ),
 
                 // Servers
