@@ -161,12 +161,12 @@ fun BuildSteps.publishLinuxManifests(name: String, repo: String, postfix: String
         name
     )
 
-    // 4. Linux SUDO images
+    // 4. Publish Agent-sudo Manifests
     val sudoAgentTags = ImageInfoRepository.getAllSudoAgentTags(ver)
     publishManifest(
         imageName = "${repo}teamcity-agent${postfix}",
         tags = sudoAgentTags,
-        manifestTag = "${name}-sudo"
+        manifestTag = "${name}-linux-sudo"
     )
 }
 
