@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<vcs-root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" type="jetbrains.git" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
-  <name>TeamCity Docker Images - All Branches</name>
-  <param name="branch" value="refs/heads/%teamcity.branch%" />
-  <param name="teamcity:branchSpec" value="+:refs/heads/*" />
-  <param name="url" value="https://github.com/JetBrains/teamcity-docker-images.git" />
-  <param name="useAlternates" value="true" />
-</vcs-root>
-
