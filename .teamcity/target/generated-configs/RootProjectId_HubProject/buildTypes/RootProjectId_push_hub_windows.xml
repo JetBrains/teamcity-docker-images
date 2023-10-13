@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>[Windows] [Production] Release TeamCity Docker Images into Production Registry</name>
+  <description>Moves TeamCity Windows-based staging images into production registry.</description>
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="dockerImage.platform" value="windows" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="Pull image [teamcity-server:%tc.image.version%-nanoserver-1809] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Re-tag image [teamcity-server:%tc.image.version%-nanoserver-1809] for publishing into [%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-1809&quot;]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-1809&quot;" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="Publish [%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-1809&quot;] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-1809&quot;" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Pull image [teamcity-minimal-agent:%tc.image.version%-nanoserver-1809] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="Re-tag image [teamcity-minimal-agent:%tc.image.version%-nanoserver-1809] for publishing into [%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-1809]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="Publish [%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-1809] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="Pull image [teamcity-agent:%tc.image.version%-windowsservercore-1809] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="Re-tag image [teamcity-agent:%tc.image.version%-windowsservercore-1809] for publishing into [%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-1809]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-1809 %docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="Publish [%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-1809] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-1809" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="Pull image [teamcity-agent:%tc.image.version%-nanoserver-1809] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="Re-tag image [teamcity-agent:%tc.image.version%-nanoserver-1809] for publishing into [%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="Publish [%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="Pull image [teamcity-server:%tc.image.version%-nanoserver-2004] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="Re-tag image [teamcity-server:%tc.image.version%-nanoserver-2004] for publishing into [%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-2004&quot;]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-2004&quot;" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="Publish [%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-2004&quot;] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-2004&quot;" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="Pull image [teamcity-minimal-agent:%tc.image.version%-nanoserver-2004] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_17" name="Re-tag image [teamcity-minimal-agent:%tc.image.version%-nanoserver-2004] for publishing into [%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-2004]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_18" name="Publish [%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-2004] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_19" name="Pull image [teamcity-agent:%tc.image.version%-windowsservercore-2004] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_20" name="Re-tag image [teamcity-agent:%tc.image.version%-windowsservercore-2004] for publishing into [%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-2004]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-2004 %docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_21" name="Publish [%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-2004] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_22" name="Pull image [teamcity-agent:%tc.image.version%-nanoserver-2004] for further re-tagging" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="pull" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_23" name="Re-tag image [teamcity-agent:%tc.image.version%-nanoserver-2004] for publishing into [%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="tag" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_24" name="Publish [%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004] after re-tag" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="push" />
+          <param name="docker.image.namesAndTags" value="%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004" />
+          <param name="docker.push.remove.image" value="" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements>
+      <contains id="RQ_1" name="docker.server.osType" value="windows" />
+      <does-not-contain id="RQ_2" name="teamcity.agent.name" value="arm" />
+      <contains id="RQ_3" name="teamcity.agent.jvm.os.name" value="Windows 10" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="52gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="" />
+          <param name="login2registry" value="PROJECT_EXT_315,PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="RootProjectId_publish_local">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

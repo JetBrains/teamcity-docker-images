@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Validation of Size Regression - Staging Docker Images (Windows / Linux)</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+    </options>
+    <parameters>
+      <param name="dockerImage.teamcity.buildNumber" value="-" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_1" name="Image Verification - teamcity-agent-%tc.image.version%-windowsservercore-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-2004 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Image Verification - teamcity-agent-%tc.image.version%-linux-amd64-sudo" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-amd64-sudo %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="Image Verification - teamcity-agent-%tc.image.version%-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Image Verification - teamcity-minimal-agent-%tc.image.version%-linux" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-linux %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="Image Verification - teamcity-agent-%tc.image.version%-linux" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="Image Verification - teamcity-agent-%tc.image.version%-windowsservercore-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-windowsservercore-1809 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="Image Verification - teamcity-server-%tc.image.version%-nanoserver-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="Image Verification - teamcity-minimal-agent-%tc.image.version%-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="Image Verification - teamcity-server-%tc.image.version%-linux" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-linux %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="Image Verification - teamcity-agent-%tc.image.version%-nanoserver-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="Image Verification - teamcity-agent-%tc.image.version%-linux-arm64-sudo" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:%tc.image.version%-linux-arm64-sudo %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="Image Verification - teamcity-minimal-agent-%tc.image.version%-nanoserver-1809" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:%tc.image.version%-nanoserver-1809 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="Image Verification - teamcity-server-%tc.image.version%-nanoserver-2004" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="%env.JDK_11_x64%" />
+          <param name="teamcity.build.workingDir" value="tool/automation/framework" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean build run --args=&quot;validate  %docker.deployRepository%teamcity-server%docker.buildImagePostfix%:%tc.image.version%-nanoserver-2004 %docker.stagingRepository.login% %docker.stagingRepository.token%&quot;" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="RootProjectId_TeamCityDockerImagesRepo" />
+    </vcs-settings>
+    <requirements>
+      <exists id="RQ_1" name="env.JDK_11" />
+      <contains id="RQ_2" name="teamcity.agent.jvm.os.name" value="Linux" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="buildDependencyTrigger">
+        <parameters>
+          <param name="branchFilter"><![CDATA[+:development/*
++:release/*]]></param>
+          <param name="dependsOn" value="RootProjectId_publish_hub_version" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="1gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="" />
+          <param name="login2registry" value="PROJECT_EXT_315,PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_4" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="DockerImageValidationException" />
+          <param name="buildFailureOnMessage.outputText" value="Docker Image validation have failed" />
+          <param name="buildFailureOnMessage.reportOnlyFirstMatch" value="false" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC_Trunk_BuildDistDocker">
+        <options>
+          <option name="sync-revisions" value="false" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_linux_20_04">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_windows_1809">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_local_windows_2004">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_staging_linux_2004_aarch64">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>[All] [Production] Release Manifests as 'version' into Production Registry</name>
+  <description>Publish Docker Manifests into production repository with 'version' tag, e.g. 2023.05.1.</description>
+  <settings>
+    <options>
+      <option name="allowPersonalBuildTriggering" value="false" />
+      <option name="buildConfigurationType" value="DEPLOYMENT" />
+      <option name="buildNumberPattern" value="%dockerImage.teamcity.buildNumber%-%build.counter%" />
+      <option name="maximumNumberOfBuilds" value="1" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="remove manifests" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="if exist &quot;%%USERPROFILE%%\.docker\manifests\&quot; rmdir &quot;%%USERPROFILE%%\.docker\manifests\&quot; /s /q" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Create manifest for [%docker.deployRepository%teamcity-server]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-server:%tc.image.version%  %docker.deployRepository%teamcity-server:%tc.image.version%-linux %docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-server:%tc.image.version%-nanoserver-2004 %docker.deployRepository%teamcity-server:%tc.image.version%-linux-arm64" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="Push manifest for [%docker.deployRepository%teamcity-server]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-server:%tc.image.version%" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Print-out manifest for [%docker.deployRepository%teamcity-server]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-server:%tc.image.version% --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="Create manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-agent:%tc.image.version%  %docker.deployRepository%teamcity-agent:%tc.image.version%-linux %docker.deployRepository%teamcity-agent:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-agent:%tc.image.version%-nanoserver-2004  %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-arm64" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="Push manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-agent:%tc.image.version%" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="Print-out manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-agent:%tc.image.version% --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="Create manifest for [%docker.deployRepository%teamcity-minimal-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%  %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-linux %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-1809 %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-nanoserver-2004  %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%-linux-arm64" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="Push manifest for [%docker.deployRepository%teamcity-minimal-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-minimal-agent:%tc.image.version%" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="Print-out manifest for [%docker.deployRepository%teamcity-minimal-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-minimal-agent:%tc.image.version% --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="Create manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-sudo  %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-arm64-sudo %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-amd64-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="Push manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-sudo" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="Print-out manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-agent:%tc.image.version%-linux-sudo --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="Create manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="create %docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore  %docker.deployRepository%teamcity-agent:-windowsservercore-1809 %docker.deployRepository%teamcity-agent:-windowsservercore-2004" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="Push manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="push %docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="Print-out manifest for [%docker.deployRepository%teamcity-agent]" type="DockerCommand">
+        <parameters>
+          <param name="command.args" value="inspect %docker.deployRepository%teamcity-agent:%tc.image.version%-windowsservercore --verbose" />
+          <param name="docker.command.type" value="other" />
+          <param name="docker.sub.command" value="manifest" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements>
+      <ver-no-less-than id="RQ_1" name="docker.version" value="18.05.0" />
+      <contains id="RQ_2" name="docker.server.osType" value="windows" />
+      <does-not-contain id="RQ_3" name="teamcity.agent.name" value="arm" />
+      <contains id="RQ_4" name="teamcity.agent.jvm.os.name" value="Windows 10" />
+    </requirements>
+    <build-triggers />
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-fail-start" value="true" />
+          <param name="free-space-work" value="1gb" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_2" type="DockerSupport">
+        <parameters>
+          <param name="cleanupPushed" value="" />
+          <param name="login2registry" value="PROJECT_EXT_315,PROJECT_EXT_774" />
+          <param name="loginCheckbox" value="on" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_3" type="swabra">
+        <parameters>
+          <param name="swabra.strict" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="TC_Trunk_BuildDistDocker">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_hub_linux">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_production_linux_2004_aarch64">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+      <depend-on sourceBuildTypeId="RootProjectId_push_hub_windows">
+        <options>
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+
