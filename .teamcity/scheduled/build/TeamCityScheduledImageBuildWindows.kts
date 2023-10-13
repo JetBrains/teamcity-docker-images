@@ -28,19 +28,20 @@ object TeamCityScheduledImageBuildWindows : BuildType({
     }
 
     steps {
-        // 1. Build Windows 1809-based images
-        val win1809images = ImageInfoRepository.getWindowsImages1809(
-            stagingRepo = "%docker.nightlyRepository%",
-            version = "%dockerImage.teamcity.buildNumber%",
-            prodRepo = "%docker.nightlyRepository%",
-            dockerfileTag = DeliveryConfig.tcVersion
-        )
-        win1809images.forEach { winImage1809 ->
-            buildImage(winImage1809)
-        }
+        // TODO: Enable build of Windows 1809 images back
+//        // 1. Build Windows 1809-based images
+//        val win1809images = ImageInfoRepository.getWindowsImages1809(
+//            stagingRepo = "%docker.nightlyRepository%",
+//            version = "%dockerImage.teamcity.buildNumber%",
+//            prodRepo = "%docker.nightlyRepository%",
+//            dockerfileTag = DeliveryConfig.tcVersion
+//        )
+//        win1809images.forEach { winImage1809 ->
+//            buildImage(winImage1809)
+//        }
 
         // 2. Publish Windows 1809 images into staging (nightly) repository
-        win1809images.forEach { imageInfo -> publishToStaging(imageInfo) }
+//        win1809images.forEach { imageInfo -> publishToStaging(imageInfo) }
 
         // 3. Build Windows 2022-based images
         val win2022images = ImageInfoRepository.getWindowsImages2022(
