@@ -16,7 +16,7 @@ class ImageInfoRepository {
             return listOf(
                 "$version-linux",
                 "$version-nanoserver-1809",
-                "$version-nanoserver-2004",
+                "$version-nanoserver-2022",
                 "$version-linux-arm64"
             )
         }
@@ -28,7 +28,7 @@ class ImageInfoRepository {
             return listOf(
                 "$version-linux",
                 "$version-nanoserver-1809",
-                "$version-nanoserver-2004 ",
+                "$version-nanoserver-2022 ",
                 "$version-linux-arm64"
             )
         }
@@ -40,7 +40,7 @@ class ImageInfoRepository {
         fun getWindowsCoreAgentTags(version: String): List<String> {
             return listOf(
                 "${version}-windowsservercore-1809",
-                "${version}-windowsservercore-2004"
+                "${version}-windowsservercore-2022"
             )
         }
 
@@ -149,16 +149,16 @@ class ImageInfoRepository {
         }
 
         /**
-         * Returns the list of Windows 2004-based TeamCity Docker images.
+         * Returns the list of Windows 2022-based TeamCity Docker images.
          */
-        fun getWindowsImages2004(
+        fun getWindowsImages2022(
             stagingRepo: String = "%docker.buildRepository%",
             version: String = "%tc.image.version%",
             dockerfileTag: String = "%tc.image.version%",
             namePostfix: String = "%docker.buildImagePostfix%",
             prodRepo: String = "%docker.deployRepository%"
         ): Set<ImageInfo> {
-            return getWindowsImages("2004", stagingRepo, version, dockerfileTag, namePostfix, prodRepo)
+            return getWindowsImages("2022", stagingRepo, version, dockerfileTag, namePostfix, prodRepo)
         }
 
         /**
@@ -186,7 +186,7 @@ class ImageInfoRepository {
                                      dockerfileTag: String,
                                      namePostfix: String,
                                      prodRepo: String): Set<ImageInfo> {
-            if (!(winVersion == "1809" || winVersion == "2004")) {
+            if (!(winVersion == "1809" || winVersion == "2022")) {
                 throw IllegalArgumentException("Unsupported Windows version: [${winVersion}]")
             }
 

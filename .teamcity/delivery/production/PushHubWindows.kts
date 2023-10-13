@@ -22,7 +22,7 @@ object push_hub_windows : BuildType({
         }
 
         // Move Windows 2004-based Docker Images into production registry
-        ImageInfoRepository.getWindowsImages2004().forEach { imageInfo ->
+        ImageInfoRepository.getWindowsImages2022().forEach { imageInfo ->
             moveToProduction(imageInfo)
         }
     }
