@@ -32,7 +32,7 @@ ARG jdkServerWindowsComponentMD5SUM
 # Git
 ARG gitWindowsComponent
 ARG gitWindowsComponentSHA256
-
+USER ContainerAdministrator
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     # Use basic parsing to prevent errors in Windows Server 2022
@@ -41,6 +41,13 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     # Download actual target files
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
+#    ERROR: Unable to find type [Scripts.Web].
+# ...
+#    iex [Scripts.Web]::DownloadFiles("https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip#MD5#feb7eab99c647a0b4347be9f0a3276de", "jdk.zip")
+#    jdkServerWindowsComponentMD5SUM=feb7eab99c647a0b4347be9f0a3276de
+#    jdkServerWindowsComponent=https://${proxyUrl}corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip
+#    jdkServerWindowsComponentName=JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) ${jdkServerWindowsComponentMD5SUM}
+
     iex $downloadScript ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
@@ -50,6 +57,8 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     # https://youtrack.jetbrains.com/issue/TW-73017
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
     Remove-Item -Force git.zip
+
+USER ContainerUser
 
 # Prepare TeamCity server distribution
 ARG windowsBuild
