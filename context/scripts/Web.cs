@@ -226,7 +226,7 @@ namespace Scripts
                 };
 
                 try {
-                    WriteLine("[Download file task] Trying to download the file ...");
+                    WriteLine("[Download file task] Trying to download the file [{0}] ...", destinationFile);
                     await client.DownloadFileTaskAsync(source, destinationFile);
                     return completed;
                 } catch (Exception fileDownloadException) {
