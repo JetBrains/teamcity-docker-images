@@ -13,6 +13,8 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-2022'
 
 FROM ${powershellImage} AS dotnet
 
+USER ContainerAdministrator
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 

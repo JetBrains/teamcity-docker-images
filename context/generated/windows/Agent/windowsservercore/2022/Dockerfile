@@ -28,6 +28,8 @@ FROM ${teamcityMinimalAgentImage} AS buildagent
 ARG windowsservercoreImage
 FROM ${windowsservercoreImage}
 
+USER ContainerAdministrator
+
 COPY scripts/*.cs /scripts/
 
 # PowerShell

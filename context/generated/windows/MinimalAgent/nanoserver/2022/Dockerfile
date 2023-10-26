@@ -15,6 +15,8 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
 
 FROM ${powershellImage} AS base
 
+USER ContainerAdministrator
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
