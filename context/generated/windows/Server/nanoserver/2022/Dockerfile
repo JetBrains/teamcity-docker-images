@@ -24,8 +24,6 @@ FROM ${powershellImage} AS base
 
 USER ContainerAdministrator
 
-RUN net localgroup
-
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 

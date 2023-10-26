@@ -22,8 +22,6 @@ ARG windowsBuild='1809'
 # PowerShell
 FROM ${powershellImage} AS base
 
-RUN net localgroup
-
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
