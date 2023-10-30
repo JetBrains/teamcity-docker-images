@@ -3,9 +3,10 @@
 # ... of potential tooling extension and security testing purposes.
 #
 
-ARG teamCityServerImage
+# @param teamCityImage TeamCity Server Docker Image
+ARG teamCityImage
 
-FROM ${teamCityServerImage}
+FROM ${teamCityImage}
 
 USER root
 
