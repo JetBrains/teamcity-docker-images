@@ -10,7 +10,7 @@ FROM ${teamCityImage}
 
 USER root
 
-RUN rm -rf /opt/buildagent
+RUN rm -rf /opt/buildagent/*
 USER buildagent
 
 CMD ["sleep", "infinity"]
