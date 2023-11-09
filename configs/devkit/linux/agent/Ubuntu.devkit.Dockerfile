@@ -10,7 +10,18 @@ FROM ${teamCityImage}
 
 USER root
 
-RUN rm -rf /opt/buildagent/*
+# Remove agent code sequentially to work around the inability to delete volumes from the base image.
+RUN rm -rf '/opt/buildagent/bin' && \
+    rm -rf '/opt/buildagent/tools' && \
+    rm -rf '/opt/buildagent/system' && \
+    rm -rf '/opt/buildagent/plugins' && \
+    rm -rf '/opt/buildagent/temp' && \
+    rm -rf '/opt/buildagent/work' && \
+    rm -rf '/opt/buildagent/lib' && \
+    rm -rf '/opt/buildagent/conf' && \
+    rm -rf '/opt/buildagent/launcher' && \
+    rm -rf '/data/teamcity_agent/conf'
+
 USER buildagent
 
 CMD ["sleep", "infinity"]
