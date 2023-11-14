@@ -1,7 +1,7 @@
 # Default arguments
 ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
-ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1803'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2023.11-windowsservercore-1803'
 
 # The list of required arguments
 # ARG dotnetWindowsComponent
