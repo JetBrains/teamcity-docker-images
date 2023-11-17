@@ -1,16 +1,24 @@
-# Default arguments
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
-ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-2022'
-
 # The list of required arguments
 # ARG nanoserverImage
 # ARG powershellImage
 # ARG teamcityWindowsservercoreImage
 
+# Id teamcity-agent
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
+# Platform ${windowsPlatform}
+# Repo ${repo}
+# Weight 2
 
+## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 
+# Based on ${powershellImage} 3
 FROM ${powershellImage} AS dotnet
 
 # On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
@@ -20,11 +28,13 @@ USER ContainerAdministrator
 COPY scripts/*.cs /scripts/
 SHELL ["pwsssssssh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+# Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
 FROM ${teamcityWindowsservercoreImage} AS tools
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
+# Based on ${nanoserverImage} 2
 FROM ${nanoserverImage}
 
 ENV ProgramFiles="C:\Program Files" \

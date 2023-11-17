@@ -1,12 +1,3 @@
-# Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip'
-ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
-ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
-ARG jdkServerWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1809'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1809'
-ARG windowsBuild='1809'
-
 # The list of required arguments
 # ARG powershellImage
 # ARG jdkServerWindowsComponent
@@ -16,11 +7,28 @@ ARG windowsBuild='1809'
 # ARG windowsBuild
 # ARG powershellImage
 
+# Id teamcity-server
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
+# Platform ${windowsPlatform}
+# Repo ${repo}
+# Weight 3
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
+## ${serverCommentHeader}
 
+# @AddToolToDoc [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
 
+# Based on ${powershellImage} 3
 # PowerShell
 FROM ${powershellImage} AS base
+
+# On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -35,6 +43,10 @@ ARG gitWindowsComponentSHA256
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    # Use basic parsing to prevent errors in Windows Server 2022
+    $Global:ProgressPreference = 'SilentlyContinue' ; \
+    $Global:UseBasicParsing = $true ; \
+    # Download actual target files
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
     iex $downloadScript ; \
@@ -53,6 +65,8 @@ ARG windowsBuild
 COPY TeamCity /TeamCity
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 COPY run-server.ps1 /TeamCity/run-server.ps1
+
+USER ContainerUser
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
