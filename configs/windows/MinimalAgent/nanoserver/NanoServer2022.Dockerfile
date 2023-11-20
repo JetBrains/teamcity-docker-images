@@ -1,18 +1,24 @@
-# Default arguments
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
-
 # The list of required arguments
 # ARG jdkWindowsComponent
 # ARG jdkWindowsComponentMD5SUM
 # ARG nanoserverImage
 # ARG powershellImage
 
+# Id teamcity-minimal-agent
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
+# Platform ${windowsPlatform}
+# Repo ${repo}
+# Weight 5
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
+## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
 
+# Based on ${powershellImage} 3
 FROM ${powershellImage} AS base
 
 # On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
@@ -43,6 +49,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
 
+# Based on ${nanoserverImage} 2
 FROM ${nanoserverImage}
 
 ENV ProgramFiles="C:\Program Files" \

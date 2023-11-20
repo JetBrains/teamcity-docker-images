@@ -1,12 +1,3 @@
-# Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip'
-ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
-ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
-ARG jdkServerWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
-ARG windowsBuild='2022'
-
 # The list of required arguments
 # ARG powershellImage
 # ARG jdkServerWindowsComponent
@@ -16,9 +7,22 @@ ARG windowsBuild='2022'
 # ARG windowsBuild
 # ARG powershellImage
 
+# Id teamcity-server
+# Tag ${versionTag}-${tag}
+# Tag ${latestTag}
+# Tag ${versionTag}
+# Platform ${windowsPlatform}
+# Repo ${repo}
+# Weight 3
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
+## ${serverCommentHeader}
 
+# @AddToolToDoc [${jdkServerWindowsComponentName}](${jdkServerWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
 
+# Based on ${powershellImage} 3
 # PowerShell
 FROM ${powershellImage} AS base
 
