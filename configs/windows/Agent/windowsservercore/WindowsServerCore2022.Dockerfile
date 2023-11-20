@@ -1,14 +1,3 @@
-# Default arguments
-ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip'
-ARG dotnetWindowsComponentSHA512='a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e'
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip'
-ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2023.11-nanoserver-2004'
-ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-2004'
-
 # The list of required arguments
 # ARG windowsservercoreImage
 # ARG dotnetWindowsComponent
@@ -20,13 +9,33 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 # ARG mercurialWindowsComponentName
 # ARG teamcityMinimalAgentImage
 
+# Id teamcity-agent
+# Tag ${versionTag}-${tag}
+# Tag ${versionTag}-windowsservercore
+# Tag ${latestTag}-windowsservercore
+# Platform ${windowsPlatform}
+# Repo ${repo}
+# Weight 16
+# Requires teamcity.agent.jvm.os.name contains Windows 10
 
+## ${agentCommentHeader}
 
+# @AddToolToDoc [${jdkWindowsComponentName}](${jdkWindowsComponent})
+# @AddToolToDoc [${gitWindowsComponentName}](${gitWindowsComponent})
+# @AddToolToDoc ${powerShellComponentName}
+# @AddToolToDoc [${mercurialWindowsComponentName}](${mercurialWindowsComponent})
+# @AddToolToDoc [${dotnetWindowsComponentName}](${dotnetWindowsComponent})
 
+# Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage} AS buildagent
 
+# Based on ${windowsservercoreImage} 12
 ARG windowsservercoreImage
 FROM ${windowsservercoreImage}
+
+# On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
 
