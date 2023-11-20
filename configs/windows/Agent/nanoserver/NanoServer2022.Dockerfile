@@ -26,7 +26,7 @@ FROM ${powershellImage} AS dotnet
 USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
-SHELL ["pwsssssssh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
@@ -75,7 +75,7 @@ EXPOSE 9090
 VOLUME C:/BuildAgent/conf
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature
