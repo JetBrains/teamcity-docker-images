@@ -49,6 +49,7 @@ namespace TeamCity.Docker
             var nodeDict = new Dictionary<string, INode<IArtifact>>();
             foreach (var template in templates)
             {
+                // "variants" are different Dockerfile.config files for the template
                 foreach (var variant in template.Variants)
                 {
                     var lines = _contentParser.Parse(template.Lines, variant.Variables).ToImmutableList();

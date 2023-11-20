@@ -9,6 +9,9 @@ namespace TeamCity.Docker
     using IoC;
     using Model;
 
+    /// <summary>
+    /// Locates configuration files for Docker Images.
+    /// </summary>
     internal class ConfigurationExplorer : IConfigurationExplorer
     {
         [NotNull] private readonly ILogger _logger;
@@ -21,7 +24,7 @@ namespace TeamCity.Docker
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
-
+        
         public Result<IEnumerable<Template>> Explore(string sourcePath, IEnumerable<string> configurationFiles)
         {
             if (sourcePath == null)
@@ -103,9 +106,10 @@ namespace TeamCity.Docker
                     var ignore = new List<string>();
                     if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
                     {
+                        // Add .Dockerignore files
                         ignore.AddRange(_fileSystem.ReadLines(dockerignoreTemplatePath));
                     }
-
+                    
                     yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants.AsReadOnly(), ignore.AsReadOnly());
                 }
             }
