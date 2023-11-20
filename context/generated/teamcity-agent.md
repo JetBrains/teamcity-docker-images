@@ -29,6 +29,9 @@ When running an image with multi-architecture support, docker will automatically
 
 #### windows
 
+- 2022
+  - [2023.11-nanoserver-2022](#202311-nanoserver-2022)
+  - [2023.11-windowsservercore-2022](#202311-windowsservercore-2022)
 - 2004
   - [2023.11-nanoserver-2004](#202311-nanoserver-2004)
   - [2023.11-windowsservercore-2004](#202311-windowsservercore-2004)
@@ -48,7 +51,7 @@ When running an image with multi-architecture support, docker will automatically
 
 ### 2023.11
 
-Supported platforms: linux 20.04, windows 1809, windows 2004
+Supported platforms: linux 20.04, windows 1809, windows 2004, windows 2022
 
 #### Content
 
@@ -56,15 +59,17 @@ Supported platforms: linux 20.04, windows 1809, windows 2004
 - [2023.11-linux-arm64](#202311-linux-arm64)
 - [2023.11-nanoserver-1809](#202311-nanoserver-1809)
 - [2023.11-nanoserver-2004](#202311-nanoserver-2004)
+- [2023.11-nanoserver-2022](#202311-nanoserver-2022)
 
 ### 2023.11-windowsservercore
 
-Supported platforms: windows 1809, windows 2004
+Supported platforms: windows 1809, windows 2004, windows 2022
 
 #### Content
 
 - [2023.11-windowsservercore-1809](#202311-windowsservercore-1809)
 - [2023.11-windowsservercore-2004](#202311-windowsservercore-2004)
+- [2023.11-windowsservercore-2022](#202311-windowsservercore-2022)
 
 
 ### 2023.11-linux
@@ -301,6 +306,41 @@ docker build -f "context/generated/windows/Agent/nanoserver/2004/Dockerfile" -t 
 
 _The required free space to generate image(s) is about **40 GB**._
 
+### 2023.11-nanoserver-2022
+
+[Dockerfile](windows/Agent/nanoserver/2022/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) feb7eab99c647a0b4347be9f0a3276de](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip)
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [Git x64 v.2.42.0 Checksum (SHA256) b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1](https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip)
+- [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:ltsc2022
+docker pull mcr.microsoft.com/powershell:nanoserver-ltsc2022
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2022
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-2022 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2023.11-windowsservercore-2022 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/2022/Dockerfile" -t teamcity-agent:2023.11-nanoserver-2022 "context"
+```
+
+_The required free space to generate image(s) is about **40 GB**._
+
 ### 2023.11-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
@@ -367,6 +407,41 @@ echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-2004 "context"
 docker build -f "context/generated/windows/Agent/windowsservercore/2004/Dockerfile" -t teamcity-agent:2023.11-windowsservercore-2004 "context"
+```
+
+_The required free space to generate image(s) is about **38 GB**._
+
+### 2023.11-windowsservercore-2022
+
+[Dockerfile](windows/Agent/windowsservercore/2022/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) feb7eab99c647a0b4347be9f0a3276de](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip)
+- [Git x64 v.2.42.0 Checksum (SHA256) b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1](https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip)
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+- [Mercurial x64 v.5.9.1](https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi)
+- [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:ltsc2022
+docker pull mcr.microsoft.com/powershell:nanoserver-ltsc2022
+docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2022
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-2022 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2023.11-windowsservercore-2022 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
