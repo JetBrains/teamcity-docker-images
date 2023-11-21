@@ -3,9 +3,9 @@ ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/downloa
 ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
 ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
 ARG jdkServerWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:2004'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-2004'
-ARG windowsBuild='2004'
+ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
+ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
+ARG windowsBuild='2022'
 
 # The list of required arguments
 # ARG powershellImage
@@ -22,6 +22,10 @@ ARG windowsBuild='2004'
 # PowerShell
 FROM ${powershellImage} AS base
 
+# On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -35,6 +39,10 @@ ARG gitWindowsComponentSHA256
 
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
+    # Use basic parsing to prevent errors in Windows Server 2022
+    $Global:ProgressPreference = 'SilentlyContinue' ; \
+    $Global:UseBasicParsing = $true ; \
+    # Download actual target files
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkServerWindowsComponent + '#MD5#' + $Env:jdkServerWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip') ; \
     iex $downloadScript ; \
@@ -53,6 +61,8 @@ ARG windowsBuild
 COPY TeamCity /TeamCity
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 COPY run-server.ps1 /TeamCity/run-server.ps1
+
+USER ContainerUser
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage

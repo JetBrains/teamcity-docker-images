@@ -1,7 +1,7 @@
 # Default arguments
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:2004'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-2004'
-ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-2004'
+ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
+ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
+ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-2022'
 
 # The list of required arguments
 # ARG nanoserverImage
@@ -12,6 +12,10 @@ ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-2004'
 
 
 FROM ${powershellImage} AS dotnet
+
+# On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -61,7 +65,7 @@ EXPOSE 9090
 VOLUME C:/BuildAgent/conf
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature

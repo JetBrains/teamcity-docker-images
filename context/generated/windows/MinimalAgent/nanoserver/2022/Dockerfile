@@ -1,8 +1,8 @@
 # Default arguments
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:2004'
-ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-2004'
+ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
+ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
 
 # The list of required arguments
 # ARG jdkWindowsComponent
@@ -14,6 +14,10 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-2004'
 
 
 FROM ${powershellImage} AS base
+
+# On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]

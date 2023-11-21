@@ -119,8 +119,8 @@ class DockerRegistryAccessor(private val uri: String,
             val imagesFilteredByTarget = previousImageRepository.images.filter { it.osVersion.equals(osVersion) }
             if (imagesFilteredByTarget.isEmpty()) {
                 // Found images that matches OS type, but doesn't match OS version, e.g. ...
-                // ... - Previous: teamcity-agent:2022.10.1--windowsservercore-2004 (Windows 10.0.17763.3650)
-                // ... - Current : teamcity-agent:2022.10.2-windowsservercore-2004 (Windows 10.0.17763.3887)
+                // ... - Previous: teamcity-agent:2022.10.1--windowsservercore-2022 (Windows 10.0.17763.3650)
+                // ... - Current : teamcity-agent:2022.10.2-windowsservercore-2022 (Windows 10.0.17763.3887)
                 println(
                     "$currentImage - found previous image - ${previousImageRepository.name}, but OS version is "
                             + "different - $osVersion and ${previousImageRepository.images.first().osVersion} \n"

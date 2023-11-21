@@ -60,6 +60,12 @@ namespace TeamCity.Docker
             return new Result<IEnumerable<Template>>(GetConfigurations(sourcePath, additionalVars));
         }
 
+        /// <summary>
+        /// Generates "variants" - objects based on template Dockerfiles.
+        /// </summary>
+        /// <param name="sourcePath">path to folder with templates</param>
+        /// <param name="additionalVars">Parameters for the substitution within Dockerfile template.</param>
+        /// <returns>Tempalte objects</returns>
         private IEnumerable<Template> GetConfigurations([NotNull] string sourcePath, [NotNull] IReadOnlyDictionary<string, string> additionalVars)
         {
             if (sourcePath == null)
@@ -84,6 +90,8 @@ namespace TeamCity.Docker
                     var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
                     var variants = new List<Variant>();
                     var configCounter = 0;
+                    
+                    // Get all configuration files for particular OS (e.g. Ubuntu/20.04/..., Ubuntu/18.04/, ...
                     foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
                     {
                         var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
