@@ -130,16 +130,14 @@ If you want to start several build agents, you need to specify different volumes
 ### Windows Containers Limitations
 
 The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
- 
-## Supported tags and respective `Dockerfile` links
-
-
 
 ## Customization
 
-You can customize the image via the usual Docker procedure:
+**Leveraging existing Dockerfiles**. Please, refer to [custom TeamCity Agent Images for more information](https://github.com/JetBrains/teamcity-docker-images/tree/master/custom).
 
-1. Run the image
+**Manually**. To customise the Agent image manually, please follow the procedure below.
+
+1. Create a container.
 ```
 docker run -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \
@@ -150,7 +148,7 @@ docker run -e SERVER_URL="<url to TeamCity server>"  \
 ```
 docker exec -it my-customized-agent bash
 ```
-3. Change whatever you need
+3. Please make any required adjustments as needed
 
 4. Exit and [create a new image](https://docs.docker.com/engine/reference/commandline/commit/) from the container:
 ```
