@@ -9,6 +9,7 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
+- [latest](#latest)
 - [2023.11](#202311)
 
 #### linux
@@ -36,15 +37,24 @@ When running an image with multi-architecture support, docker will automatically
   - [2023.11-nanoserver-1803](#202311-nanoserver-1803)
 
 
-### 2023.11
+### latest
 
-Supported platforms: linux 20.04, windows 1809, windows 2004, windows 2022
+Supported platforms: linux 20.04, windows 1809, windows 2022
 
 #### Content
 
 - [2023.11-linux](#202311-linux)
 - [2023.11-nanoserver-1809](#202311-nanoserver-1809)
-- [2023.11-nanoserver-2004](#202311-nanoserver-2004)
+- [2023.11-nanoserver-2022](#202311-nanoserver-2022)
+
+### 2023.11
+
+Supported platforms: linux 20.04, windows 1809, windows 2022
+
+#### Content
+
+- [2023.11-linux](#202311-linux)
+- [2023.11-nanoserver-1809](#202311-nanoserver-1809)
 - [2023.11-nanoserver-2022](#202311-nanoserver-2022)
 
 
@@ -103,36 +113,6 @@ echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-1809 "context"
-```
-
-_The required free space to generate image(s) is about **10 GB**._
-
-### 2023.11-nanoserver-2004
-
-[Dockerfile](windows/MinimalAgent/nanoserver/2004/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-minimal-agent](https://hub.docker.com/r/jetbrains/teamcity-minimal-agent)
-
-Installed components:
-
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) feb7eab99c647a0b4347be9f0a3276de](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip)
-- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-
-Container platform: windows
-
-Docker build commands:
-
-```
-docker pull mcr.microsoft.com/windows/nanoserver:2004
-docker pull mcr.microsoft.com/powershell:nanoserver-2004
-echo TeamCity/webapps > context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
@@ -321,6 +301,33 @@ echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
 docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-1909 "context"
+```
+
+_The required free space to generate image(s) is about **10 GB**._
+
+### 2023.11-nanoserver-2004
+
+[Dockerfile](windows/MinimalAgent/nanoserver/2004/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) feb7eab99c647a0b4347be9f0a3276de](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip)
+- [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
+
+Container platform: windows
+
+Docker build commands:
+
+```
+docker pull mcr.microsoft.com/windows/nanoserver:2004
+docker pull mcr.microsoft.com/powershell:nanoserver-2004
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile" -t teamcity-minimal-agent:2023.11-nanoserver-2004 "context"
 ```
 
 _The required free space to generate image(s) is about **10 GB**._
