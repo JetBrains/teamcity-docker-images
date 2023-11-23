@@ -45,6 +45,13 @@ Supported platforms: linux 20.04, windows 1809, windows 2022
 - [EAP-nanoserver-2022](#EAP-nanoserver-2022)
 
 
+### Dockerfile links
+
+**Linux**. [teamcity-server:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/20.04/Dockerfile), [teamcity-server:EAP-linux-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/18.04/Dockerfile), [teamcity-server:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/20.04/Dockerfile), [teamcity-server:EAP-linux-arm64-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/18.04/Dockerfile)
+
+**Windows**. [teamcity-server:EAP-nanoserver-1809,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1809/Dockerfile), [teamcity-server:EAP-nanoserver-2022,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/2022/Dockerfile), [teamcity-server:EAP-nanoserver-1803,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1803/Dockerfile), [teamcity-server:EAP-nanoserver-1903,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1903/Dockerfile), [teamcity-server:EAP-nanoserver-1909,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1909/Dockerfile)
+
+
 ### EAP-linux
 
 [Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)

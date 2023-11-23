@@ -5,6 +5,7 @@ namespace TeamCity.Docker
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Generic;
     using IoC;
     using Model;
@@ -142,7 +143,12 @@ namespace TeamCity.Docker
 
                     lines.Add(string.Empty);
                 }
-
+                
+                // Adding Dockerfile links
+                lines.Add(string.Empty);
+                lines.Add("### Dockerfile links\n");
+                lines.Add(GetLinkForOs(groupByImage, "Linux"));
+                lines.Add(GetLinkForOs(groupByImage, "Windows"));
                 lines.Add(string.Empty);
 
                 foreach (var groupByFile in groupByImage)
@@ -228,6 +234,21 @@ namespace TeamCity.Docker
             }
         }
 
+        /// <summary>
+        /// Returns documentation string indicating existing Dockerfile links.
+        /// </summary>
+        /// <param name="groupByImage"></param>
+        /// <param name="osIdentifier">ID of the OS (Windows / Linux)</param>
+        /// <returns></returns>
+        private string GetLinkForOs(List<IGrouping<Dockerfile, INode<IArtifact>>> groupByImage, string osIdentifier)
+        {
+            string urlPrefix = "https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/";
+            string osLinks = string.Join(", ", groupByImage
+                .Where(obj => _pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile")).Contains(osIdentifier, StringComparison.OrdinalIgnoreCase))
+                .Select(obj => $"[{obj.Key}]({urlPrefix}{_pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile"))})"));
+            return $"**{osIdentifier}**. {osLinks}\n";
+        }
+        
         private string GetReadmeFile(string imageId)
         {
             return _pathService.Normalize(Path.Combine(_options.TargetPath, GetReadmeFilePath(imageId)));
