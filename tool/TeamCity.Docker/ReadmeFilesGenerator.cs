@@ -237,13 +237,13 @@ namespace TeamCity.Docker
         /// <summary>
         /// Returns documentation string indicating existing Dockerfile links.
         /// </summary>
-        /// <param name="groupByImage"></param>
+        /// <param name="imageNodes">list containing grouping of target Docker Images (Dockerfile, name, ID, etc.)</param>
         /// <param name="osIdentifier">ID of the OS (Windows / Linux)</param>
-        /// <returns></returns>
-        private string GetLinkForOs(List<IGrouping<Dockerfile, INode<IArtifact>>> groupByImage, string osIdentifier)
+        /// <returns>documentation line with the links to given Dockerfiles</returns>
+        private string GetLinkForOs(List<IGrouping<Dockerfile, INode<IArtifact>>> imageNodes, string osIdentifier)
         {
             string urlPrefix = "https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/";
-            string osLinks = string.Join(", ", groupByImage
+            string osLinks = string.Join(", ", imageNodes
                 .Where(obj => _pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile")).Contains(osIdentifier, StringComparison.OrdinalIgnoreCase))
                 .Select(obj => $"[{obj.Key}]({urlPrefix}{_pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile"))})"));
             return $"**{osIdentifier}**. {osLinks}\n";
