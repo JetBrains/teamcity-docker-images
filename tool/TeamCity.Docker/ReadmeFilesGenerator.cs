@@ -146,7 +146,7 @@ namespace TeamCity.Docker
                 
                 // Adding Dockerfile links
                 lines.Add(string.Empty);
-                lines.Add("### Dockerfile links\n");
+                lines.Add("# Dockerfile links\n");
                 lines.Add(GetLinkForOs(groupByImage, "Linux"));
                 lines.Add(GetLinkForOs(groupByImage, "Windows"));
                 lines.Add(string.Empty);
@@ -246,7 +246,7 @@ namespace TeamCity.Docker
             string osLinks = string.Join(", ", imageNodes
                 .Where(obj => _pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile")).Contains(osIdentifier, StringComparison.OrdinalIgnoreCase))
                 .Select(obj => $"[{obj.Key}]({urlPrefix}{_pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile"))})"));
-            return $"**{osIdentifier}**. {osLinks}\n";
+            return $"* **{osIdentifier}**. {osLinks}\n";
         }
         
         private string GetReadmeFile(string imageId)
