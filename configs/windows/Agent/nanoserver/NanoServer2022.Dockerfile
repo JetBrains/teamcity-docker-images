@@ -28,7 +28,6 @@ USER ContainerAdministrator
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-
 # Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
 FROM ${teamcityWindowsservercoreImage} AS tools
