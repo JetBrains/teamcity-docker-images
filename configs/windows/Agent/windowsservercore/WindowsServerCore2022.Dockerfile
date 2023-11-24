@@ -79,10 +79,14 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 
 COPY --from=buildagent /BuildAgent /BuildAgent
 
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+RUN icacls.exe C:\BuildAgent\* /grant:r DefaultAccount:(OI)(CI)F
+
 EXPOSE 9090
 
 VOLUME C:/BuildAgent/conf
 
+USER ContainerUser
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
