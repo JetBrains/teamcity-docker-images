@@ -25,6 +25,8 @@ function unquote($value) {
     return $value -Replace '""', '"'
 }
 
+# Executes "agent configure" utility with the variables specified at container's start up: ...
+# ... server url, name, token, etc.
 function reconfigure() {
     $options=@()
     fixDns
@@ -44,9 +46,11 @@ function reconfigure() {
     configure $options
 }
 
+# If buildAgent.dist.properties exist, saves it as buildAgent.properties (overwrites if exists)
 function prepare_conf() {
     Write-Host "Will prepare agent configuration"
     Get-ChildItem "${agentDist}/conf" -Recurse | ForEach-Object {
+        Write-Host ("Processing: " + $_.Name)
         if ($_.Name -eq "buildAgent.dist.properties") {
             Move-Item $_.FullName "${configDir}/buildAgent.properties" -Force
         } else {
