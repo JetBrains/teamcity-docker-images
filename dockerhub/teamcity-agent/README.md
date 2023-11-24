@@ -121,7 +121,7 @@ docker run -e SERVER_URL="<url to TeamCity server>"  \
     -v <path to agent config folder>:/data/teamcity_agent/conf \
     -v docker_volumes:/var/lib/docker \
     --privileged -e DOCKER_IN_DOCKER=start \    
-    jetbrains/teamcity-agent:2021.1.1-linux-sudo
+    jetbrains/teamcity-agent:2023.11-linux-sudo
 ```
 
 The option `-v docker_volumes:/var/lib/docker` is related to the case when the `aufs` filesystem is used and when a build agent is started from a Windows machine ([related issue](https://youtrack.jetbrains.com/issue/TW-52939)).   
@@ -130,12 +130,14 @@ If you want to start several build agents, you need to specify different volumes
 ### Windows Containers Limitations
 
 The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
- 
+
 ## Customization
 
-You can customize the image via the usual Docker procedure:
+**Leveraging existing Dockerfiles**. Please, refer to [custom TeamCity Agent Images for more information](https://github.com/JetBrains/teamcity-docker-images/tree/master/custom).
 
-1. Run the image
+**Manually**. To customise the Agent image manually, please follow the procedure below.
+
+1. Create a container.
 ```
 docker run -e SERVER_URL="<url to TeamCity server>"  \ 
     -v <path to agent config folder>:/data/teamcity_agent/conf  \
@@ -146,12 +148,13 @@ docker run -e SERVER_URL="<url to TeamCity server>"  \
 ```
 docker exec -it my-customized-agent bash
 ```
-3. Change whatever you need
+3. Please make any required adjustments as needed
 
 4. Exit and [create a new image](https://docs.docker.com/engine/reference/commandline/commit/) from the container:
 ```
 docker commit my-customized-agent <the registry where you what to store the image>
 ```
+
 
 ## License
 
