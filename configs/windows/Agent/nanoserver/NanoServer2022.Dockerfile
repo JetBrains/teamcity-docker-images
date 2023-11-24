@@ -26,7 +26,7 @@ FROM ${powershellImage} AS dotnet
 USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
-SHELL ["pwsssssssh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Based on ${teamcityWindowsservercoreImage}
 ARG teamcityWindowsservercoreImage
