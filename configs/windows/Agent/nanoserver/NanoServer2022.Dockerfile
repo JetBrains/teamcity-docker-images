@@ -95,7 +95,6 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet"
-RUN cmd /c icacls.exe C:\\scripts /grant:r DefaultAccount:(OI)(CI)F
 USER ContainerUser
 
 # Trigger first run experience by running arbitrary cmd to populate local package cache
