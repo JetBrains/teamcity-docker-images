@@ -59,15 +59,15 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     (Get-Content 'C:\Program Files\Git\etc\gitconfig') -replace 'path = C:/Program Files/Git/etc/gitconfig', '' | Set-Content 'C:\Program Files\Git\etc\gitconfig' ; \
     Remove-Item -Force git.zip
 
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN icacls.exe C:\BuildAgent\* /grant:r DefaultAccount:(OI)(CI)F
-
 # Prepare TeamCity server distribution
 ARG windowsBuild
 
 COPY TeamCity /TeamCity
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 COPY run-server.ps1 /TeamCity/run-server.ps1
+
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+RUN cmd /c icacls.exe C:\\TeamCity\\* /grant:r DefaultAccount:(OI)(CI)F
 
 USER ContainerUser
 

@@ -18,6 +18,9 @@ FROM ${powershellImage} AS dotnet
 USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
+
+RUN cmd /c icacls.exe C:\\scripts /grant:r DefaultAccount:(OI)(CI)F
+
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG teamcityWindowsservercoreImage

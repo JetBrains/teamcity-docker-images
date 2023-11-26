@@ -47,7 +47,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
 
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN icacls.exe C:\BuildAgent\* /grant:r DefaultAccount:(OI)(CI)F
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
