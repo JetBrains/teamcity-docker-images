@@ -66,9 +66,6 @@ COPY TeamCity /TeamCity
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
 COPY run-server.ps1 /TeamCity/run-server.ps1
 
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN cmd /c icacls.exe C:\\TeamCity\\* /grant:r DefaultAccount:(OI)(CI)F
-
 USER ContainerUser
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
@@ -124,4 +121,6 @@ CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+RUN cmd /c icacls.exe C:\\TeamCity\\* /grant:r DefaultAccount:(OI)(CI)F
 USER ContainerUser
