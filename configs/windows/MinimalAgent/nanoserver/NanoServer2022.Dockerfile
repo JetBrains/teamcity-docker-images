@@ -64,8 +64,6 @@ COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%ProgramFiles%\PowerShell"
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
 USER ContainerUser
 
 # intialize powershell module cache
@@ -85,6 +83,11 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+
+USER ContainerAdministrator
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
+USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
