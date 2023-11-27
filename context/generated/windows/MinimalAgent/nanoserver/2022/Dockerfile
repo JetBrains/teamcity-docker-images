@@ -80,6 +80,7 @@ COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 USER ContainerAdministrator
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
 RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Users:(OI)(CI)F
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
