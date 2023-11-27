@@ -117,7 +117,7 @@ CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, F - full control
 RUN cmd /c icacls.exe C:\\TeamCity\\* /grant:r DefaultAccount:(OI)(CI)F
 RUN cmd /c icacls.exe C:\\TeamCity\\* /grant:r Users:(OI)(CI)F
 USER ContainerUser

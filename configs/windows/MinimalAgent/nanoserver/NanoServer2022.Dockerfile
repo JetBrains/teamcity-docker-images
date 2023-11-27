@@ -85,7 +85,7 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
 USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, F - full control
 RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
 RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Users:(OI)(CI)F
 USER ContainerUser
