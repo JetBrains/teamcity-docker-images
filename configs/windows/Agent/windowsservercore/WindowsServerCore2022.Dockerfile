@@ -83,6 +83,7 @@ EXPOSE 9090
 
 VOLUME C:/BuildAgent/conf
 
+USER ContainerUser
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
