@@ -101,6 +101,6 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN cmd /c icacls.exe "C:\\BuildAgent\\system\\*" /grant:r 'DefaultAccount::(OI)(CI)F'
-RUN cmd /c icacls.exe "C:\\BuildAgent\\system\\*" /grant:r 'Users:(OI)(CI)F'
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Users:(OI)(CI)F
 USER ContainerUser
