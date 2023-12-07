@@ -1,5 +1,5 @@
 # Default arguments
-ARG teamcityAgentImage='teamcity-agent:2023.11-linux-18.04'
+ARG teamcityAgentImage='teamcity-agent:2023.11.1-linux-18.04'
 
 # The list of required arguments
 # ARG teamcityAgentImage
