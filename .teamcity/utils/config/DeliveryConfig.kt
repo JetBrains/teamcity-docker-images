@@ -10,6 +10,6 @@ class DeliveryConfig {
 
         // Version must correspond to generated Dockerfiles, as minimal agent is a ...
         // ... base image for regular agent.
-        const val tcVersion = "2023.11"
+        const val tcVersion = "2023.11.1"
     }
 }
