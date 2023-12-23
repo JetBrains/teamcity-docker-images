@@ -1,19 +1,16 @@
-import common.TeamCityDockerImagesRepo
 import common.TeamCityDockerImagesRepo_AllBranches
+import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import utils.ImageInfoRepository
 import utils.Utils
-import utils.models.ImageInfo
-import utils.dsl.steps.buildImage
-import utils.dsl.steps.publishToStaging
-import jetbrains.buildServer.configs.kotlin.v2019_2.AbsoluteId
-import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import utils.config.DeliveryConfig
 import utils.config.Registries
 import utils.dsl.general.teamCityBuildDistDocker
 import utils.dsl.general.teamCityImageBuildFeatures
-import java.lang.IllegalArgumentException
+import utils.dsl.steps.buildImage
+import utils.dsl.steps.publishLinuxManifests
+import utils.dsl.steps.publishToStaging
+import utils.models.ImageInfo
 
 /**
  * Base class for the build of Linux-based Docker images.
@@ -64,6 +61,9 @@ class TeamCityScheduledImageBuildLinux_Base(private val platform: String, privat
 
         // publish images if build of each one of them succeeded
         images.forEach { imageInfo -> publishToStaging(imageInfo) }
+
+        // publish manifests
+        // publishLinuxManifests(name = "%dockerImage.teamcity.buildNumber%", repo = "%docker.nightlyRepository%")
 
         script {
             name = "Generate Sample docker-compose manifest for the created images"

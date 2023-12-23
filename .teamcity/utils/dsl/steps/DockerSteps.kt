@@ -146,19 +146,31 @@ fun BuildSteps.publishLinuxManifests(name: String, repo: String, postfix: String
     val ver = version.ifEmpty { name }
 
     // 1. Publish Server Manifests
-    val serverTags = ImageInfoRepository.getAllServerTags(ver)
-    publishManifest("${repo}teamcity-server${postfix}", serverTags, name)
+    publishManifest(
+        imageName = "${repo}teamcity-server${postfix}",
+        tags = ImageInfoRepository.getAllServerTags(ver),
+        manifestTag = name
+    )
 
     // 2. Publish Agent Manifests
-    val agentTags = ImageInfoRepository.getAllAgentTags(ver)
-    publishManifest("${repo}teamcity-agent${postfix}", agentTags, name)
+    publishManifest(
+        imageName = "${repo}teamcity-agent${postfix}",
+        tags = ImageInfoRepository.getAllAgentTags(ver),
+        manifestTag = name
+    )
 
     // 3. Publish Minimal Agent Manifests
-    val minAgentTags = ImageInfoRepository.getAllMinimalAgentTags(ver)
     publishManifest(
-        "${repo}teamcity-minimal-agent${postfix}",
-        minAgentTags,
-        name
+        imageName = "${repo}teamcity-minimal-agent${postfix}",
+        tags = ImageInfoRepository.getAllMinimalAgentTags(ver),
+        manifestTag = name
+    )
+
+    // 4. Publish Agent-sudo Manifests
+    publishManifest(
+        imageName = "${repo}teamcity-agent${postfix}",
+        tags = ImageInfoRepository.getAllSudoAgentTags(ver),
+        manifestTag = "${name}-linux-sudo"
     )
 }
 
