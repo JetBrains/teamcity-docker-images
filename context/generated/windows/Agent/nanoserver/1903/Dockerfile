@@ -1,7 +1,7 @@
 # Default arguments
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
-ARG teamcityWindowsservercoreImage='teamcity-agent:2023.11.3-windowsservercore-1903'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2023.11.4-windowsservercore-1903'
 
 # The list of required arguments
 # ARG nanoserverImage
