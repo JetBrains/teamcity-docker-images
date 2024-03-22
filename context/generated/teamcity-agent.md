@@ -93,7 +93,7 @@ Installed components:
 - Git LFS v.2.9.2
 - Git v.2.43.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
@@ -133,7 +133,7 @@ Installed components:
 - Git v.2.43.2
 - Git LFS v.2.9.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 (LTS) ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
@@ -173,7 +173,7 @@ Installed components:
 - Git v.2.43.2
 - Git LFS v.2.9.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 (LTS) ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
@@ -214,7 +214,7 @@ Installed components:
 - Git LFS v.2.9.2
 - Git v.2.43.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
@@ -394,7 +394,7 @@ Installed components:
 - Git LFS v.2.3.4
 - Git v.2.41.0
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
@@ -432,7 +432,7 @@ Installed components:
 - Git LFS v.2.9.2
 - Git v.2.43.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
@@ -470,7 +470,7 @@ Installed components:
 - Git v.2.41.0
 - Git LFS v.2.3.4
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 (LTS) ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
@@ -507,7 +507,7 @@ Installed components:
 - Git v.2.43.2
 - Git LFS v.2.9.2
 - Mercurial
-- [Docker v.5:20.10.12](https://github.com/docker/cli/releases/tag/v20.10.12)
+- [Docker v.5:24.0.2](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.4.12-1](https://ubuntu.pkgs.org/20.04/docker-ce-stable-amd64/containerd.io_1.4.12-1_amd64.deb.html)
 - [Docker Compose v.1.28.5](https://github.com/docker/compose/releases/tag/1.28.5)
 - [.NET SDK v.6.0.413 (LTS) ARM64 Checksum (SHA512) 7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz)
