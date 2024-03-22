@@ -90,11 +90,12 @@ USER ContainerAdministrator
 RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
 RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D  /grant:r Users:(OI)(CI)M /T
 
+# "Everyone" - all built-in groups
+RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Everyone:(OI)(CI)F /T
+
 # Check permission
 RUN cmd /c icacls.exe C:\\BuildAgent\\*
 
-# Check permissions specifically for the build file
-RUN cmd /c icacls.exe C:\\BuildAgent\\BUILD_157825
 
 USER ContainerUser
 
