@@ -1,5 +1,5 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.4.12-1'
+ARG containerdIoLinuxComponentVersion='1.6.28-2'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:25.0.5-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
