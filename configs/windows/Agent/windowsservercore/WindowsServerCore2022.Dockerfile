@@ -87,7 +87,7 @@ USER ContainerUser
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature
@@ -105,7 +105,10 @@ ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
 
 USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Contaiber Inherit, F - full control
-RUN cmd /c icacls.exe "C:\\BuildAgent\\*" /grant:r 'DefaultAccount:(OI)(CI)F'
-RUN cmd /c icacls.exe "C:\\BuildAgent\\*" /grant:r 'Users:(OI)(CI)F'
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, D - delete, /T - apply to subfolders & files
+RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'DefaultAccount:(OI)(CI)D' /T
+RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'Users:(OI)(CI)F' /grant:r 'Users:(OI)(CI)D' /T
+# Applied permission check for logging purposes
+RUN cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
