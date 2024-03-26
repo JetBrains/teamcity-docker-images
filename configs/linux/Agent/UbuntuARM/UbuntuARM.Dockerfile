@@ -5,7 +5,6 @@
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
-# ARG dockerComposeLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 
 # Id teamcity-agent
@@ -26,7 +25,6 @@
 # @AddToolToDoc Mercurial
 # @AddToolToDoc ${dockerLinuxComponentName}
 # @AddToolToDoc ${containerdIoLinuxComponentName}
-# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc [${dotnetLinuxARM64ComponentName}](${dotnetLinuxARM64Component})
 
 
@@ -59,7 +57,6 @@ ARG dotnetLinuxARM64ComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
-ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 
@@ -82,8 +79,6 @@ RUN apt-get update && \
       systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
-# Docker-Compose
-    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # .NET Libraries
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005

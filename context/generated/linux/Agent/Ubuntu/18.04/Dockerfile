@@ -1,6 +1,5 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.6.28-2'
-ARG dockerComposeLinuxComponentVersion='1.28.5'
 ARG dockerLinuxComponentVersion='5:24.0.9-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
@@ -18,7 +17,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2024.03-linux-18.04'
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
-# ARG dockerComposeLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 
 
@@ -54,7 +52,6 @@ ARG dotnetLinuxComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
-ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
@@ -87,8 +84,6 @@ RUN apt-get update && \
         systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
-# Docker Compose
-    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
