@@ -1,7 +1,7 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.4.12-1'
+ARG containerdIoLinuxComponentVersion='1.6.28-2'
 ARG dockerComposeLinuxComponentVersion='1.28.5'
-ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
+ARG dockerLinuxComponentVersion='5:24.0.9-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='7f05a9774d79e694da5a6115d9916abf87a65e40bd6bdaa5dca1f705795436bc8e764242f7045207386a86732ef5519f60bdb516a3860e4860bca7ee91a21759'
@@ -69,10 +69,11 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-    docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-    containerd.io:arm64=${containerdIoLinuxComponentVersion} \
-    systemd && \
+    # docker-ce, docker-ce-cli package name format: "26.0.0-1~ubuntu.20.04~focal"
+    apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+      docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+      containerd.io:arm64=${containerdIoLinuxComponentVersion} \
+      systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
 # Docker-Compose
