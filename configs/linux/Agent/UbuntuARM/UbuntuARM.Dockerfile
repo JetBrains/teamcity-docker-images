@@ -75,10 +75,11 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-    docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-    containerd.io:arm64=${containerdIoLinuxComponentVersion} \
-    systemd && \
+    # docker-ce, docker-ce-cli package name format: "26.0.0-1~ubuntu.20.04~focal"
+    apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+      docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+      containerd.io:arm64=${containerdIoLinuxComponentVersion} \
+      systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
 # Docker-Compose
