@@ -19,12 +19,11 @@ FROM ${powershellImage} AS base
 # ... PowerShell container.
 USER ContainerAdministrator
 
+RUN mkdir C:\\BuildAgent
+CMD ["fsutil.exe", "file", "SetCaseSensitiveInfo", "'C:\\BuildAgent'", "enable"]
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-# CaseSensitivity is essential for the agent => enforcing it. SHELL usage is mandatory (pwsh or other won't work)
-RUN mkdir C:\\BuildAgent
-SHELL ["pwsh", "-Command", "fsutil.exe", "file", "SetCaseSensitiveInfo", "C:\\BuildAgent", "enable"]
 
 # Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
