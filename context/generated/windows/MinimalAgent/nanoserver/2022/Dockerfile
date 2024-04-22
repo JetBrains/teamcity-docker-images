@@ -1,7 +1,7 @@
 # Default arguments
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
-ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
+ARG nanoserverImage='registry.jetbrains.team/p/tc/docker/teamcity-nightly/nanoserver:ltsc2022'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
 
 # The list of required arguments
