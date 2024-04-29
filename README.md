@@ -57,7 +57,6 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 ### Utilities
 - [TeamCity Docker Images - tools](tool) - tools used within the release process of Docker Images.
-- [Automation Framework](tool/automation/framework) - framework for simplification of Docker Images release process.
 
 ### Bugs/issues/problems
 
