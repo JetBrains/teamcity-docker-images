@@ -1,8 +1,8 @@
 # Default arguments
 ARG dotnetWindowsComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-win-x64.zip'
 ARG dotnetWindowsComponentSHA512='a9e1bbb52484ad0667b258451ebb6b47ce6c7b788c015aee8a86c5e0c4dcf4ee8c82d796921869d64c92bb2afef2c7ceea09cfe255d8519d48f2471a098c361e'
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/MinGit-2.42.0-64-bit.zip'
-ARG gitWindowsComponentSHA256='b945e6df773fd8013f12e26b65b6815122be62a241d3ef4b9ed2d5ae67ae0aa1'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/MinGit-2.43.0-64-bit.zip'
+ARG gitWindowsComponentSHA256='1905d93068e986258fafc69517df8fddff829bb2a289c1fa4dcc6cdf720ddf36'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
@@ -46,7 +46,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# .NET 6.0
+# .NET 6.0, .NET Framework 4 is inherited from base image
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
@@ -74,10 +74,10 @@ EXPOSE 9090
 
 VOLUME C:/BuildAgent/conf
 
-CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
+CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature

@@ -1,21 +1,21 @@
 version: '2'
 services:
   teamcity-server:
-    image: registry.jetbrains.team/teamcity/teamcity-server:EAP-nanoserver-2004
+    image: registry.jetbrains.team/teamcity/teamcity-server:EAP-nanoserver-2022
     ports:
      - "8112:8111"
  
   teamcity-minimal-agent:
-    image: registry.jetbrains.team/teamcity/teamcity-minimal-agent:EAP-nanoserver-2004
+    image: registry.jetbrains.team/teamcity/teamcity-minimal-agent:EAP-nanoserver-2022
     environment:
       - SERVER_URL=teamcity-server:8111
 
   teamcity-agent:
-    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-nanoserver-2004
+    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-nanoserver-2022
     environment:
       - SERVER_URL=teamcity-server:8111
 
   teamcity-core-agent:
-    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-windowsservercore-2004
+    image: registry.jetbrains.team/teamcity/teamcity-agent:EAP-windowsservercore-2022
     environment:
       - SERVER_URL=teamcity-server:8111

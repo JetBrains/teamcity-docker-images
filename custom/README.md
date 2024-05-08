@@ -67,7 +67,7 @@ docker build `
     --build-arg teamCityAgentImage=jetbrains/teamcity-agent:2023.05.4-windowsservercore  `
     --build-arg dotnetSdkVersion=7.0.401 `
      --build-arg dotnetSdkChecksum=02a4ecc05d0b9dfa0c9e32f8a3d288f329e7338b2430fcbc1276ae356f9d8e14920f91382f3f141842bf1e6e6cd331e532b301edc71c26de9d9e5ad2371afbe0  `
-               -f "windows/agent/cusotm.dotnet.sdk.win.amd.Dockerfile" -t teamcity-agent:windows-custom-dotnet-7 .
+               -f "windows/agent/custom.dotnet.sdk.win.amd.Dockerfile" -t teamcity-agent:windows-custom-dotnet-7 .
                
 # 2. Verify .NET SDK version within the new image
 docker run teamcity-agent:windows-custom-dotnet-7 dotnet --version     

@@ -130,12 +130,7 @@ If you want to start several build agents, you need to specify different volumes
 ### Windows Containers Limitations
 
 The details on the known problems in Windows containers are available in the [TeamCity documentation](https://www.jetbrains.com/help/teamcity/known-issues.html#KnownIssues-WindowsDockerContainers).
-
-### Running Builds Which Require Podman
-The current TeamCity Agent images in the mainline do not include support for Podman. 
-
-To create images that can run Podman in both rootless and rootful modes, please refer to the documentation [Custom TeamCity Agent Images](https://github.com/JetBrains/teamcity-docker-images/tree/master/custom#custom-teamcity-agent-images) documentation.
-
+ 
 ## Customization
 
 You can customize the image via the usual Docker procedure:

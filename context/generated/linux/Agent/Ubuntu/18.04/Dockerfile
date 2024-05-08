@@ -1,13 +1,12 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.4.12-1'
-ARG dockerComposeLinuxComponentVersion='1.28.5'
-ARG dockerLinuxComponentVersion='5:20.10.12~3-0~ubuntu'
+ARG containerdIoLinuxComponentVersion='1.6.28-2'
+ARG dockerLinuxComponentVersion='5:24.0.9-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
-ARG p4Version='2022.2-2468771'
+ARG p4Version='2022.2-2531894'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
 
@@ -18,7 +17,6 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
 # ARG dotnetLibs
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
-# ARG dockerComposeLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 
 
@@ -54,7 +52,6 @@ ARG dotnetLinuxComponentSHA512
 ARG dotnetLibs
 ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
-ARG dockerComposeLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
@@ -80,14 +77,13 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    apt-get install -y  docker-ce=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        docker-ce-cli=${dockerLinuxComponentVersion}-$(lsb_release -cs) \
-                        containerd.io:amd64=${containerdIoLinuxComponentVersion} \
-                        systemd && \
+    # docker-ce, docker-ce-cli package name format: "25.0.5-1~ubuntu.20.04~focal"
+    apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+        docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+        containerd.io:amd64=${containerdIoLinuxComponentVersion} \
+        systemd && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
-# Docker Compose
-    curl -SL "https://github.com/docker/compose/releases/download/${dockerComposeLinuxComponentVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && \
 # Dotnet
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005

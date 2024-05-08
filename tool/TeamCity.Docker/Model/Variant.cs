@@ -4,6 +4,10 @@
     using System.Collections.Generic;
     using IoC;
 
+    /// <summary>
+    /// Describes "Variant" (configuration) of Docker Image - path to generated Dockerfile, path to its configuration ...
+    /// ... file, parameters (variables) included into the Dockerfile.
+    /// </summary>
     internal readonly struct Variant
     {
         [NotNull] public readonly string BuildPath;

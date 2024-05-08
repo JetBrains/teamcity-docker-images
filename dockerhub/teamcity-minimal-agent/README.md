@@ -59,7 +59,9 @@ The details on the known problems in Windows containers are available in the [Te
  
 ## Customization
 
-You can customize the image via the usual Docker procedure:
+**Leveraging existing Dockerfiles**. Please, refer to [custom TeamCity Agent Images for more information](https://github.com/JetBrains/teamcity-docker-images/tree/master/custom).
+
+**Manually**. To customise the Agent image manually, please follow the procedure below.
 
 1. Run the image
 ```
@@ -72,8 +74,7 @@ docker run -e SERVER_URL="<url to TeamCity server>"  \
 ```
 docker exec -it my-customized-agent bash
 ```
-
-3. Change whatever you need
+3. Please make any required adjustments as needed
 4. Exit and [create a new image](https://docs.docker.com/engine/reference/commandline/commit/) from the container
 ```
 docker commit my-customized-agent <the registry where you what to store the image>

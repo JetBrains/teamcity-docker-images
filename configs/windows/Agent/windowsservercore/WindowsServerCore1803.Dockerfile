@@ -51,7 +51,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
     $downloadScript = [Scripts.Web]::DownloadFiles($Env:jdkWindowsComponent + '#MD5#' + $Env:jdkWindowsComponentMD5SUM, 'jdk.zip', $Env:gitWindowsComponent + '#SHA256#' + $Env:gitWindowsComponentSHA256, 'git.zip', $Env:mercurialWindowsComponent, 'hg.msi', $Env:dotnetWindowsComponent + '#SHA512#' + $Env:dotnetWindowsComponentSHA512, 'dotnet.zip') ; \
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
-# .NET 6.0
+# .NET 6.0, .NET Framework 4 is inherited from base image
     Expand-Archive dotnet.zip -Force -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip; \
     Get-ChildItem -Path $Env:ProgramFiles\dotnet -Include *.lzma -File -Recurse | foreach { $_.Delete()}; \
@@ -79,10 +79,10 @@ EXPOSE 9090
 
 VOLUME C:/BuildAgent/conf
 
-CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
+CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature

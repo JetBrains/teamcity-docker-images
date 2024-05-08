@@ -9,6 +9,9 @@ namespace TeamCity.Docker
     using IoC;
     using Model;
 
+    /// <summary>
+    /// Locates configuration files for Docker Images.
+    /// </summary>
     internal class ConfigurationExplorer : IConfigurationExplorer
     {
         [NotNull] private readonly ILogger _logger;
@@ -21,7 +24,7 @@ namespace TeamCity.Docker
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
-
+        
         public Result<IEnumerable<Template>> Explore(string sourcePath, IEnumerable<string> configurationFiles)
         {
             if (sourcePath == null)
@@ -57,6 +60,12 @@ namespace TeamCity.Docker
             return new Result<IEnumerable<Template>>(GetConfigurations(sourcePath, additionalVars));
         }
 
+        /// <summary>
+        /// Generates "variants" - objects based on template Dockerfiles.
+        /// </summary>
+        /// <param name="sourcePath">path to folder with templates</param>
+        /// <param name="additionalVars">Parameters for the substitution within Dockerfile template.</param>
+        /// <returns>Tempalte objects</returns>
         private IEnumerable<Template> GetConfigurations([NotNull] string sourcePath, [NotNull] IReadOnlyDictionary<string, string> additionalVars)
         {
             if (sourcePath == null)
@@ -81,6 +90,8 @@ namespace TeamCity.Docker
                     var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
                     var variants = new List<Variant>();
                     var configCounter = 0;
+                    
+                    // Get all configuration files for particular OS (e.g. Ubuntu/20.04/..., Ubuntu/18.04/, ...
                     foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
                     {
                         var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
@@ -95,9 +106,10 @@ namespace TeamCity.Docker
                     var ignore = new List<string>();
                     if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
                     {
+                        // Add .Dockerignore files
                         ignore.AddRange(_fileSystem.ReadLines(dockerignoreTemplatePath));
                     }
-
+                    
                     yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants.AsReadOnly(), ignore.AsReadOnly());
                 }
             }

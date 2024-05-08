@@ -57,29 +57,6 @@ This image adds a TeamCity agent suitable for Java and .NET development.
 
 ### Utilities
 - [TeamCity Docker Images - tools](tool) - tools used within the release process of Docker Images.
-- [Automation Framework](tool/automation/framework) - framework for simplification of Docker Images release process.
-- [Delivery Documentation](docs/DELIVERY.md) - documentation for delivery process.
-
-### ARM Support
-
-We do not currently provide native TeamCity Docker images for ARM-based devices. If you attempt to launch a container on ARM, the following error is shown:
-
-```
-docker pull jetbrains/teamcity-server
-...
-latest: Pulling from jetbrains/teamcity-server
-no matching manifest for linux/arm64/v8 in the manifest list entries
-```
-
-As a workaround, you can execute images for AMD architectures via the Docker [`--platform` option](https://docs.docker.com/build/building/multi-platform/) on your ARM host.
-```
-docker run --platform linux/amd64 jetbrains/teamcity-agent ...
-```
-Note that we recommend this approach for testing purposes only.
-
-If you wish to track the progress of native ARM images development, follow these YouTrack issues:
-- [[TW-74465] Teamcity-agent ARM64/v8](https://youtrack.jetbrains.com/issue/TW-74465/Teamcity-agent-ARM64-v8)
-- [[TW-68887] Docker image. Support ARM architecture (AWS ECS Graviton ARM)](https://youtrack.jetbrains.com/issue/TW-68887/Docker-image.-Support-ARM-architecture-AWS-ECS-Graviton-ARM)
 
 ### Bugs/issues/problems
 

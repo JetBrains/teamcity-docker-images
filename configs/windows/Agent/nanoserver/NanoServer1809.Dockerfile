@@ -71,7 +71,7 @@ EXPOSE 9090
 VOLUME C:/BuildAgent/conf
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature

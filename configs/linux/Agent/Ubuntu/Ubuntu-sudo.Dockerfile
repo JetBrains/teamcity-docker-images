@@ -16,7 +16,6 @@
 # @AddToolToDoc ${gitLinuxComponentName}
 # @AddToolToDoc Mercurial
 # @AddToolToDoc ${dockerLinuxComponentName}
-# @AddToolToDoc [Docker Compose v.${dockerComposeLinuxComponentVersion}](https://github.com/docker/compose/releases/tag/${dockerComposeLinuxComponentVersion})
 # @AddToolToDoc ${containerdIoLinuxComponentName}
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
 # @AddToolToDoc ${p4Name}

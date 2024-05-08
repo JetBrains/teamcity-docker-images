@@ -126,10 +126,12 @@ namespace Scripts
                         WriteLine("{0}\tdownloading from \"{1}\"", name, sourceUrl);
                     }
 
+                    WriteLine("[Download file task] Starting the download of the file ...");
                     if (await DownloadFile(name, sourceUrl, destinationFile))
                     {
                         if (hashAlgorithm != null)
                         {
+                            WriteLine("[Download file task] Opening the file for read ...");
                             using (FileStream fileStream = File.OpenRead(destinationFile))
                             {
                                 byte[] computedHash = hashAlgorithm.ComputeHash(fileStream);
@@ -224,6 +226,7 @@ namespace Scripts
                 };
 
                 try {
+                    WriteLine("[Download file task] Trying to download the file [{0}] ...", destinationFile);
                     await client.DownloadFileTaskAsync(source, destinationFile);
                     return completed;
                 } catch (Exception fileDownloadException) {
