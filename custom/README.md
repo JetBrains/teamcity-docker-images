@@ -84,11 +84,11 @@ In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/pl
 We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
 
 # 2. Podman
-This section provides instructions for building and executing TeamCity Docker Images with Podman, suitable for use in both rootless and rootful modes.
+This section provides instructions for building and executing TeamCity Docker Images with Podman in both rootless and rootful modes.
 
 Please, note that the latest version of Podman for Ubuntu 20.04 is `Podman 3.4.2`, as indicated by the [libcontainers](https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/amd64/).
 
-In order to use Podman as a default container runtime in TeamCity, please, set `teamcity.container.wrapper.use.podman=true`.
+To use Podman as a default container engine in TeamCity, set `teamcity.container.wrapper.use.podman=true`.
 
 ## 2.1 Building Images
 Rootless:
@@ -106,16 +106,16 @@ $ docker build \
 -f linux/agent/podman.Dockerfile \
 -t jebrains/teamcity-agent:2023.05.4-podman-sudo .
 ```
-Please, ensure the OS/Arch of Docker image matching the expected host (see: [2.3.1 Inability to execute images with rootful Podman](#231-inability-to-execute-images-with-rootful-podman)).
+Please ensure the OS/Arch of Docker image matches the expected host (see [2.3.1 Inability to execute images with rootful Podman](#231-inability-to-execute-images-with-rootful-podman)).
 
 ## 2.2 Execution
 ### 2.2.1 Rootless Podman in Docker (no '--privileged')
-The ability to run Podman-in-Docker in Rootless mode is achieved via the combination of extending the capabilities
-of container and `buildserver` user within it.
+Running Podman-in-Docker in Rootless mode involves extending the capabilities
+of the container and its `buildserver` user.
 
 Capabilities:
 * `sys_admin` - root access for Podman in order to mount required file systems;
-* `mknod` - creation of `/dev` devices, such as `fuse-overlayfs`;
+* `mknod` - creates `/dev` devices, such as `fuse-overlayfs`;
 
 Security options:
 * `unconfined`, `disable` - responsible for disabling of SElinux for container file mount permissions;
@@ -135,7 +135,7 @@ $ docker run --cap-add=sys_admin \
 ```
 
 ### 2.2.2 Rootful Podman in Docker ('--privileged')
-Rootful Podman can be launched from non-sudo images using `--privileged` flag.
+Rootful Podman can be launched from non-sudo images using the `--privileged` flag.
 ```
 $ docker run -itd --privileged \
     -u 0 \
@@ -147,9 +147,8 @@ $ docker run -itd --privileged \
 
 ## 2.3 Podman - troubleshooting
 ### 2.3.1 Inability to execute images with rootful Podman
-**Problem**: When running _rootful Podman-in-Docker_ on a platform whose host platform does not match the detected one,
-container execution becomes wouldn't work. This problem arises because overlayFS doesn't function correctly,
-causing issues with _CRUN_ and container storage
+**Problem**: If _rootful Podman-in-Docker_ runs on a platform where the host platform does not match the detected one,
+container execution fails due to overlayFS issues, affecting _CRUN_ and container storage.
 
 ```
 docker run --privileged -u 0 docker.io/jebrains/teamcity-agent:2023.05.4-sudo-with-podman-sudo podman run ubi8-minimal echo hello
@@ -163,4 +162,4 @@ Error: writing blob: adding layer with blob "sha256:395bceae1ad3587036e94ca53ad1
 Failed to re-execute libcrun via memory file descriptor
 ```
 
-**Solution**: build TeamCity Agent Image with _Podman_ using Agent image, whose OS/Arch matches the target host (`arm64` / `amd64`).
+**Solution**: Build TeamCity Agent Image with _Podman_ using Agent image whose OS/Arch matches the target host (`arm64` / `amd64`).
