@@ -6,7 +6,7 @@ ARG gitWindowsComponentSHA256='1905d93068e986258fafc69517df8fddff829bb2a289c1fa4
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='feb7eab99c647a0b4347be9f0a3276de'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2023.11.4-nanoserver-1809'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2023.11.5-nanoserver-1809'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019'
 
 # The list of required arguments
@@ -77,7 +77,7 @@ VOLUME C:/BuildAgent/conf
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
     # Configuration file for TeamCity agent
-ENV CONFIG_FILE="C:/BuildAgent/conf/buildAgent.properties" \
+ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     # Opt out of the telemetry feature
