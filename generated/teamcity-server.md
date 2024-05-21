@@ -58,9 +58,9 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) 6ff46b39cbaec4218fd49c6c64077c43](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-x64.tar.gz)
-- Git v.2.40.1
+- Git v.2.45.1
 - Git LFS v.2.9.2
-- Perforce Helix Core client (p4) [2022.2-2407422](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2531894](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -89,7 +89,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
-- [Git x64 v.2.40.1 Checksum (SHA256) 36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.45.1 Checksum (SHA256) f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip)
 
 Container platform: windows
 
@@ -118,7 +118,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
-- [Git x64 v.2.40.1 Checksum (SHA256) 36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.45.1 Checksum (SHA256) f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip)
 
 Container platform: windows
 
@@ -145,7 +145,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) 6ff46b39cbaec4218fd49c6c64077c43](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-linux-x64.tar.gz)
 - Git v.2.40.1
 - Git LFS v.2.3.4
-- Perforce Helix Core client (p4) [2022.2-2407422](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2531894](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -196,7 +196,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto aarch64 v.8.292.10.1 Checksum (MD5) b0b989af7b8635d0dd0724707206b67c](https://corretto.aws/downloads/resources/8.292.10.1/amazon-corretto-8.292.10.1-linux-aarch64.tar.gz)
-- Git v.2.40.1
+- Git v.2.45.1
 - Git LFS v.2.9.2
 
 Container platform: linux
@@ -223,7 +223,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
-- [Git x64 v.2.40.1 Checksum (SHA256) 36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.45.1 Checksum (SHA256) f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip)
 
 Container platform: windows
 
@@ -249,7 +249,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
-- [Git x64 v.2.40.1 Checksum (SHA256) 36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.45.1 Checksum (SHA256) f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip)
 
 Container platform: windows
 
@@ -275,7 +275,7 @@ Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [JDK <img align="center" height="18" src="/logo/corretto.png"> Amazon Corretto x64 v.11.0.16.9.1 Checksum (MD5) e46d240031e3a58f6bfbd1f67044da61](https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip)
-- [Git x64 v.2.40.1 Checksum (SHA256) 36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip)
+- [Git x64 v.2.45.1 Checksum (SHA256) f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip)
 
 Container platform: windows
 

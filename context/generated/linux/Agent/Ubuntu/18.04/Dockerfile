@@ -11,7 +11,7 @@ ARG dotnetLinuxComponentSHA512_31='cc4b2fef46e94df88bf0fc11cb15439e79bd48da52456
 ARG dotnetLinuxComponentSHA512_50='32b5f86db3b1d4c21e3cf616d22f0e4a7374385dac0cf03cdebf3520dcf846460d9677ec1829a180920740a0237d64f6eaa2421d036a67f4fe9fb15d4f6b1db9'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.40.1-0ppa1~ubuntu18.04.1'
-ARG p4Version='2022.2-2407422'
+ARG p4Version='2022.2-2531894'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.04.6-linux-18.04'
 
