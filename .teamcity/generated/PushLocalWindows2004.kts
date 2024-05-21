@@ -258,7 +258,7 @@ object push_local_windows_2004 : BuildType({
             failBuild = true
         }
         dockerSupport {
-            cleanupPushedImages = true
+            cleanupPushedImages = false
             loginToRegistry = on {
                 dockerRegistryId = "PROJECT_EXT_774"
             }

@@ -66,7 +66,7 @@ echo TeamCity/temp >> context/.dockerignore
             failBuild = true
         }
         dockerSupport {
-            cleanupPushedImages = true
+            cleanupPushedImages = false
             loginToRegistry = on {
                 dockerRegistryId = "PROJECT_EXT_774"
             }
