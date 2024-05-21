@@ -198,7 +198,6 @@ requiredSpace = "6gb"
 failBuild = true
 }
 dockerSupport {
-cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_774"
 }

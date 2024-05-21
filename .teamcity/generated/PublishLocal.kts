@@ -137,7 +137,6 @@ contains("system.agent.name", "windows10")
 }
 features {
 dockerSupport {
-cleanupPushedImages = true
 loginToRegistry = on {
 dockerRegistryId = "PROJECT_EXT_774"
 }
