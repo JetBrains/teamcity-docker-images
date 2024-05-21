@@ -10,8 +10,8 @@ ARG dotnetLinuxComponentSHA512='4390ba65e592c4f770b247f11228bbd2ed70aab30fbe6613
 ARG dotnetLinuxComponentSHA512_31='56c5e045844f5474a9a12b42e4a22c851985fac5690e227ce62b529d644c4faeaafdfe255de2f1e86a90c0c114e7de66ce4de1692fbf66357ac4d35341f933c3'
 ARG dotnetLinuxComponentSHA512_50='f47eec03d2b6777e78e2a993306727fa6871cf7f6e295ed70f684745a9f9fc960f0068750007519733426db52afa10e0bcd1c58879019d5d8f1f5f295868e4f3'
 ARG gitLFSLinuxComponentVersion='2.9.2-1'
-ARG gitLinuxComponentVersion='1:2.42.0-0ppa1~ubuntu20.04.1'
-ARG p4Version='2022.2-2468771'
+ARG gitLinuxComponentVersion='1:2.45.1-0ppa1~ubuntu20.04.1'
+ARG p4Version='2022.2-2531894'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.10.5-linux'
 
