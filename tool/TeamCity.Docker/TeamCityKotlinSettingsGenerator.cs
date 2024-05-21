@@ -637,7 +637,6 @@ namespace TeamCity.Docker
             }
 
             yield return "dockerSupport {";
-            yield return "cleanupPushedImages = true";
             yield return "loginToRegistry = on {";
             yield return $"dockerRegistryId = \"{_options.TeamCityDockerRegistryId}\"";
             yield return "}";

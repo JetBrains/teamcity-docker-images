@@ -5,12 +5,12 @@ ARG dotnetWindowsComponent_50='https://dotnetcli.azureedge.net/dotnet/Runtime/5.
 ARG dotnetWindowsComponentSHA512='d2fa2f0d2b4550ac3408b924ab356add378af1d0f639623f0742e37f57b3f2b525d81f5d5c029303b6d95fed516b04a7b6c3a98f27f770fc8b4e76414cf41660'
 ARG dotnetWindowsComponentSHA512_31='7ba766b2f388ab09beee6a465f1eeb6b9a6858c8b6da51dacc79622b110558ef6211a40e715a16b526f2da08216c99143570b8253ff2c5ad874400475d1feb44'
 ARG dotnetWindowsComponentSHA512_50='636f22bfbfd98c80c96f2fc3815beb42ee2699cf2a410eeba24ddcc9304bc39594260eca4061b012d4b02b9c4592fa6927343077df053343a9c344a9289658e1'
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/MinGit-2.40.1-64-bit.zip'
-ARG gitWindowsComponentSHA256='36498716572394918625476ca207df3d5f8b535a669e9aad7a99919d0179848c'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-64-bit.zip'
+ARG gitWindowsComponentSHA256='f7ba0e2acdc603cf8893b446f6871c869b7644b88a1116b00d6b30fb30f18c74'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/11.0.16.9.1/amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='e46d240031e3a58f6bfbd1f67044da61'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-5.9.1-x64.msi'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.04.5-nanoserver-1903'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2022.04.6-nanoserver-1903'
 ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903'
 
 # The list of required arguments
