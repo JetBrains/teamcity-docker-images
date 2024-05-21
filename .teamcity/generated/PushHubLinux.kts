@@ -150,7 +150,7 @@ object push_hub_linux: BuildType({
 		 	 failBuild = true
 		 }
 		 dockerSupport {
-		 	 cleanupPushedImages = true
+		 	 cleanupPushedImages = false
 		 	 loginToRegistry = on {
 		 		 dockerRegistryId = "PROJECT_EXT_774"
 		 	 }
@@ -164,8 +164,6 @@ object push_hub_linux: BuildType({
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "linux")
-		 // In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
-		 doesNotContain("teamcity.agent.name", "arm")
 	 }
 		 dependencies {
 			 snapshot(PublishLocal.publish_local) {
