@@ -141,7 +141,7 @@ object publish_hub_version: BuildType({
 	}
 	 features {
 		 dockerSupport {
-		 	 cleanupPushedImages = true
+		 	 cleanupPushedImages = false
 		 	 loginToRegistry = on {
 		 		 dockerRegistryId = "PROJECT_EXT_774"
 		 	 }

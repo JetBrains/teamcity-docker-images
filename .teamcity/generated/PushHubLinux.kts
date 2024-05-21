@@ -150,7 +150,7 @@ object push_hub_linux: BuildType({
 		 	 failBuild = true
 		 }
 		 dockerSupport {
-		 	 cleanupPushedImages = true
+		 	 cleanupPushedImages = false
 		 	 loginToRegistry = on {
 		 		 dockerRegistryId = "PROJECT_EXT_774"
 		 	 }
