@@ -23,6 +23,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.finishBuildTrigger
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import hosted.BuildAndPushHosted
+import hosted.arm.PushStagingLinux2004_Aarch64
 
 object LocalProject : Project({
 	 name = "Staging registry"
