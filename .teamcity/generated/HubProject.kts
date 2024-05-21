@@ -31,5 +31,5 @@ object HubProject : Project({
 	 buildType(PushHubWindows.push_hub_windows)
 	 buildType(PublishHubLatest.publish_hub_latest)
 	 buildType(PublishHubVersion.publish_hub_version)
-	 buildType(push_production_linux_2004_aarch64)
+	buildType(push_production_linux_2004_aarch64)
 })
