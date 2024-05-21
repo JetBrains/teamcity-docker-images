@@ -31,7 +31,7 @@ object TeamCityScheduledImageBuildLinux : BuildType({
         param("docker.buildImagePostfix", "")
 
         // 'trunk' could be replaced with a particular release number, such as 2023.05.
-        param("tc.image.version", "2023.05.4-%dockerImage.teamcity.buildNumber%")
+        param("tc.image.version", "2023.05.5-%dockerImage.teamcity.buildNumber%")
     }
 
     steps {
