@@ -30,28 +30,28 @@ object push_hub_linux: BuildType({
 	 steps {
 		dockerCommand {
 			 
-			 name = "pull teamcity-server%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "pull teamcity-server%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.5-linux"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-server%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "tag teamcity-server%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.4-linux %docker.deployRepository%teamcity-server:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2023.05.5-linux %docker.deployRepository%teamcity-server:2023.05.5-linux"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-server%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "push teamcity-server%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-server:2023.05.4-linux
+		%docker.deployRepository%teamcity-server:2023.05.5-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -59,28 +59,28 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux %docker.deployRepository%teamcity-agent:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo %docker.deployRepository%teamcity-agent:2023.05.5-linux-arm64-sudo"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2023.05.4-linux
+		%docker.deployRepository%teamcity-agent:2023.05.5-linux-arm64-sudo
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -88,28 +88,28 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo"
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo"
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo %docker.deployRepository%teamcity-agent:2023.05.4-linux-sudo"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64 %docker.deployRepository%teamcity-agent:2023.05.5-linux-arm64"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.4-linux-sudo"
+			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-agent:2023.05.4-linux-sudo
+		%docker.deployRepository%teamcity-agent:2023.05.5-linux-arm64
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -117,28 +117,86 @@ object push_hub_linux: BuildType({
 		
 		dockerCommand {
 			 
-			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = other {
 				 subCommand = "pull"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux"
 			 }
 		}
 		
 		dockerCommand {
 			
-			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = other {
 				 subCommand = "tag"
-				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux %docker.deployRepository%teamcity-minimal-agent:2023.05.4-linux"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux %docker.deployRepository%teamcity-agent:2023.05.5-linux"
 			}
 		}
 		
 		dockerCommand {
 			 
-			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.4-linux"
+			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux"
 			 commandType = push {
 				 namesAndTags = """
-		%docker.deployRepository%teamcity-minimal-agent:2023.05.4-linux
+		%docker.deployRepository%teamcity-agent:2023.05.5-linux
+		""".trimIndent()
+				 removeImageAfterPush = false
+			 }
+		}
+		
+		dockerCommand {
+			 
+			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo"
+			 commandType = other {
+				 subCommand = "pull"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo"
+			 }
+		}
+		
+		dockerCommand {
+			
+			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo"
+			 commandType = other {
+				 subCommand = "tag"
+				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo %docker.deployRepository%teamcity-agent:2023.05.5-linux-sudo"
+			}
+		}
+		
+		dockerCommand {
+			 
+			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo"
+			 commandType = push {
+				 namesAndTags = """
+		%docker.deployRepository%teamcity-agent:2023.05.5-linux-sudo
+		""".trimIndent()
+				 removeImageAfterPush = false
+			 }
+		}
+		
+		dockerCommand {
+			 
+			 name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux"
+			 commandType = other {
+				 subCommand = "pull"
+				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux"
+			 }
+		}
+		
+		dockerCommand {
+			
+			 name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux"
+			 commandType = other {
+				 subCommand = "tag"
+				 commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux %docker.deployRepository%teamcity-minimal-agent:2023.05.5-linux"
+			}
+		}
+		
+		dockerCommand {
+			 
+			 name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux"
+			 commandType = push {
+				 namesAndTags = """
+		%docker.deployRepository%teamcity-minimal-agent:2023.05.5-linux
 		""".trimIndent()
 				 removeImageAfterPush = false
 			 }
@@ -147,7 +205,7 @@ object push_hub_linux: BuildType({
 	 }
 	 features {
 		 freeDiskSpace {
-		 	 requiredSpace = "4gb"
+		 	 requiredSpace = "6gb"
 		 	 failBuild = true
 		 }
 		 dockerSupport {
@@ -161,7 +219,7 @@ object push_hub_linux: BuildType({
 		 }
 	 }
 	params {
-		 param("system.teamcity.agent.ensure.free.space", "4gb")
+		 param("system.teamcity.agent.ensure.free.space", "6gb")
 	}
 	 requirements {
 	 	 contains("docker.server.osType", "linux")
