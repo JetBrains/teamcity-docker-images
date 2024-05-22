@@ -239,7 +239,10 @@ params {
 param("system.teamcity.agent.ensure.free.space", "43gb")
 }
 requirements {
-	contains("teamcity.agent.jvm.os.name", "tc-win10")
+	// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
+	doesNotContain("teamcity.agent.name", "arm")
+	contains("docker.server.osType", "windows")
+	contains("teamcity.agent.jvm.os.name", "Windows 10")
 }
 })
 
