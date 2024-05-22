@@ -238,11 +238,8 @@ artifactRules = "TeamCity.zip!/**=>context/TeamCity"
 params {
 param("system.teamcity.agent.ensure.free.space", "43gb")
 }
-requirements {
-	// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
-	doesNotContain("teamcity.agent.name", "arm")
-contains("system.agent.name", "docker")
-contains("system.agent.name", "windows10")
-}
+	requirements {
+		contains("teamcity.agent.jvm.os.name", "Windows 10")
+	}
 })
 
