@@ -279,7 +279,7 @@ object push_local_windows_1809 : BuildType({
 	requirements {
 		contains("docker.server.osType", "windows")
 		doesNotContain("teamcity.agent.jvm.os.arch", "aarch")
-		contains("teamcity.agent.jvm.os.name", "tc-win10")
+		contains("teamcity.agent.jvm.os.name", "Windows 10")
 
 	}
 })
