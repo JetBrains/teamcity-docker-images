@@ -239,7 +239,7 @@ params {
 param("system.teamcity.agent.ensure.free.space", "43gb")
 }
 	requirements {
-		contains("teamcity.agent.jvm.os.name", "Windows 10")
+		contains("teamcity.agent.jvm.os.name", "tc-win10")
 	}
 })
 

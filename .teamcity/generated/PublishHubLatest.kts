@@ -114,7 +114,7 @@ object publish_hub_latest: BuildType({
 		}
 	}
 	requirements {
-		contains("teamcity.agent.jvm.os.name", "Windows 10")
+		contains("teamcity.agent.jvm.os.name", "tc-win10")
 	}
 	features {
 		dockerSupport {
