@@ -135,9 +135,7 @@ object publish_hub_version: BuildType({
  		 }
 		 }
 	requirements {
-		 noLessThanVer("docker.version", "18.05.0")
-		 contains("docker.server.osType", "windows")
-		 contains("teamcity.agent.jvm.os.name", "Windows 10")
+		contains("system.agent.name", "tc-win10")
 	}
 	 features {
 		 dockerSupport {

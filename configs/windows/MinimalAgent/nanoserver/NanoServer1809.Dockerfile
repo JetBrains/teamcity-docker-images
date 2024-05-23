@@ -11,7 +11,7 @@
 # Platform ${windowsPlatform}
 # Repo ${repo}
 # Weight 5
-# Requires teamcity.agent.jvm.os.name contains Windows 10
+# Requires system.agent.name contains tc-win10
 
 ## ${agentCommentHeader}
 

@@ -279,8 +279,7 @@ object push_hub_windows: BuildType({
 		 param("system.teamcity.agent.ensure.free.space", "52gb")
 	}
 	 requirements {
-	 	 contains("docker.server.osType", "windows")
-	 	 contains("teamcity.agent.jvm.os.name", "Windows 10")
+		 contains("system.agent.name", "tc-win10")
 	 }
 		 dependencies {
 			 snapshot(PublishLocal.publish_local) {

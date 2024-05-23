@@ -277,10 +277,7 @@ object push_local_windows_1809 : BuildType({
 		param("system.teamcity.agent.ensure.free.space", "43gb")
 	}
 	requirements {
-		contains("docker.server.osType", "windows")
-		doesNotContain("teamcity.agent.jvm.os.arch", "aarch")
-		contains("teamcity.agent.jvm.os.name", "Windows 10")
-
+		contains("system.agent.name", "tc-win10")
 	}
 })
 
