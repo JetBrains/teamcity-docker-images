@@ -126,9 +126,8 @@ requirements {
 noLessThanVer("docker.version", "18.05.0")
 contains("docker.server.osType", "windows")
 	// In order to correctly build AMD-based images, we wouldn't want it to be scheduled on ARM-based agent
-	doesNotContain("teamcity.agent.name", "arm")
-contains("system.agent.name", "docker")
-contains("system.agent.name", "windows10")
+doesNotContain("teamcity.agent.name", "arm")
+contains("system.agent.name", "tc-win10")
 }
 features {
 dockerSupport {

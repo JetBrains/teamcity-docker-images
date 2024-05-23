@@ -15,7 +15,7 @@
 # Repo ${repo}
 # Weight 3
 # Requires system.agent.name contains docker
-# Requires system.agent.name contains windows10
+# Requires system.agent.name contains tc-win10
 
 ## ${serverCommentHeader}
 
