@@ -27,7 +27,7 @@ object push_local_windows_2004 : BuildType({
     name = "Build and push windows 2004"
     buildNumberPattern = "%dockerImage.teamcity.buildNumber%-%build.counter%"
     description =
-        "teamcity-server:2022.10.5-nanoserver-2004, ,2022.10.5 teamcity-minimal-agent:2022.10.5-nanoserver-2004, ,2022.10.5 teamcity-agent:2022.10.5-windowsservercore-2004,2022.10.5-windowsservercore, -windowsservercore:2022.10.5-nanoserver-2004, ,2022.10.5"
+        "teamcity-server:2022.10.6-nanoserver-2004, ,2022.10.6 teamcity-minimal-agent:2022.10.6-nanoserver-2004, ,2022.10.6 teamcity-agent:2022.10.6-windowsservercore-2004,2022.10.6-windowsservercore, -windowsservercore:2022.10.6-nanoserver-2004, ,2022.10.6"
     vcs {
         root(TeamCityDockerImagesRepo)
     }
@@ -62,7 +62,7 @@ object push_local_windows_2004 : BuildType({
 
         script {
 
-            name = "context teamcity-server:2022.10.5-nanoserver-2004"
+            name = "context teamcity-server:2022.10.6-nanoserver-2004"
             scriptContent = """
     echo 2> context/.dockerignore
     echo TeamCity/buildAgent >> context/.dockerignore
@@ -72,7 +72,7 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "build teamcity-server:2022.10.5-nanoserver-2004"
+            name = "build teamcity-server:2022.10.6-nanoserver-2004"
             commandType = build {
                 source = file {
                     path = """context/generated/windows/Server/nanoserver/2004/Dockerfile"""
@@ -80,7 +80,7 @@ object push_local_windows_2004 : BuildType({
                 contextDir = "context"
                 commandArgs = "--no-cache"
                 namesAndTags = """
-    teamcity-server:2022.10.5-nanoserver-2004
+    teamcity-server:2022.10.6-nanoserver-2004
     """.trimIndent()
             }
             param("dockerImage.platform", "windows")
@@ -88,7 +88,7 @@ object push_local_windows_2004 : BuildType({
 
         script {
 
-            name = "context teamcity-minimal-agent:2022.10.5-nanoserver-2004"
+            name = "context teamcity-minimal-agent:2022.10.6-nanoserver-2004"
             scriptContent = """
     echo 2> context/.dockerignore
     echo TeamCity/webapps >> context/.dockerignore
@@ -99,7 +99,7 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "build teamcity-minimal-agent:2022.10.5-nanoserver-2004"
+            name = "build teamcity-minimal-agent:2022.10.6-nanoserver-2004"
             commandType = build {
                 source = file {
                     path = """context/generated/windows/MinimalAgent/nanoserver/2004/Dockerfile"""
@@ -107,7 +107,7 @@ object push_local_windows_2004 : BuildType({
                 contextDir = "context"
                 commandArgs = "--no-cache"
                 namesAndTags = """
-    teamcity-minimal-agent:2022.10.5-nanoserver-2004
+    teamcity-minimal-agent:2022.10.6-nanoserver-2004
     """.trimIndent()
             }
             param("dockerImage.platform", "windows")
@@ -115,7 +115,7 @@ object push_local_windows_2004 : BuildType({
 
         script {
 
-            name = "context teamcity-agent:2022.10.5-windowsservercore-2004"
+            name = "context teamcity-agent:2022.10.6-windowsservercore-2004"
             scriptContent = """
     echo 2> context/.dockerignore
     echo TeamCity/webapps >> context/.dockerignore
@@ -126,7 +126,7 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "build teamcity-agent:2022.10.5-windowsservercore-2004"
+            name = "build teamcity-agent:2022.10.6-windowsservercore-2004"
             commandType = build {
                 source = file {
                     path = """context/generated/windows/Agent/windowsservercore/2004/Dockerfile"""
@@ -134,7 +134,7 @@ object push_local_windows_2004 : BuildType({
                 contextDir = "context"
                 commandArgs = "--no-cache"
                 namesAndTags = """
-    teamcity-agent:2022.10.5-windowsservercore-2004
+    teamcity-agent:2022.10.6-windowsservercore-2004
     """.trimIndent()
             }
             param("dockerImage.platform", "windows")
@@ -142,7 +142,7 @@ object push_local_windows_2004 : BuildType({
 
         script {
 
-            name = "context teamcity-agent:2022.10.5-nanoserver-2004"
+            name = "context teamcity-agent:2022.10.6-nanoserver-2004"
             scriptContent = """
     echo 2> context/.dockerignore
     echo TeamCity/webapps >> context/.dockerignore
@@ -153,7 +153,7 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "build teamcity-agent:2022.10.5-nanoserver-2004"
+            name = "build teamcity-agent:2022.10.6-nanoserver-2004"
             commandType = build {
                 source = file {
                     path = """context/generated/windows/Agent/nanoserver/2004/Dockerfile"""
@@ -161,7 +161,7 @@ object push_local_windows_2004 : BuildType({
                 contextDir = "context"
                 commandArgs = "--no-cache"
                 namesAndTags = """
-    teamcity-agent:2022.10.5-nanoserver-2004
+    teamcity-agent:2022.10.6-nanoserver-2004
     """.trimIndent()
             }
             param("dockerImage.platform", "windows")
@@ -169,50 +169,50 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "tag teamcity-server:2022.10.5-nanoserver-2004"
+            name = "tag teamcity-server:2022.10.6-nanoserver-2004"
             commandType = other {
                 subCommand = "tag"
                 commandArgs =
-                    "teamcity-server:2022.10.5-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10.5-nanoserver-2004"
+                    "teamcity-server:2022.10.6-nanoserver-2004 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10.6-nanoserver-2004"
             }
         }
 
         dockerCommand {
 
-            name = "tag teamcity-minimal-agent:2022.10.5-nanoserver-2004"
+            name = "tag teamcity-minimal-agent:2022.10.6-nanoserver-2004"
             commandType = other {
                 subCommand = "tag"
                 commandArgs =
-                    "teamcity-minimal-agent:2022.10.5-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10.5-nanoserver-2004"
+                    "teamcity-minimal-agent:2022.10.6-nanoserver-2004 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10.6-nanoserver-2004"
             }
         }
 
         dockerCommand {
 
-            name = "tag teamcity-agent:2022.10.5-windowsservercore-2004"
+            name = "tag teamcity-agent:2022.10.6-windowsservercore-2004"
             commandType = other {
                 subCommand = "tag"
                 commandArgs =
-                    "teamcity-agent:2022.10.5-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.5-windowsservercore-2004"
+                    "teamcity-agent:2022.10.6-windowsservercore-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.6-windowsservercore-2004"
             }
         }
 
         dockerCommand {
 
-            name = "tag teamcity-agent:2022.10.5-nanoserver-2004"
+            name = "tag teamcity-agent:2022.10.6-nanoserver-2004"
             commandType = other {
                 subCommand = "tag"
                 commandArgs =
-                    "teamcity-agent:2022.10.5-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.5-nanoserver-2004"
+                    "teamcity-agent:2022.10.6-nanoserver-2004 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.6-nanoserver-2004"
             }
         }
 
         dockerCommand {
 
-            name = "push teamcity-server:2022.10.5-nanoserver-2004"
+            name = "push teamcity-server:2022.10.6-nanoserver-2004"
             commandType = push {
                 namesAndTags = """
-    %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10.5-nanoserver-2004
+    %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.10.6-nanoserver-2004
     """.trimIndent()
                 removeImageAfterPush = false
             }
@@ -220,10 +220,10 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "push teamcity-minimal-agent:2022.10.5-nanoserver-2004"
+            name = "push teamcity-minimal-agent:2022.10.6-nanoserver-2004"
             commandType = push {
                 namesAndTags = """
-    %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10.5-nanoserver-2004
+    %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.10.6-nanoserver-2004
     """.trimIndent()
                 removeImageAfterPush = false
             }
@@ -231,10 +231,10 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "push teamcity-agent:2022.10.5-windowsservercore-2004"
+            name = "push teamcity-agent:2022.10.6-windowsservercore-2004"
             commandType = push {
                 namesAndTags = """
-    %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.5-windowsservercore-2004
+    %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.6-windowsservercore-2004
     """.trimIndent()
                 removeImageAfterPush = false
             }
@@ -242,10 +242,10 @@ object push_local_windows_2004 : BuildType({
 
         dockerCommand {
 
-            name = "push teamcity-agent:2022.10.5-nanoserver-2004"
+            name = "push teamcity-agent:2022.10.6-nanoserver-2004"
             commandType = push {
                 namesAndTags = """
-    %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.5-nanoserver-2004
+    %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.10.6-nanoserver-2004
     """.trimIndent()
                 removeImageAfterPush = false
             }
