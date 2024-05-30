@@ -13,7 +13,7 @@ import common.TeamCityDockerImagesRepo.TeamCityDockerImagesRepo
 object push_local_windows_2004 : BuildType({
 name = "Build and push windows 2004"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
-description  = "teamcity-server:2022.04.6-nanoserver-2004,,2022.04.6 teamcity-minimal-agent:2022.04.6-nanoserver-2004,,2022.04.6 teamcity-agent:2022.04.6-windowsservercore-2004,2022.04.6-windowsservercore,-windowsservercore:2022.04.6-nanoserver-2004,,2022.04.6"
+description  = "teamcity-server:2022.04.7-nanoserver-2004,,2022.04.7 teamcity-minimal-agent:2022.04.7-nanoserver-2004,,2022.04.7 teamcity-agent:2022.04.6-windowsservercore-2004,2022.04.6-windowsservercore,-windowsservercore:2022.04.6-nanoserver-2004,,2022.04.6"
 vcs {root(TeamCityDockerImagesRepo)}
 steps {
 dockerCommand {

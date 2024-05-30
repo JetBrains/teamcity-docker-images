@@ -16,70 +16,70 @@ name = "Push windows"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+name = "pull teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+name = "tag teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04.6-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+name = "push teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2022.04.6-nanoserver-1809
+%docker.deployRepository%teamcity-server:2022.04.7-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.04.6-windowsservercore-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809 %docker.deployRepository%teamcity-agent:2022.04.7-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809"
+name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2022.04.6-windowsservercore-1809
+%docker.deployRepository%teamcity-agent:2022.04.7-windowsservercore-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.04.6-nanoserver-1809"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809 %docker.deployRepository%teamcity-agent:2022.04.6-nanoserver-1809"
 }
 }
 

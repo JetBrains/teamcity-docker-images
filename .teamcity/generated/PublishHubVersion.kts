@@ -23,10 +23,10 @@ name = "remove manifests"
 scriptContent = """if exist "%%USERPROFILE%%\.docker\manifests\" rmdir "%%USERPROFILE%%\.docker\manifests\" /s /q"""
 }
 dockerCommand {
-name = "manifest create teamcity-server:2022.04.6"
+name = "manifest create teamcity-server:2022.04.7"
 commandType = other {
 subCommand = "manifest"
-commandArgs = "create %docker.deployRepository%teamcity-server:2022.04.6 %docker.deployRepository%teamcity-server:2022.04.6-linux %docker.deployRepository%teamcity-server:2022.04.6-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04.6-nanoserver-2004"
+commandArgs = "create %docker.deployRepository%teamcity-server:2022.04.7 %docker.deployRepository%teamcity-server:2022.04.7-linux %docker.deployRepository%teamcity-server:2022.04.6-nanoserver-1809 %docker.deployRepository%teamcity-server:2022.04.6-nanoserver-2004"
 }
 }
 dockerCommand {

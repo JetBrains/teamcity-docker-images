@@ -48,7 +48,7 @@ object image_validation: BuildType({
 	}
 
 	val targetImages: HashMap<String, String> = hashMapOf(
-		"teamcity-server-2022.04.6-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-linux",
+		"teamcity-server-2022.04.7-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-linux",
 		"teamcity-agent-2022.04.6-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux",
 		"teamcity-agent-2022.04.6-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo",
 		"teamcity-minimal-agent-2022.04.6-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux",

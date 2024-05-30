@@ -16,49 +16,49 @@ name = "Push linux"
 buildNumberPattern="%dockerImage.teamcity.buildNumber%-%build.counter%"
 steps {
 dockerCommand {
-name = "pull teamcity-server%docker.buildImagePostfix%:2022.04.6-linux"
+name = "pull teamcity-server%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-server%docker.buildImagePostfix%:2022.04.6-linux"
+name = "tag teamcity-server%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-linux %docker.deployRepository%teamcity-server:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-linux %docker.deployRepository%teamcity-server:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server%docker.buildImagePostfix%:2022.04.6-linux"
+name = "push teamcity-server%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-server:2022.04.6-linux
+%docker.deployRepository%teamcity-server:2022.04.7-linux
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux %docker.deployRepository%teamcity-agent:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux %docker.deployRepository%teamcity-agent:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = push {
 namesAndTags = """
 %docker.deployRepository%teamcity-agent:2022.04.6-linux
