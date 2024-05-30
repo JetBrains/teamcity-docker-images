@@ -49,20 +49,20 @@ object image_validation: BuildType({
 	 }
 
 	 val targetImages: HashMap<String, String> = hashMapOf(
-"teamcity-server-2023.05.5-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.5-linux", 
-		"teamcity-agent-2023.05.5-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64-sudo", 
-		"teamcity-agent-2023.05.5-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-arm64", 
-		"teamcity-agent-2023.05.5-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux", 
-		"teamcity-agent-2023.05.5-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-linux-sudo", 
-		"teamcity-minimal-agent-2023.05.5-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-linux", 
-		"teamcity-server-2023.05.5-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.5-nanoserver-1809", 
-		"teamcity-agent-2023.05.5-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-windowsservercore-1809", 
-		"teamcity-agent-2023.05.5-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-nanoserver-1809", 
-		"teamcity-minimal-agent-2023.05.5-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-nanoserver-1809", 
-		"teamcity-server-2023.05.5-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.5-nanoserver-2004", 
-		"teamcity-agent-2023.05.5-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-windowsservercore-2004", 
-		"teamcity-agent-2023.05.5-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.5-nanoserver-2004", 
-		"teamcity-minimal-agent-2023.05.5-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.5-nanoserver-2004"
+"teamcity-server-2023.05.6-linux" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.6-linux", 
+		"teamcity-agent-2023.05.6-linux-arm64-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo", 
+		"teamcity-agent-2023.05.6-linux-arm64" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64", 
+		"teamcity-agent-2023.05.6-linux" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux", 
+		"teamcity-agent-2023.05.6-linux-sudo" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-sudo", 
+		"teamcity-minimal-agent-2023.05.6-linux" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.6-linux", 
+		"teamcity-server-2023.05.6-nanoserver-1809" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.6-nanoserver-1809", 
+		"teamcity-agent-2023.05.6-windowsservercore-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-windowsservercore-1809", 
+		"teamcity-agent-2023.05.6-nanoserver-1809" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-nanoserver-1809", 
+		"teamcity-minimal-agent-2023.05.6-nanoserver-1809" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.6-nanoserver-1809", 
+		"teamcity-server-2023.05.6-nanoserver-2004" to "%docker.deployRepository%teamcity-server%docker.buildImagePostfix%:2023.05.6-nanoserver-2004", 
+		"teamcity-agent-2023.05.6-windowsservercore-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-windowsservercore-2004", 
+		"teamcity-agent-2023.05.6-nanoserver-2004" to "%docker.deployRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-nanoserver-2004", 
+		"teamcity-minimal-agent-2023.05.6-nanoserver-2004" to "%docker.deployRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2023.05.6-nanoserver-2004"
 	  )
 
 	 steps {
