@@ -61,59 +61,59 @@ dockerCommand {
 name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2022.04.6-linux
+%docker.deployRepository%teamcity-agent:2022.04.7-linux
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo"
+name = "pull teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux-sudo"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo"
+name = "tag teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux-sudo"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo %docker.deployRepository%teamcity-agent:2022.04.6-linux-sudo"
+commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux-sudo %docker.deployRepository%teamcity-agent:2022.04.7-linux-sudo"
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.6-linux-sudo"
+name = "push teamcity-agent%docker.buildImagePostfix%:2022.04.7-linux-sudo"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-agent:2022.04.6-linux-sudo
+%docker.deployRepository%teamcity-agent:2022.04.7-linux-sudo
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "pull teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "pull"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "tag teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = other {
 subCommand = "tag"
-commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux %docker.deployRepository%teamcity-minimal-agent:2022.04.6-linux"
+commandArgs = "%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-linux %docker.deployRepository%teamcity-minimal-agent:2022.04.7-linux"
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-linux"
+name = "push teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-linux"
 commandType = push {
 namesAndTags = """
-%docker.deployRepository%teamcity-minimal-agent:2022.04.6-linux
+%docker.deployRepository%teamcity-minimal-agent:2022.04.7-linux
 """.trimIndent()
 removeImageAfterPush = false
 }

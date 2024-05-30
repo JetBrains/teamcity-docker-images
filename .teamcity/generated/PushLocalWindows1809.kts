@@ -143,69 +143,69 @@ dockerCommand {
 name = "tag teamcity-server:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-server:2022.04.6-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+commandArgs = "teamcity-server:2022.04.7-nanoserver-1809 %docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-minimal-agent:2022.04.6-nanoserver-1809"
+name = "tag teamcity-minimal-agent:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-minimal-agent:2022.04.6-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+commandArgs = "teamcity-minimal-agent:2022.04.7-nanoserver-1809 %docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2022.04.6-windowsservercore-1809"
+name = "tag teamcity-agent:2022.04.7-windowsservercore-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2022.04.6-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809"
+commandArgs = "teamcity-agent:2022.04.7-windowsservercore-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809"
 }
 }
 
 dockerCommand {
-name = "tag teamcity-agent:2022.04.6-nanoserver-1809"
+name = "tag teamcity-agent:2022.04.7-nanoserver-1809"
 commandType = other {
 subCommand = "tag"
-commandArgs = "teamcity-agent:2022.04.6-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809"
+commandArgs = "teamcity-agent:2022.04.7-nanoserver-1809 %docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809"
 }
 }
 
 dockerCommand {
-name = "push teamcity-server:2022.04.6-nanoserver-1809"
+name = "push teamcity-server:2022.04.7-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.6-nanoserver-1809
+%docker.buildRepository%teamcity-server%docker.buildImagePostfix%:2022.04.7-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-minimal-agent:2022.04.6-nanoserver-1809"
+name = "push teamcity-minimal-agent:2022.04.7-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809
+%docker.buildRepository%teamcity-minimal-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2022.04.6-windowsservercore-1809"
+name = "push teamcity-agent:2022.04.7-windowsservercore-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-windowsservercore-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-windowsservercore-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
 }
 
 dockerCommand {
-name = "push teamcity-agent:2022.04.6-nanoserver-1809"
+name = "push teamcity-agent:2022.04.7-nanoserver-1809"
 commandType = push {
 namesAndTags = """
-%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.6-nanoserver-1809
+%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2022.04.7-nanoserver-1809
 """.trimIndent()
 removeImageAfterPush = false
 }
