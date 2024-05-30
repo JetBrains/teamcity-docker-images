@@ -58,7 +58,7 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			 
+			 enabled = false
 			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "pull"
@@ -67,8 +67,8 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo"
+			enabled = false
+			name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo"
 			 commandType = other {
 				 subCommand = "tag"
 				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo %docker.deployRepository%teamcity-agent:2023.05.6-linux-arm64-sudo"
@@ -76,8 +76,8 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo"
+			enabled = false
+			name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64-sudo"
 			 commandType = push {
 				 namesAndTags = """
 		%docker.deployRepository%teamcity-agent:2023.05.6-linux-arm64-sudo
@@ -87,8 +87,8 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			 
-			 name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
+			enabled = false
+			name = "pull teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
 			 commandType = other {
 				 subCommand = "pull"
 				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
@@ -96,8 +96,8 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			
-			 name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
+			enabled = false
+			name = "tag teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
 			 commandType = other {
 				 subCommand = "tag"
 				 commandArgs = "%docker.buildRepository%teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64 %docker.deployRepository%teamcity-agent:2023.05.6-linux-arm64"
@@ -105,8 +105,8 @@ object push_hub_linux: BuildType({
 		}
 		
 		dockerCommand {
-			 
-			 name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
+			enabled = false
+			name = "push teamcity-agent%docker.buildImagePostfix%:2023.05.6-linux-arm64"
 			 commandType = push {
 				 namesAndTags = """
 		%docker.deployRepository%teamcity-agent:2023.05.6-linux-arm64
