@@ -28,6 +28,10 @@ USER ContainerAdministrator
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+# CaseSensitivity is essential for the agent => enforcing it. SHELL usage is mandatory (pwsh or other won't work)
+RUN mkdir C:\\BuildAgent
+SHELL ["pwsh", "-Command", "fsutil.exe", "file", "SetCaseSensitiveInfo", "C:\\BuildAgent", "enable"]
+
 # Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
@@ -84,10 +88,14 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
+# Use ContainerAdministrator to update permissions
 USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, F - full control
-RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r DefaultAccount:(OI)(CI)F
-RUN cmd /c icacls.exe C:\\BuildAgent\\* /grant:r Users:(OI)(CI)F
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, D - delete, /T - apply to subfolders & files
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+# Applied permission check for logging purposes
+RUN cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
