@@ -28,11 +28,8 @@ USER ContainerAdministrator
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# CaseSensitivity is essential for the agent => enforcing it. SHELL usage is mandatory (pwsh or other won't work)
-RUN mkdir C:\\BuildAgent
-SHELL ["pwsh", "-Command", "fsutil.exe", "file", "SetCaseSensitiveInfo", "C:\\BuildAgent", "enable"]
-
 # Prepare build agent distribution
+RUN mkdir C:\\BuildAgent
 COPY TeamCity/buildAgent C:/BuildAgent
 
 # Workaround for TW-87124 - Windows 2022-based plugin directories receive incorrect case, causing their inability ...
