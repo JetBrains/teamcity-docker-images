@@ -9,50 +9,54 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [EAP](#EAP)
+- [latest](#latest)
+- [2024.07](#202407)
 
 #### linux
 
 - 20.04
-  - [EAP-linux](#EAP-linux)
-  - [EAP-linux-arm64](#EAP-linux-arm64)
+  - [2024.07-linux](#202407-linux)
+  - [2024.07-linux-arm64](#202407-linux-arm64)
 - 18.04
-  - [EAP-linux-18.04](#EAP-linux-1804)
-  - [EAP-linux-arm64-18.04](#EAP-linux-arm64-1804)
+  - [2024.07-linux-18.04](#202407-linux-1804)
+  - [2024.07-linux-arm64-18.04](#202407-linux-arm64-1804)
 
 #### windows
 
 - 2022
-  - [EAP-nanoserver-2022](#EAP-nanoserver-2022)
+  - [2024.07-nanoserver-2022](#202407-nanoserver-2022)
 - 1909
-  - [EAP-nanoserver-1909](#EAP-nanoserver-1909)
+  - [2024.07-nanoserver-1909](#202407-nanoserver-1909)
 - 1903
-  - [EAP-nanoserver-1903](#EAP-nanoserver-1903)
+  - [2024.07-nanoserver-1903](#202407-nanoserver-1903)
 - 1809
-  - [EAP-nanoserver-1809](#EAP-nanoserver-1809)
+  - [2024.07-nanoserver-1809](#202407-nanoserver-1809)
 - 1803
-  - [EAP-nanoserver-1803](#EAP-nanoserver-1803)
+  - [2024.07-nanoserver-1803](#202407-nanoserver-1803)
 
 
-### EAP
+### latest
 
 Supported platforms: linux 20.04, windows 1809, windows 2022
 
 #### Content
 
-- [EAP-linux](#EAP-linux)
-- [EAP-nanoserver-1809](#EAP-nanoserver-1809)
-- [EAP-nanoserver-2022](#EAP-nanoserver-2022)
+- [2024.07-linux](#202407-linux)
+- [2024.07-nanoserver-1809](#202407-nanoserver-1809)
+- [2024.07-nanoserver-2022](#202407-nanoserver-2022)
+
+### 2024.07
+
+Supported platforms: linux 20.04, windows 1809, windows 2022
+
+#### Content
+
+- [2024.07-linux](#202407-linux)
+- [2024.07-nanoserver-1809](#202407-nanoserver-1809)
+- [2024.07-nanoserver-2022](#202407-nanoserver-2022)
 
 
-# Dockerfile links
-
-* **Linux**. [teamcity-server:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/20.04/Dockerfile), [teamcity-server:EAP-linux-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/18.04/Dockerfile), [teamcity-server:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/20.04/Dockerfile), [teamcity-server:EAP-linux-arm64-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/18.04/Dockerfile)
-
-* **Windows**. [teamcity-server:EAP-nanoserver-1809,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1809/Dockerfile), [teamcity-server:EAP-nanoserver-2022,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/2022/Dockerfile), [teamcity-server:EAP-nanoserver-1803,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1803/Dockerfile), [teamcity-server:EAP-nanoserver-1903,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1903/Dockerfile), [teamcity-server:EAP-nanoserver-1909,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1909/Dockerfile)
-
-
-### EAP-linux
+### 2024.07-linux
 
 [Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)
 
@@ -77,12 +81,12 @@ Docker build commands:
 docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:EAP-linux "context"
+docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:2024.07-linux "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### EAP-nanoserver-1809
+### 2024.07-nanoserver-1809
 
 [Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
 
@@ -106,12 +110,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1809
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:EAP-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1809/Dockerfile" -t teamcity-server:2024.07-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
 
-### EAP-nanoserver-2022
+### 2024.07-nanoserver-2022
 
 [Dockerfile](windows/Server/nanoserver/2022/Dockerfile)
 
@@ -135,12 +139,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-ltsc2022
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/windows/Server/nanoserver/2022/Dockerfile" -t teamcity-server:EAP-nanoserver-2022 "context"
+docker build -f "context/generated/windows/Server/nanoserver/2022/Dockerfile" -t teamcity-server:2024.07-nanoserver-2022 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
 
-### EAP-linux-18.04
+### 2024.07-linux-18.04
 
 [Dockerfile](linux/Server/Ubuntu/18.04/Dockerfile)
 
@@ -162,12 +166,12 @@ Docker build commands:
 docker pull ubuntu:18.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:EAP-linux-18.04 "context"
+docker build -f "context/generated/linux/Server/Ubuntu/18.04/Dockerfile" -t teamcity-server:2024.07-linux-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### EAP-linux-arm64
+### 2024.07-linux-arm64
 
 [Dockerfile](linux/Server/UbuntuARM/20.04/Dockerfile)
 
@@ -188,12 +192,12 @@ Docker build commands:
 docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:2024.07-linux-arm64 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### EAP-linux-arm64-18.04
+### 2024.07-linux-arm64-18.04
 
 [Dockerfile](linux/Server/UbuntuARM/18.04/Dockerfile)
 
@@ -214,12 +218,12 @@ Docker build commands:
 docker pull ubuntu:18.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/UbuntuARM/18.04/Dockerfile" -t teamcity-server:EAP-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Server/UbuntuARM/18.04/Dockerfile" -t teamcity-server:2024.07-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### EAP-nanoserver-1803
+### 2024.07-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
 
@@ -240,12 +244,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1803
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:EAP-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1803/Dockerfile" -t teamcity-server:2024.07-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
 
-### EAP-nanoserver-1903
+### 2024.07-nanoserver-1903
 
 [Dockerfile](windows/Server/nanoserver/1903/Dockerfile)
 
@@ -266,12 +270,12 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1903
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:EAP-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1903/Dockerfile" -t teamcity-server:2024.07-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
 
-### EAP-nanoserver-1909
+### 2024.07-nanoserver-1909
 
 [Dockerfile](windows/Server/nanoserver/1909/Dockerfile)
 
@@ -292,7 +296,7 @@ Docker build commands:
 docker pull mcr.microsoft.com/powershell:nanoserver-1909
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:EAP-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Server/nanoserver/1909/Dockerfile" -t teamcity-server:2024.07-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **6 GB**._
