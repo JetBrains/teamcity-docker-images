@@ -21,7 +21,7 @@
 # Based on ${powershellImage} 3
 FROM ${powershellImage} AS dotnet
 
-COPY scripts/*.cs /scripts/
+COPY --chown=ContainerUser scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Based on ${teamcityWindowsservercoreImage}
@@ -40,7 +40,7 @@ ENV ProgramFiles="C:\Program Files" \
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
 # PowerShell
-COPY --from=dotnet ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
+COPY --chown=ContainerUser --from=dotnet ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -59,12 +59,12 @@ RUN pwsh -NoLogo -NoProfile -Command " \
     }"
 
 # JDK
-COPY --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+COPY --chown=ContainerUser --from=tools ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 # Git
-COPY --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
+COPY --chown=ContainerUser --from=tools ["C:/Program Files/Git", "C:/Program Files/Git"]
 # .NET
-COPY --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
-COPY --from=tools /BuildAgent /BuildAgent
+COPY --chown=ContainerUser --from=tools ["C:/Program Files/dotnet", "C:/Program Files/dotnet"]
+COPY --chown=ContainerUser --from=tools /BuildAgent /BuildAgent
 
 EXPOSE 9090
 

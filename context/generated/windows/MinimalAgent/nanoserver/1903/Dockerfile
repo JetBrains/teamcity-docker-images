@@ -15,12 +15,18 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
 
 FROM ${powershellImage} AS base
 
-COPY scripts/*.cs /scripts/
+# On some agents, Windows 2019 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
+
+COPY --chown=ContainerUser scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Prepare build agent distribution
-COPY TeamCity/buildAgent C:/BuildAgent
-COPY run-agent.ps1 /BuildAgent/run-agent.ps1
+RUN mkdir C:\\BuildAgent
+COPY --chown=ContainerUser TeamCity/buildAgent C:/BuildAgent
+
+COPY --chown=ContainerUser run-agent.ps1 /BuildAgent/run-agent.ps1
 
 # JDK
 ARG jdkWindowsComponent
@@ -48,7 +54,7 @@ ENV ProgramFiles="C:\Program Files" \
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
 # PowerShell
-COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -66,12 +72,19 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+
+# Use ContainerAdministrator to update permissions
+#USER ContainerAdministrator
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\BuildAgent\\*
+#USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work

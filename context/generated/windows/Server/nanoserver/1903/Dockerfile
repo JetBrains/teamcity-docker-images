@@ -26,7 +26,7 @@ FROM ${powershellImage} AS base
 # ... PowerShell container.
 USER ContainerAdministrator
 
-COPY scripts/*.cs /scripts/
+COPY --chown=ContainerUser scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # JDK
@@ -54,9 +54,9 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
 # Prepare TeamCity server distribution
 ARG windowsBuild
 
-COPY TeamCity /TeamCity
+COPY --chown=ContainerUser TeamCity /TeamCity
 RUN New-Item C:/TeamCity/webapps/ROOT/WEB-INF/DistributionType.txt -type file -force -value "docker-windows-$Env:windowsBuild" | Out-Null
-COPY run-server.ps1 /TeamCity/run-server.ps1
+COPY --chown=ContainerUser run-server.ps1 /TeamCity/run-server.ps1
 
 USER ContainerUser
 
@@ -71,7 +71,7 @@ ENV ProgramFiles="C:\Program Files" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
-COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -89,8 +89,8 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
-COPY --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/Git", "C:/Program Files/Git"]
 
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     TEAMCITY_DIST="C:\TeamCity" \
@@ -102,7 +102,7 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 
 EXPOSE 8111
 
-COPY --from=base $TEAMCITY_DIST $TEAMCITY_DIST
+COPY --chown=ContainerUser --from=base $TEAMCITY_DIST $TEAMCITY_DIST
 
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
@@ -115,8 +115,7 @@ USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\TeamCity /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\TeamCity\\*
+#RUN cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\TeamCity /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\TeamCity\\*
 USER ContainerUser
