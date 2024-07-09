@@ -25,14 +25,14 @@ FROM ${powershellImage} AS base
 # ... PowerShell container.
 USER ContainerAdministrator
 
-COPY scripts/*.cs /scripts/
+COPY --chown=ContainerUser scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Prepare build agent distribution
 RUN mkdir C:\\BuildAgent
-COPY TeamCity/buildAgent C:/BuildAgent
+COPY --chown=ContainerUser TeamCity/buildAgent C:/BuildAgent
 
-COPY run-agent.ps1 /BuildAgent/run-agent.ps1
+COPY --chown=ContainerUser run-agent.ps1 /BuildAgent/run-agent.ps1
 
 # JDK
 ARG jdkWindowsComponent
@@ -61,7 +61,7 @@ ENV ProgramFiles="C:\Program Files" \
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
 # PowerShell
-COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -79,7 +79,7 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+COPY --chown=ContainerUser --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
@@ -87,14 +87,14 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
 # Use ContainerAdministrator to update permissions
-USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
-USER ContainerUser
+#USER ContainerAdministrator
+## Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+## ... F - full control, D - delete, /T - apply to subfolders & files
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+## Applied permission check for logging purposes
+#RUN cmd /c icacls.exe C:\\BuildAgent\\*
+#USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
