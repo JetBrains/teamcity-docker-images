@@ -54,7 +54,7 @@ ENV ProgramFiles="C:\Program Files" \
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
 # PowerShell
-COPY --chown=ContainerUser --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
+COPY --chown=DefaultAccount --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -72,12 +72,12 @@ RUN pwsh -NoLogo -NoProfile -Command " \
         Start-Sleep -Seconds 6 ; \
     }"
 
-COPY --chown=ContainerUser --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
+COPY --chown=DefaultAccount --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJDK"]
 
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+COPY --chown=DefaultAccount --from=base /BuildAgent /BuildAgent
 
 # Use ContainerAdministrator to update permissions
 #USER ContainerAdministrator
