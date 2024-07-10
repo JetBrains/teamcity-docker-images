@@ -25,8 +25,13 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 # Prepare build agent distribution
 RUN mkdir C:\\BuildAgent
 COPY --chown=ContainerUser TeamCity/buildAgent C:/BuildAgent
-
 COPY --chown=ContainerUser run-agent.ps1 /BuildAgent/run-agent.ps1
+
+# Update permissions
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T ; \
+    cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T ; \
+    ## Applied permission check for logging purposes
+    cmd /c icacls.exe C:\\BuildAgent\\*
 
 # JDK
 ARG jdkWindowsComponent
