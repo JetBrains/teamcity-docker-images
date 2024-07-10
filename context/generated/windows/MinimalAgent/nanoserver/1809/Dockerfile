@@ -77,7 +77,7 @@ COPY --chown=Users --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Fil
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --chown=Users --from=base /BuildAgent /BuildAgent
+COPY --chown=DefaultAccount:Users --from=base /BuildAgent /BuildAgent
 
 # Use ContainerAdministrator to update permissions
 #USER ContainerAdministrator
