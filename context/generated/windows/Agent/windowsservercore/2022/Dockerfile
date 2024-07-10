@@ -32,7 +32,7 @@ FROM ${windowsservercoreImage}
 # ... PowerShell container.
 USER ContainerAdministrator
 
-COPY scripts/*.cs /scripts/
+COPY --chown=ContainerUser scripts/*.cs /scripts/
 
 # PowerShell
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -72,7 +72,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 
-COPY --from=buildagent /BuildAgent /BuildAgent
+COPY --chown=ContainerUser --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090
 
