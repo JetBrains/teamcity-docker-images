@@ -15,6 +15,11 @@ ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1903'
 
 FROM ${powershellImage} AS base
 
+# On some agents, Windows 2019 requires administrator permissions to modify "C:/" folder within ...
+# ... PowerShell container.
+USER ContainerAdministrator
+
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
