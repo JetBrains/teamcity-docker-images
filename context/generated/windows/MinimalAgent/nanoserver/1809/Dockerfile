@@ -18,21 +18,21 @@ FROM ${powershellImage} AS base
 # On some agents, Windows 2019 requires administrator permissions to modify "C:/" folder within ...
 # ... PowerShell container.
 USER ContainerAdministrator
-RUN mkdir C:\\BuildAgent
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
 
-# Copy BuildAgent distribution under 'ContainerUser' permissions
-
-USER DefaultAccount
+# Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
 
-# Switch back to administrator to modify C:/
-USER ContainerAdministrator
+
+
+
+
+
+
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
 
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
@@ -49,10 +49,6 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
     Remove-Item -Force jdk.zip ; \
     if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
-
-# Remove to prevent upgrade failures
-RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
-
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
@@ -89,13 +85,16 @@ COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJD
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --chown=DefaultAccount --from=base /BuildAgent /BuildAgent
+COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
-#USER ContainerAdministrator
-#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-#RUN cmd /c icacls.exe C:\\BuildAgent\\*
-#USER ContainerUser
+USER ContainerAdministrator
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, D - delete, /T - apply to subfolders & files
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+# Applied permission check for logging purposes
+RUN cmd /c icacls.exe C:\\BuildAgent\\*
+USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
