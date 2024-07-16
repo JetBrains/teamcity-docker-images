@@ -35,6 +35,8 @@ RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI
 # Applied permission check for logging purposes
 RUN cmd /c icacls.exe C:\\BuildAgent\\*
 
+RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
+
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
