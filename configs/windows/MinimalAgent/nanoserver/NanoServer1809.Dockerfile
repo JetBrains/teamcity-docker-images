@@ -24,6 +24,9 @@ FROM ${powershellImage} AS base
 # On some agents, Windows 2019 requires administrator permissions to modify "C:/" folder within ...
 # ... PowerShell container.
 USER ContainerAdministrator
+RUN cmd /c icacls.exe C:\\ /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\ /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+USER ContainerUser
 
 # Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
@@ -31,7 +34,7 @@ COPY TeamCity/buildAgent C:/BuildAgent
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
+# RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
 
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
@@ -87,14 +90,14 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
-USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
-USER ContainerUser
+#USER ContainerAdministrator
+## Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+## ... F - full control, D - delete, /T - apply to subfolders & files
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+#RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+## Applied permission check for logging purposes
+#RUN cmd /c icacls.exe C:\\BuildAgent\\*
+#USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
