@@ -28,13 +28,6 @@ USER ContainerAdministrator
 # Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
 
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete (critical for upgrade), /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
-
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -93,6 +86,15 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+
+USER ContainerAdministrator
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, D - delete, /T - apply to subfolders & files
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+# Applied permission check for logging purposes
+RUN cmd /c icacls.exe C:\\BuildAgent\\*
+USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
 VOLUME C:/BuildAgent/work
