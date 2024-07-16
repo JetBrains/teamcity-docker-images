@@ -18,17 +18,22 @@ FROM ${powershellImage} AS base
 # On some agents, Windows 2019 requires administrator permissions to modify "C:/" folder within ...
 # ... PowerShell container.
 USER ContainerAdministrator
-RUN cmd /c icacls.exe C:\\ /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\ /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-USER ContainerUser
+RUN mkdir C:\\BuildAgent
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
 
-# Prepare build agent distribution
+# Copy BuildAgent distribution under 'ContainerUser' permissions
+
+USER ContainerUser
 COPY TeamCity/buildAgent C:/BuildAgent
+
+# Switch back to administrator to modify C:/
+USER ContainerAdministrator
 
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
+# RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
 
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
@@ -43,8 +48,9 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     iex $downloadScript ; \
     Expand-Archive jdk.zip -DestinationPath $Env:ProgramFiles\Java ; \
     Get-ChildItem $Env:ProgramFiles\Java | Rename-Item -NewName "OpenJDK" ; \
-    Remove-Item -Force jdk.zip ; \
-    if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
+    Remove-Item -Force jdk.zip
+    #if (Test-Path '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml') { (Get-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml').replace('/', '\\') | Set-Content '/BuildAgent/system/.teamcity-agent/unpacked-plugins.xml' }
+
 
 # Workaround for https://github.com/PowerShell/PowerShell-Docker/issues/164
 ARG nanoserverImage
