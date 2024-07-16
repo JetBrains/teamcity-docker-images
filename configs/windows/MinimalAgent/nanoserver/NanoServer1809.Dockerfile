@@ -30,7 +30,7 @@ RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI
 
 # Copy BuildAgent distribution under 'ContainerUser' permissions
 
-USER ContainerUser
+USER DefaultAccount
 COPY TeamCity/buildAgent C:/BuildAgent
 
 # Switch back to administrator to modify C:/
@@ -78,7 +78,7 @@ COPY --from=base ["C:/Program Files/PowerShell", "C:/Program Files/PowerShell"]
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%ProgramFiles%\PowerShell"
-USER ContainerUser
+USER DefaultAccount
 
 # intialize powershell module cache
 RUN pwsh -NoLogo -NoProfile -Command " \
@@ -96,7 +96,7 @@ COPY --from=base ["C:/Program Files/Java/OpenJDK", "C:/Program Files/Java/OpenJD
 ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
     CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties"
 
-COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
+COPY --chown=DefaultAccount --from=base /BuildAgent /BuildAgent
 
 #USER ContainerAdministrator
 ## Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
