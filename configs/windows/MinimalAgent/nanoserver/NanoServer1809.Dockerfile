@@ -68,7 +68,7 @@ FROM ${nanoserverImage}
 
 ENV ProgramFiles="C:\Program Files" \
     # set a fixed location for the Module analysis cache
-    PSModuleAnalysisCachePath="C:\Users\ContainerUser\AppData\Local\Microsoft\Windows\PowerShell\docker\ModuleAnalysisCache" \
+    PSModuleAnalysisCachePath="C:\Users\DefaultAccount\AppData\Local\Microsoft\Windows\PowerShell\docker\ModuleAnalysisCache" \
     # Persist %PSCORE% ENV variable for user convenience
     PSCORE="$ProgramFiles\PowerShell\pwsh.exe"
 
