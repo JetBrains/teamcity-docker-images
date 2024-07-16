@@ -56,6 +56,13 @@ Supported platforms: linux 20.04, windows 1809, windows 2022
 - [2024.07-nanoserver-2022](#202407-nanoserver-2022)
 
 
+# Dockerfile links
+
+* **Linux**. [teamcity-server:2024.07-linux,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/20.04/Dockerfile), [teamcity-server:2024.07-linux-18.04,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/18.04/Dockerfile), [teamcity-server:2024.07-linux-arm64,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/20.04/Dockerfile), [teamcity-server:2024.07-linux-arm64-18.04,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/18.04/Dockerfile)
+
+* **Windows**. [teamcity-server:2024.07-nanoserver-1809,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1809/Dockerfile), [teamcity-server:2024.07-nanoserver-2022,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/2022/Dockerfile), [teamcity-server:2024.07-nanoserver-1803,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1803/Dockerfile), [teamcity-server:2024.07-nanoserver-1903,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1903/Dockerfile), [teamcity-server:2024.07-nanoserver-1909,latest,2024.07](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1909/Dockerfile)
+
+
 ### 2024.07-linux
 
 [Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)
