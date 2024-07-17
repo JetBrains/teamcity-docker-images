@@ -19,12 +19,12 @@ FROM ${powershellImage} AS base
 # ... PowerShell container.
 USER ContainerAdministrator
 
-COPY scripts/*.cs /scripts/
-SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
 # Prepare build agent distribution
 RUN mkdir C:\\BuildAgent
 COPY TeamCity/buildAgent C:/BuildAgent
+
+COPY scripts/*.cs /scripts/
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
@@ -79,7 +79,6 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
-# Use ContainerAdministrator to update permissions
 USER ContainerAdministrator
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, D - delete, /T - apply to subfolders & files
