@@ -22,13 +22,6 @@ USER ContainerAdministrator
 # Prepare build agent distribution
 COPY TeamCity/buildAgent C:/BuildAgent
 
-
-
-
-
-
-
-
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
