@@ -32,8 +32,6 @@ COPY TeamCity/buildAgent C:/BuildAgent
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-#RUN Remove-Item -Recurse -Force C:/BuildAgent/system/.teamcity-agent
-
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
 # JDK
