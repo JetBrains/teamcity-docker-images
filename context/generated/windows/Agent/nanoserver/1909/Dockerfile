@@ -77,9 +77,15 @@ ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
     NUGET_XMLDOC_MODE=skip
 
-# In order to set system PATH, ContainerAdministrator must be used
+# Use ContainerAdministrator to update permissions and PATH
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet"
+# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, D - delete (critical for upgrade), /T - apply to subfolders & files
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
+RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
+# Applied permission check for logging purposes
+RUN cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
 
 # Trigger first run experience by running arbitrary cmd to populate local package cache
