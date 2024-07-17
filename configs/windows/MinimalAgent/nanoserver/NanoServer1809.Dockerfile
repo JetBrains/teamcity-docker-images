@@ -26,6 +26,7 @@ FROM ${powershellImage} AS base
 USER ContainerAdministrator
 
 # Prepare build agent distribution
+RUN mkdir C:\\BuildAgent
 COPY TeamCity/buildAgent C:/BuildAgent
 
 COPY scripts/*.cs /scripts/
