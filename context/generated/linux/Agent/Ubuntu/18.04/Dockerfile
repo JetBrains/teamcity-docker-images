@@ -6,7 +6,7 @@ ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0
 ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
-ARG p4Version='2022.2-2531894'
+ARG p4Version='2022.2-2637361'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2024.07.1-linux-18.04'
 
