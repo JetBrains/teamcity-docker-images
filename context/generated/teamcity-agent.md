@@ -98,7 +98,7 @@ Installed components:
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Git v.2.47.0
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
@@ -139,7 +139,7 @@ Installed components:
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Git v.2.47.0
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
@@ -179,7 +179,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.17.0.7.7.1 Checksum (MD5) c55e3d0615fac07f948ac3adaed818e9](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.47.0
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
@@ -217,7 +217,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.17.0.7.7.1 Checksum (MD5) c55e3d0615fac07f948ac3adaed818e9](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.47.0
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
@@ -256,7 +256,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.17.0.7.7.1 Checksum (MD5) c55e3d0615fac07f948ac3adaed818e9](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.47.0
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
@@ -296,7 +296,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.17.0.7.7.1 Checksum (MD5) c55e3d0615fac07f948ac3adaed818e9](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.47.0
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
@@ -335,7 +335,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Git v.2.47.0
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
@@ -376,7 +376,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Git v.2.47.0
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
@@ -592,7 +592,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Git v.2.47.0
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
@@ -666,7 +666,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.17.0.7.7.1 Checksum (MD5) c55e3d0615fac07f948ac3adaed818e9](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.47.0
-- Git LFS v.2.9.2
+- Git LFS v.3.0.2-1
 - Mercurial
 - [Docker v.5:24.0.9](https://docs.docker.com/engine/release-notes/24.0)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
