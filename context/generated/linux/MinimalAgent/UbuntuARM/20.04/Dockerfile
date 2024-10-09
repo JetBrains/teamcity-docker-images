@@ -20,6 +20,7 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
 # Python
     apt-get install -y python3-venv && \
+    apt-get install -y python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8 && \
