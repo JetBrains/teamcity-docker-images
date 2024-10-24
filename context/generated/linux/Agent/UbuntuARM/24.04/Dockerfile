@@ -7,7 +7,7 @@ ARG dotnetLinuxARM64ComponentSHA512='7f05a9774d79e694da5a6115d9916abf87a65e40bd6
 ARG gitLFSLinuxComponentVersion='3.0.2-1'
 ARG gitLinuxComponentVersion='1:2.47.0-0ppa2~ubuntu20.04.1'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 
 # The list of required arguments
 # ARG dotnetLinuxARM64Component
