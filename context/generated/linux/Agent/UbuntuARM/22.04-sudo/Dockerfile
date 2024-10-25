@@ -1,3 +1,6 @@
+# Default arguments
+ARG teamcityAgentImage='teamcity-agent:EAP-linux-arm64'
+
 # The list of required arguments
 # ARG teamcityAgentImage
 
