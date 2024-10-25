@@ -1,10 +1,10 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.6.28-2'
-ARG dockerLinuxComponentVersion='5:24.0.9-1~ubuntu'
+ARG dockerLinuxComponentVersion='5:27.3.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc-s1 libicu74 libssl3 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
-ARG gitLFSLinuxComponentVersion='3.0.2-1'
+ARG gitLFSLinuxComponentVersion='3.4.1-1'
 ARG gitLinuxComponentVersion='1:2.47.0-0ppa2~ubuntu24.04.1'
 ARG p4Version='2024.1-2655224'
 ARG repo='https://hub.docker.com/r/jetbrains/'
