@@ -94,7 +94,7 @@ COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     groupadd -g 1000 tcuser && \
-    useradd -r -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
+    useradd -r -m -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \
