@@ -5,7 +5,7 @@ ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/17.0.7.7.1
 ARG jdkServerLinuxComponentMD5SUM='443750a02c28ff2807c80032ee2e8ebc'
 ARG p4Version='2022.2-2637361'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG ubuntuImage='ubuntu:20.04'
+ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
 # ARG jdkServerLinuxComponent
@@ -90,7 +90,7 @@ COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     groupadd -g 1000 tcuser && \
-    useradd -r -m -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
+    useradd -r -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \

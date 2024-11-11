@@ -1,15 +1,14 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='3.0.2-1'
 ARG gitLinuxComponentVersion='1:2.47.0-0ppa2~ubuntu22.04.1'
-ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz'
-ARG jdkServerLinuxComponentMD5SUM='443750a02c28ff2807c80032ee2e8ebc'
-ARG p4Version='2022.2-2637361'
-ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG ubuntuImage='ubuntu:20.04'
+ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz'
+ARG jdkServerLinuxARM64ComponentMD5SUM='c55e3d0615fac07f948ac3adaed818e9'
+ARG repo=''
+ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
-# ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxComponentMD5SUM
+# ARG jdkServerLinuxARM64Component
+# ARG jdkServerLinuxARM64ComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
@@ -30,12 +29,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # JDK preparation start
-ARG jdkServerLinuxComponent
-ARG jdkServerLinuxComponentMD5SUM
+ARG jdkServerLinuxARM64Component
+ARG jdkServerLinuxARM64ComponentMD5SUM
 
 RUN set -eux; \
-    curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxARM64Component}; \
+    echo "${jdkServerLinuxARM64ComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
@@ -66,20 +65,11 @@ ARG gitLinuxComponentVersion
 # Git LFS
 ARG gitLFSLinuxComponentVersion
 
-# Perforce
-ARG p4Version
-
 RUN apt-get update && \
-    apt-get install -y mercurial gnupg software-properties-common && \
+    apt-get install -y mercurial software-properties-common && \
     add-apt-repository ppa:git-core/ppa -y && \
     apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
     git lfs install --system && \
-    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
-    (. /etc/os-release && \
-      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
-      /etc/apt/sources.list.d/perforce.list ) && \
-    apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -90,7 +80,7 @@ COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     groupadd -g 1000 tcuser && \
-    useradd -r -m -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
+    useradd -r -u 1000 -g tcuser tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \
