@@ -28,7 +28,7 @@ COPY TeamCity/buildAgent C:/BuildAgent
 
 # Workaround for TW-87124 - Windows 2022-based plugin directories receive incorrect case, causing their inability ...
 # ... to load. The directory will be fetched from the server upon the first update with proper case.
-RUN Remove-Item -Recurse -Force C:/BuildAgent/plugins
+#RUN Remove-Item -Recurse -Force C:/BuildAgent/plugins
 
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
