@@ -32,10 +32,6 @@ COPY TeamCity/buildAgent C:/BuildAgent
 COPY scripts/*.cs /scripts/
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Workaround for TW-87124 - Windows-based plugin directories receive incorrect case, causing their inability ...
-# ... to load. The directory will be fetched from the server upon the first update with proper case.
-RUN Remove-Item -Recurse -Force C:/BuildAgent/plugins
-
 COPY run-agent.ps1 /BuildAgent/run-agent.ps1
 
 # JDK
