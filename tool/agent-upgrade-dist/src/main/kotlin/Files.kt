@@ -8,8 +8,8 @@ fun File.dir(): Sequence<File> = this.listFiles()?.asSequence() ?: emptySequence
 
 fun File.ensureDirExists(description: String = "", createIfNotExists: Boolean = false): File {
     if (this.exists()) {
-        if (this.isDirectory) {
-            throw Exception("\"$this\" - is not a directory.");
+        if (!this.isDirectory) {
+            throw Exception("\"$this\" - is not a directory.")
         }
         return Paths.get(path).toRealPath().toFile()
     }
