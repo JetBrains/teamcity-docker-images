@@ -4,7 +4,7 @@
 #
 # @param teamCityAgentImage target TeamCity Agent image, e.g. 'jetbrains/teamcity-agent:2023.05.4'
 # @param dotnetSdkVersion target .NET SDK version, e.g. '7.0.401'
-# @param dotnetSdkChecksum checksum of .NET SDK's archive obtained from "dotnetcli.azureedge.net/dotnet/Sdk"
+# @param dotnetSdkChecksum checksum of .NET SDK's archive obtained from "builds.dotnet.microsoft.com/dotnet/Sdk"
 #
 
 ARG teamCityAgentImage
