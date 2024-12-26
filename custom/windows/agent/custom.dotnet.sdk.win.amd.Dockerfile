@@ -24,7 +24,7 @@ RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercuri
 RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     $code = Get-Content -Path "scripts/Web.cs" -Raw ; \
     Add-Type -IgnoreWarnings -TypeDefinition "$code" -Language CSharp ; \
-    $url = 'https://dotnetcli.blob.core.windows.net/dotnet/Sdk/' + $Env:dotnetSdkVersion + '/dotnet-sdk-' + $Env:dotnetSdkVersion + '-win-x64.zip'; \
+    $url = 'https://builds.dotnet.microsoft.com/dotnet/Sdk/' + $Env:dotnetSdkVersion + '/dotnet-sdk-' + $Env:dotnetSdkVersion + '-win-x64.zip'; \
     $downloadScript = [Scripts.Web]::DownloadFiles($url + '#SHA512#' + $Env:dotnetSdkChecksum, 'dotnet.zip') ; \
      # Remove to successfully expand archive
     Remove-Item -Force -Recurse $Env:ProgramFiles\dotnet; \
