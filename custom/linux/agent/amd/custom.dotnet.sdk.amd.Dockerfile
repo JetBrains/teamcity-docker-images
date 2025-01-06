@@ -4,7 +4,7 @@
 #
 # @param teamCityAgentImage target TeamCity Agent image, e.g. 'jetbrains/teamcity-agent:2023.05.4'
 # @param dotnetSdkVersion target .NET SDK version, e.g. '7.0.401'
-# @param dotnetSdkChecksum checksum of .NET SDK's archive obtained from "dotnetcli.azureedge.net/dotnet/Sdk"
+# @param dotnetSdkChecksum checksum of .NET SDK's archive obtained from "builds.dotnet.microsoft.com/dotnet/Sdk"
 #
 
 ARG teamCityAgentImage
@@ -18,7 +18,7 @@ ARG dotnetSdkChecksum
 RUN rm -rf /usr/share/dotnet && \
     mkdir -p /usr/share/dotnet && \
     echo "Downloading .NET SDK [$dotnetSdkVersion] ..." && \
-    curl -SL https://dotnetcli.azureedge.net/dotnet/Sdk/${dotnetSdkVersion}/dotnet-sdk-${dotnetSdkVersion}-linux-x64.tar.gz \
+    curl -SL https://builds.dotnet.microsoft.com/dotnet/Sdk/${dotnetSdkVersion}/dotnet-sdk-${dotnetSdkVersion}-linux-x64.tar.gz \
         --output /tmp/dotnet.tar.gz && \
         echo "Downloaded .NET SDK $dotnetSdkVersion (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
         echo "$dotnetSdkChecksum */tmp/dotnet.tar.gz" | sha512sum -c - && \
