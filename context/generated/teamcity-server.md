@@ -71,7 +71,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - Git v.2.47.1
 - Git LFS v.3.0.2-1
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -101,7 +101,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - Git v.2.47.1
 - Git LFS v.3.0.2-1
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -186,7 +186,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.17.0.7.7.1 Checksum (MD5) 443750a02c28ff2807c80032ee2e8ebc](https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-x64.tar.gz)
 - Git v.2.41.0
 - Git LFS v.2.3.4
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
