@@ -128,7 +128,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -169,7 +169,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -365,7 +365,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -406,7 +406,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -585,7 +585,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
@@ -622,7 +622,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.6.0.413 (LTS) x86 Checksum (SHA512) ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de](https://dotnetcli.blob.core.windows.net/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2637361](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
 
 Container platform: linux
 
