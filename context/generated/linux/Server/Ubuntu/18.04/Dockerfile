@@ -16,15 +16,16 @@ ARG ubuntuImage='ubuntu:18.04'
 
 
 
-FROM ${ubuntuImage}
+# Build runtime for Git & Git LFS binaries
+FROM ${ubuntuImage} AS builder
 
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+ENV GIT_VERSION=2.47.1
+ENV GIT_LFS_VERSION=v3.4.1
 
+# Install required dependencies for building Git and Git LFS
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    libssl-dev \
-    build-essential \
-    autoconf \
+    apt-get install -y \
+    libssl-dev build-essential autoconf \
     make \
     gcc \
     libcurl4-openssl-dev \
@@ -33,14 +34,43 @@ RUN apt-get update && \
     unzip \
     zlib1g-dev \
     gnupg \
-    curl \
-    ca-certificates \
-    fontconfig \
-    locales && \
+    curl && \
+    # Install Git
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
+    tar -xvzf git-${GIT_VERSION}.tar.gz && \
+    cd git-${GIT_VERSION} && \
+    make configure && ./configure --prefix=/usr && \
+    make all && \
+    make install && \
+    cd .. && \
+    rm -rf git-${GIT_VERSION}* && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Clean up
+    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
+
+FROM ${ubuntuImage}
+
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
+    # Git & Git LFS Runtime dependencies
+    libcurl4-openssl-dev libexpat1-dev zlib1g-dev && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen en_US.UTF-8
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+
+# Copy compiled Git and Git LFS from the builder stage
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxComponent
