@@ -114,31 +114,10 @@ ARG gitLinuxComponentVersion
 # Git LFS
 ARG gitLFSLinuxComponentVersion
 
-# Perforce
+# Perforce installation
 ARG p4Version
-
-
-# Git Installation
-ENV GIT_VERSION=2.47.1
-ENV GIT_LFS_VERSION=v3.4.1
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
-    # Git Installation
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-        tar -xvzf git-${GIT_VERSION}.tar.gz && \
-        cd git-${GIT_VERSION} && \
-        make configure && \
-        ./configure --prefix=/usr && \
-        make all && \
-        make install && \
-        cd .. && \
-        rm -rf git-${GIT_VERSION}* && \
-        git --version && \
-           # Git LFS Installation
-                curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
-               mkdir git-lfs-${GIT_LFS_VERSION} &&  tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-              cd git-lfs-${GIT_LFS_VERSION}  && ls && ./install.sh && \
-               cd .. && rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
