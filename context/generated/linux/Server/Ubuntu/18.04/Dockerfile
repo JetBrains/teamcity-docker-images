@@ -91,14 +91,16 @@ RUN apt-get update && \
     curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
         tar -xvzf git-${GIT_VERSION}.tar.gz && \
         cd git-${GIT_VERSION} && \
-        make configure && ./configure --prefix=/usr && \
+        make configure && \
+        ./configure --prefix=/usr && \
         make all && \
         make install && \
         cd .. && \
         rm -rf git-${GIT_VERSION}* && \
+        git --version && \
     # Git LFS Installation
     add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git-lfs=${gitLFSLinuxComponentVersion} && \
+    apt-get install -y git-lfs=${gitLFSLinuxComponentVersion} git- && \
     git lfs install --system && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
