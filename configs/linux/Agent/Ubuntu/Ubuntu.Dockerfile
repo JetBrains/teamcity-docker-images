@@ -32,7 +32,7 @@
 
 
 # Build runtime for Git & Git LFS binaries
-FROM ${teamcityMinimalAgentImage} AS builder
+FROM ${ubuntuImage} AS builder
 
 ENV GIT_VERSION=2.47.1
 ENV GIT_LFS_VERSION=v3.4.1
