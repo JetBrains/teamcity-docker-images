@@ -42,6 +42,7 @@ RUN apt-get update && \
     ca-certificates \
     fontconfig \
     locales && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
@@ -89,6 +90,7 @@ ARG p4Version
 
 # Git Installation
 ENV GIT_VERSION=2.47.1
+ENV GIT_LFS_VERSION=v3.0.2
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
     # Git Installation
@@ -102,10 +104,11 @@ RUN apt-get update && \
         cd .. && \
         rm -rf git-${GIT_VERSION}* && \
         git --version && \
-    # Git LFS Installation
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git-lfs=${gitLFSLinuxComponentVersion} git- && \
-    git lfs install --system && \
+           # Git LFS Installation
+                curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+               mkdir git-lfs-${GIT_LFS_VERSION} &&  tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+              cd git-lfs-${GIT_LFS_VERSION}  && ./install.sh && \
+               cd .. && rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \

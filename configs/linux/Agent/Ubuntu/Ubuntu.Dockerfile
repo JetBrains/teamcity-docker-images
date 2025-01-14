@@ -64,11 +64,30 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
+ENV GIT_LFS_VERSION=v3.0.2
+ENV GIT_VERSION=2.47.1
+
 RUN apt-get update && \
+    # Git dependencies
+    apt-get install -y --no-install-recommends libssl-dev build-essential autoconf make gcc libcurl4-openssl-dev \
+      libexpat1-dev gettext unzip zlib1g-dev gnupg curl ca-certificates fontconfig locales && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
-    git lfs install --system && \
+   # Git Installation
+       curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
+           tar -xvzf git-${GIT_VERSION}.tar.gz && \
+           cd git-${GIT_VERSION} && \
+           make configure && \
+           ./configure --prefix=/usr && \
+           make all && \
+           make install && \
+           cd .. && \
+           rm -rf git-${GIT_VERSION}* && \
+           git --version && \
+       # Git LFS Installation
+            curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+           mkdir git-lfs-${GIT_LFS_VERSION} &&  tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+          cd git-lfs-${GIT_LFS_VERSION}  && ./install.sh && \
+           cd .. && rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # Perforce (p4 CLI)

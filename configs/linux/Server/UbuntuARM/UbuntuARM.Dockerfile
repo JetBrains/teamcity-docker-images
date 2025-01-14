@@ -25,12 +25,26 @@ FROM ${ubuntuImage}
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip  && \
+    apt-get install -y --no-install-recommends \
+    libssl-dev \
+    build-essential \
+    autoconf \
+    make \
+    gcc \
+    libcurl4-openssl-dev \
+    libexpat1-dev \
+    gettext \
+    unzip \
+    zlib1g-dev \
+    gnupg \
+    curl \
+    ca-certificates \
+    fontconfig \
+    locales && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    rm -rf /var/lib/apt/lists/*
+    locale-gen en_US.UTF-8
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
@@ -71,8 +85,20 @@ ARG gitLFSLinuxComponentVersion
 
 RUN apt-get update && \
     apt-get install -y mercurial software-properties-common && \
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
+       # Git Installation
+       curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
+           tar -xvzf git-${GIT_VERSION}.tar.gz && \
+           cd git-${GIT_VERSION} && \
+           make configure && \
+           ./configure --prefix=/usr && \
+           make all && \
+           make install && \
+           cd .. && \
+           rm -rf git-${GIT_VERSION}* && \
+           git --version && \
+       # Git LFS Installation
+       add-apt-repository ppa:git-core/ppa -y && \
+       apt-get install -y git-lfs=${gitLFSLinuxComponentVersion} git- && \
     git lfs install --system && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
