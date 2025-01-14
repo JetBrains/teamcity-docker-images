@@ -108,12 +108,6 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# Git
-ARG gitLinuxComponentVersion
-
-# Git LFS
-ARG gitLFSLinuxComponentVersion
-
 # Perforce installation
 ARG p4Version
 RUN apt-get update && \
