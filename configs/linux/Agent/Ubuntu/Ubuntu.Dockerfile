@@ -31,8 +31,53 @@
 # @AddToolToDoc ${p4Name}
 
 
+# Build runtime for Git & Git LFS binaries
+FROM ${teamcityMinimalAgentImage} AS builder
+
+ENV GIT_VERSION=2.47.1
+ENV GIT_LFS_VERSION=v3.4.1
+
+# Install required dependencies for building Git and Git LFS
+RUN apt-get update && \
+    apt-get install -y \
+    libssl-dev build-essential autoconf \
+    make \
+    gcc \
+    libcurl4-openssl-dev \
+    libexpat1-dev \
+    gettext \
+    unzip \
+    zlib1g-dev \
+    gnupg \
+    curl && \
+    # Install Git
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
+    tar -xvzf git-${GIT_VERSION}.tar.gz && \
+    cd git-${GIT_VERSION} && \
+    make configure && ./configure --prefix=/usr && \
+    make all && \
+    make install && \
+    cd .. && \
+    rm -rf git-${GIT_VERSION}* && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Clean up
+    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
+
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage}
+
+# Copy compiled Git and Git LFS from the builder stage
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+
 
 USER root
 
@@ -64,33 +109,9 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
-ENV GIT_LFS_VERSION=v3.4.1
-ENV GIT_VERSION=2.47.1
-
 RUN apt-get update && \
-    # Git dependencies
-    apt-get install -y --no-install-recommends libssl-dev build-essential autoconf make gcc libcurl4-openssl-dev \
-      libexpat1-dev gettext unzip zlib1g-dev gnupg curl ca-certificates fontconfig locales && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
-   # Git Installation
-       curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-           tar -xvzf git-${GIT_VERSION}.tar.gz && \
-           cd git-${GIT_VERSION} && \
-           make configure && \
-           ./configure --prefix=/usr && \
-           make all && \
-           make install && \
-           cd .. && \
-           rm -rf git-${GIT_VERSION}* && \
-           git --version && \
-       # Git LFS Installation
-            curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
-           mkdir git-lfs-${GIT_LFS_VERSION} &&  tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-          cd git-lfs-${GIT_LFS_VERSION}  && ./install.sh && \
-           cd .. && rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
-    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# Perforce (p4 CLI)
+    # Perforce (p4 CLI)
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
