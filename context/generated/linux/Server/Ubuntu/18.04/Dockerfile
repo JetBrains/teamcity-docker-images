@@ -85,7 +85,7 @@ ARG p4Version
 
 # Git Installation
 ENV GIT_VERSION=2.47.1
-ENV GIT_LFS_VERSION=v3.0.2
+ENV GIT_LFS_VERSION=v3.4.1
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
     # Git Installation
@@ -102,7 +102,7 @@ RUN apt-get update && \
            # Git LFS Installation
                 curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
                mkdir git-lfs-${GIT_LFS_VERSION} &&  tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-              cd git-lfs-${GIT_LFS_VERSION}  && ./install.sh && \
+              cd git-lfs-${GIT_LFS_VERSION}  && ls && ./install.sh && \
                cd .. && rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \

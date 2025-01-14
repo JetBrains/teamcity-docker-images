@@ -56,7 +56,7 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
-ENV GIT_LFS_VERSION=v3.0.2
+ENV GIT_LFS_VERSION=v3.4.1
 ENV GIT_VERSION=2.47.1
 
 RUN apt-get update && \
