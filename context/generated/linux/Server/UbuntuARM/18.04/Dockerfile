@@ -1,9 +1,6 @@
 # Default arguments
-ARG gitLFSLinuxComponentVersion='2.3.4-1'
-ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/17.0.7.7.1/amazon-corretto-17.0.7.7.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='c55e3d0615fac07f948ac3adaed818e9'
-ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
@@ -16,6 +13,45 @@ ARG ubuntuImage='ubuntu:18.04'
 
 
 
+
+# Build runtime for Git & Git LFS binaries
+FROM ${ubuntuImage} AS builder
+
+ENV GIT_VERSION=2.47.1
+ENV GIT_LFS_VERSION=v3.4.1
+
+# Install required dependencies for building Git and Git LFS
+RUN apt-get update && \
+    apt-get install -y \
+    libssl-dev build-essential autoconf \
+    make \
+    gcc \
+    libcurl4-openssl-dev \
+    libexpat1-dev \
+    gettext \
+    unzip \
+    zlib1g-dev \
+    gnupg \
+    curl && \
+    # Install Git
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
+    tar -xvzf git-${GIT_VERSION}.tar.gz && \
+    cd git-${GIT_VERSION} && \
+    make configure && ./configure --prefix=/usr && \
+    make all && \
+    make install && \
+    cd .. && \
+    rm -rf git-${GIT_VERSION}* && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
+    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Clean up
+    rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
+
 FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -25,8 +61,7 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    rm -rf /var/lib/apt/lists/*
+    locale-gen en_US.UTF-8
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
@@ -58,20 +93,6 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
     LANG=C.UTF-8
 
 EXPOSE 8111
-
-# Git
-ARG gitLinuxComponentVersion
-
-# Git LFS
-ARG gitLFSLinuxComponentVersion
-
-RUN apt-get update && \
-    apt-get install -y mercurial software-properties-common && \
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
-    git lfs install --system && \
-    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
