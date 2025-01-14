@@ -18,6 +18,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
+# ARG ubuntuImage
 
 
 

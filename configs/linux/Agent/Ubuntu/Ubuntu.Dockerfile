@@ -6,6 +6,7 @@
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
+# ARG ubuntuImage
 
 # Id teamcity-agent
 # Platform ${linuxPlatform}
