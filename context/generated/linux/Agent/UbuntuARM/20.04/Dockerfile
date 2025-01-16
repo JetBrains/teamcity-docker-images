@@ -71,7 +71,6 @@ COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
 COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
-
 USER root
 
 COPY run-docker.sh /services/run-docker.sh
