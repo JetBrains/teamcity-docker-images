@@ -101,7 +101,7 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# Perforce installation
+# SCM Operations: Perforce, Mercirual & Mandatory utilities
 ARG p4Version
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
