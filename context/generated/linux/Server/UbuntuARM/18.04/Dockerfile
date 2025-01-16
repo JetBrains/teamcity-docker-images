@@ -18,7 +18,7 @@ ARG ubuntuImage='ubuntu:18.04'
 FROM ${ubuntuImage} AS builder
 
 ENV GIT_VERSION=2.47.1
-ENV GIT_LFS_VERSION=v3.4.1
+ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
 RUN apt-get update && \
