@@ -100,6 +100,12 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
+# SCM Operations: Mercirual & Mandatory utilities. Perforce Client is not available for ARM64.
+RUN apt-get update && \
+    apt-get install -y mercurial gnupg software-properties-common && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
 COPY check-server-volumes.sh /services/check-server-volumes.sh
