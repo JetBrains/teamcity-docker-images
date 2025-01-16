@@ -4,7 +4,7 @@ ARG dockerLinuxComponentVersion='5:27.3.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu70 libssl3 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.413/dotnet-sdk-6.0.413-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='ee0a77d54e6d4917be7310ff0abb3bad5525bfb4beb1db0c215e65f64eb46511f5f12d6c7ff465a1d4ab38577e6a1950fde479ee94839c50e627020328a702de'
-ARG gitLFSLinuxComponentVersion='3.0.2-1'
+ARG gitLFSLinuxComponentVersion='3.6.1'
 ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
 ARG p4Version='2022.2-2693782'
 ARG repo='https://hub.docker.com/r/jetbrains/'
@@ -30,7 +30,7 @@ ARG ubuntuImage='ubuntu:22.04'
 FROM ${ubuntuImage} AS builder
 
 ENV GIT_VERSION=2.47.1
-ENV GIT_LFS_VERSION=v3.4.1
+ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
 RUN apt-get update && \
