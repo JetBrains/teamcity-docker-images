@@ -70,6 +70,12 @@ RUN apt-get update && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
 
+# Copy compiled Git and Git LFS from the builder stage
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
