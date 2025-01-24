@@ -62,7 +62,9 @@ RUN apt-get update && \
     libcurl4-openssl-dev libexpat1-dev zlib1g-dev && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    # Locale adjustment. See TW-91776
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen en_US.UTF-8
 
 # Copy compiled Git and Git LFS from the builder stage
 COPY --from=builder /usr/bin/git /usr/bin/git

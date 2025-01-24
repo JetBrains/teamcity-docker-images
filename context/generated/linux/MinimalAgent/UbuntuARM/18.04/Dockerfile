@@ -21,6 +21,7 @@ RUN apt-get update && \
 # Python
     apt-get install -y python3-venv && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    # Locale adjustment. See TW-91776
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8 && \
     rm -rf /var/lib/apt/lists/* && \
