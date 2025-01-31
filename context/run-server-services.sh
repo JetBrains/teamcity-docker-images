@@ -1,6 +1,8 @@
 #!/bin/bash
+
 # Fail if one of the service scripts fail
-set -e
+set -euxE
+set -o pipefail
 
 echo '/run-services.sh'
 
