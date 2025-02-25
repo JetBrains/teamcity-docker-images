@@ -65,6 +65,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
+    # See: TW-91621
+    netcat-openbsd \
     # Git & Git LFS Runtime dependencies
     libcurl4-openssl-dev libexpat1-dev zlib1g-dev && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005

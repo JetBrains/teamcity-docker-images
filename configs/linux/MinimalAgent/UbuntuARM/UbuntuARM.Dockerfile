@@ -22,7 +22,9 @@ FROM ${ubuntuImage}
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' DEBIAN_FRONTEND=noninteractive TZ="Europe/London" 
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip && \
+    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
+    # See: TW-91621
+    netcat-openbsd && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
 # Python
     apt-get install -y python3-venv && \
