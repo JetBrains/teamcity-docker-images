@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euxE
+set -o pipefail
+
 # Setting default values if variables not present
 : ${TEAMCITY_DIST:=/opt/teamcity}
 : ${TEAMCITY_LOGS:=${TEAMCITY_DIST}/logs}
