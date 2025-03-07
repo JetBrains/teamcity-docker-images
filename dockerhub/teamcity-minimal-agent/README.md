@@ -52,6 +52,7 @@ TeamCity agent does not need manual upgrade: it will upgrade itself automaticall
 - **AGENT_TOKEN** - (optional) Agent authorization token, if unset, the agent should be [authorized](https://www.jetbrains.com/help/teamcity/build-agent.html#BuildAgent-BuildAgentStatus) via TeamCity UI.
 - **OWN_ADDRESS** - (optional, linux only) IP address build agent binds to, autodetected  
 - **OWN_PORT** - (optional, linux only) Port build agent binds to, 9090 by default  
+- `AGENT_GRACEFUL_SHUTDOWN` - (optional) When set the agent will shut down gracefully waiting for builds to finish
 
 ### Windows Containers Limitations
 

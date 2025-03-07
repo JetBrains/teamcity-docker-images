@@ -49,6 +49,11 @@ CONFIG_DIR=/data/teamcity_agent/conf
 LOG_DIR=/opt/buildagent/logs
 
 
+FORCE="force"
+if [ ! -z "${AGENT_GRACEFUL_SHUTDOWN}" ]; then
+   FORCE=""
+fi
+
 rm -f ${LOG_DIR}/*.pid
 
 if [ -f ${CONFIG_DIR}/buildAgent.properties ] ; then
@@ -72,7 +77,7 @@ do
    sleep 1
 done
 
-trap '${AGENT_DIST}/bin/agent.sh stop force; while ps -p $(cat $(ls -1 ${LOG_DIR}/*.pid)) &>/dev/null; do sleep 1; done; kill %%' SIGINT SIGTERM SIGHUP
+trap '${AGENT_DIST}/bin/agent.sh stop ${FORCE}; while ps -p $(cat $(ls -1 ${LOG_DIR}/*.pid)) &>/dev/null; do sleep 1; done; kill %%' SIGINT SIGTERM SIGHUP
 
 tail -qF ${LOG_DIR}/teamcity-agent.log &
 wait
