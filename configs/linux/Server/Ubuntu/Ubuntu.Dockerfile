@@ -116,12 +116,9 @@ EXPOSE 8111
 ARG p4Version
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
-    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
-    (. /etc/os-release && \
-      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
-      /etc/apt/sources.list.d/perforce.list ) && \
-    apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
+    # Perforce (p4 CLI)
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/r24.2/bin.linux26x86_64/p4" && \
+    chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

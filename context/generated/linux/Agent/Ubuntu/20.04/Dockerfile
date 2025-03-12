@@ -6,7 +6,7 @@ ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406
 ARG dotnetLinuxComponentSHA512='d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a'
 ARG gitLFSLinuxComponentVersion='3.6.1'
 ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
-ARG p4Version='2022.2-2693782'
+ARG p4Version='2024.4-2724534'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 
@@ -104,12 +104,8 @@ ARG p4Version
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
     # Perforce (p4 CLI)
-    apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
-    (. /etc/os-release && \
-      echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \
-      /etc/apt/sources.list.d/perforce.list ) && \
-    apt-get update && \
-    (. /etc/os-release && apt-get install -y helix-cli-base="${p4Version}~$VERSION_CODENAME" helix-cli="${p4Version}~$VERSION_CODENAME" ) && \
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/r24.2/bin.linux26x86_64/p4" && \
+    chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # Docker & ContainerD
@@ -140,7 +136,7 @@ RUN apt-get update && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
-# Other
+# Other \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
     usermod -aG docker buildagent
