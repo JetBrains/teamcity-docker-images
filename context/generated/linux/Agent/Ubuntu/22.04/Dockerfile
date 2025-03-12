@@ -6,7 +6,7 @@ ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406
 ARG dotnetLinuxComponentSHA512='d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a'
 ARG gitLFSLinuxComponentVersion='3.6.1'
 ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
-ARG p4Version='2024.4-2724534'
+ARG p4Version='r24.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 ARG ubuntuImage='ubuntu:22.04'
@@ -105,7 +105,7 @@ ARG p4Version
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
     # Perforce (p4 CLI)
-    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/r24.2/bin.linux26x86_64/p4" && \
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \

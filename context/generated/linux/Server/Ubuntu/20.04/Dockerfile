@@ -1,7 +1,7 @@
 # Default arguments
 ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/21.0.6.7.1/amazon-corretto-21.0.6.7.1-linux-x64.tar.gz'
 ARG jdkServerLinuxComponentMD5SUM='49cefdfc07e785430013f8dfd24a3fd7'
-ARG p4Version='2024.4-2724534'
+ARG p4Version='r24.2'
 ARG ubuntuImage='ubuntu:20.04'
 
 # The list of required arguments
@@ -110,7 +110,7 @@ ARG p4Version
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
     # Perforce (p4 CLI)
-    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/r24.2/bin.linux26x86_64/p4" && \
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*

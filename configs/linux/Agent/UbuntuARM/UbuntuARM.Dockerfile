@@ -121,7 +121,7 @@ RUN apt-get update && \
     systemctl disable docker && \
     sed -i -e 's/\r$//' /services/run-docker.sh && \
 # Perforce (p4 CLI)
-    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/r24.2/bin.linux26aarch64/p4" && \
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \
 # .NET Libraries
     apt-get install -y --no-install-recommends ${dotnetLibs} && \

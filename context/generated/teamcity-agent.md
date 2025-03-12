@@ -104,7 +104,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
@@ -145,7 +145,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
@@ -341,7 +341,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
@@ -382,7 +382,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
@@ -561,7 +561,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
@@ -598,7 +598,7 @@ Installed components:
 - [Docker v.27.3.1](https://docs.docker.com/engine/release-notes/27)
 - [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
-- Perforce Helix Core client (p4) [2022.2-2693782](https://www.perforce.com/products/helix-core)
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
 
