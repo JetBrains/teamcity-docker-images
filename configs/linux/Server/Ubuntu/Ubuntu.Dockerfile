@@ -57,9 +57,22 @@ RUN apt-get update && \
     rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
+# Build Mercurial
+FROM python:3.11-slim as mercurialBuilder
+RUN pip install --prefix=/mercurial Mercurial==6.8.2 && \
+    hg --version
 
 # Based on ${ubuntuImage} 0
 FROM ${ubuntuImage}
+
+# Copy compiled Mercurial
+COPY --from=mercurialBuilder /install /usr/local
+
+# Copy compiled Git and Git LFS from the builder stage
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -74,12 +87,6 @@ RUN apt-get update && \
     # Locale adjustment. See TW-91776
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
-
-# Copy compiled Git and Git LFS from the builder stage
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxComponent
@@ -115,7 +122,7 @@ EXPOSE 8111
 # SCM Operations: Perforce, Mercirual & Mandatory utilities
 ARG p4Version
 RUN apt-get update && \
-    apt-get install -y mercurial gnupg software-properties-common && \
+    apt-get install -y gnupg software-properties-common && \
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \
       echo "deb http://package.perforce.com/apt/$ID $VERSION_CODENAME release" > \

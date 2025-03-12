@@ -62,8 +62,15 @@ RUN apt-get update && \
     rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
+# Build Mercurial
+FROM python:3.11-slim as mercurialBuilder
+RUN pip install --prefix=/mercurial Mercurial==6.8.2 && \
+    hg --version
 
 FROM ${teamcityMinimalAgentImage}
+
+# Copy compiled Mercurial
+COPY --from=mercurialBuilder /install /usr/local
 
 # Copy compiled Git and Git LFS from the builder stage
 COPY --from=builder /usr/bin/git /usr/bin/git
@@ -102,7 +109,7 @@ ARG containerdIoLinuxComponentVersion
 ARG p4Version
 
 RUN apt-get update && \
-    apt-get install -y mercurial apt-transport-https software-properties-common && \
+    apt-get install -y apt-transport-https software-properties-common && \
     # Perforce (p4 CLI)
     apt-key adv --fetch-keys https://package.perforce.com/perforce.pubkey && \
     (. /etc/os-release && \

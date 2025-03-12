@@ -52,7 +52,20 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 
+# Build Mercurial
+FROM python:3.11-slim as mercurialBuilder
+RUN pip install --prefix=/mercurial Mercurial==6.8.2 && \
+    hg --version
+
 FROM ${ubuntuImage}
+
+# Copy compiled Mercurial
+COPY --from=mercurialBuilder /install /usr/local
+# Copy compiled Git and Git LFS from the builder stage
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -67,12 +80,6 @@ RUN apt-get update && \
     # Locale adjustment. See TW-91776
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
-
-# Copy compiled Git and Git LFS from the builder stage
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
@@ -107,7 +114,7 @@ EXPOSE 8111
 
 # SCM Operations: Mercirual & Mandatory utilities. Perforce Client is not available for ARM64.
 RUN apt-get update && \
-    apt-get install -y mercurial gnupg software-properties-common && \
+    apt-get install -y gnupg software-properties-common && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 

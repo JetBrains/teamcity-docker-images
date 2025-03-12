@@ -24,8 +24,6 @@ ARG ubuntuImage='ubuntu:22.04'
 
 
 
-
-
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
@@ -63,8 +61,15 @@ RUN apt-get update && \
     rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
+# Build Mercurial
+FROM python:3.11-slim as mercurialBuilder
+RUN pip install --prefix=/mercurial Mercurial==6.8.2 && \
+    hg --version
 
 FROM ${teamcityMinimalAgentImage}
+
+# Copy compiled Mercurial
+COPY --from=mercurialBuilder /install /usr/local
 
 # Copy compiled Git and Git LFS from the builder stage
 COPY --from=builder /usr/bin/git /usr/bin/git
@@ -102,7 +107,7 @@ ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 
 RUN apt-get update && \
-    apt-get install -y mercurial apt-transport-https software-properties-common && \
+    apt-get install -y apt-transport-https software-properties-common && \
 # Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
