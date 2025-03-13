@@ -1,6 +1,6 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.6.28-2'
-ARG dockerLinuxComponentVersion='5:27.3.1-1~ubuntu'
+ARG dockerLinuxComponentVersion='5:27.5.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a'
