@@ -1,6 +1,7 @@
 # Default arguments
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.6.7.1/amazon-corretto-21.0.6.7.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='14e42338d8e0b52a69edaede9892ec23'
+ARG p4Version='r24.2'
 ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
@@ -105,9 +106,12 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# SCM Operations: Mercirual & Mandatory utilities. Perforce Client is not available for ARM64.
+# SCM Operations: Mercirual, Perforce CLI & Mandatory utilities
 RUN apt-get update && \
     apt-get install -y mercurial gnupg software-properties-common && \
+    # Perforce (p4 CLI)
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
+    chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
