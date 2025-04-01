@@ -141,7 +141,8 @@ RUN apt-get update && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
-    usermod -aG docker buildagent
+    usermod -aG docker buildagent && \
+    [ -f /etc/gitconfig ] || (echo "Git configuration '/etc/gitconfig' does not exist, causing Git LFS to break" && exit 1)
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
