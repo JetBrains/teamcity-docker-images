@@ -65,6 +65,8 @@ RUN apt-get update && \
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
     ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Apply filters globally
+    git lfs install --system && \
     # Clean up
     rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
@@ -73,7 +75,8 @@ RUN apt-get update && \
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage}
 
-# Copy compiled Git and Git LFS from the builder stage
+# Copy compiled Git, Git LFS and its configuration from the builder stage
+COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git /usr/bin/git
 COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
