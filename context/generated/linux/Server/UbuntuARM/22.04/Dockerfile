@@ -76,7 +76,7 @@ COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git /usr/bin/git
 COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
