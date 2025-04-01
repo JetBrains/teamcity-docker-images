@@ -123,7 +123,7 @@ RUN apt-get update && \
     chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    [ -f /etc/gitconfig ] || (echo "Git configuration '/etc/gitconfig' does not exist, causing Git LFS to break" && exit 1)
+    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
