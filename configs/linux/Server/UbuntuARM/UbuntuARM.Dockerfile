@@ -42,7 +42,7 @@ RUN apt-get update && \
     # Install Git
     curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
     curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xvzf git-${GIT_VERSION}.tar.gz && \
+    tar -xzf git-${GIT_VERSION}.tar.gz && \
     cd git-${GIT_VERSION} && \
     make configure && ./configure --prefix=/usr && \
     make all && \
@@ -52,7 +52,9 @@ RUN apt-get update && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
     rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
@@ -75,11 +77,12 @@ RUN apt-get update && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
 
-# Copy compiled Git and Git LFS from the builder stage
+# Copy compiled Git, Git LFS and its configuration from the builder stage
+COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git /usr/bin/git
 COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
@@ -119,7 +122,8 @@ RUN apt-get update && \
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
