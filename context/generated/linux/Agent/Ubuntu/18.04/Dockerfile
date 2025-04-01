@@ -57,9 +57,9 @@ RUN apt-get update && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
-    # Apply filters globally
-    git lfs install --system && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
     rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
@@ -72,7 +72,7 @@ COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git /usr/bin/git
 COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
 
@@ -139,10 +139,11 @@ RUN apt-get update && \
 # Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
     dotnet help && \
     dotnet --info && \
-# Other \
+# Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
-    usermod -aG docker buildagent
+    usermod -aG docker buildagent && \
+    [ -f /etc/gitconfig ] || (echo "Git configuration '/etc/gitconfig' does not exist, causing Git LFS to break" && exit 1)
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker

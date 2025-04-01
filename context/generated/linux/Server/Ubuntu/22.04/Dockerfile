@@ -46,9 +46,9 @@ RUN apt-get update && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
-    # Apply filters globally
-    git lfs install --system && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
     rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
@@ -75,7 +75,7 @@ COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git /usr/bin/git
 COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
 COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxComponent
@@ -116,7 +116,9 @@ RUN apt-get update && \
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    [ -f /etc/gitconfig ] || (echo "Git configuration '/etc/gitconfig' does not exist, causing Git LFS to break" && exit 1)
+
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
