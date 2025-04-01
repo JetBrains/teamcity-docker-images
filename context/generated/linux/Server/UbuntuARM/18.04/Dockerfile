@@ -47,7 +47,9 @@ RUN apt-get update && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
     rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
