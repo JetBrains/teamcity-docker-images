@@ -4,8 +4,8 @@ ARG dockerLinuxComponentVersion='5:27.5.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu70 libssl3 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988'
-ARG gitLFSLinuxComponentVersion='3.6.1'
-ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
+ARG gitLFSLinuxComponentVersion='v3.6.1'
+ARG gitLinuxComponentVersion='2.47.1'
 ARG p4Version='r24.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
@@ -30,8 +30,8 @@ ARG ubuntuImage='ubuntu:22.04'
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
-ENV GIT_LFS_VERSION=v3.6.1
+ARG gitLinuxComponentVersion
+ARG gitLFSLinuxComponentVersion
 
 # Install required dependencies for building Git and Git LFS
 RUN apt-get update && \
@@ -47,21 +47,21 @@ RUN apt-get update && \
     gnupg \
     curl && \
     # Install Git
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xvzf git-${GIT_VERSION}.tar.gz && \
-    cd git-${GIT_VERSION} && \
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${gitLinuxComponentVersion}.tar.gz && \
+    curl -O https://www.kernel.org/pub/software/scm/git/git-${gitLinuxComponentVersion}.tar.gz.sig && \
+    tar -xvzf git-${gitLinuxComponentVersion}.tar.gz && \
+    cd git-${gitLinuxComponentVersion} && \
     make configure && ./configure --prefix=/usr && \
     make all && \
     make install && \
     cd .. && \
-    rm -rf git-${GIT_VERSION}* && \
+    rm -rf git-${gitLinuxComponentVersion}* && \
     # Install Git LFS
-    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
-    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
     # Clean up
-    rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -97,8 +97,6 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
 ARG dotnetLinuxARM64Component
 ARG dotnetLinuxARM64ComponentSHA512
 ARG dotnetLibs
-ARG gitLinuxComponentVersion
-ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
 
