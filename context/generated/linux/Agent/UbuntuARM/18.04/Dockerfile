@@ -48,7 +48,7 @@ RUN apt-get update && \
     # Install Git
     curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
     curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xvzf git-${GIT_VERSION}.tar.gz && \
+    tar -xzf git-${GIT_VERSION}.tar.gz && \
     cd git-${GIT_VERSION} && \
     make configure && ./configure --prefix=/usr && \
     make all && \
