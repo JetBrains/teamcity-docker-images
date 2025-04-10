@@ -4,6 +4,7 @@
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
+# ARG p4Version
 
 # Id teamcity-server
 # Tag ${versionTag}-linux${linuxVersion}
