@@ -7,6 +7,7 @@
 # ARG gitLFSLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 # ARG ubuntuImage
+# ARG p4Version
 
 # Id teamcity-agent
 # Platform ${linuxPlatform}
@@ -108,6 +109,7 @@ ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
+ARG p4Version
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
@@ -126,6 +128,7 @@ RUN apt-get update && \
 # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \
+    p4 -V && \
 # .NET Libraries
     apt-get install -y --no-install-recommends ${dotnetLibs} && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
