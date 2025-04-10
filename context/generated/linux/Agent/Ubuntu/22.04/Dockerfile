@@ -20,6 +20,7 @@ ARG ubuntuImage='ubuntu:22.04'
 # ARG gitLFSLinuxComponentVersion
 # ARG dockerLinuxComponentVersion
 # ARG ubuntuImage
+# ARG p4Version
 
 
 
@@ -110,6 +111,7 @@ RUN apt-get update && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
+    p4 -V && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # Docker & ContainerD

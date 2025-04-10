@@ -10,6 +10,7 @@ ARG ubuntuImage='ubuntu:18.04'
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
+# ARG p4Version
 
 
 
@@ -81,6 +82,7 @@ COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
+ARG p4Version
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxARM64Component}; \
@@ -115,6 +117,7 @@ RUN apt-get update && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \
+    p4 -V && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
