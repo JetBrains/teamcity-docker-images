@@ -9,6 +9,7 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
+- [latest](#latest)
 - [2025.03.1](#2025031)
 
 #### linux
@@ -37,6 +38,17 @@ When running an image with multi-architecture support, docker will automatically
   - [2025.03.1-nanoserver-1803](#2025031-nanoserver-1803)
 
 
+### latest
+
+Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
+
+#### Content
+
+- [2025.03.1-linux](#2025031-linux)
+- [2025.03.1-linux](#2025031-linux)
+- [2025.03.1-nanoserver-1809](#2025031-nanoserver-1809)
+- [2025.03.1-nanoserver-2022](#2025031-nanoserver-2022)
+
 ### 2025.03.1
 
 Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
@@ -51,9 +63,9 @@ Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
 
 # Dockerfile links
 
-* **Linux**. [teamcity-minimal-agent:2025.03.1-linux,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-18.04,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64-18.04,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
+* **Linux**. [teamcity-minimal-agent:2025.03.1-linux,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-18.04,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile), [teamcity-minimal-agent:2025.03.1-linux-arm64-18.04,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile)
 
-* **Windows**. [teamcity-minimal-agent:2025.03.1-nanoserver-1809,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-2022,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1803,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1903,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1909,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile)
+* **Windows**. [teamcity-minimal-agent:2025.03.1-nanoserver-1809,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-2022,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1803,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1903,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile), [teamcity-minimal-agent:2025.03.1-nanoserver-1909,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile)
 
 
 ### 2025.03.1-linux
