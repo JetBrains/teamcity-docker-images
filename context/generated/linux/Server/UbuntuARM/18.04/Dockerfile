@@ -39,7 +39,7 @@ RUN apt-get update && \
     # Copy configuration with Git LFS filter
     cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
-    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
 
