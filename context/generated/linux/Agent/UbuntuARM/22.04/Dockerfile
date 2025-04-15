@@ -9,6 +9,7 @@ ARG gitLinuxComponentVersion='1:2.49.0-0ubuntu1~ubuntu22.04.1'
 ARG p4Version='r24.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
+ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
 # ARG dotnetLinuxARM64Component
@@ -25,8 +26,36 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 
 
 
+# Build runtime for installing Git LFS
+FROM ${ubuntuImage} AS builder
+
+ENV GIT_LFS_VERSION=v3.6.1
+
+# Install required dependencies & build Git LFS
+RUN apt-get update && \
+    apt-get install -y \
+    make \
+    gcc \
+    git \
+    zlib1g-dev \
+    gnupg \
+    curl && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
+    # Clean up
+    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
 
 FROM ${teamcityMinimalAgentImage}
+
+# Copy Git LFS with the config
+COPY --from=builder /etc/gitconfig /etc/gitconfig
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
 
@@ -56,13 +85,16 @@ ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
+
+# SCM Operations
 ARG p4Version
+ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
-     add-apt-repository ppa:git-core/ppa -y && \
-     apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
-     git lfs install --system && \
+    # Git
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
 # Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \

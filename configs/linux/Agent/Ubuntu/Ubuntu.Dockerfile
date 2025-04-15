@@ -32,9 +32,37 @@
 # @AddToolToDoc [${dotnetLinuxComponentName}](${dotnetLinuxComponent})
 # @AddToolToDoc ${p4Name}
 
+# Build runtime for installing Git LFS
+FROM ${ubuntuImage} AS builder
+
+ENV GIT_LFS_VERSION=v3.6.1
+
+# Install required dependencies & build Git LFS
+RUN apt-get update && \
+    apt-get install -y \
+    make \
+    gcc \
+    git \
+    zlib1g-dev \
+    gnupg \
+    curl && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
+    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
+    # Clean up
+    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage}
+
+# Copy Git LFS with the config
+COPY --from=builder /etc/gitconfig /etc/gitconfig
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
 
@@ -64,13 +92,16 @@ ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
+
+# SCM Operations
 ARG p4Version
+ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
+    # Git
     add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} git-lfs=${gitLFSLinuxComponentVersion} && \
-    git lfs install --system && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
