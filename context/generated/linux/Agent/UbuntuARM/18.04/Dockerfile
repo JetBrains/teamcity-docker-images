@@ -25,37 +25,20 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2025.03.1-linux-arm64-18.0
 
 
 
-
-
-# Build runtime for Git & Git LFS binaries
+# Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
 ENV GIT_LFS_VERSION=v3.6.1
 
-# Install required dependencies for building Git and Git LFS
+# Install required dependencies & build Git LFS
 RUN apt-get update && \
     apt-get install -y \
-    libssl-dev build-essential autoconf \
     make \
     gcc \
-    libcurl4-openssl-dev \
-    libexpat1-dev \
-    gettext \
-    unzip \
+    git \
     zlib1g-dev \
     gnupg \
     curl && \
-    # Install Git
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xzf git-${GIT_VERSION}.tar.gz && \
-    cd git-${GIT_VERSION} && \
-    make configure && ./configure --prefix=/usr && \
-    make all && \
-    make install && \
-    cd .. && \
-    rm -rf git-${GIT_VERSION}* && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
@@ -69,11 +52,8 @@ RUN apt-get update && \
 
 FROM ${teamcityMinimalAgentImage}
 
-# Copy compiled Git, Git LFS and its configuration from the builder stage
+# Copy Git LFS with the config
 COPY --from=builder /etc/gitconfig /etc/gitconfig
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
 COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
@@ -104,10 +84,16 @@ ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
+
+# SCM Operations
 ARG p4Version
+ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
+    # Git
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
 # Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
