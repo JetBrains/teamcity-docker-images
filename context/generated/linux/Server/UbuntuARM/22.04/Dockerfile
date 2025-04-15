@@ -1,7 +1,9 @@
 # Default arguments
+ARG gitLinuxComponentVersion='1:2.49.0-0ubuntu1~ubuntu22.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.6.7.1/amazon-corretto-21.0.6.7.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='14e42338d8e0b52a69edaede9892ec23'
 ARG p4Version='r24.2'
+ARG repo=''
 ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
@@ -16,35 +18,20 @@ ARG ubuntuImage='ubuntu:22.04'
 
 
 
-# Build runtime for Git & Git LFS binaries
+# Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
 ENV GIT_LFS_VERSION=v3.6.1
 
-# Install required dependencies for building Git and Git LFS
+# Install required dependencies & build Git LFS
 RUN apt-get update && \
     apt-get install -y \
-    libssl-dev build-essential autoconf \
     make \
     gcc \
-    libcurl4-openssl-dev \
-    libexpat1-dev \
-    gettext \
-    unzip \
+    git \
     zlib1g-dev \
     gnupg \
     curl && \
-    # Install Git
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xzf git-${GIT_VERSION}.tar.gz && \
-    cd git-${GIT_VERSION} && \
-    make configure && ./configure --prefix=/usr && \
-    make all && \
-    make install && \
-    cd .. && \
-    rm -rf git-${GIT_VERSION}* && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
@@ -72,17 +59,13 @@ RUN apt-get update && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8
 
-# Copy compiled Git, Git LFS and its configuration from the builder stage
+# Copy Git LFS with the config
 COPY --from=builder /etc/gitconfig /etc/gitconfig
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
 COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 # JDK preparation start
 ARG jdkServerLinuxARM64Component
 ARG jdkServerLinuxARM64ComponentMD5SUM
-ARG p4Version
 
 RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxARM64Component}; \
@@ -112,8 +95,15 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 EXPOSE 8111
 
 # SCM Operations: Mercirual, Perforce CLI & Mandatory utilities
+ARG p4Version
+ARG gitLinuxComponentVersion
+
 RUN apt-get update && \
+    # Mercurial
     apt-get install -y mercurial gnupg software-properties-common && \
+    # Git
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \

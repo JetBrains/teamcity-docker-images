@@ -4,8 +4,8 @@ ARG dockerLinuxComponentVersion='5:27.5.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988'
-ARG gitLFSLinuxComponentVersion='3.6.1'
-ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
+ARG gitLFSLinuxComponentVersion='v3.6.1'
+ARG gitLinuxComponentVersion='1:2.49.0-0ubuntu1~ubuntu22.04.1'
 ARG p4Version='r24.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
@@ -25,37 +25,20 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 
 
 
-
-
-# Build runtime for Git & Git LFS binaries
+# Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
 ENV GIT_LFS_VERSION=v3.6.1
 
-# Install required dependencies for building Git and Git LFS
+# Install required dependencies & build Git LFS
 RUN apt-get update && \
     apt-get install -y \
-    libssl-dev build-essential autoconf \
     make \
     gcc \
-    libcurl4-openssl-dev \
-    libexpat1-dev \
-    gettext \
-    unzip \
+    git \
     zlib1g-dev \
     gnupg \
     curl && \
-    # Install Git
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz && \
-    curl -O https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz.sig && \
-    tar -xzf git-${GIT_VERSION}.tar.gz && \
-    cd git-${GIT_VERSION} && \
-    make configure && ./configure --prefix=/usr && \
-    make all && \
-    make install && \
-    cd .. && \
-    rm -rf git-${GIT_VERSION}* && \
     # Install Git LFS
     curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
     mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
@@ -69,11 +52,8 @@ RUN apt-get update && \
 
 FROM ${teamcityMinimalAgentImage}
 
-# Copy compiled Git, Git LFS and its configuration from the builder stage
+# Copy Git LFS with the config
 COPY --from=builder /etc/gitconfig /etc/gitconfig
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
 COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
@@ -104,10 +84,16 @@ ARG gitLinuxComponentVersion
 ARG gitLFSLinuxComponentVersion
 ARG dockerLinuxComponentVersion
 ARG containerdIoLinuxComponentVersion
+
+# SCM Operations
 ARG p4Version
+ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
     apt-get install -y mercurial apt-transport-https software-properties-common && \
+    # Git
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
 # Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
