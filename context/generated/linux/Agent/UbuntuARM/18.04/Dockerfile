@@ -30,7 +30,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
+ENV GIT_VERSION=2.49.0
 ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
@@ -136,8 +136,7 @@ RUN apt-get update && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
-    usermod -aG docker buildagent && \
-    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
+    usermod -aG docker buildagent
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker

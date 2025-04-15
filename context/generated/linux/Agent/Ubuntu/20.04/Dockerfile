@@ -5,7 +5,7 @@ ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zli
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a'
 ARG gitLFSLinuxComponentVersion='3.6.1'
-ARG gitLinuxComponentVersion='1:2.47.1-0ppa1~ubuntu22.04.1'
+ARG gitLinuxComponentVersion='1:2.49.0-0ppa1~ubuntu22.04.1'
 ARG p4Version='r24.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
@@ -29,7 +29,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
+ENV GIT_VERSION=2.49.0
 ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
@@ -137,8 +137,7 @@ RUN apt-get update && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
-    usermod -aG docker buildagent && \
-    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
+    usermod -aG docker buildagent
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker

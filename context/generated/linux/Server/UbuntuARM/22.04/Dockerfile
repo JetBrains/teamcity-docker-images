@@ -19,7 +19,7 @@ ARG ubuntuImage='ubuntu:22.04'
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
+ENV GIT_VERSION=2.49.0
 ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
