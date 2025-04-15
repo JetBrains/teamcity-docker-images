@@ -9,7 +9,9 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
+- [latest](#latest)
 - [2025.03.1](#2025031)
+- [latest-windowsservercore](#latest-windowsservercore)
 - [2025.03.1-windowsservercore](#2025031-windowsservercore)
 
 #### linux
@@ -52,6 +54,19 @@ When running an image with multi-architecture support, docker will automatically
   - [2025.03.1-windowsservercore-1803](#2025031-windowsservercore-1803)
 
 
+### latest
+
+Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
+
+#### Content
+
+- [2025.03.1-linux](#2025031-linux)
+- [2025.03.1-linux](#2025031-linux)
+- [2025.03.1-linux-arm64](#2025031-linux-arm64)
+- [2025.03.1-linux-arm64](#2025031-linux-arm64)
+- [2025.03.1-nanoserver-1809](#2025031-nanoserver-1809)
+- [2025.03.1-nanoserver-2022](#2025031-nanoserver-2022)
+
 ### 2025.03.1
 
 Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
@@ -65,6 +80,15 @@ Supported platforms: linux 20.04, linux 22.04, windows 1809, windows 2022
 - [2025.03.1-nanoserver-1809](#2025031-nanoserver-1809)
 - [2025.03.1-nanoserver-2022](#2025031-nanoserver-2022)
 
+### latest-windowsservercore
+
+Supported platforms: windows 1809, windows 2022
+
+#### Content
+
+- [2025.03.1-windowsservercore-1809](#2025031-windowsservercore-1809)
+- [2025.03.1-windowsservercore-2022](#2025031-windowsservercore-2022)
+
 ### 2025.03.1-windowsservercore
 
 Supported platforms: windows 1809, windows 2022
@@ -77,9 +101,9 @@ Supported platforms: windows 1809, windows 2022
 
 # Dockerfile links
 
-* **Linux**. [teamcity-agent:2025.03.1-linux,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:2025.03.1-linux,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-18.04,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:2025.03.1-linux-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-18.04,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
+* **Linux**. [teamcity-agent:2025.03.1-linux,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:2025.03.1-linux,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-18.04,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:2025.03.1-linux-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-18.04,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile), [teamcity-agent:2025.03.1-linux-arm64-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
 
-* **Windows**. [teamcity-agent:2025.03.1-nanoserver-1809,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1809/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-2022,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/2022/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1809,2025.03.1-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1809/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-2022,2025.03.1-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/2022/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1803,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1803/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1903,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1903/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1909,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1909/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1803,2025.03.1-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1803/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1903,2025.03.1-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1903/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1909,2025.03.1-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1909/Dockerfile)
+* **Windows**. [teamcity-agent:2025.03.1-nanoserver-1809,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1809/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-2022,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/2022/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1809,2025.03.1-windowsservercore,latest-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1809/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-2022,2025.03.1-windowsservercore,latest-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/2022/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1803,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1803/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1903,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1903/Dockerfile), [teamcity-agent:2025.03.1-nanoserver-1909,latest,2025.03.1](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1909/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1803,2025.03.1-windowsservercore,latest-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1803/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1903,2025.03.1-windowsservercore,latest-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1903/Dockerfile), [teamcity-agent:2025.03.1-windowsservercore-1909,2025.03.1-windowsservercore,latest-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1909/Dockerfile)
 
 
 ### 2025.03.1-linux
