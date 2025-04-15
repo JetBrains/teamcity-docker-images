@@ -36,7 +36,7 @@
 # Build runtime for Git & Git LFS binaries
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_VERSION=2.47.1
+ENV GIT_VERSION=2.49.0
 ENV GIT_LFS_VERSION=v3.6.1
 
 # Install required dependencies for building Git and Git LFS
@@ -75,13 +75,6 @@ RUN apt-get update && \
 
 # Based on ${teamcityMinimalAgentImage}
 FROM ${teamcityMinimalAgentImage}
-
-# Copy compiled Git, Git LFS and its configuration from the builder stage
-COPY --from=builder /etc/gitconfig /etc/gitconfig
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER root
 
@@ -152,11 +145,17 @@ RUN apt-get update && \
 # Other
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     chown -R buildagent:buildagent /services && \
-    usermod -aG docker buildagent && \
-    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
+    usermod -aG docker buildagent
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
+
+# Copy compiled Git, Git LFS and its configuration from the builder stage
+COPY --from=builder /etc/gitconfig /etc/gitconfig
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER buildagent
 

@@ -68,13 +68,6 @@ RUN apt-get update && \
 
 FROM ${teamcityMinimalAgentImage}
 
-# Copy compiled Git, Git LFS and its configuration from the builder stage
-COPY --from=builder /etc/gitconfig /etc/gitconfig
-COPY --from=builder /usr/bin/git /usr/bin/git
-COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
-COPY --from=builder /usr/share/git-core /usr/share/git-core
-COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
-
 USER root
 
 COPY run-docker.sh /services/run-docker.sh
@@ -149,6 +142,13 @@ RUN apt-get update && \
 
 # A better fix for TW-52939 Dockerfile build fails because of aufs
 VOLUME /var/lib/docker
+
+# Copy compiled Git, Git LFS and its configuration from the builder stage
+COPY --from=builder /etc/gitconfig /etc/gitconfig
+COPY --from=builder /usr/bin/git /usr/bin/git
+COPY --from=builder /usr/libexec/git-core /usr/libexec/git-core
+COPY --from=builder /usr/share/git-core /usr/share/git-core
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 USER buildagent
 
