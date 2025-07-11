@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euxE
+set -o pipefail
+
 check() {
    if [[ $? != 0 ]]; then
       echo "Error! Stopping the script."
