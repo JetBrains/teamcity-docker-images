@@ -58,6 +58,7 @@ A TeamCity agent does not need manual upgrade: it will upgrade itself automatica
 - `OWN_ADDRESS` – (optional, Linux-only) IP address build agent binds to, autodetected  
 - `OWN_PORT` – (optional, Linux-only) Port build agent binds to, 9090 by default
 - `DOCKER_IN_DOCKER` – (optional, Linux-only) Run Docker within Docker.
+- `AGENT_GRACEFUL_SHUTDOWN` - (optional) When set the agent will shut down gracefully waiting for builds to finish
 
 ### Preserving Checkout Directories Between Builds
 

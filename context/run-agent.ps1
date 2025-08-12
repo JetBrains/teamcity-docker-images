@@ -91,8 +91,13 @@ if (!(Test-Path -Path "${logDir}/teamcity-agent.log")) {
     Write-Host ""
 }
 
+$force="force"
+if (-not [string]::isNullOrEmpty($env:AGENT_GRACEFUL_SHUTDOWN)) {
+    $force=""
+}
+
 Trap {
-    &$agentScript stop force
+    &$agentScript stop $force
     exit 0
 }
 
