@@ -57,7 +57,7 @@ A TeamCity agent does not need manual upgrade: it will upgrade itself automatica
 - `AGENT_TOKEN` – (optional) Agent authorization token, if unset, the agent should be [authorized](https://www.jetbrains.com/help/teamcity/build-agent.html#BuildAgent-BuildAgentStatus) via TeamCity UI.
 - `OWN_ADDRESS` – (optional, Linux-only) IP address build agent binds to, autodetected  
 - `OWN_PORT` – (optional, Linux-only) Port build agent binds to, 9090 by default
-- `DOCKER_IN_DOCKER` – (optional, Linux-only) Run Docker within Docker.
+- `DOCKER_IN_DOCKER` – (optional, Linux-only) Run Docker within Docker. If the host does not have _nftables_ and uses legacy _iptables_, please add `DOCKER_IPTABLES_LEGACY=1` to switch to legacy iptables mode.
 
 ### Preserving Checkout Directories Between Builds
 
