@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euxE
+set -o pipefail
+
+
 if [ "$DOCKER_IN_DOCKER" = "start" ] ; then
 
   # Cover the case when the host of the image uses legacy IPTables, see: TW-94273
