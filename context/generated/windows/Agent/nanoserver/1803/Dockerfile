@@ -1,5 +1,5 @@
 # Default arguments
-ARG dotnetWindowsComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-win-x64.zip'
+ARG dotnetWindowsComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-1803'
 ARG teamcityWindowsservercoreImage='teamcity-agent:EAP-windowsservercore-1803'
 
