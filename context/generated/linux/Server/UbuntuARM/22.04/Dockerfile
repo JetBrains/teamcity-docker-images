@@ -1,5 +1,5 @@
 # Default arguments
-ARG gitLinuxComponentVersion='1:2.51.0-0ppa2~ubuntu22.04.1'
+ARG gitLinuxComponentVersion='1:2.51.1-0ppa1~ubuntu22.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.6.7.1/amazon-corretto-21.0.6.7.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='14e42338d8e0b52a69edaede9892ec23'
 ARG p4Version='r24.2'
