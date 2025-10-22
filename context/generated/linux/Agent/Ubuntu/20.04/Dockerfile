@@ -1,6 +1,6 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.6.28-2'
-ARG dockerLinuxComponentVersion='5:27.5.1-1~ubuntu'
+ARG dockerLinuxComponentVersion='5:28.5.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a'
@@ -105,7 +105,7 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    # docker-ce, docker-ce-cli package name format: "25.0.5-1~ubuntu.20.04~focal"
+    # docker-ce, docker-ce-cli package name format: "28.5.1-1~ubuntu.22.04~jammy"
     apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         containerd.io:amd64=${containerdIoLinuxComponentVersion} \
