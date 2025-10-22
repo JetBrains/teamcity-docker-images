@@ -101,8 +101,8 @@ Installed components:
 - Git LFS 3.6.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -142,8 +142,8 @@ Installed components:
 - Git LFS 3.6.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -181,8 +181,8 @@ Installed components:
 - Git v.2.51.1
 - Git LFS 3.6.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -219,8 +219,8 @@ Installed components:
 - Git v.2.51.1
 - Git LFS 3.6.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -258,8 +258,8 @@ Installed components:
 - Git v.2.51.1
 - Git LFS 3.6.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -298,8 +298,8 @@ Installed components:
 - Git v.2.51.1
 - Git LFS 3.6.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -338,8 +338,8 @@ Installed components:
 - Git LFS 3.6.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -379,8 +379,8 @@ Installed components:
 - Git LFS 3.6.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -558,8 +558,8 @@ Installed components:
 - Git LFS v.2.3.4
 - Git v.2.41.0
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -595,8 +595,8 @@ Installed components:
 - Git LFS 3.6.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) x86 Checksum (SHA512) d6fdcfebd0df46959f7857cfb3beac7de6c8843515ece28b24802765fd9cfb6c7e9701b320134cb4907322937ab89cae914ddc21bf48b9b6313e9a9af5c1f24a](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -632,8 +632,8 @@ Installed components:
 - Git v.2.41.0
 - Git LFS v.2.3.4
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -668,8 +668,8 @@ Installed components:
 - Git v.2.51.1
 - Git LFS 3.6.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.406 (LTS) ARM64 Checksum (SHA512) 9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.406/dotnet-sdk-8.0.406-linux-arm64.tar.gz)
 
 Container platform: linux
