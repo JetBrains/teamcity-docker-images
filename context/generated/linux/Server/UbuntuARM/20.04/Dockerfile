@@ -1,4 +1,5 @@
 # Default arguments
+ARG gitLFSLinuxComponentVersion='v3.7.1'
 ARG gitLinuxComponentVersion='1:2.51.1-0ppa1~ubuntu22.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='f8568c459023d0327937e7a6ca9ea5ce'
@@ -21,7 +22,7 @@ ARG ubuntuImage='ubuntu:20.04'
 # Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_LFS_VERSION=v3.6.1
+ARG gitLFSLinuxComponentVersion
 
 # Install required dependencies & build Git LFS
 RUN apt-get update && \
@@ -33,13 +34,13 @@ RUN apt-get update && \
     gnupg \
     curl && \
     # Install Git LFS
-    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
-    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
     # Copy configuration with Git LFS filter
     cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
-    rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
     rm -rf /var/lib/apt/lists/*
 
 
