@@ -6,7 +6,7 @@ ARG dotnetLinuxARM64Component='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.
 ARG dotnetLinuxARM64ComponentSHA512='9b939f09fbda8a080b1266914ca02c4d60a95e85fa6a1344c378d394697de6935eb7d941dd9a3aeb977ada3aab561c614a5fe9b973824899cb02aa74e9c09988'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
-ARG p4Version='r24.2'
+ARG p4Version='r25.1'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-18.04'
 
