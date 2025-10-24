@@ -35,7 +35,7 @@
 # Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_LFS_VERSION=v3.6.1
+ARG gitLFSLinuxComponentVersion
 
 # Install required dependencies & build Git LFS
 RUN apt-get update && \
@@ -47,13 +47,13 @@ RUN apt-get update && \
     gnupg \
     curl && \
     # Install Git LFS
-    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz && \
-    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
     # Copy configuration with Git LFS filter
     cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
-    rm -rf git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -113,7 +113,7 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    # docker-ce, docker-ce-cli package name format: "25.0.5-1~ubuntu.20.04~focal"
+    # docker-ce, docker-ce-cli package name format: "28.5.1-1~ubuntu.22.04~jammy"
     apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         containerd.io:amd64=${containerdIoLinuxComponentVersion} \

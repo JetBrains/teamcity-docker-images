@@ -1,12 +1,12 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.6.28-2'
-ARG dockerLinuxComponentVersion='5:27.5.1-1~ubuntu'
+ARG containerdIoLinuxComponentVersion='1.7.28-1~ubuntu.22.04~jammy'
+ARG dockerLinuxComponentVersion='5:28.5.1-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu66 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxARM64Component='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz'
 ARG dotnetLinuxARM64ComponentSHA512='c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8'
-ARG gitLFSLinuxComponentVersion='v3.6.1'
+ARG gitLFSLinuxComponentVersion='v3.7.1'
 ARG gitLinuxComponentVersion='1:2.51.1-0ppa1~ubuntu22.04.1'
-ARG p4Version='r24.2'
+ARG p4Version='r25.1'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 
@@ -28,7 +28,7 @@ ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
 # Build runtime for installing Git LFS
 FROM ${ubuntuImage} AS builder
 
-ENV GIT_LFS_VERSION=v3.6.1
+ARG gitLFSLinuxComponentVersion
 
 # Install required dependencies & build Git LFS
 RUN apt-get update && \
@@ -40,13 +40,13 @@ RUN apt-get update && \
     gnupg \
     curl && \
     # Install Git LFS
-    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${GIT_LFS_VERSION}/git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz && \
-    mkdir git-lfs-${GIT_LFS_VERSION} && tar -xzf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz -C git-lfs-${GIT_LFS_VERSION} --strip-components 1 && \
-    PREFIX="/usr" ./git-lfs-${GIT_LFS_VERSION}/install.sh && \
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
     # Copy configuration with Git LFS filter
     cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
-    rm -rf git-lfs-linux-arm64-${GIT_LFS_VERSION}.tar.gz git-lfs-${GIT_LFS_VERSION} && \
+    rm -rf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -99,7 +99,7 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    # docker-ce, docker-ce-cli package name format: "26.0.0-1~ubuntu.20.04~focal"
+    # docker-ce, docker-ce-cli package name format: "5:28.5.1-1~ubuntu.22.04~jammy"
     apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
       docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
       containerd.io:arm64=${containerdIoLinuxComponentVersion} \

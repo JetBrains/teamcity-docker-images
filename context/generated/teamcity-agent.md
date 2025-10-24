@@ -98,11 +98,11 @@ Installed components:
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -139,11 +139,11 @@ Installed components:
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -179,10 +179,10 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.51.1
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -217,10 +217,10 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.51.1
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -256,10 +256,10 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.51.1
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -296,10 +296,10 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.51.1
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -335,11 +335,11 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -376,11 +376,11 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -558,8 +558,8 @@ Installed components:
 - Git LFS v.2.3.4
 - Git v.2.41.0
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -592,11 +592,11 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Git v.2.51.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -632,8 +632,8 @@ Installed components:
 - Git v.2.41.0
 - Git LFS v.2.3.4
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -666,10 +666,10 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 - Git v.2.51.1
-- Git LFS 3.6.1
+- Git LFS 3.7.1
 - Mercurial
-- [Docker v.27.5.1](https://docs.docker.com/engine/release-notes/27)
-- [Containerd.io v1.6.28-2](https://github.com/containerd/containerd/releases/tag/v1.6.28)
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
 - [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
 
 Container platform: linux
