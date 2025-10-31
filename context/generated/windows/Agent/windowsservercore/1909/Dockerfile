@@ -1,8 +1,8 @@
 # Default arguments
 ARG dotnetWindowsComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip'
 ARG dotnetWindowsComponentSHA512='904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c'
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.51.1.windows.1/MinGit-2.51.1-64-bit.zip'
-ARG gitWindowsComponentSHA256='ce0360b2bfcb60472064de698c8a5b73e63067320701fcd51d30a6e33d7967fa'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.51.2.windows.1/MinGit-2.51.2-64-bit.zip'
+ARG gitWindowsComponentSHA256='8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip'
 ARG jdkWindowsComponentMD5SUM='905e139bfc80a7c05333c22c3075fd87'
 ARG mercurialWindowsComponent='https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi'
