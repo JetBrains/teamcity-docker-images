@@ -125,9 +125,9 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# .NET 6.0
+# .NET
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "Downloaded .NET 6.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+    echo "Downloaded .NET 8.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \

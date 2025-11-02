@@ -1,7 +1,7 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.7.28-1~ubuntu.24.04~noble'
 ARG dockerLinuxComponentVersion='5:28.5.1-1~ubuntu'
-ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu70 libssl3 libstdc++6 zlib1g'
+ARG dotnetLibs='libc6 libgcc-s1 libicu74 liblttng-ust1 libssl3 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2'
 ARG gitLFSLinuxComponentVersion='v3.7.1'
@@ -118,9 +118,9 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# .NET 6.0
+# .NET
     curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
-    echo "Downloaded .NET 6.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+    echo "Downloaded .NET 8.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \
