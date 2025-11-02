@@ -113,7 +113,7 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    # docker-ce, docker-ce-cli package name format: "28.5.1-1~ubuntu.22.04~jammy"
+    # docker-ce, docker-ce-cli package name format: "28.5.1-1~ubuntu.22.04~noble"
     apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
         containerd.io:amd64=${containerdIoLinuxComponentVersion} \
