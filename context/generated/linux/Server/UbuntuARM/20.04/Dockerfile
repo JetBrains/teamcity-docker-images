@@ -1,6 +1,6 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='v3.7.1'
-ARG gitLinuxComponentVersion='1:2.51.2-0ppa1~ubuntu22.04.1'
+ARG gitLinuxComponentVersion='1:2.51.2-0ppa1~ubuntu24.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='f8568c459023d0327937e7a6ca9ea5ce'
 ARG p4Version='r25.1'
@@ -119,6 +119,8 @@ COPY check-server-volumes.sh /services/check-server-volumes.sh
 COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
+    # Delete default Ubuntu user. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
+    userdel -r ubuntu && \
     groupadd -g 1000 tcuser && \
     useradd -r -m -u 1000 -g tcuser tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \

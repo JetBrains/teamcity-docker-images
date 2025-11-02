@@ -1,19 +1,20 @@
 # Default arguments
-ARG gitLFSLinuxComponentVersion='2.3.4-1'
-ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
-ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz'
-ARG jdkServerLinuxComponentMD5SUM='18a45468ad50c1e0e09201de38c5c8f4'
+ARG gitLFSLinuxComponentVersion='v3.7.1'
+ARG gitLinuxComponentVersion='1:2.51.2-0ppa1~ubuntu24.04.1'
+ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz'
+ARG jdkServerLinuxARM64ComponentMD5SUM='f8568c459023d0327937e7a6ca9ea5ce'
 ARG p4Version='r25.1'
 ARG repo=''
-ARG ubuntuImage='ubuntu:18.04'
+ARG ubuntuImage='ubuntu:24.04'
 
 # The list of required arguments
-# ARG jdkServerLinuxComponent
-# ARG jdkServerLinuxComponentMD5SUM
+# ARG jdkServerLinuxARM64Component
+# ARG jdkServerLinuxARM64ComponentMD5SUM
 # ARG ubuntuImage
 # ARG gitLinuxComponentVersion
 # ARG gitLFSLinuxComponentVersion
 # ARG p4Version
+
 
 
 
@@ -33,13 +34,13 @@ RUN apt-get update && \
     gnupg \
     curl && \
     # Install Git LFS
-    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz && \
-    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
     PREFIX="/usr" ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
     # Copy configuration with Git LFS filter
     cp ~/.gitconfig /etc/gitconfig && \
     # Clean up
-    rm -rf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
+    rm -rf git-lfs-linux-arm64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -64,12 +65,12 @@ COPY --from=builder /etc/gitconfig /etc/gitconfig
 COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
 
 # JDK preparation start
-ARG jdkServerLinuxComponent
-ARG jdkServerLinuxComponentMD5SUM
+ARG jdkServerLinuxARM64Component
+ARG jdkServerLinuxARM64ComponentMD5SUM
 
 RUN set -eux; \
-    curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxComponent}; \
-    echo "${jdkServerLinuxComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
+    curl -LfsSo /tmp/openjdk.tar.gz ${jdkServerLinuxARM64Component}; \
+    echo "${jdkServerLinuxARM64ComponentMD5SUM} */tmp/openjdk.tar.gz" | md5sum -c -; \
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
@@ -94,24 +95,23 @@ ENV TEAMCITY_DATA_PATH=/data/teamcity_server/datadir \
 
 EXPOSE 8111
 
-# SCM Operations: Perforce, Mercirual & Mandatory utilities
+# SCM Operations: Mercirual, Perforce CLI & Mandatory utilities
 ARG p4Version
 ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
-     # Mercurial
+    # Mercurial
     apt-get install -y mercurial gnupg software-properties-common && \
     # Git
     add-apt-repository ppa:git-core/ppa -y && \
     apt-get install -y git=${gitLinuxComponentVersion} && \
     # Perforce (p4 CLI)
-    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \
     p4 -V && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
-
 
 COPY welcome.sh /welcome.sh
 COPY run-server.sh /run-server.sh
@@ -122,7 +122,7 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     # Delete default Ubuntu user. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
     userdel -r ubuntu && \
     groupadd -g 1000 tcuser && \
-    useradd -r -m -u 1000 -g tcuser -d $TEAMCITY_DIST tcuser && \
+    useradd -r -m -u 1000 -g tcuser tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \

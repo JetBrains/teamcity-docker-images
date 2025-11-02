@@ -119,6 +119,8 @@ COPY check-server-volumes.sh /services/check-server-volumes.sh
 COPY run-server-services.sh /run-services.sh
 
 RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
+    # Delete default Ubuntu user. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
+    userdel -r ubuntu && \
     groupadd -g 1000 tcuser && \
     useradd -r -m -u 1000 -g tcuser tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
