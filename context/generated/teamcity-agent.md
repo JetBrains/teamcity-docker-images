@@ -85,12 +85,12 @@ Supported platforms: windows 1809, windows 2022
 
 # Dockerfile links
 
-* **Linux**. [teamcity-agent:EAP-linux-20.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04/Dockerfile), [teamcity-agent:EAP-linux-22.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:EAP-linux-arm64-20.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile), [teamcity-agent:EAP-linux-arm64-22.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:EAP-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-arm64-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-arm64-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:EAP-linux-18.04-sudo](
+* **Linux**. [teamcity-agent:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04/Dockerfile), [teamcity-agent:EAP-linux,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile), [teamcity-agent:EAP-linux-arm64,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:EAP-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:EAP-linux-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile), [teamcity-agent:EAP-linux-arm64-18.04,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile), [teamcity-agent:EAP-linux-arm64-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
 
 * **Windows**. [teamcity-agent:EAP-nanoserver-1809,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1809/Dockerfile), [teamcity-agent:EAP-nanoserver-2022,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/2022/Dockerfile), [teamcity-agent:EAP-windowsservercore-1809,EAP-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1809/Dockerfile), [teamcity-agent:EAP-windowsservercore-2022,EAP-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/2022/Dockerfile), [teamcity-agent:EAP-nanoserver-1803,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1803/Dockerfile), [teamcity-agent:EAP-nanoserver-1903,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1903/Dockerfile), [teamcity-agent:EAP-nanoserver-1909,EAP](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1909/Dockerfile), [teamcity-agent:EAP-windowsservercore-1803,EAP-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1803/Dockerfile), [teamcity-agent:EAP-windowsservercore-1903,EAP-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1903/Dockerfile), [teamcity-agent:EAP-windowsservercore-1909,EAP-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1909/Dockerfile)
 
 
-### EAP-linux-22.04
+### EAP-linux
 
 [Dockerfile](linux/Agent/Ubuntu/20.04/Dockerfile)
 
@@ -160,11 +160,11 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
@@ -172,7 +172,7 @@ docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamc
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### EAP-linux-22.04
+### EAP-linux
 
 [Dockerfile](linux/Agent/Ubuntu/22.04/Dockerfile)
 
@@ -239,11 +239,49 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+echo 2> context/.dockerignore
+echo TeamCity >> context/.dockerignore
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+```
+
+_The required free space to generate image(s) is about **2 GB**._
+
+### EAP-linux-arm64
+
+[Dockerfile](linux/Agent/UbuntuARM/24.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
+- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
+- Git v.2.51.2
+- Git LFS 3.7.1
+- Mercurial
+- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
+- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:22.04
+echo TeamCity/webapps > context/.dockerignore
+echo TeamCity/devPackage >> context/.dockerignore
+echo TeamCity/lib >> context/.dockerignore
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
@@ -251,9 +289,9 @@ docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t te
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### EAP-linux-arm64-22.04
+### EAP-linux-arm64
 
-[Dockerfile](linux/Agent/UbuntuARM/24.04/Dockerfile)
+[Dockerfile](linux/Agent/UbuntuARM/22.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
 
@@ -289,44 +327,6 @@ docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t te
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### EAP-linux-arm64-20.04
-
-[Dockerfile](linux/Agent/UbuntuARM/22.04/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) build agent image.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-agent](https://hub.docker.com/r/jetbrains/teamcity-agent)
-
-Installed components:
-
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
-- [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
-- Git v.2.51.2
-- Git LFS 3.7.1
-- Mercurial
-- [Docker v.28.5.1](https://docs.docker.com/engine/release-notes/28)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
-
-Container platform: linux
-
-Docker build commands:
-
-```
-docker pull ubuntu:20.04
-echo TeamCity/webapps > context/.dockerignore
-echo TeamCity/devPackage >> context/.dockerignore
-echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
-echo 2> context/.dockerignore
-echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
-```
-
-_The required free space to generate image(s) is about **2 GB**._
-
 ### EAP-linux-arm64-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/24.04-sudo/Dockerfile)
@@ -354,20 +354,20 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### EAP-linux-arm64-sudo-22.04
+### EAP-linux-arm64-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/22.04-sudo/Dockerfile)
 
@@ -407,7 +407,7 @@ docker build -f "context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile" 
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### EAP-linux-arm64-sudo-20.04
+### EAP-linux-arm64-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/20.04-sudo/Dockerfile)
 
@@ -434,14 +434,14 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:20.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-sudo "context"
 ```
 
@@ -475,20 +475,20 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
 docker build -f "context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### EAP-linux-sudo-22.04
+### EAP-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/22.04-sudo/Dockerfile)
 
@@ -529,7 +529,7 @@ docker build -f "context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile" -t 
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### EAP-linux-sudo-20.04
+### EAP-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/20.04-sudo/Dockerfile)
 
@@ -557,14 +557,14 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:20.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
 docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-sudo "context"
 ```
 
