@@ -125,7 +125,7 @@ RUN chmod +x /welcome.sh /run-server.sh /run-services.sh && sync && \
     # Delete default Ubuntu user. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
     # userdel -r ubuntu && \
     groupadd -g 1100 tcuser && \
-    useradd -r -m -u 1000 -g tcuser tcuser && \
+    useradd -r -m -u 1100 -g tcuser tcuser && \
     echo '[ ! -z "$TERM" -a -x /welcome.sh -a -x /welcome.sh ] && /welcome.sh' >> /etc/bash.bashrc && \
     sed -i -e 's/\r$//' /welcome.sh && \
     sed -i -e 's/\r$//' /run-server.sh && \
