@@ -104,7 +104,7 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-cache policy docker-ce && \
     apt-get update && \
-    # docker-ce, docker-ce-cli package name format: "5:28.5.1-1~ubuntu.22.04~jammy"
+    # docker-ce, docker-ce-cli package name format: "5:28.5.1-1~ubuntu.24.04~noble"
     apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
       docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
       containerd.io:arm64=${containerdIoLinuxComponentVersion} \
@@ -120,9 +120,9 @@ RUN apt-get update && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /usr/share/dotnet && \
-# .NET 6.0
+# .NET
     curl -SL ${dotnetLinuxARM64Component} --output /tmp/dotnet.tar.gz && \
-    echo "Downloaded .NET 6.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+    echo "Downloaded .NET 8.0 (Linux ARM64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
     echo "${dotnetLinuxARM64ComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
     tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
     rm /tmp/dotnet.tar.gz && \

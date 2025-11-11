@@ -1,0 +1,142 @@
+# Default arguments
+ARG containerdIoLinuxComponentVersion='1.7.28-1~ubuntu.24.04~noble'
+ARG dockerLinuxComponentVersion='5:28.5.1-1~ubuntu'
+ARG dotnetLibs='libc6 libgcc-s1 libicu74 liblttng-ust1 libssl3 libstdc++6 zlib1g'
+ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz'
+ARG dotnetLinuxComponentSHA512='0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2'
+ARG gitLFSLinuxComponentVersion='v3.7.1'
+ARG gitLinuxComponentVersion='1:2.51.2-0ppa1~ubuntu24.04.1'
+ARG p4Version='r25.1'
+ARG repo='https://hub.docker.com/r/jetbrains/'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux'
+ARG ubuntuImage='ubuntu:24.04'
+
+# The list of required arguments
+# ARG dotnetLinuxComponent
+# ARG dotnetLinuxComponentSHA512
+# ARG teamcityMinimalAgentImage
+# ARG dotnetLibs
+# ARG gitLinuxComponentVersion
+# ARG gitLFSLinuxComponentVersion
+# ARG dockerLinuxComponentVersion
+# ARG ubuntuImage
+# ARG p4Version
+
+
+
+
+
+# Build runtime for installing Git LFS
+FROM ${ubuntuImage} AS builder
+
+ARG gitLFSLinuxComponentVersion
+
+# Install required dependencies & build Git LFS
+RUN apt-get update && \
+    apt-get install -y \
+    make \
+    gcc \
+    git \
+    zlib1g-dev \
+    gnupg \
+    curl && \
+    # Install Git LFS
+    curl -sLO https://github.com/git-lfs/git-lfs/releases/download/${gitLFSLinuxComponentVersion}/git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz && \
+    mkdir git-lfs-${gitLFSLinuxComponentVersion} && tar -xzf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz -C git-lfs-${gitLFSLinuxComponentVersion} --strip-components 1 && \
+    PREFIX="/usr" ./git-lfs-${gitLFSLinuxComponentVersion}/install.sh && \
+    # Copy configuration with Git LFS filter
+    cp ~/.gitconfig /etc/gitconfig && \
+    # Clean up
+    rm -rf git-lfs-linux-amd64-${gitLFSLinuxComponentVersion}.tar.gz git-lfs-${gitLFSLinuxComponentVersion} && \
+    rm -rf /var/lib/apt/lists/*
+
+
+FROM ${teamcityMinimalAgentImage}
+
+# Copy Git LFS with the config
+COPY --from=builder /etc/gitconfig /etc/gitconfig
+COPY --from=builder /usr/bin/git-lfs /usr/bin/git-lfs
+
+USER root
+
+COPY run-docker.sh /services/run-docker.sh
+
+ARG dotnetCoreLinuxComponentVersion
+
+    # Opt out of the telemetry feature
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
+    # Disable first time experience
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true \
+    # Configure Kestrel web server to bind to port 80 when present
+    ASPNETCORE_URLS=http://+:80 \
+    # Enable detection of running in a container
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    # Enable correct mode for dotnet watch (only mode supported in a container)
+    DOTNET_USE_POLLING_FILE_WATCHER=true \
+    # Skip extraction of XML docs - generally not useful within an image/container - helps perfomance
+    NUGET_XMLDOC_MODE=skip \
+    GIT_SSH_VARIANT=ssh \
+    DOTNET_SDK_VERSION=${dotnetCoreLinuxComponentVersion}
+
+ARG dotnetLinuxComponent
+ARG dotnetLinuxComponentSHA512
+ARG dotnetLibs
+ARG gitLinuxComponentVersion
+ARG gitLFSLinuxComponentVersion
+ARG dockerLinuxComponentVersion
+ARG containerdIoLinuxComponentVersion
+
+# SCM Operations
+ARG p4Version
+ARG gitLinuxComponentVersion
+
+RUN apt-get update && \
+    apt-get install -y mercurial apt-transport-https software-properties-common && \
+    # Git
+    add-apt-repository ppa:git-core/ppa -y && \
+    apt-get install -y git=${gitLinuxComponentVersion} && \
+    # Perforce (p4 CLI)
+    curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
+    chmod +x /usr/local/bin/p4 && \
+    p4 -V && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    # Docker & ContainerD
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+    apt-cache policy docker-ce && \
+    apt-get update && \
+    # docker-ce, docker-ce-cli package name format: "28.5.1-1~ubuntu.22.04~noble"
+    apt-get install -y docker-ce=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+        docker-ce-cli=${dockerLinuxComponentVersion}.$(lsb_release -rs)~$(lsb_release -cs) \
+        containerd.io:amd64=${containerdIoLinuxComponentVersion} \
+        systemd && \
+    systemctl disable docker && \
+    sed -i -e 's/\r$//' /services/run-docker.sh && \
+# Dotnet
+    apt-get install -y --no-install-recommends ${dotnetLibs} && \
+    # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /usr/share/dotnet && \
+# .NET
+    curl -SL ${dotnetLinuxComponent} --output /tmp/dotnet.tar.gz && \
+    echo "Downloaded .NET 8.0 (Linux AMD64) checksum: $(sha512sum tmp/dotnet.tar.gz)" && \
+    echo "${dotnetLinuxComponentSHA512} */tmp/dotnet.tar.gz" | sha512sum -c -; \
+    tar -zxf /tmp/dotnet.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet.tar.gz && \
+    find /usr/share/dotnet -name "*.lzma" -type f -delete && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+# Trigger .NET CLI first run experience by running arbitrary cmd to populate local package cache
+    dotnet help && \
+    dotnet --info && \
+# Other
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    chown -R buildagent:buildagent /services && \
+    usermod -aG docker buildagent && \
+    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
+
+# A better fix for TW-52939 Dockerfile build fails because of aufs
+VOLUME /var/lib/docker
+
+USER buildagent
+
