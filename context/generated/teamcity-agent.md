@@ -584,7 +584,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
 
 Container platform: windows
@@ -619,7 +619,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
 
 Container platform: windows
@@ -653,7 +653,7 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.6.2.2](https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
@@ -688,7 +688,7 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.6.2.2](https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
@@ -898,7 +898,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
 
 Container platform: windows
@@ -930,7 +930,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
 
 Container platform: windows
@@ -961,7 +961,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.6.2.2](https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
@@ -992,7 +992,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.6.2.2](https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
@@ -1024,7 +1024,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.52.0 Checksum (SHA256) 8f0a7bc389c0bccc9daf6107cff4efb176348e34b8d787f02a36679a5588e072](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
+- [Git x64 v.2.52.0 Checksum (SHA256) f42a561840627747ad48e6ece05a14093292d31f3393a401a7f7c780ee7695c2](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.52.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.6.2.2](https://www.mercurial-scm.org/release/windows/mercurial-6.2.2-x64.msi)
 - [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
