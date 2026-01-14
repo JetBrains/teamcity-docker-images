@@ -27,6 +27,8 @@ RUN apt-get update && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8 && \
     rm -rf /var/lib/apt/lists/* && \
+# Delete the default Ubuntu user if it exists with a conflicting UID. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
+    if id -u ubuntu >/dev/null 2>&1 && [ "$(id -u ubuntu)" -eq 1000 ]; then userdel -r -f ubuntu; fi && \
     useradd -m buildagent
 
 # JDK
