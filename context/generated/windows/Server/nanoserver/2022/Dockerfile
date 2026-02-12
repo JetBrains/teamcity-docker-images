@@ -1,5 +1,5 @@
 # Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/MinGit-2.53.0-64-bit.zip'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip'
 ARG gitWindowsComponentSHA256='82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd'
 ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip'
 ARG jdkServerWindowsComponentMD5SUM='905e139bfc80a7c05333c22c3075fd87'
