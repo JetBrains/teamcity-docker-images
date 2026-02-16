@@ -30,7 +30,9 @@ RUN apt-get update && \
 # Delete the default Ubuntu user if it exists with a conflicting UID. See: https://bugs.launchpad.net/cloud-images/+bug/2005129
     if id -u ubuntu >/dev/null 2>&1 && [ "$(id -u ubuntu)" -eq 1000 ]; then userdel -r -f ubuntu; fi && \
     groupadd -g 1000 buildagent && \
-    useradd -m -u 1000 -g 1000 buildagent
+    useradd -m -u 1000 -g 1000 buildagent && \
+    # TW-98512: Ensures alignment of the 'docker' user group across releases
+    groupadd -g 999 docker
 
 # JDK
 ARG jdkLinuxARM64Component
