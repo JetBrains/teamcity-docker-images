@@ -82,16 +82,13 @@ COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 # Use ContainerAdministrator to update permissions
 USER ContainerAdministrator
 
-# Create missing directories required for volumes
-RUN mkdir -Force  C:\BuildAgent\logs C:\BuildAgent\work C:\BuildAgent\temp
-
-# Remove any potentially conflicting ACLs
-RUN cmd /c icacls.exe C:\\BuildAgent /reset /T
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, /T - apply to subfolders & files
+RUN mkdir -Force C:\BuildAgent\logs C:\BuildAgent\work C:\BuildAgent\temp; \
+    cmd /c icacls.exe C:\\BuildAgent /reset /T; \
+    cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T; \
+    cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
