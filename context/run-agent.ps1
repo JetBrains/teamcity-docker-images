@@ -64,6 +64,14 @@ if (Test-Path -Path $logDir) {
     Get-ChildItem $logDir -Filter "*.pid" | ForEach-Object { Remove-Item $_.FullName -Force }
 }
 
+# Recreate temp directory if it exists as a broken reparse point (can occur with Windows container volumes)
+$tempDir = "${agentDist}/temp"
+if (!(Test-Path -Path $tempDir)) {
+    Write-Host "Recreating broken temp directory..."
+    cmd /c "rmdir C:\BuildAgent\temp 2>nul"
+    New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+}
+
 if (Test-Path -Path "${configDir}/buildAgent.properties") {
     Write-Host "File buildAgent.properties was found in ${configDir}"
 } else {
