@@ -92,14 +92,13 @@ USER ContainerAdministrator
 # Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
 # ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
-RUN if not exist C:\\BuildAgent\\logs md C:\\BuildAgent\\logs && \
-    if not exist C:\\BuildAgent\\work md C:\\BuildAgent\\work && \
-    if not exist C:\\BuildAgent\\temp md C:\\BuildAgent\\temp && \
-    # Remove agent.properties to prevent misconfiguration
-    if exist C:\\BuildAgent\\conf\\buildAgent.properties del C:\\BuildAgent\\conf\\buildAgent.properties && \
-    icacls.exe C:\\BuildAgent /reset /T && \
-    icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
-    icacls.exe C:\\BuildAgent\\*
+RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
+    if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
+    if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
+    cmd /c icacls.exe C:\\BuildAgent /reset /T && \
+    cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
+    cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
