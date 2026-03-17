@@ -88,6 +88,8 @@ COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
 # Use ContainerAdministrator to update permissions
 USER ContainerAdministrator
+# Remove any potentially conflicting ACLs
+RUN cmd /c icacls.exe C:\\BuildAgent /reset /T
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, D - delete, /T - apply to subfolders & files
 RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T
