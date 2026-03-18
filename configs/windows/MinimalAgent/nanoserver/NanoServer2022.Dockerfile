@@ -109,4 +109,5 @@ VOLUME C:/BuildAgent/work
 VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
 
-CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
+# Recreate temp directory if it exists as a broken reparse point (can occur with Windows container volumes)
+CMD ["pwsh", "-Command", "Remove-Item -LiteralPath C:/BuildAgent/temp -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:/BuildAgent/temp -Force | Out-Null; & ./BuildAgent/run-agent.ps1"]

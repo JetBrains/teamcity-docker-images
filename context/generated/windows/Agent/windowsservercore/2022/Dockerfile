@@ -76,8 +76,6 @@ COPY --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090
 
-VOLUME C:/BuildAgent/conf
-
 USER ContainerUser
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
@@ -106,4 +104,8 @@ RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'DefaultAccount:(OI)(CI)F' /gran
 RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'Users:(OI)(CI)F' /grant:r 'Users:(OI)(CI)D' /T
 # Applied permission check for logging purposes
 RUN cmd /c icacls.exe C:\\BuildAgent\\*
+
+# NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
+VOLUME C:/BuildAgent/conf
+
 USER ContainerUser

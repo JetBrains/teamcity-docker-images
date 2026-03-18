@@ -58,9 +58,7 @@ COPY --from=tools /BuildAgent /BuildAgent
 
 EXPOSE 9090
 
-VOLUME C:/BuildAgent/conf
-
-    # Configuration file for TeamCity agent
+# Configuration file for TeamCity agent
 ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
@@ -87,6 +85,9 @@ RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI
 # Applied permission check for logging purposes
 RUN cmd /c icacls.exe C:\\BuildAgent\\*
 USER ContainerUser
+
+# NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
+VOLUME C:/BuildAgent/conf
 
 # Trigger first run experience by running arbitrary cmd to populate local package cache
 RUN dotnet help
