@@ -86,6 +86,7 @@ ENV JAVA_HOME="C:\Program Files\Java\OpenJDK" \
 
 COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
+USER ContainerAdministrator
 # Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
 # ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
