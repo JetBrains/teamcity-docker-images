@@ -83,13 +83,23 @@ ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
 
 # Use ContainerAdministrator to update permissions and PATH
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet"
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete (critical for upgrade), /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, /T - apply to subfolders & files
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
+    if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
+    if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
+    if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
+    if not exist C:\BuildAgent\conf md C:\BuildAgent\conf && \
+    type nul > C:\BuildAgent\logs\.keep && \
+    type nul > C:\BuildAgent\work\.keep && \
+    type nul > C:\BuildAgent\temp\.keep && \
+    type nul > C:\BuildAgent\conf\.keep && \
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
+    cmd /c icacls.exe C:\\BuildAgent /reset /T && \
+    cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
+    cmd /c icacls.exe C:\\BuildAgent\\*
+
 USER ContainerUser
 
 # NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
