@@ -109,12 +109,13 @@ RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Fil
     xcopy /E /I /Y C:\\BuildAgent\\conf_tmp C:\\BuildAgent\\conf && \
     rd /s /q C:\\BuildAgent\\conf_tmp && \
     if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
+    cmd /c icacls.exe C:\\BuildAgent /reset /T && \
     cmd /c icacls.exe C:\\BuildAgent /grant:r *S-1-5-32-545:(OI)(CI)F /grant:r *S-1-5-93-2-2:(OI)(CI)F /T && \
     cmd /c icacls.exe C:\\BuildAgent\\*
 
 USER ContainerUser
 
-# NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
+# NB! The legacy builder discards permissions changes after the volume has been initialized => `icacls` has to be executed earlier
 VOLUME C:/BuildAgent/conf
 
 # Trigger first run experience by running arbitrary cmd to populate local package cache
