@@ -87,18 +87,20 @@ USER ContainerAdministrator
 # ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
-    cmd /c takeown /f C:\\BuildAgent /r /d y &&
     if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
     if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
-    if not exist C:\BuildAgent\conf md C:\BuildAgent\conf && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
     type nul > C:\BuildAgent\temp\.keep && \
-    type nul > C:\BuildAgent\conf\.keep && \
-    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
     cmd /c icacls.exe C:\\BuildAgent /reset /T && \
     cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
+    xcopy /E /I /Y C:\\BuildAgent\\conf C:\\BuildAgent\\conf_tmp && \
+    rd /s /q C:\\BuildAgent\\conf && \
+    md C:\\BuildAgent\\conf && \
+    xcopy /E /I /Y C:\\BuildAgent\\conf_tmp C:\\BuildAgent\\conf && \
+    rd /s /q C:\\BuildAgent\\conf_tmp && \
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
     cmd /c icacls.exe C:\\BuildAgent\\*
 
 USER ContainerUser
