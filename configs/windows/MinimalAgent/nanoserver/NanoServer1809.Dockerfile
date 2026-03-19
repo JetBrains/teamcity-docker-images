@@ -96,10 +96,21 @@ RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
     type nul > C:\BuildAgent\temp\.keep && \
-    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
-    cmd /c icacls.exe C:\\BuildAgent /reset /T && \
-    cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
-    cmd /c icacls.exe C:\\BuildAgent\\*
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
+
+# Reset and grant permissions in PowerShell for proper error handling
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN Write-Host 'Resetting ACLs...' ; \
+    icacls.exe C:\BuildAgent /reset /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Granting permissions...' ; \
+    icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Verifying permissions:' ; \
+    icacls.exe C:\BuildAgent\conf ; \
+    icacls.exe C:\BuildAgent\*
+SHELL ["cmd", "/S", "/C"]
+
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf

@@ -104,10 +104,10 @@ RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Fil
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN Write-Host 'Resetting ACLs...' ; \
     icacls.exe C:\BuildAgent /reset /T ; \
-    if ($LASTEXITCODE -ne 0) { throw \"icacls reset failed with exit code $LASTEXITCODE\" } ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Granting permissions...' ; \
     icacls.exe C:\BuildAgent /grant:r '*S-1-5-32-545:(OI)(CI)F' /grant:r '*S-1-5-93-2-2:(OI)(CI)F' /T ; \
-    if ($LASTEXITCODE -ne 0) { throw \"icacls grant failed with exit code $LASTEXITCODE\" } ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Verifying permissions:' ; \
     icacls.exe C:\BuildAgent\conf ; \
     icacls.exe C:\BuildAgent\*
