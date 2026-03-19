@@ -87,6 +87,7 @@ USER ContainerAdministrator
 # ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
+    cmd /c takeown /f C:\\BuildAgent /r /d y && \
     if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
     if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
