@@ -93,13 +93,13 @@ RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Fil
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
     type nul > C:\BuildAgent\temp\.keep && \
-    cmd /c icacls.exe C:\\BuildAgent /grant:r *S-1-5-32-545:(OI)(CI)F /grant:r *S-1-5-93-2-2:(OI)(CI)F /T && \
     xcopy /E /I /Y C:\\BuildAgent\\conf C:\\BuildAgent\\conf_tmp && \
     rd /s /q C:\\BuildAgent\\conf && \
     md C:\\BuildAgent\\conf && \
     xcopy /E /I /Y C:\\BuildAgent\\conf_tmp C:\\BuildAgent\\conf && \
     rd /s /q C:\\BuildAgent\\conf_tmp && \
     if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
+    cmd /c icacls.exe C:\\BuildAgent /grant:r *S-1-5-32-545:(OI)(CI)F /grant:r *S-1-5-93-2-2:(OI)(CI)F /T && \
     cmd /c icacls.exe C:\\BuildAgent\\*
 
 USER ContainerUser
