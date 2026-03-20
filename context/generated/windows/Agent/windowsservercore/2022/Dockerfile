@@ -25,7 +25,13 @@ ARG windowsservercoreImage='mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsse
 
 FROM ${teamcityMinimalAgentImage} AS buildagent
 
+# Strip temp from MinimalAgent to avoid wcifs tombstone issues in downstream images
 ARG windowsservercoreImage
+FROM ${windowsservercoreImage} AS buildagent-clean
+COPY --from=buildagent /BuildAgent /BuildAgent
+USER ContainerAdministrator
+RUN if exist C:\BuildAgent\temp (rd /s /q C:\BuildAgent\temp)
+
 FROM ${windowsservercoreImage}
 
 # On some agents, Windows 2022 requires administrator permissions to modify "C:/" folder within ...
@@ -72,7 +78,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls' ; \
     Start-Process msiexec -Wait -ArgumentList /q, /i, hg.msi ; \
     Remove-Item -Force hg.msi
 
-COPY --from=buildagent /BuildAgent /BuildAgent
+COPY --from=buildagent-clean /BuildAgent /BuildAgent
 
 EXPOSE 9090
 

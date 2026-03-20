@@ -94,8 +94,10 @@ USER ContainerAdministrator
 # ... F - full control, /T - apply to subfolders & files
 RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
+    if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
+    type nul > C:\BuildAgent\temp\.keep && \
     if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
 
 # Reset and grant permissions in PowerShell for proper error handling
