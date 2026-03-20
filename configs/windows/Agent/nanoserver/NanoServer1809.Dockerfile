@@ -93,11 +93,9 @@ USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
     if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
-    if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
     if not exist C:\BuildAgent\conf md C:\BuildAgent\conf && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
-    type nul > C:\BuildAgent\temp\.keep && \
     type nul > C:\BuildAgent\conf\.keep && \
     if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
 
@@ -105,10 +103,10 @@ RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Fil
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN Write-Host 'Resetting ACLs...' ; \
     icacls.exe C:\BuildAgent /reset /T ; \
-    if ($LASTEXITCODE -ne 0) { throw \"icacls reset failed with exit code $LASTEXITCODE\" } ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Granting permissions...' ; \
     icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
-    if ($LASTEXITCODE -ne 0) { throw \"icacls grant failed with exit code $LASTEXITCODE\" } ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Verifying permissions:' ; \
     icacls.exe C:\BuildAgent\conf ; \
     icacls.exe C:\BuildAgent\*
