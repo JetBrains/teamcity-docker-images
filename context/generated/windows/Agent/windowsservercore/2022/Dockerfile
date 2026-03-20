@@ -101,6 +101,7 @@ USER ContainerAdministrator
 # ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME) ; \
+    if (Test-Path 'C:\BuildAgent\temp') { Remove-Item -Recurse -Force 'C:\BuildAgent\temp' } ; \
     New-Item -ItemType Directory -Force -Path C:\BuildAgent\logs, C:\BuildAgent\work, C:\BuildAgent\temp, C:\BuildAgent\conf | Out-Null ; \
     New-Item -ItemType File -Force -Path C:\BuildAgent\logs\.keep, C:\BuildAgent\work\.keep, C:\BuildAgent\temp\.keep, C:\BuildAgent\conf\.keep | Out-Null ; \
     if (Test-Path 'C:\BuildAgent\conf\buildAgent.properties') { Remove-Item -Force 'C:\BuildAgent\conf\buildAgent.properties' } ; \

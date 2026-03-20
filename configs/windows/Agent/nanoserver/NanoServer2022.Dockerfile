@@ -99,7 +99,7 @@ USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
     if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
-    if not exist C:\BuildAgent\temp md C:\BuildAgent\temp && \
+    if exist C:\BuildAgent\temp (rd /s /q C:\BuildAgent\temp) && md C:\BuildAgent\temp && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
     type nul > C:\BuildAgent\temp\.keep && \
