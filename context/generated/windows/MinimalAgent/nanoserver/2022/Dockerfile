@@ -87,10 +87,8 @@ USER ContainerAdministrator
 # ... F - full control, /T - apply to subfolders & files
 RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
     if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
-    if exist C:\BuildAgent\temp (rd /s /q C:\BuildAgent\temp) && md C:\BuildAgent\temp && \
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
-    type nul > C:\BuildAgent\temp\.keep && \
     if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
 
 # Reset and grant permissions in PowerShell for proper error handling
@@ -114,4 +112,4 @@ VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
 
 # Recreate temp directory if it exists as a broken reparse point (can occur with Windows container volumes)
-CMD ["pwsh", "-Command", "Remove-Item -LiteralPath C:/BuildAgent/temp -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:/BuildAgent/temp -Force | Out-Null; & ./BuildAgent/run-agent.ps1"]
+CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
