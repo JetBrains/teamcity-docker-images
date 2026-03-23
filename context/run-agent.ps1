@@ -64,6 +64,7 @@ if (Test-Path -Path $logDir) {
     Get-ChildItem $logDir -Filter "*.pid" | ForEach-Object { Remove-Item $_.FullName -Force }
 }
 
+
 if (Test-Path -Path "${configDir}/buildAgent.properties") {
     Write-Host "File buildAgent.properties was found in ${configDir}"
 } else {

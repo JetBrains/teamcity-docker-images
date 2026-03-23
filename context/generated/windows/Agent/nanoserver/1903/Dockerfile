@@ -58,9 +58,7 @@ COPY --from=tools /BuildAgent /BuildAgent
 
 EXPOSE 9090
 
-VOLUME C:/BuildAgent/conf
-
-    # Configuration file for TeamCity agent
+# Configuration file for TeamCity agent
 ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     # Java home directory
     JAVA_HOME="C:\Program Files\Java\OpenJDK" \
@@ -79,14 +77,35 @@ ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
 
 # Use ContainerAdministrator to update permissions and PATH
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet"
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete (critical for upgrade), /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, /T - apply to subfolders & files
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet" && \
+    if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
+    if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
+    if not exist C:\BuildAgent\conf md C:\BuildAgent\conf && \
+    type nul > C:\BuildAgent\logs\.keep && \
+    type nul > C:\BuildAgent\work\.keep && \
+    type nul > C:\BuildAgent\conf\.keep && \
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
+
+# Reset and grant permissions in PowerShell for proper error handling
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN Write-Host 'Resetting ACLs...' ; \
+    icacls.exe C:\BuildAgent /reset /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Granting permissions...' ; \
+    icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Verifying permissions:' ; \
+    icacls.exe C:\BuildAgent\conf ; \
+    icacls.exe C:\BuildAgent\*
+SHELL ["cmd", "/S", "/C"]
+
 USER ContainerUser
+
+# NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
+VOLUME C:/BuildAgent/conf
 
 # Trigger first run experience by running arbitrary cmd to populate local package cache
 RUN dotnet help
