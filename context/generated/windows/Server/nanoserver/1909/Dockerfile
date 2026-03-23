@@ -104,19 +104,19 @@ EXPOSE 8111
 
 COPY --from=base $TEAMCITY_DIST $TEAMCITY_DIST
 
-VOLUME $TEAMCITY_DATA_PATH \
-       $TEAMCITY_LOGS \
-       $CATALINA_TMPDIR
-
 CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
 
 # Use ContainerAdministrator to update permissions and PATH
 USER ContainerAdministrator
-RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd"
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\TeamCity /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\TeamCity\\*
+# ... F - full control, /T - apply to subfolders & files
+RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd" && \
+    cmd /c icacls.exe C:\\TeamCity /reset /T && \
+    cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
+    cmd /c icacls.exe C:\\TeamCity\\*
 USER ContainerUser
+
+
+VOLUME $TEAMCITY_DATA_PATH \
+       $TEAMCITY_LOGS \
+       $CATALINA_TMPDIR

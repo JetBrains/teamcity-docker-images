@@ -81,8 +81,6 @@ COPY --from=buildagent /BuildAgent /BuildAgent
 
 EXPOSE 9090
 
-VOLUME C:/BuildAgent/conf
-
 USER ContainerUser
 CMD ["powershell", "./BuildAgent/run-agent.ps1"]
 
@@ -104,11 +102,19 @@ ENV CONFIG_FILE="C:\BuildAgent\conf\buildAgent.properties" \
     NUGET_XMLDOC_MODE=skip
 
 USER ContainerAdministrator
-RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME)
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'DefaultAccount:(OI)(CI)D' /T
-RUN cmd /c icacls.exe "C:\\BuildAgent" /grant:r 'Users:(OI)(CI)F' /grant:r 'Users:(OI)(CI)D' /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, /T - apply to subfolders & files
+RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME) ; \
+    New-Item -ItemType Directory -Force -Path C:\BuildAgent\logs, C:\BuildAgent\work, C:\BuildAgent\conf | Out-Null ; \
+    New-Item -ItemType File -Force -Path C:\BuildAgent\logs\.keep, C:\BuildAgent\work\.keep, C:\BuildAgent\conf\.keep | Out-Null ; \
+    if (Test-Path 'C:\BuildAgent\conf\buildAgent.properties') { Remove-Item -Force 'C:\BuildAgent\conf\buildAgent.properties' } ; \
+    icacls.exe C:\BuildAgent /reset /T ; \
+    icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    icacls.exe 'C:\BuildAgent\*'
+
 USER ContainerUser
+
+
+# NB! The legacy builder discards permissions changes after the volune has been initialized => `icacls` has to be executed earlier
+VOLUME C:/BuildAgent/conf

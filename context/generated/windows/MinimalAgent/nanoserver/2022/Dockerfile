@@ -81,12 +81,29 @@ COPY --chown=ContainerUser --from=base /BuildAgent /BuildAgent
 
 # Use ContainerAdministrator to update permissions
 USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
-# ... F - full control, D - delete, /T - apply to subfolders & files
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r DefaultAccount:(OI)(CI)F /grant:r DefaultAccount:(OI)(CI)D /T
-RUN cmd /c icacls.exe C:\\BuildAgent /grant:r Users:(OI)(CI)F /grant:r Users:(OI)(CI)D /T
-# Applied permission check for logging purposes
-RUN cmd /c icacls.exe C:\\BuildAgent\\*
+
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+# ... F - full control, /T - apply to subfolders & files
+RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
+    if not exist C:\BuildAgent\work md C:\BuildAgent\work && \
+    type nul > C:\BuildAgent\logs\.keep && \
+    type nul > C:\BuildAgent\work\.keep && \
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
+
+# Reset and grant permissions in PowerShell for proper error handling
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN Write-Host 'Resetting ACLs...' ; \
+    icacls.exe C:\BuildAgent /reset /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Granting permissions...' ; \
+    icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Verifying permissions:' ; \
+    icacls.exe C:\BuildAgent\conf ; \
+    icacls.exe C:\BuildAgent\*
+SHELL ["cmd", "/S", "/C"]
+
 USER ContainerUser
 
 VOLUME C:/BuildAgent/conf
@@ -94,4 +111,5 @@ VOLUME C:/BuildAgent/work
 VOLUME C:/BuildAgent/temp
 VOLUME C:/BuildAgent/logs
 
+# Recreate temp directory if it exists as a broken reparse point (can occur with Windows container volumes)
 CMD ["pwsh", "./BuildAgent/run-agent.ps1"]
