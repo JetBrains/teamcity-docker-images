@@ -115,7 +115,13 @@ Docker build commands:
 docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:EAP-linux "context"
+docker buildx --platform linux/arm64 -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:EA
+```
+
+For windows only:
+```
+%USERPROFILE%\.docker\cli-plugins\buildx-v0.7.0.windows-amd64.exe build --platform linux/arm64 -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:EA
+P-linux-arm64-20.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
