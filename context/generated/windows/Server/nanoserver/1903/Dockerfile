@@ -111,6 +111,7 @@ USER ContainerAdministrator
 # Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd" && \
+    pwsh -Command "& { $acl = Get-Acl 'C:\TeamCity'; Set-Acl 'C:\TeamCity' $acl; Get-ChildItem 'C:\TeamCity' -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a } }" && \
     cmd /c icacls.exe C:\\TeamCity /reset /T && \
     cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
     cmd /c icacls.exe C:\\TeamCity\\*

@@ -98,7 +98,10 @@ RUN if not exist C:\BuildAgent\logs md C:\BuildAgent\logs && \
 
 # Reset and grant permissions in PowerShell for proper error handling
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-RUN Write-Host 'Resetting ACLs...' ; \
+RUN Write-Host 'Canonicalizing ACLs...' ; \
+    $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
+    Get-ChildItem 'C:\BuildAgent' -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
+    Write-Host 'Resetting ACLs...' ; \
     icacls.exe C:\BuildAgent /reset /T ; \
     if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Granting permissions...' ; \
