@@ -105,5 +105,8 @@ USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME) ; \
     icacls.exe C:\BuildAgent /reset /T ; \
     icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    <# Fix non-canonical ACLs: re-writing via Set-Acl forces Windows to sort ACEs into canonical order #> \
+    $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
+    Get-ChildItem 'C:\BuildAgent' -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
     icacls.exe 'C:\BuildAgent\*'
 USER ContainerUser

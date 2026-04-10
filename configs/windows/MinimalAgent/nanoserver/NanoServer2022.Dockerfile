@@ -106,6 +106,9 @@ RUN Write-Host 'Resetting ACLs...' ; \
     Write-Host 'Granting permissions...' ; \
     icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
     if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Canonicalizing ACLs...' ; \
+    $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
+    Get-ChildItem 'C:\BuildAgent' -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
     Write-Host 'Verifying permissions:' ; \
     icacls.exe C:\BuildAgent\conf ; \
     icacls.exe C:\BuildAgent\*
