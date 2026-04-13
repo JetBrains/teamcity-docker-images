@@ -116,6 +116,11 @@ RUN Write-Host 'Resetting ACLs...' ; \
     Write-Host 'Granting permissions...' ; \
     icacls.exe C:\BuildAgent /grant:r '*S-1-5-32-545:(OI)(CI)F' /grant:r '*S-1-5-93-2-2:(OI)(CI)F' /T ; \
     if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    <# Canonicalizing ACLs to prevent issues such as TW-100061 #> \
+    Write-Host 'Canonicalizing ACLs...' ; \
+    $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
+    Get-ChildItem 'C:\BuildAgent' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
+    $acl = Get-Acl 'C:\BuildAgent'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\BuildAgent' }; \
     Write-Host 'Verifying permissions:' ; \
     icacls.exe C:\BuildAgent\conf ; \
     icacls.exe C:\BuildAgent\*

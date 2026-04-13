@@ -100,5 +100,9 @@ USER ContainerAdministrator
 RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercurial' -f $env:PATH, $env:JAVA_HOME) ; \
     icacls.exe C:\BuildAgent /reset /T ; \
     icacls.exe C:\BuildAgent /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    <# Canonicalizing ACLs to prevent issues such as TW-100061 #> \
+    $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
+    Get-ChildItem 'C:\BuildAgent' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
+    $acl = Get-Acl 'C:\BuildAgent'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\BuildAgent' }; \
     icacls.exe 'C:\BuildAgent\*'
 USER ContainerUser
