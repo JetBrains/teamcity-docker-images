@@ -113,7 +113,7 @@ USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd" && \
     cmd /c icacls.exe C:\\TeamCity /reset /T && \
     cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
-    pwsh -Command "& { $acl = Get-Acl 'C:\TeamCity'; Set-Acl 'C:\TeamCity' $acl; Get-ChildItem 'C:\TeamCity' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a } }" && \
+    pwsh -Command "& { <# Canonicalizing ACLs to prevent issues such as TW-100061 #> $acl = Get-Acl 'C:\TeamCity'; Set-Acl 'C:\TeamCity' $acl; Get-ChildItem 'C:\TeamCity' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; $acl = Get-Acl 'C:\TeamCity'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\TeamCity' } }" && \
     cmd /c icacls.exe C:\\TeamCity\\*
 USER ContainerUser
 
