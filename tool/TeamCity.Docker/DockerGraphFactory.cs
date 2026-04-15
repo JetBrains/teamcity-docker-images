@@ -149,7 +149,13 @@ namespace TeamCity.Docker
                     {
                         foreach (var tag in tags)
                         {
-                            nodeDict[$"{imageId}:{tag}"] = dockerImageNode;
+                            var key = $"{imageId}:{tag}";
+                            // Keep the node with the highest Description (latest OS version) for each tag
+                            if (!nodeDict.TryGetValue(key, out var existingNode) ||
+                                string.Compare(description, ((Image)existingNode.Value).File.Description, StringComparison.Ordinal) > 0)
+                            {
+                                nodeDict[key] = dockerImageNode;
+                            }
                         }
 
                         if (graph.TryAddNode(new GeneratedDockerfile(_pathService.Normalize(Path.Combine(dockerfile.Path, "Dockerfile")), dockerfile.Lines), out var dockerfileNode))
