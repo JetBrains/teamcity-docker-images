@@ -1,6 +1,6 @@
 # Default arguments
-ARG dotnetWindowsComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip'
-ARG dotnetWindowsComponentSHA512='904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c'
+ARG dotnetWindowsComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip'
+ARG dotnetWindowsComponentSHA512='39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip'
 ARG gitWindowsComponentSHA256='82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd'
 ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip'
