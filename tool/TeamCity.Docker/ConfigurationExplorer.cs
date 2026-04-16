@@ -6,6 +6,7 @@ namespace TeamCity.Docker
     using System.Collections.Immutable;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using IoC;
     using Model;
 
@@ -14,6 +15,9 @@ namespace TeamCity.Docker
     /// </summary>
     internal class ConfigurationExplorer : IConfigurationExplorer
     {
+        // Retrieves image version from the path, e.g. "configs/linux/Agent/Ubuntu/22.04/Ubuntu.Dockerfile" -> "22.04"
+        private static readonly Regex VersionFromPathRegex = new Regex(@"(\d+\.\d+)", RegexOptions.Compiled);
+
         [NotNull] private readonly ILogger _logger;
         [NotNull] private readonly IFileSystem _fileSystem;
 
@@ -103,16 +107,74 @@ namespace TeamCity.Docker
                     }
 
 
+                    // Derive version suffixes for linuxVersion from directory paths
+                    variants = DeriveLinuxVersionFromPath(variants);
+
                     var ignore = new List<string>();
                     if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
                     {
                         // Add .Dockerignore files
                         ignore.AddRange(_fileSystem.ReadLines(dockerignoreTemplatePath));
                     }
-                    
+
                     yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants.AsReadOnly(), ignore.AsReadOnly());
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Derives version suffixes for linuxVersion from config file directory paths.
+        /// The latest (highest) version gets no suffix; older versions get their version appended.
+        /// Also prepends '-' separator to non-empty linuxVersion values.
+        /// </summary>
+        private static List<Variant> DeriveLinuxVersionFromPath(List<Variant> variants)
+        {
+            // Extract version from each variant's config file directory
+            var versioned = variants.Select(v =>
+            {
+                var dirName = Path.GetFileName(Path.GetDirectoryName(v.ConfigFile) ?? "");
+                var match = VersionFromPathRegex.Match(dirName);
+                return (Variant: v, Version: match.Success ? match.Value : "");
+            }).ToList();
+
+            // Find the latest (highest) version
+            var latestVersion = versioned
+                .Where(v => !string.IsNullOrEmpty(v.Version))
+                .Select(v => v.Version)
+                .OrderByDescending(v => v, StringComparer.Ordinal)
+                .FirstOrDefault() ?? "";
+
+            var result = new List<Variant>();
+            foreach (var (variant, version) in versioned)
+            {
+                var varsList = variant.Variables.ToList();
+                var lvIndex = varsList.FindIndex(v => v.Name == "linuxVersion");
+
+                if (lvIndex >= 0)
+                {
+                    var currentValue = varsList[lvIndex].Value;
+
+                    // For non-latest variants, append version suffix (skip if already present).
+                    // The '-' prefix is already handled by UpdateVariables.
+                    if (!string.IsNullOrEmpty(version) && version != latestVersion
+                        && !currentValue.Contains(version))
+                    {
+                        currentValue = string.IsNullOrEmpty(currentValue)
+                            ? "-" + version
+                            : currentValue + "-" + version;
+                    }
+
+                    varsList[lvIndex] = new Variable("linuxVersion", currentValue);
+                    result.Add(new Variant(variant.BuildPath, variant.ConfigFile, varsList));
+                }
+                else
+                {
+                    result.Add(variant);
+                }
+            }
+
+            return result;
         }
 
         private IReadOnlyDictionary<string, string> GetVariables([NotNull] string configFile)
@@ -173,6 +235,14 @@ namespace TeamCity.Docker
                 }
             }
 
+            // Auto-prepend '-' separator to linuxVersion when non-empty,
+            // so config files can use clean values like "arm64" instead of "-arm64".
+            // Must happen before cross-reference resolution below.
+            if (result.TryGetValue("linuxVersion", out var lv) && !string.IsNullOrEmpty(lv) && !lv.StartsWith("-"))
+            {
+                result["linuxVersion"] = "-" + lv;
+            }
+
             var replacements = new Dictionary<string, string>();
             var iterations = 0;
             do
@@ -204,13 +274,6 @@ namespace TeamCity.Docker
                     }
                 }
             } while (replacements.Count > 0 && iterations++ < 100);
-
-            // Auto-prepend '-' separator to linuxVersion when non-empty,
-            // so config files can use clean values like "22.04" instead of "-22.04"
-            if (result.TryGetValue("linuxVersion", out var lv) && !string.IsNullOrEmpty(lv) && !lv.StartsWith("-"))
-            {
-                result["linuxVersion"] = "-" + lv;
-            }
 
             return result;
         }
