@@ -6,6 +6,7 @@ namespace TeamCity.Docker
     using System.Collections.Immutable;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using IoC;
     using Model;
 
@@ -14,6 +15,9 @@ namespace TeamCity.Docker
     /// </summary>
     internal class ConfigurationExplorer : IConfigurationExplorer
     {
+        // Retrieves image version from the path, e.g. "configs/linux/Agent/Ubuntu/22.04/Ubuntu.Dockerfile" -> "22.04"
+        private static readonly Regex VersionFromPathRegex = new Regex(@"(\d+\.\d+)", RegexOptions.Compiled);
+
         [NotNull] private readonly ILogger _logger;
         [NotNull] private readonly IFileSystem _fileSystem;
 
@@ -82,26 +86,35 @@ namespace TeamCity.Docker
             foreach (var dockerfileTemplate in _fileSystem.EnumerateFileSystemEntries(sourcePath, "*.Dockerfile"))
             {
                 var dockerfileTemplateRelative = Path.GetRelativePath(sourcePath, dockerfileTemplate);
+                var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
+                var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
+
+                var rawVariants = new List<(string buildPath, string configFile, IReadOnlyDictionary<string, string> rawVars)>();
+                foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
+                {
+                    var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
+                    rawVariants.Add((buildPath, configFile, GetVariables(configFile)));
+                }
+
+                if (rawVariants.Count == 0)
+                {
+                    _logger.Log($"Skipping \"{dockerfileTemplateRelative}\": no configuration files found.");
+                    continue;
+                }
+
                 using (_logger.CreateBlock($"{++templateCounter:000} {dockerfileTemplateRelative}"))
                 {
-                    var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
-                    var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
                     // ReSharper disable once IdentifierTypo
                     var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
-                    var variants = new List<Variant>();
-                    var configCounter = 0;
-                    
-                    // Get all configuration files for particular OS (e.g. Ubuntu/20.04/..., Ubuntu/18.04/, ...
-                    foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
-                    {
-                        var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
-                        using (_logger.CreateBlock($"{templateCounter:000}.{++configCounter:000} {Path.GetRelativePath(sourcePath, configFile)}"))
-                        {
-                            var vars = UpdateVariables(additionalVars, GetVariables(configFile));
-                            variants.Add(new Variant(buildPath, configFile, vars.Select(i => new Variable(i.Key, i.Value)).ToList()));
-                        }
-                    }
 
+                    DeriveLinuxVersionInRawVars(rawVariants);
+
+                    var variants = new List<Variant>();
+                    foreach (var (buildPath, configFile, rawVars) in rawVariants)
+                    {
+                        var vars = UpdateVariables(additionalVars, rawVars);
+                        variants.Add(new Variant(buildPath, configFile, vars.Select(i => new Variable(i.Key, i.Value)).ToList()));
+                    }
 
                     var ignore = new List<string>();
                     if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
@@ -109,8 +122,45 @@ namespace TeamCity.Docker
                         // Add .Dockerignore files
                         ignore.AddRange(_fileSystem.ReadLines(dockerignoreTemplatePath));
                     }
-                    
+
                     yield return new Template(_fileSystem.ReadLines(dockerfileTemplate).ToImmutableList(), variants.AsReadOnly(), ignore.AsReadOnly());
+                }
+            }
+        }
+
+
+        internal static void DeriveLinuxVersionInRawVars(
+            List<(string buildPath, string configFile, IReadOnlyDictionary<string, string> rawVars)> rawVariants)
+        {
+            var versions = rawVariants.Select(v =>
+            {
+                var dirName = Path.GetFileName(Path.GetDirectoryName(v.configFile) ?? "");
+                var match = VersionFromPathRegex.Match(dirName);
+                return match.Success ? match.Value : "";
+            }).ToList();
+
+            var latestVersion = versions
+                .Where(v => !string.IsNullOrEmpty(v))
+                .OrderByDescending(v => v, StringComparer.Ordinal)
+                .FirstOrDefault() ?? "";
+
+            for (var i = 0; i < rawVariants.Count; i++)
+            {
+                var (buildPath, configFile, rawVars) = rawVariants[i];
+                if (!rawVars.TryGetValue("linuxVersion", out var currentValue))
+                    continue;
+
+                var version = versions[i];
+
+                if (!string.IsNullOrEmpty(version) && version != latestVersion
+                    && !currentValue.Contains(version))
+                {
+                    currentValue = string.IsNullOrEmpty(currentValue)
+                        ? version
+                        : currentValue + "-" + version;
+
+                    var updated = new Dictionary<string, string>(rawVars) { ["linuxVersion"] = currentValue };
+                    rawVariants[i] = (buildPath, configFile, updated);
                 }
             }
         }
@@ -171,6 +221,11 @@ namespace TeamCity.Docker
                     _logger.Details($"SET {key}={value}");
                     result.Add(key, value);
                 }
+            }
+
+            if (result.TryGetValue("linuxVersion", out var lv) && !string.IsNullOrEmpty(lv) && !lv.StartsWith("-"))
+            {
+                result["linuxVersion"] = "-" + lv;
             }
 
             var replacements = new Dictionary<string, string>();
