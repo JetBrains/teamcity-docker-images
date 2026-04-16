@@ -245,6 +245,9 @@ namespace TeamCity.Docker
             string urlPrefix = "https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/";
             string osLinks = string.Join(", ", imageNodes
                 .Where(obj => _pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile")).Contains(osIdentifier, StringComparison.OrdinalIgnoreCase))
+                // When multiple versions share the same tags, keep only the latest (highest Description)
+                .GroupBy(obj => obj.Key.ToString())
+                .Select(grp => grp.OrderByDescending(obj => obj.Key.Description).First())
                 .Select(obj => $"[{obj.Key}]({urlPrefix}{_pathService.Normalize(Path.Combine(obj.Key.Path, "Dockerfile"))})"));
             return $"* **{osIdentifier}**. {osLinks}\n";
         }
