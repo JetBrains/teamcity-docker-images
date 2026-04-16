@@ -15,6 +15,9 @@ The folder includes Dockerfiles that you can utilize to create custom TeamCity A
 | Linux   | `AMD64` | [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)      | [link](linux/agent/amd/custom.dotnet.sdk.amd.Dockerfile)   | `7.0.401`          | `2544f58c7409b1fd8fe2c7f600f6d2b6a1929318071f16789bd6abf6deea00bd496dd6ba7f2573bbf17c891c4f56a372a073e57712acfd3e80ea3eb1b3f9c3d0` |
 | Linux   | `ARM64` | [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)      | [link](linux/agent/arm/custom.dotnet.sdk.arm.Dockerfile)   | `7.0.401`          | `7c6ba2047998c906353f8e8d7fa73589867f46cbc2d4ece6cc7ee4ca3402b6a18717089b98002c7d15e16ca6fd5b11e42037b5fb0e25aff39075d67d8be49e25` |
 | Windows | `AMD64` | [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)      | [link](windows/agent/custom.dotnet.sdk.win.amd.Dockerfile) | `7.0.401`          | `02a4ecc05d0b9dfa0c9e32f8a3d288f329e7338b2430fcbc1276ae356f9d8e14920f91382f3f141842bf1e6e6cd331e532b301edc71c26de9d9e5ad2371afbe0` |
+| Linux   | `AMD64` | [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)      | [link](linux/agent/amd/custom.dotnet.sdk.amd.Dockerfile)   | `8.0.415`          | `0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2` |
+| Linux   | `ARM64` | [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)      | [link](linux/agent/arm/custom.dotnet.sdk.arm.Dockerfile)   | `8.0.415`          | `c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8` |
+| Windows | `AMD64` | [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)      | [link](windows/agent/custom.dotnet.sdk.win.amd.Dockerfile) | `8.0.415`          | `904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c` |
 
 
 The .NET SDK version bundled within TeamCity Docker Images is aligned with [Microsoft's Long Term Support (LTS) release](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) 
@@ -65,10 +68,14 @@ docker run teamcity-agent:windows-custom-dotnet-7 dotnet --version
 
 # 1.2 .NET End of Support Dates
 
-In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) article, Microsoft states the following end of support dates for .NET:
-* **.NET Core 3.1** -  December 13th, 2022;
-* **.NET 5.0** -  May 10th, 2022;
-* **.NET 6** (LTS) - November 12, 2024;
-* **.NET 7.0** (STS) - May 14, 2024;
+In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) article, Microsoft states the following end-of-support dates for .NET:
+
+| .NET Version    | Support Type | End of Support       |
+|-----------------|--------------|----------------------|
+| .NET Core 3.1   |              | December 13th, 2022  |
+| .NET 5.0        |              | May 10th, 2022       |
+| .NET 6          | LTS          | November 12, 2024    |
+| .NET 7.0        | STS          | May 14, 2024         |
+| .NET 8.0        | LTS          | November 10, 2026    |
 
 We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
