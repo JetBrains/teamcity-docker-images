@@ -111,7 +111,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -152,7 +152,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -192,7 +192,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -234,7 +234,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -274,7 +274,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -314,7 +314,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -352,7 +352,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -391,7 +391,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -430,7 +430,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -469,7 +469,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -509,7 +509,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -549,7 +549,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -585,7 +585,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -620,7 +620,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -656,7 +656,7 @@ Installed components:
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.7.1.2](https://www.mercurial-scm.org/release/windows/mercurial-7.1.2-x64.msi)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -691,7 +691,7 @@ Installed components:
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.7.1.2](https://www.mercurial-scm.org/release/windows/mercurial-7.1.2-x64.msi)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -728,7 +728,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -765,7 +765,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 0fc0499a857f161f7c35775bb3f50ac6f0333f02f5df21d21147d538eb26a9a87282d4ba3707181c46f3c09d22cdc984e77820a5953a773525d6f7b332deb7f2](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-x64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
 Container platform: linux
@@ -802,7 +802,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -838,7 +838,7 @@ Installed components:
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
 - [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
-- [.NET SDK v.8.0.415 (LTS) ARM64 Checksum (SHA512) c2efcccfd83690482d3314b23a9d9b53d41591795eb50e02857cb495dd1fde132f2c332dc243095463338d2dc6cd362cd7ea7ae3a9ce75b32ab54a517b91def8](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-linux-arm64.tar.gz)
+- [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
 
@@ -867,7 +867,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -899,7 +899,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -931,7 +931,7 @@ Installed components:
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -964,7 +964,7 @@ Installed components:
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.7.1.2](https://www.mercurial-scm.org/release/windows/mercurial-7.1.2-x64.msi)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -995,7 +995,7 @@ Installed components:
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.7.1.2](https://www.mercurial-scm.org/release/windows/mercurial-7.1.2-x64.msi)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
@@ -1027,7 +1027,7 @@ Installed components:
 - [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Mercurial x64 v.7.1.2](https://www.mercurial-scm.org/release/windows/mercurial-7.1.2-x64.msi)
-- [.NET SDK v.8.0.415 (LTS) x86 Checksum (SHA512) 904ed90eaa83083584d108a17f671113dd88bbe4485130bf818c8f3b12a717457b2cf29db7d3e66fbf959265bed851def1a890ec9a1349c8d0ff2ec08af65c7c](https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.415/dotnet-sdk-8.0.415-win-x64.zip)
+- [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-win-x64.zip)
 
 Container platform: windows
 
