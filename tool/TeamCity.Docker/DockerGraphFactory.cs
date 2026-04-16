@@ -149,7 +149,13 @@ namespace TeamCity.Docker
                     {
                         foreach (var tag in tags)
                         {
-                            nodeDict[$"{imageId}:{tag}"] = dockerImageNode;
+                            var key = $"{imageId}:{tag}";
+                            // Keep the node with the highest Description (latest OS version) for each tag
+                            if (!nodeDict.TryGetValue(key, out var existingNode) ||
+                                string.Compare(description, ((Image)existingNode.Value).File.Description, StringComparison.Ordinal) > 0)
+                            {
+                                nodeDict[key] = dockerImageNode;
+                            }
                         }
 
                         if (graph.TryAddNode(new GeneratedDockerfile(_pathService.Normalize(Path.Combine(dockerfile.Path, "Dockerfile")), dockerfile.Lines), out var dockerfileNode))
@@ -160,7 +166,7 @@ namespace TeamCity.Docker
                 }
             }
 
-            var imageNodes = 
+            var imageNodes =
                 from node in graph.Nodes
                 let image = node.Value as Image
                 where image != null
@@ -171,7 +177,9 @@ namespace TeamCity.Docker
             {
                 foreach (var reference in from.image.File.References)
                 {
-                    if (nodeDict.TryGetValue(reference.RepoTag, out var toNode))
+                    nodeDict.TryGetValue(reference.RepoTag, out var toNode);
+
+                    if (toNode != null)
                     {
                         graph.TryAddLink(from.node, new Dependency(DependencyType.Build), toNode, out _);
                     }
