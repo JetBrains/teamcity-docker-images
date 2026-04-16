@@ -160,11 +160,11 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:EAP-linux-20.04 "context"
@@ -242,11 +242,11 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:EAP-linux-22.04 "context"
@@ -325,7 +325,7 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
@@ -359,11 +359,11 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64-20.04 "context"
@@ -402,14 +402,15 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-20.04-sudo "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-20.04-sudo "context"
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 
 ### EAP-linux-arm64-22.04
 
@@ -437,11 +438,11 @@ Container platform: linux
 Docker build commands:
 
 ```
-docker pull ubuntu:24.04
+docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64-22.04 "context"
@@ -480,14 +481,15 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-22.04-sudo "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-22.04-sudo "context"
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 
 ### EAP-linux-arm64-sudo
 
@@ -520,14 +522,15 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:EAP-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-sudo "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-sudo "context"
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 
 ### EAP-linux-sudo
 
@@ -813,7 +816,7 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
 docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64-18.04 "context"
@@ -849,14 +852,15 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:EAP-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:EAP-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:EAP-linux-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-18.04-sudo "context"
 docker build -f "context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile" -t teamcity-agent:EAP-linux-arm64-18.04-sudo "context"
 ```
 
-_The required free space to generate image(s) is about **3 GB**._
+_The required free space to generate image(s) is about **4 GB**._
 
 ### EAP-nanoserver-1803
 

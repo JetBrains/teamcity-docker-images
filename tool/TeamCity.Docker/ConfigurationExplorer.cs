@@ -86,29 +86,35 @@ namespace TeamCity.Docker
             foreach (var dockerfileTemplate in _fileSystem.EnumerateFileSystemEntries(sourcePath, "*.Dockerfile"))
             {
                 var dockerfileTemplateRelative = Path.GetRelativePath(sourcePath, dockerfileTemplate);
+                var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
+                var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
+
+                var rawVariants = new List<(string buildPath, string configFile, IReadOnlyDictionary<string, string> rawVars)>();
+                foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
+                {
+                    var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
+                    rawVariants.Add((buildPath, configFile, GetVariables(configFile)));
+                }
+
+                if (rawVariants.Count == 0)
+                {
+                    _logger.Log($"Skipping \"{dockerfileTemplateRelative}\": no configuration files found.");
+                    continue;
+                }
+
                 using (_logger.CreateBlock($"{++templateCounter:000} {dockerfileTemplateRelative}"))
                 {
-                    var dockerfileTemplateDir = Path.GetDirectoryName(dockerfileTemplate) ?? ".";
-                    var dockerfileTemplatePath = Path.GetFileName(dockerfileTemplate);
                     // ReSharper disable once IdentifierTypo
                     var dockerignoreTemplatePath = Path.Combine(dockerfileTemplateDir, Path.GetFileNameWithoutExtension(dockerfileTemplatePath) + ".Dockerignore");
+
+                    DeriveLinuxVersionInRawVars(rawVariants);
+
                     var variants = new List<Variant>();
-                    var configCounter = 0;
-                    
-                    // Get all configuration files for particular OS (e.g. Ubuntu/20.04/..., Ubuntu/18.04/, ...
-                    foreach (var configFile in _fileSystem.EnumerateFileSystemEntries(dockerfileTemplateDir, dockerfileTemplatePath + ".config"))
+                    foreach (var (buildPath, configFile, rawVars) in rawVariants)
                     {
-                        var buildPath = Path.GetDirectoryName(Path.GetRelativePath(sourcePath, configFile)) ?? "";
-                        using (_logger.CreateBlock($"{templateCounter:000}.{++configCounter:000} {Path.GetRelativePath(sourcePath, configFile)}"))
-                        {
-                            var vars = UpdateVariables(additionalVars, GetVariables(configFile));
-                            variants.Add(new Variant(buildPath, configFile, vars.Select(i => new Variable(i.Key, i.Value)).ToList()));
-                        }
+                        var vars = UpdateVariables(additionalVars, rawVars);
+                        variants.Add(new Variant(buildPath, configFile, vars.Select(i => new Variable(i.Key, i.Value)).ToList()));
                     }
-
-
-                    // Derive version suffixes for linuxVersion from directory paths
-                    variants = DeriveLinuxVersionFromPath(variants);
 
                     var ignore = new List<string>();
                     if (_fileSystem.IsFileExist(dockerignoreTemplatePath))
@@ -123,58 +129,40 @@ namespace TeamCity.Docker
         }
 
 
-        /// <summary>
-        /// Derives version suffixes for linuxVersion from config file directory paths.
-        /// The latest (highest) version gets no suffix; older versions get their version appended.
-        /// Also prepends '-' separator to non-empty linuxVersion values.
-        /// </summary>
-        private static List<Variant> DeriveLinuxVersionFromPath(List<Variant> variants)
+        internal static void DeriveLinuxVersionInRawVars(
+            List<(string buildPath, string configFile, IReadOnlyDictionary<string, string> rawVars)> rawVariants)
         {
-            // Extract version from each variant's config file directory
-            var versioned = variants.Select(v =>
+            var versions = rawVariants.Select(v =>
             {
-                var dirName = Path.GetFileName(Path.GetDirectoryName(v.ConfigFile) ?? "");
+                var dirName = Path.GetFileName(Path.GetDirectoryName(v.configFile) ?? "");
                 var match = VersionFromPathRegex.Match(dirName);
-                return (Variant: v, Version: match.Success ? match.Value : "");
+                return match.Success ? match.Value : "";
             }).ToList();
 
-            // Find the latest (highest) version
-            var latestVersion = versioned
-                .Where(v => !string.IsNullOrEmpty(v.Version))
-                .Select(v => v.Version)
+            var latestVersion = versions
+                .Where(v => !string.IsNullOrEmpty(v))
                 .OrderByDescending(v => v, StringComparer.Ordinal)
                 .FirstOrDefault() ?? "";
 
-            var result = new List<Variant>();
-            foreach (var (variant, version) in versioned)
+            for (var i = 0; i < rawVariants.Count; i++)
             {
-                var varsList = variant.Variables.ToList();
-                var lvIndex = varsList.FindIndex(v => v.Name == "linuxVersion");
+                var (buildPath, configFile, rawVars) = rawVariants[i];
+                if (!rawVars.TryGetValue("linuxVersion", out var currentValue))
+                    continue;
 
-                if (lvIndex >= 0)
+                var version = versions[i];
+
+                if (!string.IsNullOrEmpty(version) && version != latestVersion
+                    && !currentValue.Contains(version))
                 {
-                    var currentValue = varsList[lvIndex].Value;
+                    currentValue = string.IsNullOrEmpty(currentValue)
+                        ? version
+                        : currentValue + "-" + version;
 
-                    // For non-latest variants, append version suffix (skip if already present).
-                    // The '-' prefix is already handled by UpdateVariables.
-                    if (!string.IsNullOrEmpty(version) && version != latestVersion
-                        && !currentValue.Contains(version))
-                    {
-                        currentValue = string.IsNullOrEmpty(currentValue)
-                            ? "-" + version
-                            : currentValue + "-" + version;
-                    }
-
-                    varsList[lvIndex] = new Variable("linuxVersion", currentValue);
-                    result.Add(new Variant(variant.BuildPath, variant.ConfigFile, varsList));
-                }
-                else
-                {
-                    result.Add(variant);
+                    var updated = new Dictionary<string, string>(rawVars) { ["linuxVersion"] = currentValue };
+                    rawVariants[i] = (buildPath, configFile, updated);
                 }
             }
-
-            return result;
         }
 
         private IReadOnlyDictionary<string, string> GetVariables([NotNull] string configFile)
@@ -235,9 +223,6 @@ namespace TeamCity.Docker
                 }
             }
 
-            // Auto-prepend '-' separator to linuxVersion when non-empty,
-            // so config files can use clean values like "arm64" instead of "-arm64".
-            // Must happen before cross-reference resolution below.
             if (result.TryGetValue("linuxVersion", out var lv) && !string.IsNullOrEmpty(lv) && !lv.StartsWith("-"))
             {
                 result["linuxVersion"] = "-" + lv;
