@@ -108,19 +108,38 @@ EXPOSE 8111
 
 COPY --from=base $TEAMCITY_DIST $TEAMCITY_DIST
 
-CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
-
 # Use ContainerAdministrator to update permissions and PATH
 USER ContainerAdministrator
-# Grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
+
+# Create missing directories required for volumes, reset any potentially conflicting ACLs, ...
+# ... grant Permissions for ContainerUser (Default Account), OI - Object Inherit, CI - Container Inherit, ...
 # ... F - full control, /T - apply to subfolders & files
-RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd" && \
-    cmd /c icacls.exe C:\\TeamCity /reset /T && \
-    cmd /c icacls.exe C:\\TeamCity /grant:r DefaultAccount:(OI)(CI)F /grant:r Users:(OI)(CI)F /T && \
-    pwsh -Command "& { <# Canonicalizing ACLs to prevent issues such as TW-100061 #> $acl = Get-Acl 'C:\TeamCity'; Set-Acl 'C:\TeamCity' $acl; Get-ChildItem 'C:\TeamCity' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; $acl = Get-Acl 'C:\TeamCity'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\TeamCity' } }" && \
-    cmd /c icacls.exe C:\\TeamCity\\*
+SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN setx /M PATH ($env:PATH + ';' + $env:JAVA_HOME + '\bin;C:\Program Files\Git\cmd') ; \
+    if ($LASTEXITCODE -ne 0) { throw ('setx failed with exit code ' + $LASTEXITCODE) } ; \
+    if (-not (Test-Path 'C:\TeamCity\temp')) { New-Item -Path 'C:\TeamCity\temp' -ItemType Directory | Out-Null } ; \
+    if (-not (Test-Path 'C:\TeamCity\logs')) { New-Item -Path 'C:\TeamCity\logs' -ItemType Directory | Out-Null } ; \
+    New-Item -Path 'C:\TeamCity\temp\.keep' -ItemType File -Force | Out-Null ; \
+    New-Item -Path 'C:\TeamCity\logs\.keep' -ItemType File -Force | Out-Null ; \
+    Write-Host 'Resetting ACLs...' ; \
+    icacls.exe C:\TeamCity /reset /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed with exit code ' + $LASTEXITCODE) } ; \
+    Write-Host 'Granting permissions...' ; \
+    icacls.exe C:\TeamCity /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed with exit code ' + $LASTEXITCODE) } ; \
+    <# Canonicalizing ACLs to prevent issues such as TW-100061 #> \
+    Write-Host 'Canonicalizing ACLs...' ; \
+    $acl = Get-Acl 'C:\TeamCity'; Set-Acl 'C:\TeamCity' $acl; \
+    Get-ChildItem 'C:\TeamCity' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
+    $acl = Get-Acl 'C:\TeamCity'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\TeamCity' }; \
+    Write-Host 'Verifying permissions:' ; \
+    icacls.exe C:\TeamCity\*
+SHELL ["cmd", "/S", "/C"]
+
 USER ContainerUser
 
 VOLUME $TEAMCITY_DATA_PATH \
        $TEAMCITY_LOGS \
        $CATALINA_TMPDIR
+
+CMD ["pwsh", "C:/TeamCity/run-server.ps1"]
