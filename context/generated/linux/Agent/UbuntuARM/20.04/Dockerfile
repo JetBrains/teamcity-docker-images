@@ -8,7 +8,7 @@ ARG gitLFSLinuxComponentVersion='v3.7.1'
 ARG gitLinuxComponentVersion='1:2.53.0-0ppa1~ubuntu24.04.1'
 ARG p4Version='r26.1'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-arm64-20.04'
 
 # The list of required arguments
 # ARG dotnetLinuxARM64Component
