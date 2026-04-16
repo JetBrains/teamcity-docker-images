@@ -205,6 +205,13 @@ namespace TeamCity.Docker
                 }
             } while (replacements.Count > 0 && iterations++ < 100);
 
+            // Auto-prepend '-' separator to linuxVersion when non-empty,
+            // so config files can use clean values like "22.04" instead of "-22.04"
+            if (result.TryGetValue("linuxVersion", out var lv) && !string.IsNullOrEmpty(lv) && !lv.StartsWith("-"))
+            {
+                result["linuxVersion"] = "-" + lv;
+            }
+
             return result;
         }
     }
