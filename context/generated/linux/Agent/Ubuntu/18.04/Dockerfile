@@ -1,12 +1,12 @@
 # Default arguments
 ARG containerdIoLinuxComponentVersion='1.7.28-1~ubuntu.24.04~noble'
-ARG dockerLinuxComponentVersion='5:28.5.1-1~ubuntu'
+ARG dockerLinuxComponentVersion='5:29.4.0-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz'
 ARG dotnetLinuxComponentSHA512='6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6'
 ARG gitLFSLinuxComponentVersion='2.3.4-1'
 ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
-ARG p4Version='r25.1'
+ARG p4Version='r25.2'
 ARG repo=''
 ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-18.04'
 

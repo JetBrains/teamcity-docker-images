@@ -51,8 +51,13 @@
             Requirements = requirements ?? throw new ArgumentNullException(nameof(requirements));
         }
 
-        public int CompareTo(Dockerfile other) =>
-            string.Compare(OrderKey(), other.OrderKey(), StringComparison.Ordinal);
+        public int CompareTo(Dockerfile other)
+        {
+            var result = string.Compare(OrderKey(), other.OrderKey(), StringComparison.Ordinal);
+            if (result != 0) return result;
+            // prefer higher Description (descending) so latest OS version comes first
+            return string.Compare(other.Description, Description, StringComparison.Ordinal);
+        }
 
         public override string ToString() => $"{ImageId}:{string.Join(",", Tags)}";
 
