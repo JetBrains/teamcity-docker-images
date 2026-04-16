@@ -30,6 +30,7 @@
 
         public void Generate(IGraph<IArtifact, Dependency> graph)
         {
+            var generatedScripts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var groups = (
                     from node in graph.Nodes
                     let image = node.Value as Image
@@ -55,12 +56,12 @@
                         switch (image.File.Platform.ToLowerInvariant())
                         {
                             case "windows":
-                                AddScriptNode(graph, node, WindowsEndOfLine, string.Empty, ".cmd");
+                                AddScriptNode(graph, node, WindowsEndOfLine, string.Empty, ".cmd", generatedScripts);
                                 break;
 
                             case "linux":
-                                AddScriptNode(graph, node, LinuxEndOfLine, "#!/bin/bash", ".sh");
-                                AddScriptNode(graph, node, WindowsEndOfLine, string.Empty, ".cmd");
+                                AddScriptNode(graph, node, LinuxEndOfLine, "#!/bin/bash", ".sh", generatedScripts);
+                                AddScriptNode(graph, node, WindowsEndOfLine, string.Empty, ".cmd", generatedScripts);
                                 break;
                         }
                     }
@@ -68,11 +69,15 @@
             }
         }
 
-        private void AddScriptNode(IGraph<IArtifact, Dependency> graph, INode<IArtifact> node, string newLine, string header, string extension)
+        private void AddScriptNode(IGraph<IArtifact, Dependency> graph, INode<IArtifact> node, string newLine, string header, string extension, HashSet<string> generatedScripts)
         {
             var image = (Image) node.Value;
-            var lines = new List<string>();
             var scriptFileName = $"{image.File.ImageId}-{image.File.Tags.First()}{extension}";
+            var scriptFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, scriptFileName));
+            // Skip if a script with this filename was already generated (by a higher OS version)
+            if (!generatedScripts.Add(scriptFilePath)) return;
+
+            var lines = new List<string>();
             var root = string.Join("/", Enumerable.Repeat("..", _options.TargetPath.Split('\\', '/').Length));
             if (!string.IsNullOrWhiteSpace(header))
             {
@@ -81,7 +86,6 @@
 
             lines.Add($"cd {root}");
             lines.AddRange(_scriptGenerator.GenerateScript(graph, node, _ => true));
-            var scriptFilePath = _pathService.Normalize(Path.Combine(_options.TargetPath, scriptFileName));
             graph.TryAddNode(new FileArtifact(scriptFilePath, new[] {string.Join(newLine, lines)}), out var _);
         }
     }
