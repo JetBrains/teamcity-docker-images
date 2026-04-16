@@ -14,7 +14,6 @@ namespace TeamCity.Docker
     internal class DockerGraphFactory: IFactory<IGraph<IArtifact, Dependency>, IEnumerable<Template>>
     {
         private static readonly Regex ReferenceRegex = new Regex(@"^\s*(?<reference>.+?)(\s+(?<weight>\d+)|)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex VersionRegex = new Regex(@"(\d+\.\d+)", RegexOptions.Compiled);
         private static readonly Dependency GenerateDependency = new Dependency(DependencyType.Generate);
         private const string CommentPrefix = "##";
         private const string IdPrefix = "# Id ";
@@ -173,40 +172,12 @@ namespace TeamCity.Docker
                 where image != null
                 select new {node, image};
 
-            var imageNodesList = imageNodes.ToList();
-
-            var versionIndex = new Dictionary<string, INode<IArtifact>>();
-            foreach (var item in imageNodesList)
-            {
-                var versionMatch = VersionRegex.Match(item.image.File.Description);
-                if (versionMatch.Success)
-                {
-                    versionIndex[$"{item.image.File.ImageId}:{item.image.File.Platform}:{versionMatch.Value}"] = item.node;
-                }
-            }
-
             // Add references
-            foreach (var from in imageNodesList)
+            foreach (var from in imageNodes.ToList())
             {
                 foreach (var reference in from.image.File.References)
                 {
-                    INode<IArtifact> toNode = null;
-
-                    var sourceVersionMatch = VersionRegex.Match(from.image.File.Description);
-                    if (sourceVersionMatch.Success)
-                    {
-                        var refImageId = reference.RepoTag.Split(':')[0];
-                        if (versionIndex.TryGetValue(
-                                $"{refImageId}:{from.image.File.Platform}:{sourceVersionMatch.Value}",
-                                out var candidate)
-                            && !candidate.Equals(from.node))
-                        {
-                            toNode = candidate;
-                        }
-                    }
-
-                    if (toNode == null)
-                        nodeDict.TryGetValue(reference.RepoTag, out toNode);
+                    nodeDict.TryGetValue(reference.RepoTag, out var toNode);
 
                     if (toNode != null)
                     {
