@@ -1,5 +1,5 @@
 # Default arguments
-ARG containerdIoLinuxComponentVersion='1.7.28-1~ubuntu.24.04~noble'
+ARG containerdIoLinuxComponentVersion='2.2.3-1~ubuntu.24.04~noble'
 ARG dockerLinuxComponentVersion='5:29.4.0-1~ubuntu'
 ARG dotnetLibs='libc6 libgcc1 libgssapi-krb5-2 libicu60 libssl1.1 libstdc++6 zlib1g'
 ARG dotnetLinuxComponent='https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz'
