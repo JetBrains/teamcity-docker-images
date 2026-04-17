@@ -135,20 +135,20 @@ RUN setx /M PATH ($env:PATH + ';' + $env:JAVA_HOME + '\bin;C:\Program Files\Git\
     Write-Host 'Verifying permissions:' ; \
     icacls.exe C:\TeamCity\* ; \
     Write-Host 'Fixing permissions for TeamCity data directory...' ; \
-    if (-not (Test-Path 'C:\ProgramData\JetBrains\TeamCity')) { New-Item -Path 'C:\ProgramData\JetBrains\TeamCity' -ItemType Directory -Force | Out-Null } ; \
+    if (-not (Test-Path $env:TEAMCITY_DATA_PATH)) { New-Item -Path $env:TEAMCITY_DATA_PATH -ItemType Directory -Force | Out-Null } ; \
     Write-Host 'Resetting ACLs for data directory...' ; \
-    icacls.exe C:\ProgramData\JetBrains\TeamCity /reset /T ; \
+    icacls.exe $env:TEAMCITY_DATA_PATH /reset /T ; \
     if ($LASTEXITCODE -ne 0) { throw ('icacls reset failed for data directory with exit code ' + $LASTEXITCODE) } ; \
     Write-Host 'Granting permissions for data directory...' ; \
-    icacls.exe C:\ProgramData\JetBrains\TeamCity /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
+    icacls.exe $env:TEAMCITY_DATA_PATH /grant:r 'DefaultAccount:(OI)(CI)F' /grant:r 'Users:(OI)(CI)F' /T ; \
     if ($LASTEXITCODE -ne 0) { throw ('icacls grant failed for data directory with exit code ' + $LASTEXITCODE) } ; \
     <# Canonicalizing ACLs to prevent issues such as TW-100061 #> \
     Write-Host 'Canonicalizing ACLs for data directory...' ; \
-    $acl = Get-Acl 'C:\ProgramData\JetBrains\TeamCity'; Set-Acl 'C:\ProgramData\JetBrains\TeamCity' $acl; \
-    Get-ChildItem 'C:\ProgramData\JetBrains\TeamCity' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
-    $acl = Get-Acl 'C:\ProgramData\JetBrains\TeamCity'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\ProgramData\JetBrains\TeamCity' }; \
+    $acl = Get-Acl $env:TEAMCITY_DATA_PATH; Set-Acl $env:TEAMCITY_DATA_PATH $acl; \
+    Get-ChildItem $env:TEAMCITY_DATA_PATH -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
+    $acl = Get-Acl $env:TEAMCITY_DATA_PATH; if (-not $acl.AreAccessRulesCanonical) { throw ('ACLs are not canonical after Set-Acl on ' + $env:TEAMCITY_DATA_PATH) }; \
     Write-Host 'Verifying data directory permissions:' ; \
-    icacls.exe 'C:\ProgramData\JetBrains\TeamCity'
+    icacls.exe $env:TEAMCITY_DATA_PATH
 SHELL ["cmd", "/S", "/C"]
 
 USER ContainerUser
