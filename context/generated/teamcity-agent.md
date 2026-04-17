@@ -110,7 +110,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -151,7 +151,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -191,7 +191,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -233,7 +233,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -273,7 +273,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -313,7 +313,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -351,7 +351,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -390,7 +390,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -429,7 +429,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -468,7 +468,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -508,7 +508,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -548,7 +548,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -727,7 +727,7 @@ Installed components:
 - Git v.2.41.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -764,7 +764,7 @@ Installed components:
 - Git v.2.53.0
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) x86 Checksum (SHA512) 6690c6eaf18b5b8fa2d004b4047e7052a35afd6c75074399a000972a5ca0e7c536daa24f378b0c1da1926eaa3828013502f467b005a86c3015c75cf6b12d7ed6](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-x64.tar.gz)
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
 
@@ -801,7 +801,7 @@ Installed components:
 - Git LFS v.2.3.4
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
@@ -837,7 +837,7 @@ Installed components:
 - Git LFS 3.7.1
 - Mercurial
 - [Docker v.29.4.0](https://docs.docker.com/engine/release-notes/29)
-- [Containerd.io 1.7.28-1](https://github.com/containerd/containerd/releases/tag/v1.7.28)
+- [Containerd.io 2.2.3-1](https://github.com/containerd/containerd/releases/tag/v2.2.3)
 - [.NET SDK v.10.0.202 (LTS) ARM64 Checksum (SHA512) 2626fa9a2b5024c0a6b62f6005bbe5d40a4e4f66630eca705c358ba90015e2d616f8ce14a43404479904f22f9b10c7a03f642b6032eb8edd7be6d688ee455e9b](https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.202/dotnet-sdk-10.0.202-linux-arm64.tar.gz)
 
 Container platform: linux
