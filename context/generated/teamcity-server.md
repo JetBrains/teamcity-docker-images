@@ -164,7 +164,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.54.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -193,7 +193,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.54.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -349,7 +349,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
-- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.54.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -376,7 +376,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.54.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -402,7 +402,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.10.7.1 Checksum (MD5) 403888fc1d84a8d7a823ad7ff3ecc589](https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.54.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
