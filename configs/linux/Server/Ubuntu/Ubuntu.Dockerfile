@@ -114,7 +114,9 @@ RUN apt-get update && \
     p4 -V && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1)
+    [ -f /etc/gitconfig ] || (echo "'/etc/gitconfig' does not exist, while LFS filter is required" && exit 1) && \
+    # See: TW-100553 \
+    git config --system maintenance.auto 0
 
 
 COPY welcome.sh /welcome.sh

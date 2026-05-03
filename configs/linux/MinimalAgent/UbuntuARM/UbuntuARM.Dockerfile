@@ -75,7 +75,9 @@ RUN chmod +x /opt/buildagent/bin/*.sh && \
     mkdir -p /data/teamcity_agent/conf && \
     chown -R buildagent:buildagent /data/teamcity_agent && \
     sed -i -e 's/\r$//' /run-agent.sh && \
-    sed -i -e 's/\r$//' /run-services.sh    
+    sed -i -e 's/\r$//' /run-services.sh && \
+    # See: TW-100553 \
+    git config --system maintenance.auto 0
 
 USER buildagent
 
