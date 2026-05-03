@@ -109,5 +109,6 @@ RUN setx /M PATH ('{0};{1}\bin;C:\Program Files\Git\cmd;C:\Program Files\Mercuri
     $acl = Get-Acl 'C:\BuildAgent'; Set-Acl 'C:\BuildAgent' $acl; \
     Get-ChildItem 'C:\BuildAgent' -Recurse -Force | ForEach-Object { $a = Get-Acl $_.FullName; Set-Acl $_.FullName $a }; \
     $acl = Get-Acl 'C:\BuildAgent'; if (-not $acl.AreAccessRulesCanonical) { throw 'ACLs are not canonical after Set-Acl on C:\BuildAgent' }; \
-    icacls.exe 'C:\BuildAgent\*'
+    icacls.exe 'C:\BuildAgent\*'; \
+    git config --global maintenance.auto 0
 USER ContainerUser

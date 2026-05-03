@@ -97,7 +97,8 @@ RUN setx /M PATH "%PATH%;%JAVA_HOME%\bin;C:\Program Files\Git\cmd;C:\Program Fil
     type nul > C:\BuildAgent\logs\.keep && \
     type nul > C:\BuildAgent\work\.keep && \
     type nul > C:\BuildAgent\conf\.keep && \
-    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties
+    if exist C:\BuildAgent\conf\buildAgent.properties del C:\BuildAgent\conf\buildAgent.properties && \
+    git config --global maintenance.auto 0
 
 # Reset and grant permissions in PowerShell for proper error handling
 SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
