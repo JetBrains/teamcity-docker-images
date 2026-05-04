@@ -4,7 +4,6 @@ ARG gitLinuxComponentVersion='1:2.41.0-0ppa1~ubuntu18.04.1'
 ARG jdkServerLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.10.7.1/amazon-corretto-21.0.10.7.1-linux-aarch64.tar.gz'
 ARG jdkServerLinuxARM64ComponentMD5SUM='c6952584f21e2473609a6012bd38354f'
 ARG p4Version='r25.2'
-ARG repo=''
 ARG ubuntuImage='ubuntu:18.04'
 
 # The list of required arguments
@@ -48,8 +47,7 @@ FROM ${ubuntuImage}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
+
     # See: TW-91621
     netcat-openbsd \
     # Git & Git LFS Runtime dependencies
@@ -101,10 +99,17 @@ ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
     # Mercurial
-    apt-get install -y mercurial gnupg software-properties-common && \
-    # Git
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} && \
+    apt-get install -y mercurial gnupg && \
+    # Git - build from GitHub to avoid PPA issues
+    apt-get install -y --no-install-recommends make gcc zlib1g-dev openssh-client && \
+    curl -L https://github.com/git/git/releases/download/v2.54.0/git-2.54.0.tar.gz -o /tmp/git-2.54.0.tar.gz && \
+    cd /tmp && tar -xzf git-2.54.0.tar.gz && \
+    cd git-2.54.0 && \
+    ./configure --prefix=/usr && \
+    make && \
+    make install && \
+    cd / && rm -rf /tmp/git-2.54.0* && \
+    git --version && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
     chmod +x /usr/local/bin/p4 && \

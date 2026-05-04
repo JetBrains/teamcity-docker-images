@@ -104,10 +104,17 @@ ARG gitLinuxComponentVersion
 
 RUN apt-get update && \
      # Mercurial
-    apt-get install -y mercurial gnupg software-properties-common && \
-    # Git
-    add-apt-repository ppa:git-core/ppa -y && \
-    apt-get install -y git=${gitLinuxComponentVersion} && \
+    apt-get install -y mercurial gnupg && \
+    # Git - build from GitHub to avoid PPA issues
+    apt-get install -y --no-install-recommends make gcc zlib1g-dev openssh-client && \
+    curl -L https://github.com/git/git/releases/download/v2.54.0/git-2.54.0.tar.gz -o /tmp/git-2.54.0.tar.gz && \
+    cd /tmp && tar -xzf git-2.54.0.tar.gz && \
+    cd git-2.54.0 && \
+    ./configure --prefix=/usr && \
+    make && \
+    make install && \
+    cd / && rm -rf /tmp/git-2.54.0* && \
+    git --version && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26x86_64/p4" && \
     chmod +x /usr/local/bin/p4 && \
