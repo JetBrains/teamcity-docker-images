@@ -99,8 +99,8 @@ RUN apt-get update && \
     # Git - build from GitHub to avoid PPA issues
     apt-get install -y --no-install-recommends make gcc zlib1g-dev openssh-client && \
     curl -L https://github.com/git/git/archive/refs/tags/v2.54.0.tar.gz -o /tmp/git-2.54.0.tar.gz && \
-    cd /tmp && tar -xzf git-2.54.0.tar.gz && \
-    cd git-v2.54.0 && \
+    mkdir -p /tmp/git-src && tar -xzf /tmp/git-2.54.0.tar.gz -C /tmp/git-src --strip-components=1 && \
+    cd /tmp/git-src && \
     ./configure --prefix=/usr && \
     make && \
     make install && \
