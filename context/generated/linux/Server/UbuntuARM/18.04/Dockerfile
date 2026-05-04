@@ -100,15 +100,15 @@ ARG gitLinuxComponentVersion
 RUN apt-get update && \
     # Mercurial
     apt-get install -y mercurial gnupg && \
-    # Git - build from GitHub to avoid PPA issues
-    apt-get install -y --no-install-recommends make gcc zlib1g-dev openssh-client && \
-    curl -L https://github.com/git/git/archive/refs/tags/v2.54.0.tar.gz -o /tmp/git-2.54.0.tar.gz && \
-    mkdir -p /tmp/git-src && tar -xzf /tmp/git-2.54.0.tar.gz -C /tmp/git-src --strip-components=1 && \
-    cd /tmp/git-src && \
-    ./configure --prefix=/usr && \
-    make && \
+    # Git - build from source to avoid PPA issues
+    apt-get install -y --no-install-recommends libssl-dev build-essential autoconf make gcc libcurl4-openssl-dev libexpat1-dev gettext unzip zlib1g-dev curl && \
+    curl -L https://www.kernel.org/pub/software/scm/git/git-2.54.0.tar.gz -o /tmp/git-2.54.0.tar.gz && \
+    cd /tmp && tar -xzf git-2.54.0.tar.gz && \
+    cd git-2.54.0 && \
+    make configure && ./configure --prefix=/usr && \
+    make all && \
     make install && \
-    cd / && rm -rf /tmp/git-* && \
+    cd /tmp && rm -rf git-2.54.0* && \
     git --version && \
     # Perforce (p4 CLI)
     curl -Lo /usr/local/bin/p4 "https://www.perforce.com/downloads/perforce/${p4Version}/bin.linux26aarch64/p4" && \
