@@ -18,11 +18,11 @@ When running an image with multi-architecture support, docker will automatically
   - [2025.11.5-linux](#2025115-linux)
   - [2025.11.5-linux-arm64](#2025115-linux-arm64)
 - 22.04
-  - [2025.11.5-linux](#2025115-linux)
-  - [2025.11.5-linux-arm64](#2025115-linux-arm64)
+  - [2025.11.4-linux-22.04](#2025114-linux-2204)
+  - [2025.11.4-linux-arm64-22.04](#2025114-linux-arm64-2204)
 - 20.04
-  - [2025.11.5-linux](#2025115-linux)
-  - [2025.11.5-linux-arm64](#2025115-linux-arm64)
+  - [2025.11.4-linux-20.04](#2025114-linux-2004)
+  - [2025.11.4-linux-arm64-20.04](#2025114-linux-arm64-2004)
 - 18.04
   - [2025.11.5-linux-18.04](#2025115-linux-1804)
   - [2025.11.5-linux-arm64-18.04](#2025115-linux-arm64-1804)
@@ -47,11 +47,11 @@ Supported platforms: linux 20.04, linux 22.04, linux 24.04, windows 1809, window
 
 #### Content
 
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-nanoserver-1809](#2025115-nanoserver-1809)
-- [2025.11.5-nanoserver-2022](#2025115-nanoserver-2022)
+- [2025.11.4-linux](#2025114-linux)
+- [2025.11.4-linux-20.04](#2025114-linux-2004)
+- [2025.11.4-linux-22.04](#2025114-linux-2204)
+- [2025.11.4-nanoserver-1809](#2025114-nanoserver-1809)
+- [2025.11.4-nanoserver-2022](#2025114-nanoserver-2022)
 
 ### 2025.11.5
 
@@ -59,49 +59,19 @@ Supported platforms: linux 20.04, linux 22.04, linux 24.04, windows 1809, window
 
 #### Content
 
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-linux](#2025115-linux)
-- [2025.11.5-nanoserver-1809](#2025115-nanoserver-1809)
-- [2025.11.5-nanoserver-2022](#2025115-nanoserver-2022)
+- [2025.11.4-linux](#2025114-linux)
+- [2025.11.4-linux-20.04](#2025114-linux-2004)
+- [2025.11.4-linux-22.04](#2025114-linux-2204)
+- [2025.11.4-nanoserver-1809](#2025114-nanoserver-1809)
+- [2025.11.4-nanoserver-2022](#2025114-nanoserver-2022)
 
 
 # Dockerfile links
 
-* **Linux**. [teamcity-server:2025.11.5-linux,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/20.04/Dockerfile), [teamcity-server:2025.11.5-linux,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/24.04/Dockerfile), [teamcity-server:2025.11.5-linux,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/22.04/Dockerfile), [teamcity-server:2025.11.5-linux-18.04,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/18.04/Dockerfile), [teamcity-server:2025.11.5-linux-arm64,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/20.04/Dockerfile), [teamcity-server:2025.11.5-linux-arm64,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/24.04/Dockerfile), [teamcity-server:2025.11.5-linux-arm64,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/22.04/Dockerfile), [teamcity-server:2025.11.5-linux-arm64-18.04,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/18.04/Dockerfile)
+* **Linux**. [teamcity-server:2025.11.4-linux,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/24.04/Dockerfile), [teamcity-server:2025.11.4-linux-20.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/20.04/Dockerfile), [teamcity-server:2025.11.4-linux-22.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/22.04/Dockerfile), [teamcity-server:2025.11.4-linux-18.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/Ubuntu/18.04/Dockerfile), [teamcity-server:2025.11.4-linux-arm64,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/24.04/Dockerfile), [teamcity-server:2025.11.4-linux-arm64-18.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/18.04/Dockerfile), [teamcity-server:2025.11.4-linux-arm64-20.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/20.04/Dockerfile), [teamcity-server:2025.11.4-linux-arm64-22.04,latest,2025.11.4](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Server/UbuntuARM/22.04/Dockerfile)
 
 * **Windows**. [teamcity-server:2025.11.5-nanoserver-1809,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1809/Dockerfile), [teamcity-server:2025.11.5-nanoserver-2022,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/2022/Dockerfile), [teamcity-server:2025.11.5-nanoserver-1803,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1803/Dockerfile), [teamcity-server:2025.11.5-nanoserver-1903,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1903/Dockerfile), [teamcity-server:2025.11.5-nanoserver-1909,latest,2025.11.5](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Server/nanoserver/1909/Dockerfile)
 
-
-### 2025.11.5-linux
-
-[Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
-
-The docker image is available on:
-
-- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
-
-Installed components:
-
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
-- Git v.2.53.0
-- Git LFS 3.7.1
-- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
-
-Container platform: linux
-
-Docker build commands:
-
-```
-docker pull ubuntu:20.04
-echo TeamCity/buildAgent > context/.dockerignore
-echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:2025.11.5-linux "context"
-```
-
-_The required free space to generate image(s) is about **1 GB**._
 
 ### 2025.11.5-linux
 
@@ -116,7 +86,7 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
-- Git v.2.53.0
+- Git v.2.54.0
 - Git LFS 3.7.1
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -133,7 +103,37 @@ docker build -f "context/generated/linux/Server/Ubuntu/24.04/Dockerfile" -t team
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2025.11.5-linux
+### 2025.11.4-linux-20.04
+
+[Dockerfile](linux/Server/Ubuntu/20.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
+- Git v.2.54.0
+- Git LFS 3.7.1
+- Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:20.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:2025.11.4-linux-20.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### 2025.11.4-linux-22.04
 
 [Dockerfile](linux/Server/Ubuntu/22.04/Dockerfile)
 
@@ -146,7 +146,7 @@ The docker image is available on:
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 18a45468ad50c1e0e09201de38c5c8f4](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-x64.tar.gz)
-- Git v.2.53.0
+- Git v.2.54.0
 - Git LFS 3.7.1
 - Perforce Helix Core client (p4) [2024.2](https://www.perforce.com/downloads/perforce)
 
@@ -158,12 +158,12 @@ Docker build commands:
 docker pull ubuntu:22.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/Ubuntu/22.04/Dockerfile" -t teamcity-server:2025.11.5-linux "context"
+docker build -f "context/generated/linux/Server/Ubuntu/22.04/Dockerfile" -t teamcity-server:2025.11.4-linux-22.04 "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2025.11.5-nanoserver-1809
+### 2025.11.4-nanoserver-1809
 
 [Dockerfile](windows/Server/nanoserver/1809/Dockerfile)
 
@@ -177,7 +177,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -206,7 +206,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -250,32 +250,6 @@ _The required free space to generate image(s) is about **1 GB**._
 
 ### 2025.11.5-linux-arm64
 
-[Dockerfile](linux/Server/UbuntuARM/20.04/Dockerfile)
-
-This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
-The docker image is not available and may be created manually.
-
-Installed components:
-
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
-- Git v.2.53.0
-- Git LFS 3.7.1
-
-Container platform: linux
-
-Docker build commands:
-
-```
-docker pull ubuntu:20.04
-echo TeamCity/buildAgent > context/.dockerignore
-echo TeamCity/temp >> context/.dockerignore
-docker build -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:2025.11.5-linux-arm64 "context"
-```
-
-_The required free space to generate image(s) is about **1 GB**._
-
-### 2025.11.5-linux-arm64
-
 [Dockerfile](linux/Server/UbuntuARM/24.04/Dockerfile)
 
 This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
@@ -284,7 +258,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
-- Git v.2.53.0
+- Git v.2.54.0
 - Git LFS 3.7.1
 
 Container platform: linux
@@ -352,7 +326,59 @@ docker build -f "context/generated/linux/Server/UbuntuARM/18.04/Dockerfile" -t t
 
 _The required free space to generate image(s) is about **1 GB**._
 
-### 2025.11.5-nanoserver-1803
+### 2025.11.4-linux-arm64-20.04
+
+[Dockerfile](linux/Server/UbuntuARM/20.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
+- Git v.2.54.0
+- Git LFS 3.7.1
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:20.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/linux/Server/UbuntuARM/20.04/Dockerfile" -t teamcity-server:2025.11.4-linux-arm64-20.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### 2025.11.4-linux-arm64-22.04
+
+[Dockerfile](linux/Server/UbuntuARM/22.04/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+The docker image is not available and may be created manually.
+
+Installed components:
+
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.9.10.1 Checksum (MD5) f8568c459023d0327937e7a6ca9ea5ce](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-linux-aarch64.tar.gz)
+- Git v.2.54.0
+- Git LFS 3.7.1
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:22.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/linux/Server/UbuntuARM/22.04/Dockerfile" -t teamcity-server:2025.11.4-linux-arm64-22.04 "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### 2025.11.4-nanoserver-1803
 
 [Dockerfile](windows/Server/nanoserver/1803/Dockerfile)
 
@@ -362,7 +388,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
-- [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -389,7 +415,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
@@ -415,7 +441,7 @@ Installed components:
 
 - [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.9.10.1 Checksum (MD5) 905e139bfc80a7c05333c22c3075fd87](https://corretto.aws/downloads/resources/21.0.9.10.1/amazon-corretto-21.0.9.10.1-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [Git x64 v.2.53.0 Checksum (SHA256) 82b562c918ec87b2ef5316ed79bb199e3a25719bb871a0f10294acf21ebd08cd](https://github.com/git-for-windows/git/releases/download/v2.53.0.windows.1/MinGit-2.53.0-64-bit.zip)
+- [Git x64 v.2.54.0 Checksum (SHA256) 04f937e1f0918b17b9be6f2294cb2bb66e96e1d9832d1c298e2de088a1d0e668](https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip)
 
 Container platform: windows
 
