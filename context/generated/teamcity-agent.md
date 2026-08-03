@@ -9,88 +9,88 @@ Other tags
 
 When running an image with multi-architecture support, docker will automatically select an image variant which matches your OS and architecture.
 
-- [2026.2-chubatova-test](#20262-chubatova-test)
-- [2026.2-chubatova-test-windowsservercore](#20262-chubatova-test-windowsservercore)
+- [2026.2-chubatova-test2](#20262-chubatova-test2)
+- [2026.2-chubatova-test2-windowsservercore](#20262-chubatova-test2-windowsservercore)
 
 #### linux
 
 - 24.04-sudo
-  - [2026.2-chubatova-test-linux-arm64-sudo](#20262-chubatova-test-linux-arm64-sudo)
-  - [2026.2-chubatova-test-linux-sudo](#20262-chubatova-test-linux-sudo)
+  - [2026.2-chubatova-test2-linux-arm64-sudo](#20262-chubatova-test2-linux-arm64-sudo)
+  - [2026.2-chubatova-test2-linux-sudo](#20262-chubatova-test2-linux-sudo)
 - 24.04
-  - [2026.2-chubatova-test-linux](#20262-chubatova-test-linux)
-  - [2026.2-chubatova-test-linux-arm64](#20262-chubatova-test-linux-arm64)
+  - [2026.2-chubatova-test2-linux](#20262-chubatova-test2-linux)
+  - [2026.2-chubatova-test2-linux-arm64](#20262-chubatova-test2-linux-arm64)
 - 22.04-sudo
-  - [2026.2-chubatova-test-linux-22.04-sudo](#20262-chubatova-test-linux-2204-sudo)
-  - [2026.2-chubatova-test-linux-arm64-22.04-sudo](#20262-chubatova-test-linux-arm64-2204-sudo)
+  - [2026.2-chubatova-test2-linux-22.04-sudo](#20262-chubatova-test2-linux-2204-sudo)
+  - [2026.2-chubatova-test2-linux-arm64-22.04-sudo](#20262-chubatova-test2-linux-arm64-2204-sudo)
 - 22.04
-  - [2026.2-chubatova-test-linux-22.04](#20262-chubatova-test-linux-2204)
-  - [2026.2-chubatova-test-linux-arm64-22.04](#20262-chubatova-test-linux-arm64-2204)
+  - [2026.2-chubatova-test2-linux-22.04](#20262-chubatova-test2-linux-2204)
+  - [2026.2-chubatova-test2-linux-arm64-22.04](#20262-chubatova-test2-linux-arm64-2204)
 - 20.04-sudo
-  - [2026.2-chubatova-test-linux-20.04-sudo](#20262-chubatova-test-linux-2004-sudo)
-  - [2026.2-chubatova-test-linux-arm64-20.04-sudo](#20262-chubatova-test-linux-arm64-2004-sudo)
+  - [2026.2-chubatova-test2-linux-20.04-sudo](#20262-chubatova-test2-linux-2004-sudo)
+  - [2026.2-chubatova-test2-linux-arm64-20.04-sudo](#20262-chubatova-test2-linux-arm64-2004-sudo)
 - 20.04
-  - [2026.2-chubatova-test-linux-20.04](#20262-chubatova-test-linux-2004)
-  - [2026.2-chubatova-test-linux-arm64-20.04](#20262-chubatova-test-linux-arm64-2004)
+  - [2026.2-chubatova-test2-linux-20.04](#20262-chubatova-test2-linux-2004)
+  - [2026.2-chubatova-test2-linux-arm64-20.04](#20262-chubatova-test2-linux-arm64-2004)
 - 18.04-sudo
-  - [2026.2-chubatova-test-linux-18.04-sudo](#20262-chubatova-test-linux-1804-sudo)
-  - [2026.2-chubatova-test-linux-arm64-18.04-sudo](#20262-chubatova-test-linux-arm64-1804-sudo)
+  - [2026.2-chubatova-test2-linux-18.04-sudo](#20262-chubatova-test2-linux-1804-sudo)
+  - [2026.2-chubatova-test2-linux-arm64-18.04-sudo](#20262-chubatova-test2-linux-arm64-1804-sudo)
 - 18.04
-  - [2026.2-chubatova-test-linux-18.04](#20262-chubatova-test-linux-1804)
-  - [2026.2-chubatova-test-linux-arm64-18.04](#20262-chubatova-test-linux-arm64-1804)
+  - [2026.2-chubatova-test2-linux-18.04](#20262-chubatova-test2-linux-1804)
+  - [2026.2-chubatova-test2-linux-arm64-18.04](#20262-chubatova-test2-linux-arm64-1804)
 
 #### windows
 
 - 2022
-  - [2026.2-chubatova-test-nanoserver-2022](#20262-chubatova-test-nanoserver-2022)
-  - [2026.2-chubatova-test-windowsservercore-2022](#20262-chubatova-test-windowsservercore-2022)
+  - [2026.2-chubatova-test2-nanoserver-2022](#20262-chubatova-test2-nanoserver-2022)
+  - [2026.2-chubatova-test2-windowsservercore-2022](#20262-chubatova-test2-windowsservercore-2022)
 - 1909
-  - [2026.2-chubatova-test-nanoserver-1909](#20262-chubatova-test-nanoserver-1909)
-  - [2026.2-chubatova-test-windowsservercore-1909](#20262-chubatova-test-windowsservercore-1909)
+  - [2026.2-chubatova-test2-nanoserver-1909](#20262-chubatova-test2-nanoserver-1909)
+  - [2026.2-chubatova-test2-windowsservercore-1909](#20262-chubatova-test2-windowsservercore-1909)
 - 1903
-  - [2026.2-chubatova-test-nanoserver-1903](#20262-chubatova-test-nanoserver-1903)
-  - [2026.2-chubatova-test-windowsservercore-1903](#20262-chubatova-test-windowsservercore-1903)
+  - [2026.2-chubatova-test2-nanoserver-1903](#20262-chubatova-test2-nanoserver-1903)
+  - [2026.2-chubatova-test2-windowsservercore-1903](#20262-chubatova-test2-windowsservercore-1903)
 - 1809
-  - [2026.2-chubatova-test-nanoserver-1809](#20262-chubatova-test-nanoserver-1809)
-  - [2026.2-chubatova-test-windowsservercore-1809](#20262-chubatova-test-windowsservercore-1809)
+  - [2026.2-chubatova-test2-nanoserver-1809](#20262-chubatova-test2-nanoserver-1809)
+  - [2026.2-chubatova-test2-windowsservercore-1809](#20262-chubatova-test2-windowsservercore-1809)
 - 1803
-  - [2026.2-chubatova-test-nanoserver-1803](#20262-chubatova-test-nanoserver-1803)
-  - [2026.2-chubatova-test-windowsservercore-1803](#20262-chubatova-test-windowsservercore-1803)
+  - [2026.2-chubatova-test2-nanoserver-1803](#20262-chubatova-test2-nanoserver-1803)
+  - [2026.2-chubatova-test2-windowsservercore-1803](#20262-chubatova-test2-windowsservercore-1803)
 
 
-### 2026.2-chubatova-test
+### 2026.2-chubatova-test2
 
 Supported platforms: linux 20.04, linux 22.04, linux 24.04, windows 1809, windows 2022
 
 #### Content
 
-- [2026.2-chubatova-test-linux](#20262-chubatova-test-linux)
-- [2026.2-chubatova-test-linux-20.04](#20262-chubatova-test-linux-2004)
-- [2026.2-chubatova-test-linux-22.04](#20262-chubatova-test-linux-2204)
-- [2026.2-chubatova-test-linux-arm64](#20262-chubatova-test-linux-arm64)
-- [2026.2-chubatova-test-linux-arm64-20.04](#20262-chubatova-test-linux-arm64-2004)
-- [2026.2-chubatova-test-linux-arm64-22.04](#20262-chubatova-test-linux-arm64-2204)
-- [2026.2-chubatova-test-nanoserver-1809](#20262-chubatova-test-nanoserver-1809)
-- [2026.2-chubatova-test-nanoserver-2022](#20262-chubatova-test-nanoserver-2022)
+- [2026.2-chubatova-test2-linux](#20262-chubatova-test2-linux)
+- [2026.2-chubatova-test2-linux-20.04](#20262-chubatova-test2-linux-2004)
+- [2026.2-chubatova-test2-linux-22.04](#20262-chubatova-test2-linux-2204)
+- [2026.2-chubatova-test2-linux-arm64](#20262-chubatova-test2-linux-arm64)
+- [2026.2-chubatova-test2-linux-arm64-20.04](#20262-chubatova-test2-linux-arm64-2004)
+- [2026.2-chubatova-test2-linux-arm64-22.04](#20262-chubatova-test2-linux-arm64-2204)
+- [2026.2-chubatova-test2-nanoserver-1809](#20262-chubatova-test2-nanoserver-1809)
+- [2026.2-chubatova-test2-nanoserver-2022](#20262-chubatova-test2-nanoserver-2022)
 
-### 2026.2-chubatova-test-windowsservercore
+### 2026.2-chubatova-test2-windowsservercore
 
 Supported platforms: windows 1809, windows 2022
 
 #### Content
 
-- [2026.2-chubatova-test-windowsservercore-1809](#20262-chubatova-test-windowsservercore-1809)
-- [2026.2-chubatova-test-windowsservercore-2022](#20262-chubatova-test-windowsservercore-2022)
+- [2026.2-chubatova-test2-windowsservercore-1809](#20262-chubatova-test2-windowsservercore-1809)
+- [2026.2-chubatova-test2-windowsservercore-2022](#20262-chubatova-test2-windowsservercore-2022)
 
 
 # Dockerfile links
 
-* **Linux**. [teamcity-agent:2026.2-chubatova-test-linux,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-20.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-22.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-20.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-22.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-18.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-18.04,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test-linux-arm64-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
+* **Linux**. [teamcity-agent:2026.2-chubatova-test2-linux,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-20.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-22.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-20.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-20.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-22.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-22.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-18.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-18.04,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-linux-arm64-18.04-sudo](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
 
-* **Windows**. [teamcity-agent:2026.2-chubatova-test-nanoserver-1809,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1809/Dockerfile), [teamcity-agent:2026.2-chubatova-test-nanoserver-2022,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/2022/Dockerfile), [teamcity-agent:2026.2-chubatova-test-windowsservercore-1809,2026.2-chubatova-test-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1809/Dockerfile), [teamcity-agent:2026.2-chubatova-test-windowsservercore-2022,2026.2-chubatova-test-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/2022/Dockerfile), [teamcity-agent:2026.2-chubatova-test-nanoserver-1803,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1803/Dockerfile), [teamcity-agent:2026.2-chubatova-test-nanoserver-1903,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1903/Dockerfile), [teamcity-agent:2026.2-chubatova-test-nanoserver-1909,2026.2-chubatova-test](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1909/Dockerfile), [teamcity-agent:2026.2-chubatova-test-windowsservercore-1803,2026.2-chubatova-test-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1803/Dockerfile), [teamcity-agent:2026.2-chubatova-test-windowsservercore-1903,2026.2-chubatova-test-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1903/Dockerfile), [teamcity-agent:2026.2-chubatova-test-windowsservercore-1909,2026.2-chubatova-test-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1909/Dockerfile)
+* **Windows**. [teamcity-agent:2026.2-chubatova-test2-nanoserver-1809,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1809/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-nanoserver-2022,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/2022/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-windowsservercore-1809,2026.2-chubatova-test2-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1809/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-windowsservercore-2022,2026.2-chubatova-test2-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/2022/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-nanoserver-1803,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1803/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-nanoserver-1903,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1903/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-nanoserver-1909,2026.2-chubatova-test2](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/nanoserver/1909/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-windowsservercore-1803,2026.2-chubatova-test2-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1803/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-windowsservercore-1903,2026.2-chubatova-test2-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1903/Dockerfile), [teamcity-agent:2026.2-chubatova-test2-windowsservercore-1909,2026.2-chubatova-test2-windowsservercore,-windowsservercore](https://github.com/JetBrains/teamcity-docker-images/tree/master/context/generated/windows/Agent/windowsservercore/1909/Dockerfile)
 
 
-### 2026.2-chubatova-test-linux
+### 2026.2-chubatova-test2-linux
 
 [Dockerfile](linux/Agent/Ubuntu/24.04/Dockerfile)
 
@@ -123,15 +123,15 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-20.04
+### 2026.2-chubatova-test2-linux-20.04
 
 [Dockerfile](linux/Agent/Ubuntu/20.04/Dockerfile)
 
@@ -164,15 +164,15 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-20.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-20.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-20.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-20.04-sudo
+### 2026.2-chubatova-test2-linux-20.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/20.04-sudo/Dockerfile)
 
@@ -204,16 +204,16 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-20.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-20.04 "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-20.04-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-20.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/20.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-20.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-22.04
+### 2026.2-chubatova-test2-linux-22.04
 
 [Dockerfile](linux/Agent/Ubuntu/22.04/Dockerfile)
 
@@ -246,15 +246,15 @@ docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-22.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-22.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-22.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-22.04-sudo
+### 2026.2-chubatova-test2-linux-22.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/22.04-sudo/Dockerfile)
 
@@ -286,16 +286,16 @@ docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-22.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-22.04 "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-22.04-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-22.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/22.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-22.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-arm64
+### 2026.2-chubatova-test2-linux-arm64
 
 [Dockerfile](linux/Agent/UbuntuARM/24.04/Dockerfile)
 
@@ -325,15 +325,15 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-20.04
+### 2026.2-chubatova-test2-linux-arm64-20.04
 
 [Dockerfile](linux/Agent/UbuntuARM/20.04/Dockerfile)
 
@@ -363,15 +363,15 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-20.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-20.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-20.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-20.04-sudo
+### 2026.2-chubatova-test2-linux-arm64-20.04-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/20.04-sudo/Dockerfile)
 
@@ -402,16 +402,16 @@ docker pull ubuntu:20.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-20.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/20.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-20.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-20.04 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-20.04-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-20.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/20.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-20.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-22.04
+### 2026.2-chubatova-test2-linux-arm64-22.04
 
 [Dockerfile](linux/Agent/UbuntuARM/22.04/Dockerfile)
 
@@ -441,15 +441,15 @@ docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-22.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-22.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-22.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-22.04-sudo
+### 2026.2-chubatova-test2-linux-arm64-22.04-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/22.04-sudo/Dockerfile)
 
@@ -480,16 +480,16 @@ docker pull ubuntu:22.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-22.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/22.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-22.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-22.04 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-22.04-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/22.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-22.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/22.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-22.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-sudo
+### 2026.2-chubatova-test2-linux-arm64-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/24.04-sudo/Dockerfile)
 
@@ -520,16 +520,16 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/24.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-sudo
+### 2026.2-chubatova-test2-linux-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/24.04-sudo/Dockerfile)
 
@@ -561,16 +561,16 @@ docker pull ubuntu:24.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/24.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/24.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-nanoserver-1809
+### 2026.2-chubatova-test2-nanoserver-1809
 
 [Dockerfile](windows/Agent/nanoserver/1809/Dockerfile)
 
@@ -598,14 +598,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1809 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-nanoserver-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-nanoserver-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2026.2-chubatova-test-nanoserver-2022
+### 2026.2-chubatova-test2-nanoserver-2022
 
 [Dockerfile](windows/Agent/nanoserver/2022/Dockerfile)
 
@@ -633,14 +633,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc202
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-2022 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-2022 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-nanoserver-2022 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-2022 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-2022 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-nanoserver-2022 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2026.2-chubatova-test-windowsservercore-1809
+### 2026.2-chubatova-test2-windowsservercore-1809
 
 [Dockerfile](windows/Agent/windowsservercore/1809/Dockerfile)
 
@@ -669,13 +669,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc201
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1809 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1809 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1809/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1809 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1809/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1809 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2026.2-chubatova-test-windowsservercore-2022
+### 2026.2-chubatova-test2-windowsservercore-2022
 
 [Dockerfile](windows/Agent/windowsservercore/2022/Dockerfile)
 
@@ -704,13 +704,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc202
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-2022 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-2022 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/2022/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-2022 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/2022/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-2022 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2026.2-chubatova-test-linux-18.04
+### 2026.2-chubatova-test2-linux-18.04
 
 [Dockerfile](linux/Agent/Ubuntu/18.04/Dockerfile)
 
@@ -740,15 +740,15 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-18.04-sudo
+### 2026.2-chubatova-test2-linux-18.04-sudo
 
 [Dockerfile](linux/Agent/Ubuntu/18.04-sudo/Dockerfile)
 
@@ -777,16 +777,16 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/Ubuntu/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-18.04 "context"
-docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-18.04-sudo "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-18.04 "context"
+docker build -f "context/generated/linux/Agent/Ubuntu/18.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-18.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-18.04
+### 2026.2-chubatova-test2-linux-arm64-18.04
 
 [Dockerfile](linux/Agent/UbuntuARM/18.04/Dockerfile)
 
@@ -813,15 +813,15 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-18.04 "context"
 ```
 
 _The required free space to generate image(s) is about **2 GB**._
 
-### 2026.2-chubatova-test-linux-arm64-18.04-sudo
+### 2026.2-chubatova-test2-linux-arm64-18.04-sudo
 
 [Dockerfile](linux/Agent/UbuntuARM/18.04-sudo/Dockerfile)
 
@@ -849,16 +849,16 @@ docker pull ubuntu:18.04
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/MinimalAgent/UbuntuARM/18.04/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-linux-arm64-18.04 "context"
 echo 2> context/.dockerignore
 echo TeamCity >> context/.dockerignore
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-18.04 "context"
-docker build -f "context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-linux-arm64-18.04-sudo "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-18.04 "context"
+docker build -f "context/generated/linux/Agent/UbuntuARM/18.04-sudo/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-linux-arm64-18.04-sudo "context"
 ```
 
 _The required free space to generate image(s) is about **3 GB**._
 
-### 2026.2-chubatova-test-nanoserver-1803
+### 2026.2-chubatova-test2-nanoserver-1803
 
 [Dockerfile](windows/Agent/nanoserver/1803/Dockerfile)
 
@@ -880,14 +880,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1803 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-nanoserver-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1803 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-nanoserver-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **36 GB**._
 
-### 2026.2-chubatova-test-nanoserver-1903
+### 2026.2-chubatova-test2-nanoserver-1903
 
 [Dockerfile](windows/Agent/nanoserver/1903/Dockerfile)
 
@@ -912,14 +912,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1903 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-nanoserver-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-nanoserver-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2026.2-chubatova-test-nanoserver-1909
+### 2026.2-chubatova-test2-nanoserver-1909
 
 [Dockerfile](windows/Agent/nanoserver/1909/Dockerfile)
 
@@ -944,14 +944,14 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1909 "context"
-docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-nanoserver-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1909 "context"
+docker build -f "context/generated/windows/Agent/nanoserver/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-nanoserver-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **40 GB**._
 
-### 2026.2-chubatova-test-windowsservercore-1803
+### 2026.2-chubatova-test2-windowsservercore-1803
 
 [Dockerfile](windows/Agent/windowsservercore/1803/Dockerfile)
 
@@ -976,13 +976,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1803
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1803 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1803 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1803/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1803 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1803/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1803 "context"
 ```
 
 _The required free space to generate image(s) is about **34 GB**._
 
-### 2026.2-chubatova-test-windowsservercore-1903
+### 2026.2-chubatova-test2-windowsservercore-1903
 
 [Dockerfile](windows/Agent/windowsservercore/1903/Dockerfile)
 
@@ -1008,13 +1008,13 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1903
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1903 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1903 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1903/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1903 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1903/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1903 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
 
-### 2026.2-chubatova-test-windowsservercore-1909
+### 2026.2-chubatova-test2-windowsservercore-1909
 
 [Dockerfile](windows/Agent/windowsservercore/1909/Dockerfile)
 
@@ -1040,8 +1040,8 @@ docker pull mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-1909
 echo TeamCity/webapps > context/.dockerignore
 echo TeamCity/devPackage >> context/.dockerignore
 echo TeamCity/lib >> context/.dockerignore
-docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test-nanoserver-1909 "context"
-docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test-windowsservercore-1909 "context"
+docker build -f "context/generated/windows/MinimalAgent/nanoserver/1909/Dockerfile" -t teamcity-minimal-agent:2026.2-chubatova-test2-nanoserver-1909 "context"
+docker build -f "context/generated/windows/Agent/windowsservercore/1909/Dockerfile" -t teamcity-agent:2026.2-chubatova-test2-windowsservercore-1909 "context"
 ```
 
 _The required free space to generate image(s) is about **38 GB**._
