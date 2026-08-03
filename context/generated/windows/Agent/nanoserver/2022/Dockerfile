@@ -1,7 +1,7 @@
 # Default arguments
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:ltsc2022'
 ARG powershellImage='mcr.microsoft.com/powershell:nanoserver-ltsc2022'
-ARG teamcityWindowsservercoreImage='teamcity-agent:2025.11.7-windowsservercore-2022'
+ARG teamcityWindowsservercoreImage='teamcity-agent:2025.11-chubatova-test2-windowsservercore-2022'
 
 # The list of required arguments
 # ARG nanoserverImage
