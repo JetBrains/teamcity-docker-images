@@ -8,7 +8,7 @@ ARG gitLFSLinuxComponentVersion='v3.7.1'
 ARG gitLinuxComponentVersion='1:2.55.0-0ppa1~ubuntu24.04.2'
 ARG p4Version='r25.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
-ARG teamcityMinimalAgentImage='teamcity-minimal-agent:EAP-linux-22.04'
+ARG teamcityMinimalAgentImage='teamcity-minimal-agent:2026.2-linux-22.04'
 ARG ubuntuImage='ubuntu:22.04'
 
 # The list of required arguments
