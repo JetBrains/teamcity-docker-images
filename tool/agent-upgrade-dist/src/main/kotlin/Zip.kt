@@ -17,10 +17,7 @@ fun InputStream.unzip(): Sequence<ZipFile> =
 fun Sequence<ZipFile>.save(targetResolver: (relativePath: String) -> File) = this.map { it.save(targetResolver) }
 
 fun ZipFile.save(targetResolver: (relativePath: String) -> File): File {
-    var relativePath = this.entry.name
-    if (relativePath.startsWith("/") || relativePath.startsWith("\\")) {
-        relativePath = relativePath.substring(1)
-    }
+    val relativePath = this.entry.name.requireSafeZipEntryName()
 
     val file = targetResolver(relativePath)
     if (this.entry.isDirectory) {
@@ -38,5 +35,27 @@ fun ZipFile.save(targetResolver: (relativePath: String) -> File): File {
 
     return file
 }
+
+private fun String.requireSafeZipEntryName(): String {
+    if (!isSafeZipEntryName()) {
+        throw IllegalArgumentException("ZIP entry escapes extraction directory: $this")
+    }
+    return this
+}
+
+private fun String.isSafeZipEntryName(): Boolean {
+    val normalizedName = replace('\\', '/')
+    return normalizedName != ".." &&
+            !normalizedName.startsWith("../") &&
+            !normalizedName.contains("/../") &&
+            !normalizedName.endsWith("/..") &&
+            !normalizedName.startsWith("/") &&
+            !normalizedName.contains("//") &&
+            !normalizedName.containsWindowsDriveSegment()
+}
+
+private val WINDOWS_DRIVE_SEGMENT = Regex("""(^|/)[A-Za-z]:""")
+
+private fun String.containsWindowsDriveSegment() = WINDOWS_DRIVE_SEGMENT.containsMatchIn(this)
 
 data class ZipFile(val entry: ZipEntry, val stream: InputStream)
