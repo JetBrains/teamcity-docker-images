@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "commons-codec:commons-codec:1.15"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
 kotlin {
