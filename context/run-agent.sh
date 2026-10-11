@@ -48,6 +48,13 @@ CONFIG_DIR=/data/teamcity_agent/conf
 
 LOG_DIR=/opt/buildagent/logs
 
+case "${AGENT_STOP_MODE:-force}" in
+    graceful) STOP_COMMAND="stop" ;;
+    force)    STOP_COMMAND="stop force" ;;
+    kill)     STOP_COMMAND="stop kill" ;;
+    *) echo "Unknown AGENT_STOP_MODE '${AGENT_STOP_MODE}', expected graceful, force or kill" >&2
+       exit 1 ;;
+esac
 
 rm -f ${LOG_DIR}/*.pid
 
@@ -72,7 +79,7 @@ do
    sleep 1
 done
 
-trap '${AGENT_DIST}/bin/agent.sh stop force; while ps -p $(cat $(ls -1 ${LOG_DIR}/*.pid)) &>/dev/null; do sleep 1; done; kill %%' SIGINT SIGTERM SIGHUP
+trap '${AGENT_DIST}/bin/agent.sh ${STOP_COMMAND}; while ps -p $(cat $(ls -1 ${LOG_DIR}/*.pid)) &>/dev/null; do sleep 1; done; kill %%' SIGINT SIGTERM SIGHUP
 
 tail -qF ${LOG_DIR}/teamcity-agent.log &
 wait
