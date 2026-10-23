@@ -1,6 +1,6 @@
 # Default arguments
 ARG jdkLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-aarch64.tar.gz'
-ARG jdkLinuxARM64ComponentMD5SUM='c6952584f21e2473609a6012bd38354f'
+ARG jdkLinuxARM64ComponentMD5SUM='028560215b533fcaf252579eb907ecd0'
 ARG ubuntuImage='ubuntu:24.04'
 
 # The list of required arguments
