@@ -57,6 +57,10 @@ RUN apt-get update && \
     netcat-openbsd \
     # Git & Git LFS Runtime dependencies
     libcurl4-openssl-dev libexpat1-dev zlib1g-dev && \
+    # CVE-2026-111943: fail the build if the OS CA bundle still trusts the compromised eMudhra roots
+    certs="$(openssl crl2pkcs7 -nocrl -certfile /etc/ssl/certs/ca-certificates.crt | openssl pkcs7 -print_certs -noout)" && \
+    [ -n "$certs" ] && \
+    ! echo "$certs" | grep -E 'emSign ECC Root CA - G3|AAA Certificate Services' && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # Locale adjustment. See TW-91776
