@@ -25,10 +25,14 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates fontconfig locales unzip \
     # See: TW-91621
     netcat-openbsd && \
-    # CVE-2026-111943: fail the build if the OS CA bundle still trusts the compromised eMudhra roots
-    certs="$(openssl crl2pkcs7 -nocrl -certfile /etc/ssl/certs/ca-certificates.crt | openssl pkcs7 -print_certs -noout)" && \
-    [ -n "$certs" ] && \
-    ! echo "$certs" | grep -E 'emSign ECC Root CA - G3|AAA Certificate Services' && \
+    # CVE-2026-111943: fail the build if the CA bundle still contains the emSign ECC Root CA - G3 or AAA Certificate Services roots
+    mkdir /tmp/ca && csplit -sz -f /tmp/ca/c /etc/ssl/certs/ca-certificates.crt '/-----BEGIN CERTIFICATE-----/' '{*}' && \
+    fps="$(for f in /tmp/ca/c*; do openssl x509 -in "$f" -noout -fingerprint -sha256; done)" && \
+    [ -n "$fps" ] && \
+    ! echo "$fps" | grep -F \
+      -e '86:A1:EC:BA:08:9C:4A:8D:3B:BE:27:34:C6:12:BA:34:1D:81:3E:04:3C:F9:E8:A8:62:CD:5C:57:A3:6B:BE:6B' \
+      -e 'D7:A7:A0:FB:5D:7E:27:31:D7:71:E9:48:4E:BC:DE:F7:1D:5F:0C:3E:0A:29:48:78:2B:C8:3E:E0:EA:69:9E:F4' && \
+    rm -rf /tmp/ca && \
     # https://github.com/goodwithtech/dockle/blob/master/CHECKPOINT.md#dkl-di-0005
 # Python
     apt-get install -y python3-venv && \
