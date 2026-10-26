@@ -79,3 +79,53 @@ In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/pl
 | .NET 8.0        | LTS          | November 10, 2026    |
 
 We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
+
+
+# 2. Patching published images: compromised eMudhra CAs (CVE-2026-111943)
+
+Images that were published before the fix still contain the old Corretto, Git and OS CA certificates. The Dockerfiles below patch
+an already published image without rebuilding it. Details: https://emudhra.we-have-a-problem.com/
+
+Supported: Linux Ubuntu 24.04 (`AMD64`, `ARM64`) and Windows Server 2019 (`1809`) / 2022 images of Server, Agent and Minimal Agent.
+
+| OS      | Dockerfile                                                  | Updates                                                                                                      |
+|---------|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| Linux   | [link](linux/emudhra/patch.Dockerfile)                      | OS CA (latest from the Ubuntu archive, verified by fingerprint), Corretto, Git, Docker Engine / CLI (Agent)  |
+| Windows | [link](windows/emudhra/patch.Dockerfile)                    | Corretto, MinGit (Server, Agent)                                                                             |
+
+Components that are not present in an image (for example Git in the Minimal Agent) are left alone.
+
+## 2.1. Linux
+
+The fixed `ca-certificates` version is not pinned: the build takes the latest one from the Ubuntu archive and fails if the
+`emSign ECC Root CA - G3` or `AAA Certificate Services` roots are still in `/etc/ssl/certs/ca-certificates.crt`.
+Set `imageUser` to `tcuser` for the Server image (default: `buildagent`). Override `jdkLinux*`, `gitLinuxComponentVersion` and
+`dockerLinuxComponentVersion` build arguments to use other versions.
+```
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-linux \
+    -f "linux/emudhra/patch.Dockerfile" -t teamcity-agent:2026.2-linux-patched .
+
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-server:2026.2-linux \
+    --build-arg imageUser=tcuser \
+    -f "linux/emudhra/patch.Dockerfile" -t teamcity-server:2026.2-linux-patched .
+```
+
+## 2.2. Windows
+
+`powershellImage` must match the OS version of the image being patched. The Windows CA store comes from the Windows base image
+(Microsoft blocks the intermediates through the `Disallowed` store) and cannot be patched by a Dockerfile: it only gets fixed
+by rebuilding on an up-to-date base image.
+```
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-2022 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-ltsc2022 `
+    -f "windows/emudhra/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-2022-patched .
+
+# Windows Server 2019
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-1809 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-1809 `
+    -f "windows/emudhra/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-1809-patched .
+```
