@@ -15,8 +15,8 @@ FROM ${powershellImage} AS download
 USER ContainerAdministrator
 SHELL ["pwsh", "-NoProfile", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip'
-ARG jdkWindowsComponentMD5SUM='a73908091ac0cf1f5ee2af0bd9e92bd9'
+ARG jdkWindowsComponent='https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip'
+ARG jdkWindowsComponentMD5SUM='4ddf720246e751c6a54d806da23b9c9c'
 ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.56.0.windows.3/MinGit-2.56.0.3-64-bit.zip'
 ARG gitWindowsComponentSHA256='2e5619966e588fde5f8122c5557cad50c0fbafcaed736689f40ec1dfb1d78ea7'
 
