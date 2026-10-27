@@ -1,8 +1,8 @@
 # Default arguments
 ARG gitLFSLinuxComponentVersion='v3.7.1'
 ARG gitLinuxComponentVersion='1:2.56.0-0ppa1~ubuntu24.04.2'
-ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-x64.tar.gz'
-ARG jdkServerLinuxComponentMD5SUM='8a93fbb69ff69bed1ec4ab2209ba93d8'
+ARG jdkServerLinuxComponent='https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz'
+ARG jdkServerLinuxComponentMD5SUM='952bee5b1b79bfb8331ce0faa9f85960'
 ARG p4Version='r25.2'
 ARG repo='https://hub.docker.com/r/jetbrains/'
 ARG ubuntuImage='ubuntu:22.04'
