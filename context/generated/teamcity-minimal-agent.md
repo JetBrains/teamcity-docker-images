@@ -72,7 +72,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) 8a93fbb69ff69bed1ec4ab2209ba93d8](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -101,7 +101,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) 8a93fbb69ff69bed1ec4ab2209ba93d8](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -130,7 +130,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) 8a93fbb69ff69bed1ec4ab2209ba93d8](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -159,7 +159,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) a73908091ac0cf1f5ee2af0bd9e92bd9](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -189,7 +189,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) a73908091ac0cf1f5ee2af0bd9e92bd9](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -216,7 +216,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) 8a93fbb69ff69bed1ec4ab2209ba93d8](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -242,7 +242,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.10 Checksum (MD5) 028560215b533fcaf252579eb907ecd0](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -268,7 +268,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.10 Checksum (MD5) 028560215b533fcaf252579eb907ecd0](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -294,7 +294,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.10 Checksum (MD5) 028560215b533fcaf252579eb907ecd0](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -320,7 +320,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.10 Checksum (MD5) 028560215b533fcaf252579eb907ecd0](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
 - [Python venv](https://docs.python.org/3/library/venv.html#module-venv)
 
 Container platform: linux
@@ -347,7 +347,7 @@ The docker image is not available and may be created manually.
 Installed components:
 
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) a73908091ac0cf1f5ee2af0bd9e92bd9](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
 
 Container platform: windows
 
@@ -372,7 +372,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) a73908091ac0cf1f5ee2af0bd9e92bd9](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
@@ -399,7 +399,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.10 Checksum (MD5) a73908091ac0cf1f5ee2af0bd9e92bd9](https://corretto.aws/downloads/resources/21.0.13.0.10/amazon-corretto-21.0.13.0.10-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
 Container platform: windows
