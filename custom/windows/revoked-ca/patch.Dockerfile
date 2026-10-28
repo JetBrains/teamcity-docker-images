@@ -1,3 +1,4 @@
+# check=skip=InvalidDefaultArgInFrom
 #
 # Patches a published TeamCity Windows image (Server 2019 / 1809 and 2022) against CVE-2026-111943:
 # 1. Replaces Corretto and, if installed, MinGit (it ships its own CA bundle),

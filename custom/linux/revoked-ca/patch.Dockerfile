@@ -1,3 +1,4 @@
+# check=skip=InvalidDefaultArgInFrom
 #
 # Patches a published TeamCity Linux image (Ubuntu 24.04) against CVE-2026-111943.
 # Updates OS CA certificates and Corretto (it ships its own truststore).
