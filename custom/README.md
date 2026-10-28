@@ -157,7 +157,7 @@ Windows: [verify-compromised-ca-absence.ps1](windows/revoked-ca/verify-compromis
 docker run --rm -v "${PWD}\windows\revoked-ca:C:\check" --entrypoint powershell `
     teamcity-agent:2026.2-windowsservercore-2022-patched -NoProfile -File C:\check\verify-compromised-ca-absence.ps1
 ```
-To check a running agent without mounting the script, use the snippet from [check.md](windows/revoked-ca/check.md).
+To check a running agent, paste the script into a PowerShell build step.
 
 The scripts only check the stores shipped with the image. CA bundles configured outside of them (see [2.1](#21-linux)) need to be
 checked separately.
