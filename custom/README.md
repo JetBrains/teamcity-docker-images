@@ -81,12 +81,14 @@ In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/pl
 We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
 
 
-# 2. Patching published images: compromised CAs (CVE-2026-91403, CVE-2026-114820)
+# 2. Compromised CAs (CVE-2026-91403, CVE-2026-114820)
 
 Images that were published before the fix still trust the compromised CAs. The Dockerfiles below patch an already published
-image without rebuilding it.
+image.
 
-Supported: Linux Ubuntu 24.04 (`AMD64`, `ARM64`) and Windows Server 2019 (`1809`) / 2022 images of Server, Agent and Minimal Agent.
+Supported (server, minimal agent, agent): 
+* Linux Ubuntu 24.04 (`AMD64`, `ARM64`)
+* Windows Server 2019 (`1809`) / 2022
 
 | OS      | Dockerfile                                  | Updates                                                         |
 |---------|---------------------------------------------|-----------------------------------------------------------------|
@@ -98,9 +100,8 @@ Supported: Linux Ubuntu 24.04 (`AMD64`, `ARM64`) and Windows Server 2019 (`1809`
 Set `imageUser` to `tcuser` for the Server image (default: `buildagent`). Override the `jdkLinux*` build arguments to use another
 Corretto version.
 
-Git and Docker read the OS CA bundle (`/etc/ssl/certs/ca-certificates.crt`), so the CA update covers them and they are not
-reinstalled. Custom CAs added through `/usr/local/share/ca-certificates/` are kept: the bundle is regenerated with them, minus
-the compromised roots.
+Git and Docker read the OS CA bundle, so its update covers them and they are not reinstalled. 
+Custom CAs added through `/usr/local/share/ca-certificates/` are kept: the bundle is regenerated with them, minus the compromised roots.
 
 CA bundles configured outside the OS store are not patched. If you use any of the following, regenerate the bundle so it no
 longer contains the compromised roots:
@@ -121,10 +122,9 @@ docker build \
 
 ## 2.2. Windows
 
-Run the build from this directory. `powershellImage` must match the OS version of the image being patched.
+`powershellImage` must match the OS version of the image being patched.
 
-Windows still trusts the compromised roots, so the patch blocks the intermediates through the `Disallowed` store. The
-certificates are in [windows/revoked-ca/disallowed](windows/revoked-ca/disallowed), each named after its SHA-256. The build
+The patch blocks the intermediates through the `Disallowed` store. The certificates are in [windows/revoked-ca/disallowed](windows/revoked-ca/disallowed), each named after its SHA-256. The build
 fails if any CA store in the image still trusts the compromised CAs.
 
 MCR base images from 2026-10-26 on already ship the updated `Disallowed` list
@@ -142,7 +142,7 @@ docker build `
     -f "windows/revoked-ca/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-1809-patched .
 ```
 
-## 2.3. Verifying the image
+## 2.3. Verifying the patched image
 
 The check scripts run inside the image and exit with `1` if any check fails. They do not modify the image.
 

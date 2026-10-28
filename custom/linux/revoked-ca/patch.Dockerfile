@@ -29,7 +29,7 @@ RUN set -eux; \
     apt-get update; \
     # OS CA certificates
     apt-get install -y --no-install-recommends ca-certificates; \
-    # Amazon Corretto (same location as in the original image)
+    # Amazon Corretto JDK
     case "$(uname -m)" in \
         x86_64)  jdkUrl="${jdkLinuxX64Component}";   jdkMd5="${jdkLinuxX64ComponentMD5SUM}" ;; \
         aarch64) jdkUrl="${jdkLinuxARM64Component}"; jdkMd5="${jdkLinuxARM64ComponentMD5SUM}" ;; \

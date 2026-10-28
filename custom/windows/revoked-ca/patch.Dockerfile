@@ -47,7 +47,7 @@ USER ContainerAdministrator
 
 COPY --from=download ["C:/patch", "C:/patch"]
 
-# Corretto always, MinGit only in images that already have Git (Server, Agent).
+# Copy Corretto always, MinGit only in images that already have Git (Server, Agent).
 # Windows trusts the compromised intermediates through their roots, so block them in the 'Disallowed' store
 # (entries the base image already has are kept). The build fails if any CA store still trusts them.
 RUN rmdir /S /Q "C:\Program Files\Java\OpenJDK" && \
