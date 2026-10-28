@@ -91,7 +91,7 @@ Supported: Linux Ubuntu 24.04 (`AMD64`, `ARM64`) and Windows Server 2019 (`1809`
 | OS      | Dockerfile                                  | Updates                                                         |
 |---------|---------------------------------------------|-----------------------------------------------------------------|
 | Linux   | [link](linux/revoked-ca/patch.Dockerfile)   | OS CA (latest from the Ubuntu archive, verified by fingerprint), Corretto |
-| Windows | [link](windows/revoked-ca/patch.Dockerfile) | Corretto, MinGit (Server, Agent)                                |
+| Windows | [link](windows/revoked-ca/patch.Dockerfile) | Corretto, MinGit (Server, Agent), Windows `Disallowed` store    |
 
 ## 2.1. Linux
 
@@ -121,9 +121,14 @@ docker build \
 
 ## 2.2. Windows
 
-`powershellImage` must match the OS version of the image being patched. The Windows CA store comes from the Windows base image
-(Microsoft blocks the intermediates through the `Disallowed` store) and cannot be patched by a Dockerfile: it only gets fixed
-by rebuilding on an up-to-date base image.
+Run the build from this directory. `powershellImage` must match the OS version of the image being patched.
+
+Windows still trusts the compromised roots, so the patch blocks the intermediates through the `Disallowed` store. The
+certificates are in [windows/revoked-ca/disallowed](windows/revoked-ca/disallowed), each named after its SHA-256. The build
+fails if any CA store in the image still trusts the compromised CAs.
+
+MCR base images from 2026-10-26 on already ship the updated `Disallowed` list
+([microsoft/Windows-Containers#659](https://github.com/microsoft/Windows-Containers/issues/659)).
 ```
 docker build `
     --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-2022 `
@@ -136,3 +141,23 @@ docker build `
     --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-1809 `
     -f "windows/revoked-ca/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-1809-patched .
 ```
+
+## 2.3. Verifying the image
+
+The check scripts run inside the image and exit with `1` if any check fails. They do not modify the image.
+
+Linux: [verify-compromised-ca-absence.sh](linux/revoked-ca/verify-compromised-ca-absence.sh) checks the OS CA bundle and the Corretto truststore.
+```
+docker run --rm -v "$PWD/linux/revoked-ca:/check:ro" --entrypoint sh teamcity-agent:2026.2-linux-patched /check/verify-compromised-ca-absence.sh
+```
+
+Windows: [verify-compromised-ca-absence.ps1](windows/revoked-ca/verify-compromised-ca-absence.ps1) checks the Corretto truststore, the MinGit CA bundle and whether the Windows
+`Disallowed` store blocks all compromised intermediates. Use `powershell` instead of `pwsh` for `windowsservercore` images.
+```
+docker run --rm -v "${PWD}\windows\revoked-ca:C:\check" --entrypoint powershell `
+    teamcity-agent:2026.2-windowsservercore-2022-patched -NoProfile -File C:\check\verify-compromised-ca-absence.ps1
+```
+To check a running agent without mounting the script, use the snippet from [check.md](windows/revoked-ca/check.md).
+
+The scripts only check the stores shipped with the image. CA bundles configured outside of them (see [2.1](#21-linux)) need to be
+checked separately.
