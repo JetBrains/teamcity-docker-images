@@ -79,3 +79,85 @@ In the [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/pl
 | .NET 8.0        | LTS          | November 10, 2026    |
 
 We strongly encourage replacing your current .NET versions to newer ones if the support for your current version is nearing its end.
+
+
+# 2. Compromised CAs (CVE-2026-91403, CVE-2026-114820)
+
+Images that were published before the fix still trust the compromised CAs. The Dockerfiles below patch an already published
+image.
+
+Supported (server, minimal agent, agent): 
+* Linux Ubuntu 24.04 (`AMD64`, `ARM64`)
+* Windows Server 2019 (`1809`) / 2022
+
+| OS      | Dockerfile                                  | Updates                                                         |
+|---------|---------------------------------------------|-----------------------------------------------------------------|
+| Linux   | [link](linux/revoked-ca/patch.Dockerfile)   | OS CA (latest from the Ubuntu archive, verified by fingerprint), Corretto |
+| Windows | [link](windows/revoked-ca/patch.Dockerfile) | Corretto, MinGit (Server, Agent), Windows `Disallowed` store    |
+
+## 2.1. Linux
+
+Set `imageUser` to `tcuser` for the Server image (default: `buildagent`). Override the `jdkLinux*` build arguments to use another
+Corretto version.
+
+Git and Docker read the OS CA bundle, so its update covers them and they are not reinstalled. 
+Custom CAs added through `/usr/local/share/ca-certificates/` are kept: the bundle is regenerated with them, minus the compromised roots.
+
+CA bundles configured outside the OS store are not patched. If you use any of the following, regenerate the bundle so it no
+longer contains the compromised roots:
+* Git: `http.sslCAInfo` or `GIT_SSL_CAINFO`
+* `SSL_CERT_FILE` or `CURL_CA_BUNDLE`
+* Docker: `/etc/docker/certs.d/`
+* a custom Java truststore (`javax.net.ssl.trustStore`)
+```
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-linux \
+    -f "linux/revoked-ca/patch.Dockerfile" -t teamcity-agent:2026.2-linux-patched .
+
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-server:2026.2-linux \
+    --build-arg imageUser=tcuser \
+    -f "linux/revoked-ca/patch.Dockerfile" -t teamcity-server:2026.2-linux-patched .
+```
+
+## 2.2. Windows
+
+`powershellImage` must match the OS version of the image being patched.
+
+The patch blocks the intermediates through the `Disallowed` store. The certificates are in [windows/revoked-ca/disallowed](windows/revoked-ca/disallowed), each named after its SHA-256. The build
+fails if any CA store in the image still trusts the compromised CAs.
+
+MCR base images from 2026-10-26 on already ship the updated `Disallowed` list
+([microsoft/Windows-Containers#659](https://github.com/microsoft/Windows-Containers/issues/659)).
+```
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-2022 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-ltsc2022 `
+    -f "windows/revoked-ca/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-2022-patched .
+
+# Windows Server 2019
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-1809 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-1809 `
+    -f "windows/revoked-ca/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-1809-patched .
+```
+
+## 2.3. Verifying the patched image
+
+The check scripts run inside the image and exit with `1` if any check fails. They do not modify the image.
+
+Linux: [verify-compromised-ca-absence.sh](linux/revoked-ca/verify-compromised-ca-absence.sh) checks the OS CA bundle and the Corretto truststore.
+```
+docker run --rm -v "$PWD/linux/revoked-ca:/check:ro" --entrypoint sh teamcity-agent:2026.2-linux-patched /check/verify-compromised-ca-absence.sh
+```
+
+Windows: [verify-compromised-ca-absence.ps1](windows/revoked-ca/verify-compromised-ca-absence.ps1) checks the Corretto truststore, the MinGit CA bundle and whether the Windows
+`Disallowed` store blocks all compromised intermediates. Use `powershell` instead of `pwsh` for `windowsservercore` images.
+```
+docker run --rm -v "${PWD}\windows\revoked-ca:C:\check" --entrypoint powershell `
+    teamcity-agent:2026.2-windowsservercore-2022-patched -NoProfile -File C:\check\verify-compromised-ca-absence.ps1
+```
+To check a running agent, paste the script into a PowerShell build step.
+
+The scripts only check the stores shipped with the image. CA bundles configured outside of them (see [2.1](#21-linux)) need to be
+checked separately.
