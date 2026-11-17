@@ -1,6 +1,6 @@
 # Default arguments
-ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.56.0.windows.3/MinGit-2.56.0.3-64-bit.zip'
-ARG gitWindowsComponentSHA256='2e5619966e588fde5f8122c5557cad50c0fbafcaed736689f40ec1dfb1d78ea7'
+ARG gitWindowsComponent='https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip'
+ARG gitWindowsComponentSHA256='4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd'
 ARG jdkServerWindowsComponent='https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip'
 ARG jdkServerWindowsComponentMD5SUM='4ddf720246e751c6a54d806da23b9c9c'
 ARG nanoserverImage='mcr.microsoft.com/windows/nanoserver:1903'
