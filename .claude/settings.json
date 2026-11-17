@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash tool/build-tool.sh)",
+      "Bash(timeout 15 bin/TeamCity.Docker generate -s configs -f \"configs/common.config;configs/local.config;configs/windows.config;configs/linux.config;configs/linuxARM.config\" -c context -t generated)",
+      "Bash(git commit *)",
+      "WebSearch",
+      "WebFetch(domain:launchpad.net)",
+      "WebFetch(domain:ppa.launchpadcontent.net)",
+      "WebFetch(domain:docs.docker.com)",
+      "WebFetch(domain:download.docker.com)"
+    ]
+  }
+}
