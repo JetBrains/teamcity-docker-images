@@ -72,7 +72,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 9e596431ec718c529ee9238f983eb5eb](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-x64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
@@ -102,7 +102,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 9e596431ec718c529ee9238f983eb5eb](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-x64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
@@ -132,7 +132,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 9e596431ec718c529ee9238f983eb5eb](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-x64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
@@ -162,7 +162,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 346402f739b8ab2e9346f3e179abb873](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.56.1 Checksum (SHA256) 4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd](https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip)
 
@@ -191,7 +191,7 @@ The docker image is available on:
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 346402f739b8ab2e9346f3e179abb873](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.56.1 Checksum (SHA256) 4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd](https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip)
 
@@ -217,7 +217,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 952bee5b1b79bfb8331ce0faa9f85960](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 9e596431ec718c529ee9238f983eb5eb](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-x64.tar.gz)
 - Git v.2.41.0
 - Git LFS v.2.3.4
 - Perforce Helix Core client (p4) [2026.1](https://www.perforce.com/downloads/perforce)
@@ -244,7 +244,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.1.2 Checksum (MD5) 994f8379ee74343f061616f39972f15e](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 
@@ -270,7 +270,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.1.2 Checksum (MD5) 994f8379ee74343f061616f39972f15e](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz)
 - Git v.2.41.0
 - Git LFS v.2.3.4
 
@@ -296,7 +296,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.1.2 Checksum (MD5) 994f8379ee74343f061616f39972f15e](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 
@@ -322,7 +322,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.0.11 Checksum (MD5) 0b736dfb0921884f97e30e07be169e9b](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto aarch64 v.21.0.13.1.2 Checksum (MD5) 994f8379ee74343f061616f39972f15e](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz)
 - Git v.2.56.1
 - Git LFS 3.7.1
 
@@ -348,7 +348,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 346402f739b8ab2e9346f3e179abb873](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-windows-x64-jdk.zip)
 - [Git x64 v.2.56.1 Checksum (SHA256) 4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd](https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 
@@ -374,7 +374,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 346402f739b8ab2e9346f3e179abb873](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.56.1 Checksum (SHA256) 4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd](https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip)
 
@@ -400,7 +400,7 @@ The docker image is not available and may be created manually.
 
 Installed components:
 
-- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.0.11 Checksum (MD5) 4ddf720246e751c6a54d806da23b9c9c](https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-windows-x64-jdk.zip)
+- [JDK <img align="center" height="18" src="/docs/media/corretto.png"> Amazon Corretto x64 v.21.0.13.1.2 Checksum (MD5) 346402f739b8ab2e9346f3e179abb873](https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-windows-x64-jdk.zip)
 - [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 - [Git x64 v.2.56.1 Checksum (SHA256) 4a92850b6e917da4fd010669b614b55dccf5b0ec333a534cc4be4700dfefdafd](https://github.com/git-for-windows/git/releases/download/v2.56.1.windows.1/MinGit-2.56.1-64-bit.zip)
 
