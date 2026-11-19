@@ -161,3 +161,57 @@ To check a running agent, paste the script into a PowerShell build step.
 
 The scripts only check the stores shipped with the image. CA bundles configured outside of them (see [2.1](#21-linux)) need to be
 checked separately.
+
+
+# 3. Java4Shell (CVE-2026-114938)
+
+[CVE-2026-114938 ("Java4Shell")](https://nvd.nist.gov/vuln/detail/cve-2026-114938) is a heap buffer overflow in the **x86-64 AVX-512 VBMI** Base64 intrinsic of the HotSpot JVM.
+A host is affected only if **both** are true: it runs affected Java runtime and **x86-64 CPU with AVX-512 VBMI**. **ARM64 is not affected**. 
+
+These custom Dockerfiles update Java to a version containing the security fix (Corretto 21.0.13.1.2).
+
+| OS      | Dockerfile                                  | Updates                   |
+|---------|---------------------------------------------|---------------------------|
+| Linux   | [link](linux/jdk-update/patch.Dockerfile)   | Amazon Corretto (`AMD64`) |
+| Windows | [link](windows/jdk-update/patch.Dockerfile) | Amazon Corretto (`AMD64`) |
+
+## 3.1. Linux
+
+```
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-linux \
+    -f "linux/jdk-update/patch.Dockerfile" -t teamcity-agent:2026.2-linux-jdk-patched .
+
+docker build \
+    --build-arg baseImage=jetbrains/teamcity-server:2026.2-linux \
+    --build-arg imageUser=tcuser \
+    -f "linux/jdk-update/patch.Dockerfile" -t teamcity-server:2026.2-linux-jdk-patched .
+```
+
+## 3.2. Windows
+
+`powershellImage` must match the OS version of the image being patched.
+```
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-2022 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-ltsc2022 `
+    -f "windows/jdk-update/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-2022-jdk-patched .
+
+# Windows Server 2019
+docker build `
+    --build-arg baseImage=jetbrains/teamcity-agent:2026.2-windowsservercore-1809 `
+    --build-arg powershellImage=mcr.microsoft.com/powershell:nanoserver-1809 `
+    -f "windows/jdk-update/patch.Dockerfile" -t teamcity-agent:2026.2-windowsservercore-1809-jdk-patched .
+```
+
+## 3.3. Verifying the patched image
+
+The replacement is verified at build time. To re-check a built image, print the bundled JDK version:
+```
+# Linux
+docker run --rm --entrypoint /opt/java/openjdk/bin/java teamcity-agent:2026.2-linux-jdk-patched -version
+
+# Windows
+docker run --rm teamcity-agent:2026.2-windowsservercore-2022-jdk-patched "C:\Program Files\Java\OpenJDK\bin\java.exe" -version
+```
+The output must report `21.0.13.1.2`.
