@@ -16,10 +16,10 @@ USER root
 
 ARG imageUser=buildagent
 
-ARG jdkLinuxX64Component='https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-x64.tar.gz'
-ARG jdkLinuxX64ComponentMD5SUM='952bee5b1b79bfb8331ce0faa9f85960'
-ARG jdkLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.13.0.11/amazon-corretto-21.0.13.0.11-linux-aarch64.tar.gz'
-ARG jdkLinuxARM64ComponentMD5SUM='0b736dfb0921884f97e30e07be169e9b'
+ARG jdkLinuxX64Component='https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-x64.tar.gz'
+ARG jdkLinuxX64ComponentMD5SUM='9e596431ec718c529ee9238f983eb5eb'
+ARG jdkLinuxARM64Component='https://corretto.aws/downloads/resources/21.0.13.1.2/amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz'
+ARG jdkLinuxARM64ComponentMD5SUM='994f8379ee74343f061616f39972f15e'
 
 # One layer on purpose: the original files stay in the layers below, so every extra layer only adds overhead.
 RUN set -eux; \
